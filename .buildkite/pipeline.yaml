@@ -1,0 +1,5 @@
+---
+steps:
+  - label: ":bazel: Test"
+    commands:
+      - bazel test //src/test/...

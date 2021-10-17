@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "id",
+    "time",
+    "state",
+    "duration"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "time": {
+      "type": "number"
+    },
+    "state": {
+      "enum": [
+        "off",
+        "on"
+      ]
+    },
+    "duration": {
+      "type": "number"
+    }
+  }
+}

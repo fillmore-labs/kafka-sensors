@@ -1,0 +1,10 @@
+build --java_language_version=16
+build --tool_java_runtime_version=remotejdk_16
+
+build:java17 --java_language_version=17
+build:java17 --tool_java_runtime_version=remotejdk_17
+
+test --java_runtime_version=remotejdk_17
+run --java_runtime_version=remotejdk_17
+
+try-import %workspace%/user.bazelrc

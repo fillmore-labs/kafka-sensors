@@ -1,0 +1,58 @@
+[
+  {
+    "name": "State",
+    "namespace": "com.fillmore_labs.kafka.sensors.avro",
+    "type": "enum",
+    "doc": "New state of the sensor",
+    "aliases": [
+      "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateReflect.State",
+      "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.SensorStateReflect.State"
+    ],
+    "symbols": [
+      "OFF",
+      "ON"
+    ]
+  },
+  {
+    "name": "SensorState",
+    "namespace": "com.fillmore_labs.kafka.sensors.avro",
+    "type": "record",
+    "doc": "State change of a sensor",
+    "fields": [
+      {
+        "name": "id",
+        "type": "string"
+      },
+      {
+        "name": "time",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-micros"
+        }
+      },
+      {
+        "name": "state",
+        "type": "State"
+      }
+    ]
+  },
+  {
+    "name": "SensorStateDuration",
+    "namespace": "com.fillmore_labs.kafka.sensors.avro",
+    "type": "record",
+    "doc": "Duration a sensor was in this state",
+    "fields": [
+      {
+        "name": "event",
+        "type": "SensorState"
+      },
+      {
+        "name": "duration",
+        "type": {
+          "type": "long",
+          "logicalType": "duration-micros"
+        }
+      }
+    ]
+  }
+]
