@@ -14,25 +14,21 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorState> sensorStateSerializer() {
     return new ProtoSerializer<>();
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorState> sensorStateDeserializer() {
     return new ProtoDeserializer<>(SensorState.parser());
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDuration> sensorStateDurationSerializer() {
     return new ProtoSerializer<>();
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateDuration> sensorStateDurationDeserializer() {
     return new ProtoDeserializer<>(SensorStateDuration.parser());
   }

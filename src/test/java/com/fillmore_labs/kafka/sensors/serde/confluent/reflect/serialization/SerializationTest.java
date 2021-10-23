@@ -3,27 +3,21 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.helper.confluent.SchemaRegistryRule;
-import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
-import dagger.BindsInstance;
+import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 public final class SerializationTest {
-  @ClassRule
-  public static final SchemaRegistryRule REGISTRY_TEST_RESOURCE = new SchemaRegistryRule();
-
   private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
@@ -32,14 +26,7 @@ public final class SerializationTest {
 
   @Before
   public void before() {
-    var testComponent =
-        TestComponent.builder().schemaRegistryUrl(REGISTRY_TEST_RESOURCE.registryUrl()).build();
-    testComponent.inject(this);
-  }
-
-  @After
-  public void after() {
-    REGISTRY_TEST_RESOURCE.reset();
+    TestComponent.create().inject(this);
   }
 
   @Test
@@ -80,20 +67,13 @@ public final class SerializationTest {
     assertThrows(SerializationException.class, () -> ser.serialize(TOPIC, sensorState));
   }
 
-  @Component(modules = {SerializationModule.class})
+  @Singleton
+  @Component(modules = {SerializationModule.class, SchemaRegistryModule.class})
   public interface TestComponent {
-    static Builder builder() {
-      return DaggerSerializationTest_TestComponent.builder();
+    static TestComponent create() {
+      return DaggerSerializationTest_TestComponent.create();
     }
 
     void inject(SerializationTest test);
-
-    @Component.Builder
-    interface Builder {
-      @BindsInstance
-      Builder schemaRegistryUrl(@SchemaRegistryUrl String schemaRegistryUrl);
-
-      TestComponent build();
-    }
   }
 }

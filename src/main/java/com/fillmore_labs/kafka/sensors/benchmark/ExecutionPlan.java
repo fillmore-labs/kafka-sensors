@@ -1,11 +1,10 @@
 package com.fillmore_labs.kafka.sensors.benchmark;
 
-import com.fillmore_labs.kafka.sensors.benchmark.context.BenchComponent;
+import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import com.fillmore_labs.kafka.sensors.serde.common.Name;
-import com.fillmore_labs.kafka.sensors.serde.common.SerdeStore;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
-import io.confluent.kafka.schemaregistry.testutil.MockSchemaRegistry;
+import java.time.Duration;
+import java.time.Instant;
+import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
@@ -16,49 +15,57 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.TearDown;
 
 @State(Scope.Benchmark)
 public /* open */ class ExecutionPlan {
-  private static final String REGISTRY_SCOPE = "benchmark";
-  private static final String REGISTRY_URL = "mock://" + REGISTRY_SCOPE;
+  public static final String TOPIC = "topic";
 
-  @Param public @MonotonicNonNull Name name;
+  @Param({
+    "json",
+    "mixin",
+    "gson",
+    "gson-faster",
+    "proto",
+    "avro-generic",
+    "avro-reflect",
+    "avro-specific",
+    "avro-specific-faster",
+    "confluent-generic",
+    "confluent-reflect",
+    "confluent-specific",
+    "confluent-specific-faster",
+    "confluent-json",
+    "confluent-proto",
+    "ion-binary",
+    "ion-text",
+  })
+  public @MonotonicNonNull String format;
 
-  public @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  public @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+  @Inject public @MonotonicNonNull Serializer<SensorStateDuration> serializer;
+  @Inject public @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+
   public @MonotonicNonNull SensorStateDuration data;
   public byte @MonotonicNonNull [] serialized;
 
-  private final SchemaRegistryClient registryClient;
-  private final SerdeStore<SensorStateDuration> serdeStore;
+  public ExecutionPlan() {}
 
-  public ExecutionPlan() {
-    registryClient = MockSchemaRegistry.getClientForScope(REGISTRY_SCOPE);
-    var benchComponent = BenchComponent.builder().schemaRegistryUrl(REGISTRY_URL).build();
-    this.serdeStore = benchComponent.serdeStoreDuration();
-  }
-
-  @Setup(Level.Iteration)
-  @RequiresNonNull("name")
-  @EnsuresNonNull({"serializer", "deserializer", "data", "serialized", "registryClient"})
+  @Setup(Level.Trial)
+  @RequiresNonNull("format")
+  @EnsuresNonNull({"serializer", "deserializer", "data", "serialized"})
   public void setup() {
-    var serde = serdeStore.serde(name);
-    serializer = serde.serializer();
-    deserializer = serde.deserializer();
+    BenchComponent.builder().format(format).build().injectMembers(this);
+    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
+    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
 
-    data = Constants.createData();
-
-    serialized = serializer.serialize(Constants.TOPIC, data);
+    data = createData();
+    serialized = serializer.serialize(TOPIC, data);
   }
 
-  @TearDown(Level.Iteration)
-  @RequiresNonNull({"serializer", "deserializer", "registryClient"})
-  public void tearDown() {
-    serializer.close();
-    deserializer.close();
+  private static SensorStateDuration createData() {
+    var instant = Instant.ofEpochSecond(443_634_300L);
 
-    registryClient.reset();
-    MockSchemaRegistry.dropScope(REGISTRY_SCOPE);
+    var event = SensorState.builder().id("7331").time(instant).state(SensorState.State.ON).build();
+
+    return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
   }
 }

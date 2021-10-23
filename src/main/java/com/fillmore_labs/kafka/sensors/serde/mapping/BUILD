@@ -11,14 +11,14 @@ java_plugin(
 java_library(
     name = "mapstruct",
     exported_plugins = ["mapstruct_processor"],
-    visibility = ["//src/main/java/com/fillmore_labs/kafka/sensors/serde:__subpackages__"],
+    visibility = ["//visibility:public"],
     exports = ["@maven//:org_mapstruct_mapstruct"],
 )
 
 java_library(
     name = "mapping",
     srcs = glob(["*.java"]),
-    visibility = ["//src/main/java/com/fillmore_labs/kafka/sensors/serde:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         "//toolchain:checker",
         "@maven//:com_google_errorprone_error_prone_annotations",

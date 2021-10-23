@@ -6,6 +6,7 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 public final class State2StringConverter extends StdConverter<SensorState.State, String> {
   @Override
   public String convert(SensorState.State value) {
+    // Checkstyle ignore MissingSwitchDefault
     switch (value) {
       case OFF:
         return "off";

@@ -26,26 +26,22 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateJson> sensorStateSerializer(ObjectMapper mapper) {
     return new JsonSerializer<>(mapper, SensorStateJson.class);
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateJson> sensorStateDeserializer(ObjectMapper mapper) {
     return new JsonDeserializer<>(mapper, SensorStateJson.class);
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDurationJson> sensorStateDurationSerializer(
       ObjectMapper mapper) {
     return new JsonSerializer<>(mapper, SensorStateDurationJson.class);
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateDurationJson> sensorStateDurationDeserializer(
       ObjectMapper mapper) {
     return new JsonDeserializer<>(mapper, SensorStateDurationJson.class);

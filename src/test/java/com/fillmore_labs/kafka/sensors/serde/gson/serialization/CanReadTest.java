@@ -7,9 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -19,11 +16,13 @@ import org.junit.runners.Parameterized.Parameters;
 public final class CanReadTest {
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateGson> deserializer;
+  @Inject /* package */ Deserializer<SensorStateGson> deserializer;
 
   private final byte[] encoded;
 
   public CanReadTest(String message) {
+    TestComponent.create().inject(this);
+    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
     this.encoded = message.getBytes(StandardCharsets.UTF_8);
   }
 
@@ -32,13 +31,7 @@ public final class CanReadTest {
     return JsonTestHelper.sampleInput();
   }
 
-  @Before
-  public void before() {
-    TestComponent.INSTANCE.inject(this);
-  }
-
   @Test
-  @RequiresNonNull("deserializer")
   public void canReadSample() {
     var decoded = deserializer.deserialize(TOPIC, encoded);
     assertThat(decoded).isNotNull();

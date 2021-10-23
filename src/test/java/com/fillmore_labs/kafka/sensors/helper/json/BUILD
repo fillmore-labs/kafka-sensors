@@ -8,7 +8,7 @@ java_library(
         "//testdata:input_samples",
         "//testdata:output_schema",
     ],
-    visibility = ["//src/test/java/com/fillmore_labs/kafka/sensors/serde:__subpackages__"],
+    visibility = ["//visibility:public"],
     deps = [
         "//toolchain:checker",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",

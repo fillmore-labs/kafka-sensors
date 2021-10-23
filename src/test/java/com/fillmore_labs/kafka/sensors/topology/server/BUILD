@@ -4,7 +4,7 @@ java_library(
     name = "server",
     testonly = True,
     srcs = glob(["*.java"]),
-    visibility = ["//src/test:__subpackages__"],
+    visibility = ["//src/test/java/com/fillmore_labs/kafka/sensors/topology:__subpackages__"],
     deps = [
         "//toolchain:checker",
         "//toolchain:test",

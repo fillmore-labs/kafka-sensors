@@ -37,9 +37,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "9d0f6c9d65320cc1b90965936c5dbb85b857207d551a566f822e272b614eacd5",
-    strip_prefix = "protobuf-3.19.0-rc1",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.19.0-rc1.tar.gz"],
+    sha256 = "4a045294ec76cb6eae990a21adb5d8b3c78be486f1507faa601541d1ccefbd6b",
+    strip_prefix = "protobuf-3.19.0",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.19.0.tar.gz"],
 )
 
 http_archive(
@@ -74,9 +74,15 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.17")
+go_register_toolchains(go_version = "1.17.2")
 
 go_rules_dependencies()
+
+# ---
+
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+gazelle_dependencies()
 
 # ---
 
@@ -198,7 +204,7 @@ maven_install(
         "com.google.flogger:flogger:0.7.1",
         "com.google.guava:guava:31.0.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
-        "com.networknt:json-schema-validator:1.0.62",
+        "com.networknt:json-schema-validator:1.0.63",
         "info.picocli:picocli:4.6.1",
         "io.github.classgraph:classgraph:4.8.128",
         "io.github.toolfactory:narcissus:1.0.6",

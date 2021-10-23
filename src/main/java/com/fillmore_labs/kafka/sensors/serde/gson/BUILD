@@ -6,7 +6,6 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/gson/mapper",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/gson/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",

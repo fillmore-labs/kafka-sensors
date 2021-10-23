@@ -8,7 +8,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/ion:__subpackages__",
     ],
     deps = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/converter",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/ion",
         "//toolchain:checker",

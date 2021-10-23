@@ -71,6 +71,8 @@ JAVACOPTS = [
     "-Xep:NoFunctionalReturnType:OFF",
     "-Xep:WildcardImport:OFF",
     "-Xep:ReturnMissingNullable:OFF",
+    "-Xep:CloseableProvides:OFF",
+    "-Xep:UseCorrectAssertInTests:OFF",
 ]
 
 java_package_configuration(

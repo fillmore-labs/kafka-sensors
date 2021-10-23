@@ -17,7 +17,6 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorState> sensorStateSerializer() {
     return new AvroSerializer<>(SensorState.getEncoder());
   }
@@ -30,7 +29,6 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDuration> sensorStateDurationSerializer() {
     return new AvroSerializer<>(SensorStateDuration.getEncoder());
   }

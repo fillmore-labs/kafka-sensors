@@ -12,26 +12,23 @@ import java.time.Instant;
 import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
+import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+  @Inject /* package */ Serializer<SensorStateDuration> serializer;
+  @Inject /* package */ Deserializer<SensorStateDuration> deserializer;
 
-  @Before
-  public void before() {
-    var testComponent = TestComponent.create();
-    testComponent.inject(this);
+  public SerializationTest() {
+    TestComponent.create().inject(this);
+    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
+    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var event =
         SensorState.newBuilder()
@@ -71,6 +68,6 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    void inject(@UnknownInitialization SerializationTest test);
   }
 }

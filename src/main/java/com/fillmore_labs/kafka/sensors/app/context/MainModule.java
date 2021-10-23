@@ -8,10 +8,10 @@ import dagger.Module;
 @Module(
     includes = {
       ConfigurationModule.class,
-      AppSerDesModule.class,
       StartUpModule.class,
       StreamsModule.class,
-      TopologyModule.class
+      TopologyModule.class,
+      TopologySettingsModule.class
     })
 /* package */ abstract class MainModule {
   private MainModule() {}

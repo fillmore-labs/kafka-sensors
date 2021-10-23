@@ -9,7 +9,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/configuration",
         "//src/main/java/com/fillmore_labs/kafka/sensors/lifecycle",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto",
@@ -21,5 +20,6 @@ java_library(
         "@maven//:com_google_guava_guava",
         "@maven//:io_helidon_config_helidon_config",
         "@maven//:org_apache_kafka_kafka_clients",
+        "@maven//:org_apache_kafka_kafka_streams",
     ],
 )

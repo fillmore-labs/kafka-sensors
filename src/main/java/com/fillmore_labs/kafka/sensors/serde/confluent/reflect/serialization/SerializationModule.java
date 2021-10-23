@@ -16,7 +16,6 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateReflect> sensorStateSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
@@ -26,7 +25,6 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateReflect> sensorStateDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
@@ -36,7 +34,6 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDurationReflect> sensorStateDurationSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
@@ -46,7 +43,6 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateDurationReflect> sensorStateDurationDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);

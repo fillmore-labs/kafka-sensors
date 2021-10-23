@@ -11,8 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @param <V> the type of stored values
  */
 public interface KVStore<K, V> extends Closeable {
-  @Nullable
-  V get(K key);
+  @Nullable V get(K key);
 
   void put(K key, V value);
 }

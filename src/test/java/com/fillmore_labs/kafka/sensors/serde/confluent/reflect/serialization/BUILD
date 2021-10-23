@@ -6,9 +6,8 @@ java_library(
     srcs = glob(["*.java"]),
     javacopts = ["-AskipDefs=\\.Dagger"],
     deps = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/reflect/serialization",
-        "//src/test/java/com/fillmore_labs/kafka/sensors/helper/confluent",
+        "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:test",

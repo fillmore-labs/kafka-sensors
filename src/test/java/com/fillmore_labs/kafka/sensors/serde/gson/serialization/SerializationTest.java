@@ -13,7 +13,6 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
@@ -22,6 +21,12 @@ public final class SerializationTest {
   @Inject /* package */ @MonotonicNonNull Serializer<SensorStateDurationGson> serializer;
   @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateDurationGson> deserializer;
 
+  public SerializationTest() {
+    TestComponent.create().inject(this);
+    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
+    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+  }
+
   private static SensorStateDurationGson sampleSensorStateDuration() {
     return SensorStateDurationGson.builder()
         .id("7331")
@@ -29,11 +34,6 @@ public final class SerializationTest {
         .state(SensorStateGson.State.ON)
         .duration(DurationDecimalHelper.duration2Decimal(Duration.ofSeconds(15)))
         .build();
-  }
-
-  @Before
-  public void before() {
-    TestComponent.INSTANCE.inject(this);
   }
 
   @Test

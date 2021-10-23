@@ -9,6 +9,7 @@ java_library(
     ],
     visibility = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/specific:__pkg__",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/specific_faster/mapper:__pkg__",
         "//src/test:__subpackages__",
     ],
     deps = [

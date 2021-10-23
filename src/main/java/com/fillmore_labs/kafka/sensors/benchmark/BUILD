@@ -7,22 +7,20 @@ java_library(
     srcs = glob(["*.java"]),
     javacopts = [
         "-Xlint:-cast",
-        "-AskipDefs=\\.jmh_generated\\.",
+        "-AskipDefs=\\.(jmh_generated\\.|Dagger)",
     ],
     runtime_deps = [
         "@maven//:com_google_flogger_flogger_system_backend",
-        "@maven//:io_helidon_config_helidon_config_yaml",
         "@maven//:org_slf4j_slf4j_jdk14",
     ],
     deps = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/benchmark/context",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/all_serdes",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
+        "//toolchain:dagger",
         "//toolchain:jmh",
-        "@confluent_schema_registry//:kafka-schema-registry-client",
         "@maven//:com_google_errorprone_error_prone_annotations",
-        "@maven//:net_sf_jopt_simple_jopt_simple",
         "@maven//:org_apache_kafka_kafka_clients",
     ],
 )

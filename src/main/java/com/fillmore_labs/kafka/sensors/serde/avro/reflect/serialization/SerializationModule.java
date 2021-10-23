@@ -15,13 +15,11 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateReflect> sensorStateSerializer() {
     return new AvroSerializer<>(SensorStateReflect.MODEL, SensorStateReflect.SCHEMA);
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateReflect> sensorStateDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
@@ -29,14 +27,12 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDurationReflect> sensorStateDurationSerializer() {
     return new AvroSerializer<>(
         SensorStateDurationReflect.MODEL, SensorStateDurationReflect.SCHEMA);
   }
 
   @Provides
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateDurationReflect> sensorStateDurationDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(

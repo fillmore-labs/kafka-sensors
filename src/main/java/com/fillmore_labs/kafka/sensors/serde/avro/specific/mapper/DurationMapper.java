@@ -5,14 +5,14 @@ import com.google.errorprone.annotations.Immutable;
 import java.time.Duration;
 
 @Immutable
-/* package */ final class DurationMapper {
+public final class DurationMapper {
   private DurationMapper() {}
 
-  /* package */ static Duration milcros2Duration(long micros) {
+  public static Duration milcros2Duration(long micros) {
     return DurationMicroHelper.micros2Duration(micros);
   }
 
-  /* package */ static long duration2Micros(Duration duration) {
+  public static long duration2Micros(Duration duration) {
     return DurationMicroHelper.duration2Micros(duration);
   }
 }

@@ -6,8 +6,8 @@ import dagger.Component;
 import io.helidon.config.Config;
 import javax.inject.Singleton;
 
-@Component(modules = {MainModule.class})
 @Singleton
+@Component(modules = {MainModule.class})
 public abstract class MainComponent {
   /* package */ MainComponent() {}
 

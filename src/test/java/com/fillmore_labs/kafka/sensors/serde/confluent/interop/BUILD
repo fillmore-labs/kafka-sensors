@@ -11,10 +11,8 @@ java_library(
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/all_serdes",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/interop",
-        "//src/test/java/com/fillmore_labs/kafka/sensors/helper/confluent",
+        "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:test",

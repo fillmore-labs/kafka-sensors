@@ -18,6 +18,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
   /* package */ SensorStateMapper() {}
 
   private static GenericEnumSymbol<?> stateMap(SensorState.State model) {
+    // Checkstyle ignore MissingSwitchDefault
     switch (model) {
       case OFF:
         return SensorStateStateSchema.ENUM_OFF;

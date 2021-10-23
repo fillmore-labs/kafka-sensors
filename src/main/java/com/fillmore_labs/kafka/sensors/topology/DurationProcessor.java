@@ -4,7 +4,8 @@ import com.fillmore_labs.kafka.sensors.logic.DurationCalculator;
 import com.fillmore_labs.kafka.sensors.logic.DurationCalculatorFactory;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import javax.inject.Inject;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
 import org.apache.kafka.streams.kstream.ValueTransformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
@@ -13,21 +14,22 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 /* package */ final class DurationProcessor
     implements ValueTransformer<SensorState, SensorStateDuration> {
-  public static final String SENSOR_STATES = "SensorStates";
-
   private final DurationCalculatorFactory calculatorFactory;
+  private final String storeName;
 
   private @MonotonicNonNull DurationCalculator calculator;
 
-  @Inject
-  /* package */ DurationProcessor(DurationCalculatorFactory calculatorFactory) {
+  @AssistedInject
+  /* package */ DurationProcessor(
+      DurationCalculatorFactory calculatorFactory, @Assisted String storeName) {
     this.calculatorFactory = calculatorFactory;
+    this.storeName = storeName;
   }
 
   @Override
   @EnsuresNonNull("calculator")
   public void init(ProcessorContext context) {
-    var kvStore = StoreHelper.<String, SensorState>stateStore(context, SENSOR_STATES);
+    var kvStore = StoreHelper.<String, SensorState>stateStoreFromContext(context, storeName);
     this.calculator = calculatorFactory.create(StoreHelper.mapStore(kvStore));
   }
 

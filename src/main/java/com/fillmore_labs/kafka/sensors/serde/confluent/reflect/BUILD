@@ -9,7 +9,6 @@ java_library(
     ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/reflect/mapper",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/reflect/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",

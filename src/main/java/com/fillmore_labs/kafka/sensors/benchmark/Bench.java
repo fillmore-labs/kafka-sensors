@@ -18,14 +18,14 @@ import org.openjdk.jmh.annotations.Warmup;
 @Measurement(iterations = 5, time = 5)
 public /* open */ class Bench {
   @Benchmark
-  @RequiresNonNull({"#1.serializer", "#1.data"})
-  public void serialize(ExecutionPlan plan) {
-    plan.serializer.serialize(Constants.TOPIC, plan.data);
+  @RequiresNonNull({"#1.deserializer", "#1.serialized"})
+  public void deserialize(ExecutionPlan plan) {
+    plan.deserializer.deserialize(ExecutionPlan.TOPIC, plan.serialized);
   }
 
   @Benchmark
-  @RequiresNonNull({"#1.deserializer", "#1.serialized"})
-  public void deserialize(ExecutionPlan plan) {
-    plan.deserializer.deserialize(Constants.TOPIC, plan.serialized);
+  @RequiresNonNull({"#1.serializer", "#1.data"})
+  public void serialize(ExecutionPlan plan) {
+    plan.serializer.serialize(ExecutionPlan.TOPIC, plan.data);
   }
 }

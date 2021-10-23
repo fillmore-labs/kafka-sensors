@@ -11,16 +11,19 @@ import java.time.Instant;
 import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  @Inject @MixIn /* package */ @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  @Inject @MixIn /* package */ @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+  @Inject @MixIn /* package */ Serializer<SensorStateDuration> serializer;
+  @Inject @MixIn /* package */ Deserializer<SensorStateDuration> deserializer;
+
+  public SerializationTest() {
+    TestComponent.create().inject(this);
+    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
+    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+  }
 
   private static SensorStateDuration sampleSensorStateDuration() {
     var event =
@@ -32,13 +35,7 @@ public final class SerializationTest {
     return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
   }
 
-  @Before
-  public void before() {
-    TestComponent.INSTANCE.inject(this);
-  }
-
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var sensorState = sampleSensorStateDuration();
 
@@ -49,7 +46,6 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull("serializer")
   public void matchesSchema() throws IOException {
     var sensorState = sampleSensorStateDuration();
     var encoded = serializer.serialize(TOPIC, sensorState);

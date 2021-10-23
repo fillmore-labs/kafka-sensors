@@ -11,7 +11,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/reflect/mapper",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/reflect/serialization",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
         "//toolchain:checker",
         "//toolchain:dagger",

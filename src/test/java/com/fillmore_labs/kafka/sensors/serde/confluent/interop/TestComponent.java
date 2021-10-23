@@ -1,15 +1,10 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
-import com.fillmore_labs.kafka.sensors.serde.common.Name;
-import com.fillmore_labs.kafka.sensors.serde.common.SerdeStore;
-import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
+import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
@@ -17,56 +12,38 @@ import dagger.Provides;
 import dagger.Subcomponent;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import java.util.Map;
 import javax.inject.Qualifier;
 import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.initialization.qual.UnderInitialization;
+import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 
 @Singleton
-@Component(modules = TestComponent.TestModule.class)
+@Component(modules = {TestComponent.TestModule.class, SchemaRegistryModule.class})
 public interface TestComponent {
-  static Builder builder() {
-    return DaggerTestComponent.builder();
+  static TestComponent create() {
+    return DaggerTestComponent.create();
   }
 
-  SingleTestComponent.Builder subcomponent();
+  Avro2ConfluentParameters avro2ConfluentParameters();
 
-  @Component.Builder
-  interface Builder {
-
-    @BindsInstance
-    Builder schemaRegistryUrl(@SchemaRegistryUrl String schemaRegistryUrl);
-
-    TestComponent build();
-  }
-
-  @Target({METHOD, PARAMETER, FIELD})
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  @interface InputName {}
-
-  @Target({METHOD, PARAMETER, FIELD})
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  @interface ResultName {}
+  Confluent2AvroParameters confluent2AvroParameters();
 
   @Subcomponent(modules = SingleTestModule.class)
   interface SingleTestComponent {
-    void inject(@UnderInitialization Confluent2AvroTest test);
+    void inject(@UnknownInitialization Confluent2AvroTest test);
 
-    void inject(@UnderInitialization Avro2ConfluentTest test);
+    void inject(@UnknownInitialization Avro2ConfluentTest test);
 
     @Subcomponent.Builder
     interface Builder {
       @BindsInstance
-      Builder input(@InputName Name name);
+      Builder serializationFormat(@SingleTestModule.Serialization String format);
 
       @BindsInstance
-      Builder result(@ResultName Name name);
+      Builder deserializationFormat(@SingleTestModule.Deserialization String format);
 
       SingleTestComponent build();
     }
@@ -82,17 +59,33 @@ public interface TestComponent {
     private SingleTestModule() {}
 
     @Provides
-    @SuppressWarnings("CloseableProvides")
-    /* package */ static final Serializer<SensorStateDuration> serializer(
-        @InputName Name name, SerdeStore<SensorStateDuration> store) {
-      return store.serde(name).serializer();
+    /* package */ static Serializer<SensorStateDuration> serializerDuration(
+        @Serialization String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
+      var serde = serdeMap.get(format);
+      if (serde == null) {
+        throw new IllegalArgumentException(String.format("Unknown format: %s", format));
+      }
+      return serde.serializer();
     }
 
     @Provides
-    @SuppressWarnings("CloseableProvides")
-    /* package */ static final Deserializer<SensorStateDuration> deserializer(
-        @ResultName Name name, SerdeStore<SensorStateDuration> store) {
-      return store.serde(name).deserializer();
+    /* package */ static Deserializer<SensorStateDuration> deserializerDuration(
+        @Deserialization String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
+      var serde = serdeMap.get(format);
+      if (serde == null) {
+        throw new IllegalArgumentException(String.format("Unknown format: %s", format));
+      }
+      return serde.deserializer();
     }
+
+    @Qualifier
+    @Documented
+    @Retention(RUNTIME)
+    public @interface Serialization {}
+
+    @Qualifier
+    @Documented
+    @Retention(RUNTIME)
+    public @interface Deserialization {}
   }
 }

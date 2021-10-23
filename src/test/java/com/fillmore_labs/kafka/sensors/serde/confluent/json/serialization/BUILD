@@ -9,7 +9,7 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/json/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json/serialization",
-        "//src/test/java/com/fillmore_labs/kafka/sensors/helper/confluent",
+        "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:test",

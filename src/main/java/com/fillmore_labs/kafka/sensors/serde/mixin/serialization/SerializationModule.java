@@ -38,14 +38,12 @@ public abstract class SerializationModule {
 
   @Provides
   @MixIn
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorState> sensorStateSerializer(@MixIn ObjectMapper mapper) {
     return new JsonSerializer<>(mapper, SensorState.class);
   }
 
   @Provides
   @MixIn
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorState> sensorStateDeserializer(
       @MixIn ObjectMapper mapper) {
     return new JsonDeserializer<>(mapper, SensorState.class);
@@ -53,7 +51,6 @@ public abstract class SerializationModule {
 
   @Provides
   @MixIn
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<SensorStateDuration> sensorStateDurationSerializer(
       @MixIn ObjectMapper mapper) {
     return new JsonSerializer<>(mapper, SensorStateDuration.class);
@@ -61,7 +58,6 @@ public abstract class SerializationModule {
 
   @Provides
   @MixIn
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<SensorStateDuration> sensorStateDurationDeserializer(
       @MixIn ObjectMapper mapper) {
     return new JsonDeserializer<>(mapper, SensorStateDuration.class);

@@ -17,14 +17,12 @@ public abstract class SerializationModule {
 
   @Provides
   @Avro.SensorState
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<GenericRecord> sensorStateSerializer() {
     return new AvroSerializer<>(SensorStateSchema.MODEL, SensorStateSchema.SCHEMA);
   }
 
   @Provides
   @Avro.SensorState
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<GenericRecord> sensorStateDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
@@ -33,14 +31,12 @@ public abstract class SerializationModule {
 
   @Provides
   @Avro.SensorStateDuration
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Serializer<GenericRecord> sensorStateDurationSerializer() {
     return new AvroSerializer<>(SensorStateDurationSchema.MODEL, SensorStateDurationSchema.SCHEMA);
   }
 
   @Provides
   @Avro.SensorStateDuration
-  @SuppressWarnings("CloseableProvides")
   /* package */ static Deserializer<GenericRecord> sensorStateDurationDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(

@@ -1,13 +1,14 @@
 package com.fillmore_labs.kafka.sensors.topology.server;
 
 import com.google.common.flogger.FluentLogger;
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.UUID;
 import kafka.server.KafkaConfig;
@@ -20,16 +21,18 @@ import org.junit.rules.ExternalResource;
 import scala.Option;
 
 public final class EmbeddedKafka extends ExternalResource {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final int NODE_ID = 1;
   private static final String BROKER = "BROKER";
   private static final String CONTROLLER = "CONTROLLER";
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private @MonotonicNonNull Path logDir;
+  private @MonotonicNonNull File logDir;
   private @MonotonicNonNull Server kafka;
   private int brokerPort;
 
-  public EmbeddedKafka() {}
+  public EmbeddedKafka() {
+    super();
+  }
 
   private static Ports availableLocalPorts() {
     var loopback = Inet4Address.getLoopbackAddress();
@@ -54,7 +57,7 @@ public final class EmbeddedKafka extends ExternalResource {
     return new Ports(port1, port2);
   }
 
-  private static Properties createProperties(Path logDir, Ports ports) {
+  private static Properties createProperties(File logDir, Ports ports) {
     var props = new Properties();
 
     props.put(KafkaConfig.ProcessRolesProp(), "broker,controller");
@@ -90,7 +93,7 @@ public final class EmbeddedKafka extends ExternalResource {
   @EnsuresNonNull({"logDir", "kafka"})
   protected void before() {
     try {
-      logDir = Files.createTempDirectory("kafka-log-");
+      logDir = Files.createTempDirectory("kafka-log-").toFile();
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
@@ -117,7 +120,20 @@ public final class EmbeddedKafka extends ExternalResource {
     kafka.shutdown();
     kafka.awaitShutdown();
     EmbeddedKafkaHelper.killRaftExpirationReaper();
-    logger.atInfo().log("Leaking %s", logDir);
+    if (!recursiveDelete(logDir)) {
+      logger.atWarning().log("Can't delete %s", logDir);
+    }
+  }
+
+  private boolean recursiveDelete(File file) {
+    if (file.delete()) {
+      return true;
+    }
+    var files = file.listFiles();
+    if (files != null && !Arrays.stream(files).allMatch(this::recursiveDelete)) {
+      return false;
+    }
+    return file.delete();
   }
 
   public String getBrokerList() {

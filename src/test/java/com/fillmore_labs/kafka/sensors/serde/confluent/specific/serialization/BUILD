@@ -10,7 +10,7 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/logicaltypes",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/specific/serialization",
-        "//src/test/java/com/fillmore_labs/kafka/sensors/helper/confluent",
+        "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:test",

@@ -1,75 +1,28 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import com.fillmore_labs.kafka.sensors.helper.confluent.SchemaRegistryRule;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import java.util.List;
-import org.apache.kafka.common.serialization.Deserializer;
-import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serializer;
-import org.junit.After;
-import org.junit.ClassRule;
-import org.junit.Test;
+import java.time.Duration;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public final class SerdeDurationTest {
-  @ClassRule
-  public static final SchemaRegistryRule REGISTRY_TEST_RESOURCE = new SchemaRegistryRule();
-
-  private final Serializer<SensorStateDuration> serializer;
-  private final Deserializer<SensorStateDuration> deserializer;
-
-  public SerdeDurationTest(
-      String description,
-      Serde<SensorStateDuration> inputSerde,
-      Serde<SensorStateDuration> resultSerde) {
-    this.serializer = inputSerde.serializer();
-    this.deserializer = resultSerde.deserializer();
+public final class SerdeDurationTest extends SerdeTestBase<SensorStateDuration> {
+  public SerdeDurationTest(String description, SingleTestComponent singleTestComponent) {
+    super(singleTestComponent::injectMembersDuration, standardSensorStateDuration());
   }
 
   @Parameters(name = "{index}: {0}")
-  public static List<Object[]> parameters() {
-    return TestHelper.parametersWithDuration(REGISTRY_TEST_RESOURCE.registryUrl());
+  public static Iterable<Object[]> parameters() {
+    return TestComponent.create().parameters();
   }
 
-  @After
-  public void after() {
-    serializer.close();
-    deserializer.close();
-  }
+  /* package */ static SensorStateDuration standardSensorStateDuration() {
+    var event = SerdeTest.standardSensorState();
 
-  @Test
-  public void compatability() {
-    var sensorState = TestHelper.standardSensorStateDuration();
-
-    var encoded = serializer.serialize(TestHelper.KAFKA_TOPIC, sensorState);
-    assertThat(encoded).isNotEmpty();
-
-    var decoded = deserializer.deserialize(TestHelper.KAFKA_TOPIC, encoded);
-    assertThat(decoded).isEqualTo(sensorState);
-  }
-
-  @Test
-  public void nullEncoding() {
-    @SuppressWarnings("nullness:argument") // Serializer is not annotated
-    var encoded = serializer.serialize(TestHelper.KAFKA_TOPIC, null);
-    assertThat(encoded == null || encoded.length == 0).isTrue();
-  }
-
-  @Test
-  public void nullDecoding() {
-    @SuppressWarnings("nullness:argument") // Deserializer is not annotated
-    var decoded = deserializer.deserialize(TestHelper.KAFKA_TOPIC, null);
-    assertThat(decoded).isNull();
-  }
-
-  @Test
-  public void emptyDecoding() {
-    var decoded = deserializer.deserialize(TestHelper.KAFKA_TOPIC, new byte[0]);
-    assertThat(decoded).isNull();
+    return SensorStateDuration.builder()
+        .event(event)
+        .duration(Duration.ofSeconds(15, 999_999_000L))
+        .build();
   }
 }
