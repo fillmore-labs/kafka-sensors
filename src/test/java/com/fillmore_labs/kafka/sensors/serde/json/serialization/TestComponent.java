@@ -2,13 +2,19 @@ package com.fillmore_labs.kafka.sensors.serde.json.serialization;
 
 import dagger.Component;
 import javax.inject.Singleton;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serializer;
 
 @Singleton
 @Component(modules = {SerializationModule.class})
 public interface TestComponent {
-  TestComponent INSTANCE = DaggerTestComponent.create();
+  static TestComponent create() {
+    return DaggerTestComponent.create();
+  }
 
-  void inject(CanReadTest test);
+  Deserializer<SensorStateJson> deserializer();
 
-  void inject(SerializationTest test);
+  Serializer<SensorStateDurationJson> serializerDuration();
+
+  Deserializer<SensorStateDurationJson> deserializerDuration();
 }

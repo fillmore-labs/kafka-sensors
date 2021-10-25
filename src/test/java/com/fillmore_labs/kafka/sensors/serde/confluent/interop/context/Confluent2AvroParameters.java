@@ -1,4 +1,4 @@
-package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
+package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 
-public final class Avro2ConfluentParameters extends Parameters {
+public final class Confluent2AvroParameters extends Parameters {
   @Inject /* package */
-  Avro2ConfluentParameters(
+  Confluent2AvroParameters(
       Provider<TestComponent.SingleTestComponent.Builder> singleTestComponentBuilder,
       @Named("encoding") Map<String, String> encodings) {
     super(singleTestComponentBuilder, encodings);
@@ -16,7 +16,7 @@ public final class Avro2ConfluentParameters extends Parameters {
 
   @Override
   public Iterator<Object[]> iterator() {
-    var objectstream = combinations(avroFormats, confluentFormats);
+    var objectstream = combinations(confluentFormats, avroFormats);
 
     return objectstream.iterator();
   }

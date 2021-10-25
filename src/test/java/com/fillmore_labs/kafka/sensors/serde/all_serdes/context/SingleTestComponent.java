@@ -1,16 +1,21 @@
-package com.fillmore_labs.kafka.sensors.serde.all_serdes;
+package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import dagger.BindsInstance;
 import dagger.Subcomponent;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serializer;
 
 @Subcomponent(modules = SingleTestModule.class)
 public interface SingleTestComponent {
-  void injectMembers(@UnknownInitialization SerdeTestBase<SensorState> self);
+  Serializer<SensorState> serializer();
 
-  void injectMembersDuration(@UnknownInitialization SerdeTestBase<SensorStateDuration> self);
+  Deserializer<SensorState> deserializer();
+
+  Serializer<SensorStateDuration> serializerDuration();
+
+  Deserializer<SensorStateDuration> deserializerDuration();
 
   @Subcomponent.Builder
   interface Builder {

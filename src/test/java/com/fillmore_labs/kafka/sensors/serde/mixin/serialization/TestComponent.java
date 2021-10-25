@@ -1,8 +1,11 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin.serialization;
 
+import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import dagger.Component;
 import javax.inject.Singleton;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serializer;
 
 @Singleton
 @Component(modules = {SerializationModule.class})
@@ -11,7 +14,12 @@ public interface TestComponent {
     return DaggerTestComponent.create();
   }
 
-  void inject(@UnknownInitialization CanReadTest test);
+  @MixIn
+  Deserializer<SensorState> deserializer();
 
-  void inject(@UnknownInitialization SerializationTest test);
+  @MixIn
+  Serializer<SensorStateDuration> serializerDuration();
+
+  @MixIn
+  Deserializer<SensorStateDuration> deserializerDuration();
 }

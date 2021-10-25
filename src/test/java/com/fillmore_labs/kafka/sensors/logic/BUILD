@@ -1,9 +1,12 @@
-load("@rules_java//java:defs.bzl", "java_library", "java_test")
+load("@google_bazel_common//testing:test_defs.bzl", "gen_java_tests")
 
-java_library(
+gen_java_tests(
     name = "tests",
-    testonly = True,
     srcs = glob(["*.java"]),
+    lib_deps = [
+        "@maven//:org_apache_kafka_kafka_streams",
+        "@maven//:org_apache_kafka_kafka_streams_test_utils",
+    ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/logic",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
@@ -12,10 +15,4 @@ java_library(
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
     ],
-)
-
-java_test(
-    name = "CalculatorTest",
-    size = "small",
-    runtime_deps = [":tests"],
 )

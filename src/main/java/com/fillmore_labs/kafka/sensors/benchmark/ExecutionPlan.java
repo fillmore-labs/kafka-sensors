@@ -49,6 +49,14 @@ public /* open */ class ExecutionPlan {
 
   public ExecutionPlan() {}
 
+  private static SensorStateDuration createData() {
+    var instant = Instant.ofEpochSecond(443_634_300L);
+
+    var event = SensorState.builder().id("7331").time(instant).state(SensorState.State.ON).build();
+
+    return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
+  }
+
   @Setup(Level.Trial)
   @RequiresNonNull("format")
   @EnsuresNonNull({"serializer", "deserializer", "data", "serialized"})
@@ -59,13 +67,5 @@ public /* open */ class ExecutionPlan {
 
     data = createData();
     serialized = serializer.serialize(TOPIC, data);
-  }
-
-  private static SensorStateDuration createData() {
-    var instant = Instant.ofEpochSecond(443_634_300L);
-
-    var event = SensorState.builder().id("7331").time(instant).state(SensorState.State.ON).build();
-
-    return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
   }
 }

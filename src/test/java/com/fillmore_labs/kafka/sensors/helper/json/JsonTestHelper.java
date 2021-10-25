@@ -8,12 +8,10 @@ import com.networknt.schema.SpecVersionDetector;
 import com.networknt.schema.ValidationMessage;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public final class JsonTestHelper {
   private static final Path OUTPUT_SCHEMA = Path.of("testdata", "output-schema.json");
@@ -21,7 +19,7 @@ public final class JsonTestHelper {
 
   private JsonTestHelper() {}
 
-  private static JsonSchema schema(ObjectMapper mapper) throws IOException {
+  private static JsonSchema readSchema(ObjectMapper mapper) throws IOException {
     JsonNode node;
     try (var stream = Files.newInputStream(OUTPUT_SCHEMA)) {
       node = mapper.readTree(stream);
@@ -35,7 +33,7 @@ public final class JsonTestHelper {
 
   public static Set<ValidationMessage> validate(byte[] encoded) throws IOException {
     var mapper = new ObjectMapper();
-    var schema = schema(mapper);
+    var schema = readSchema(mapper);
 
     var node = mapper.readTree(encoded);
     return schema.validate(node);
@@ -46,12 +44,6 @@ public final class JsonTestHelper {
       return Files.readAllLines(INPUT_SAMPLES);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
-    }
-  }
-
-  public static void testSampleInput(Consumer<byte[]> decoder) throws IOException {
-    try (var lines = Files.lines(INPUT_SAMPLES)) {
-      lines.map(s -> s.getBytes(StandardCharsets.UTF_8)).forEach(decoder);
     }
   }
 }

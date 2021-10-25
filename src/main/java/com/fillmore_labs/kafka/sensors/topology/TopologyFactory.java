@@ -1,5 +1,6 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
+import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import java.util.function.Supplier;
@@ -11,7 +12,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Named;
 import org.apache.kafka.streams.kstream.Produced;
-import org.apache.kafka.streams.kstream.ValueTransformerSupplier;
+import org.apache.kafka.streams.kstream.ValueTransformerWithKeySupplier;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.StoreBuilder;
 import org.apache.kafka.streams.state.Stores;
@@ -59,7 +60,7 @@ import org.apache.kafka.streams.state.Stores;
     // name of the processor in the topology
     var processorName = Named.as("DURATION-PROCESSOR");
 
-    ValueTransformerSupplier<SensorState, SensorStateDuration> transformerSupplier =
+    ValueTransformerWithKeySupplier<String, SensorState, SensorStateDuration> transformerSupplier =
         () -> processorFactory.create(storeName);
 
     // Now, define our topology

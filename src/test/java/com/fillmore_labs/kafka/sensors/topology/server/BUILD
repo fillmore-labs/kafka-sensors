@@ -7,10 +7,10 @@ java_library(
     visibility = ["//src/test/java/com/fillmore_labs/kafka/sensors/topology:__subpackages__"],
     deps = [
         "//toolchain:checker",
-        "//toolchain:test",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_flogger_flogger",
         "@maven//:com_google_guava_guava",
+        "@maven//:junit_junit",
         "@maven//:org_apache_kafka_kafka_2_13",
         "@maven//:org_apache_kafka_kafka_clients",
         "@maven//:org_scala_lang_scala_library",

@@ -9,10 +9,10 @@ import java.time.Duration;
 import java.time.Instant;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/* package */ final class CalculatorTestHelper {
-  private static final String SENSOR_ID = "7331";
+/* package */ final class ProcessorTestHelper {
+  /* package */ static final String SENSOR_ID = "7331";
 
-  private CalculatorTestHelper() {}
+  private ProcessorTestHelper() {}
 
   /* package */ static SensorState initial(State state) {
     var instant = Instant.ofEpochSecond(443634300L);

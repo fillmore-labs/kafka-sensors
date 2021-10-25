@@ -1,10 +1,15 @@
-package com.fillmore_labs.kafka.sensors.serde.all_serdes;
+package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
+import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
 import dagger.Module;
+import java.util.Map;
+import javax.inject.Named;
 import javax.inject.Singleton;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.apache.kafka.common.serialization.Serde;
 
 @Singleton
 @Component(modules = {TestComponent.TestModule.class})
@@ -13,7 +18,12 @@ public interface TestComponent {
     return DaggerTestComponent.create();
   }
 
-  void injectMembers(@UnknownInitialization ConsistencyTestBase instance);
+  @Named("encoding")
+  Map<String, String> encodings();
+
+  Map<String, Serde<SensorState>> serdeMap();
+
+  Map<String, Serde<SensorStateDuration>> serdeDurationMap();
 
   Parameters parameters();
 

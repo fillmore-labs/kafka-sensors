@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import com.fillmore_labs.kafka.sensors.serde.confluent.interop.TestComponent.SingleTestComponent;
-import javax.inject.Inject;
+import com.fillmore_labs.kafka.sensors.serde.confluent.interop.context.TestComponent;
+import com.fillmore_labs.kafka.sensors.serde.confluent.interop.context.TestComponent.SingleTestComponent;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.util.NullnessUtil;
@@ -15,15 +15,14 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public final class Avro2ConfluentTest {
-  @Inject /* package */ Recoder recoder;
-  @Inject /* package */ Serializer<SensorStateDuration> serializer;
-  @Inject /* package */ Deserializer<SensorStateDuration> deserializer;
+  private final Recoder recoder;
+  private final Serializer<SensorStateDuration> serializer;
+  private final Deserializer<SensorStateDuration> deserializer;
 
   public Avro2ConfluentTest(String description, SingleTestComponent singleTestComponent) {
-    singleTestComponent.inject(this);
-    assert recoder != null : "@AssumeAssertion(nullness): inject() failed";
-    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    this.recoder = singleTestComponent.recoder();
+    this.serializer = singleTestComponent.serializer();
+    this.deserializer = singleTestComponent.deserializer();
   }
 
   @Parameters(name = "{index}: {0}")

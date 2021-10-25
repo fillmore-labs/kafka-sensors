@@ -24,11 +24,11 @@ import org.mapstruct.MappingTarget;
     return data;
   }
 
-  protected abstract void mapto(
-      @PolyNull SensorState model,
-      @MappingTarget com.fillmore_labs.kafka.sensors.avro.SensorState data);
-
   @Override
   public abstract @PolyNull SensorState unmap(
       com.fillmore_labs.kafka.sensors.avro.@PolyNull SensorState data);
+
+  protected abstract void mapto(
+      @PolyNull SensorState model,
+      @MappingTarget com.fillmore_labs.kafka.sensors.avro.SensorState data);
 }

@@ -70,6 +70,13 @@ http_archive(
     urls = ["https://github.com/google/dagger/archive/dagger-2.39.1.tar.gz"],
 )
 
+http_archive(
+    name = "google_bazel_common",
+    sha256 = "10da34d97f282b60078e472407a23fb505565cf398da578b800572ccce20b468",
+    strip_prefix = "bazel-common-efc6731b1d72535f3009061af87538a0a826f3fc",
+    urls = ["https://github.com/google/bazel-common/archive/efc6731b1d72535f3009061af87538a0a826f3fc.tar.gz"],
+)
+
 # ---
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
@@ -150,6 +157,12 @@ rules_jvm_external_setup()
 # ---
 
 load("@com_google_dagger//:workspace_defs.bzl", "DAGGER_ARTIFACTS")
+
+# ---
+
+load("@google_bazel_common//:workspace_defs.bzl", "google_common_workspace_rules")
+
+google_common_workspace_rules()
 
 # ---
 

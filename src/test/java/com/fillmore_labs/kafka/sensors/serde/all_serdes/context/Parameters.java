@@ -1,4 +1,4 @@
-package com.fillmore_labs.kafka.sensors.serde.all_serdes;
+package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimaps;

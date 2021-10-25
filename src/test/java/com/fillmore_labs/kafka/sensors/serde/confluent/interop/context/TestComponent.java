@@ -1,10 +1,11 @@
-package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
+package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
+import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Recoder;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
@@ -18,7 +19,6 @@ import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 
 @Singleton
 @Component(modules = {TestComponent.TestModule.class, SchemaRegistryModule.class})
@@ -33,9 +33,11 @@ public interface TestComponent {
 
   @Subcomponent(modules = SingleTestModule.class)
   interface SingleTestComponent {
-    void inject(@UnknownInitialization Confluent2AvroTest test);
+    Recoder recoder();
 
-    void inject(@UnknownInitialization Avro2ConfluentTest test);
+    Serializer<SensorStateDuration> serializer();
+
+    Deserializer<SensorStateDuration> deserializer();
 
     @Subcomponent.Builder
     interface Builder {

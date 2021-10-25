@@ -6,7 +6,6 @@ import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,14 +15,12 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public final class CanReadTest {
   private static final String TOPIC = "topic";
-
-  @Inject @MixIn /* package */ Deserializer<SensorState> deserializer;
-
   private final byte[] encoded;
+  private final Deserializer<SensorState> deserializer;
 
   public CanReadTest(String message) {
-    TestComponent.create().inject(this);
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    var testComponent = TestComponent.create();
+    this.deserializer = testComponent.deserializer();
     this.encoded = message.getBytes(StandardCharsets.UTF_8);
   }
 

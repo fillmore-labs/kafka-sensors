@@ -1,4 +1,4 @@
-package com.fillmore_labs.kafka.sensors.serde.all_serdes;
+package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

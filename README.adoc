@@ -83,15 +83,15 @@ Care has been taken to keep the business logic independent of implementation det
 serialization formats.
 
 The data model is in the link:src/main/java/com/fillmore_labs/kafka/sensors/model[model directory], the
-business logic in link:src/main/java/com/fillmore_labs/kafka/sensors/topology[topology].
+business logic in link:src/main/java/com/fillmore_labs/kafka/sensors/logic[logic].
 
 The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the topology with seven
-different (de-)serializers, https://developers.google.com/protocol-buffers/[protocol buffers],
+different formats, https://developers.google.com/protocol-buffers/[protocol buffers],
 https://json.org[JSON], https://avro.apache.org/docs/current/[Apache Avro], the
 https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them and
 https://amzn.github.io/ion-docs/[Amazon Ion]. Since the  example needs an input format, a result
-format and a format for the state store we have 343 (7^3^) different combinations which are all
-tested.
+format and a format for the state store and some format have alternate implementations we have 4,913
+(17^3^) different combinations which are all tested.
 
 While this abstraction might not be necessary in practice, it demonstrates two important design
 considerations:

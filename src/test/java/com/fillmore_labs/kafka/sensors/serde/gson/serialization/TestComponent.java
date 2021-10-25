@@ -2,7 +2,8 @@ package com.fillmore_labs.kafka.sensors.serde.gson.serialization;
 
 import dagger.Component;
 import javax.inject.Singleton;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serializer;
 
 @Singleton
 @Component(modules = {SerializationModule.class})
@@ -11,7 +12,9 @@ public interface TestComponent {
     return DaggerTestComponent.create();
   }
 
-  void inject(@UnknownInitialization CanReadTest test);
+  Deserializer<SensorStateGson> deserializer();
 
-  void inject(@UnknownInitialization SerializationTest test);
+  Serializer<SensorStateDurationGson> serializerDuration();
+
+  Deserializer<SensorStateDurationGson> deserializerDuration();
 }

@@ -4,46 +4,42 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.google.common.collect.ImmutableMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
-import javax.inject.Named;
 import org.apache.kafka.common.serialization.Serde;
 import org.junit.Test;
 
 public abstract class ConsistencyTestBase {
-  @Inject /* package */
-  @Named("encoding")
-  Map<String, String> encodings;
+  private final ImmutableMap<String, String> encodings;
+  private final ImmutableMap<String, Serde<SensorState>> serdeMap;
+  private final ImmutableMap<String, Serde<SensorStateDuration>> serdeDurationMap;
 
-  @Inject /* package */ Map<String, Serde<SensorState>> serdeMap;
-
-  @Inject /* package */ Map<String, Serde<SensorStateDuration>> serdeDurationMap;
-
-  protected ConsistencyTestBase(Injector<ConsistencyTestBase> injector) {
-    injector.injectMembers(this);
-
-    assert encodings != null : "@AssumeAssertion(nullness): inject() failed";
-    assert serdeMap != null : "@AssumeAssertion(nullness): inject() failed";
-    assert serdeDurationMap != null : "@AssumeAssertion(nullness): inject() failed";
+  protected ConsistencyTestBase(
+      Map<String, String> encodings,
+      Map<String, Serde<SensorState>> serdeMap,
+      Map<String, Serde<SensorStateDuration>> serdeDurationMap) {
+    this.encodings = ImmutableMap.copyOf(encodings);
+    this.serdeMap = ImmutableMap.copyOf(serdeMap);
+    this.serdeDurationMap = ImmutableMap.copyOf(serdeDurationMap);
   }
 
   protected abstract List<String> encodingValues();
 
   @Test
-  public void testEncodingValues() {
+  public final void testEncodingValues() {
     var encodingValues = encodings.values().stream().collect(Collectors.toUnmodifiableSet());
     assertThat(encodingValues).containsExactlyElementsIn(encodingValues());
   }
 
   @Test
-  public void testSerdes() {
+  public final void testSerdes() {
     assertThat(serdeMap.keySet()).containsExactlyElementsIn(encodings.keySet());
   }
 
   @Test
-  public void testSerdeDurations() {
+  public final void testSerdeDurations() {
     assertThat(serdeDurationMap.keySet()).containsExactlyElementsIn(encodings.keySet());
   }
 }

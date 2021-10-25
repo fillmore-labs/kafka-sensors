@@ -8,23 +8,21 @@ import com.fillmore_labs.kafka.sensors.serde.converter.InstantDecimalHelper;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ @MonotonicNonNull Serializer<SensorStateDurationGson> serializer;
-  @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateDurationGson> deserializer;
+  private final Serializer<SensorStateDurationGson> serializer;
+  private final Deserializer<SensorStateDurationGson> deserializer;
 
   public SerializationTest() {
-    TestComponent.create().inject(this);
-    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializerDuration();
+    this.deserializer = testComponent.deserializerDuration();
   }
 
   private static SensorStateDurationGson sampleSensorStateDuration() {

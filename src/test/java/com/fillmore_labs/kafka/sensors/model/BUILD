@@ -1,18 +1,11 @@
-load("@rules_java//java:defs.bzl", "java_library", "java_test")
+load("@google_bazel_common//testing:test_defs.bzl", "gen_java_tests")
 
-java_library(
+gen_java_tests(
     name = "tests",
-    testonly = True,
     srcs = glob(["*.java"]),
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//toolchain:checker",
         "//toolchain:test",
     ],
-)
-
-java_test(
-    name = "SensorStateTest",
-    size = "small",
-    runtime_deps = [":tests"],
 )

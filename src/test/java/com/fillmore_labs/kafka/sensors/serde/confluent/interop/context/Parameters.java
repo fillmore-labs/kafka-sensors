@@ -1,4 +1,4 @@
-package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
+package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +28,8 @@ public abstract class Parameters implements Iterable<Object[]> {
     return entry -> entry.getValue().equals(format);
   }
 
-  protected Stream<Object[]> combinations(List<String> serializers, List<String> deserializers) {
+  protected final Stream<Object[]> combinations(
+      List<String> serializers, List<String> deserializers) {
     return serializers.stream()
         .flatMap(
             serializer ->

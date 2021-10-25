@@ -8,7 +8,6 @@ import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -16,13 +15,13 @@ import org.junit.Test;
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  @Inject @MixIn /* package */ Serializer<SensorStateDuration> serializer;
-  @Inject @MixIn /* package */ Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<SensorStateDuration> serializer;
+  private final Deserializer<SensorStateDuration> deserializer;
 
   public SerializationTest() {
-    TestComponent.create().inject(this);
-    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializerDuration();
+    this.deserializer = testComponent.deserializerDuration();
   }
 
   private static SensorStateDuration sampleSensorStateDuration() {

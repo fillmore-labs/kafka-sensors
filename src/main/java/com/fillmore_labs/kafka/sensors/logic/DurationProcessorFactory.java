@@ -1,8 +1,8 @@
-package com.fillmore_labs.kafka.sensors.topology;
+package com.fillmore_labs.kafka.sensors.logic;
 
 import dagger.assisted.AssistedFactory;
 
 @AssistedFactory
-/* package */ interface DurationProcessorFactory {
+public interface DurationProcessorFactory {
   DurationProcessor create(String storeName);
 }

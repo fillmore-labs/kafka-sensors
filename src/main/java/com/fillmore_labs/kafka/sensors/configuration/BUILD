@@ -11,6 +11,5 @@ java_library(
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
         "@maven//:io_helidon_config_helidon_config_object_mapping",
-        "@maven//:javax_inject_javax_inject",
     ],
 )

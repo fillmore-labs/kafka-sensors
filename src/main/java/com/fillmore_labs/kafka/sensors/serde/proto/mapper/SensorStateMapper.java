@@ -39,13 +39,11 @@ import org.mapstruct.ValueMappings;
 
   @InheritInverseConfiguration
   @ValueMapping(source = ANY_REMAINING, target = THROW_EXCEPTION)
-  /* package */ abstract @PolyNull State mapState(
-      com.fillmore_labs.kafka.sensors.v1.SensorState.@PolyNull State state);
+  protected abstract State mapState(com.fillmore_labs.kafka.sensors.v1.SensorState.State state);
 
   @ValueMappings({
     @ValueMapping(source = "OFF", target = "STATE_OFF"),
     @ValueMapping(source = "ON", target = "STATE_ON"),
   })
-  /* package */ abstract com.fillmore_labs.kafka.sensors.v1.SensorState.State unmapState(
-      State state);
+  protected abstract com.fillmore_labs.kafka.sensors.v1.SensorState.State unmapState(State state);
 }

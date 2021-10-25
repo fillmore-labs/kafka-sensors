@@ -22,6 +22,7 @@ public abstract class SensorStateDuration implements WithSensorStateDuration {
   @Value.Check
   /* package */ void check() {
     var duration = getDuration();
-    Preconditions.checkState(!duration.isNegative(), "Duration is negative");
+    Preconditions.checkState(
+        !duration.isNegative(), "Duration %s of event %s is negative", duration, getEvent());
   }
 }

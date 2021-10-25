@@ -43,7 +43,7 @@ public final class SensorStateTest {
         () ->
             SensorStateDuration.builder()
                 .event(sensorState)
-                .duration(Duration.ofMillis(-1))
+                .duration(Duration.ofMillis(-1L))
                 .build());
   }
 }

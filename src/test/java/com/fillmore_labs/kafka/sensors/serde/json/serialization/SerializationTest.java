@@ -6,19 +6,22 @@ import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ @MonotonicNonNull Serializer<SensorStateDurationJson> serializer;
-  @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateDurationJson> deserializer;
+  private final Serializer<SensorStateDurationJson> serializer;
+  private final Deserializer<SensorStateDurationJson> deserializer;
+
+  public SerializationTest() {
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializerDuration();
+    this.deserializer = testComponent.deserializerDuration();
+  }
 
   private static SensorStateDurationJson sampleSensorStateDuration() {
     var event =
@@ -28,11 +31,6 @@ public final class SerializationTest {
             .state(SensorStateJson.State.ON)
             .build();
     return SensorStateDurationJson.builder().event(event).duration(Duration.ofSeconds(15)).build();
-  }
-
-  @Before
-  public void before() {
-    TestComponent.INSTANCE.inject(this);
   }
 
   @Test
