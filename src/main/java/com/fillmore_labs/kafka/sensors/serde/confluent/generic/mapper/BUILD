@@ -15,7 +15,7 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/generic/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/logicaltypes",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/generic/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
         "//toolchain:checker",
         "//toolchain:dagger",

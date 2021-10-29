@@ -85,13 +85,13 @@ serialization formats.
 The data model is in the link:src/main/java/com/fillmore_labs/kafka/sensors/model[model directory], the
 business logic in link:src/main/java/com/fillmore_labs/kafka/sensors/logic[logic].
 
-The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the topology with seven
+The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the topology with eight
 different formats, https://developers.google.com/protocol-buffers/[protocol buffers],
 https://json.org[JSON], https://avro.apache.org/docs/current/[Apache Avro], the
-https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them and
-https://amzn.github.io/ion-docs/[Amazon Ion]. Since the  example needs an input format, a result
-format and a format for the state store and some format have alternate implementations we have 4,913
-(17^3^) different combinations which are all tested.
+https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them,
+https://thrift.apache.org[Apache Thrift] and https://amzn.github.io/ion-docs/[Amazon Ion]. Since the
+example needs an input format, a result format, a format for the state store and some format have
+alternate implementations we have 4,913 (17^3^) different combinations which are all tested.
 
 While this abstraction might not be necessary in practice, it demonstrates two important design
 considerations:
@@ -165,10 +165,10 @@ The main app runs with JSON in- and output, so you can use sample sensor values 
 
 [source,json lines]
 ----
-{"id":"7331","time":443634300.0,"state":"off"}
-{"id":"7331","time":443634310.0,"state":"off"}
-{"id":"7331","time":443634330.0,"state":"on"}
-{"id":"7331","time":443634390.0,"state":"off"}
+{"id":"7331", "time":443634300.0, "position":"off"}
+{"id":"7331", "time":443634310.0, "position":"off"}
+{"id":"7331", "time":443634330.0, "position":"on"}
+{"id":"7331", "time":443634390.0, "position":"off"}
 ----
 
 === Benchmark

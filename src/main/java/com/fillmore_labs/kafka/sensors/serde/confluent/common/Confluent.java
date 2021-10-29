@@ -9,14 +9,4 @@ import javax.inject.Qualifier;
 @Qualifier
 @Documented
 @Retention(RUNTIME)
-public @interface Confluent {
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  @interface SensorState {}
-
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  @interface SensorStateDuration {}
-}
+public @interface Confluent {}

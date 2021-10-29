@@ -6,9 +6,9 @@ java_library(
     javacopts = ["-AskipDefs=\\.Immutable[A-Z][A-Za-z0-9]*$$"],
     visibility = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/ion:__subpackages__",
+        "//src/test:__subpackages__",
     ],
     deps = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/converter",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/ion",
         "//toolchain:checker",
         "//toolchain:dagger",

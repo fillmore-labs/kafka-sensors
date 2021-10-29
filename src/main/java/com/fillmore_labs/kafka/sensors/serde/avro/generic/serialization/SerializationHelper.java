@@ -17,8 +17,7 @@ public final class SerializationHelper {
     SENSOR_STATE_ENCODER =
         new BinaryMessageEncoder<>(SensorStateSchema.MODEL, SensorStateSchema.SCHEMA);
     SENSOR_STATE_DURATION_ENCODER =
-        new BinaryMessageEncoder<>(
-            SensorStateDurationSchema.MODEL, SensorStateDurationSchema.SCHEMA);
+        new BinaryMessageEncoder<>(StateDurationSchema.MODEL, StateDurationSchema.SCHEMA);
   }
 
   private SerializationHelper() {}
@@ -30,9 +29,9 @@ public final class SerializationHelper {
   }
 
   @SuppressWarnings("nullness:argument")
-  public static MessageDecoder<GenericRecord> createSensorStateDurationDecoder(
+  public static MessageDecoder<GenericRecord> createStateDurationDecoder(
       @Nullable SchemaStore resolver) {
     return new BinaryMessageDecoder<>(
-        SensorStateDurationSchema.MODEL, SensorStateDurationSchema.SCHEMA, resolver);
+        StateDurationSchema.MODEL, StateDurationSchema.SCHEMA, resolver);
   }
 }

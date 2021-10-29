@@ -9,6 +9,5 @@ java_library(
         "//toolchain:checker",
         "//toolchain:dagger",
         "@maven//:com_google_errorprone_error_prone_annotations",
-        "@maven//:org_apache_kafka_kafka_streams",
     ],
 )

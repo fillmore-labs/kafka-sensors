@@ -21,7 +21,7 @@ alias(
 
 alias(
     name = "classcheck",
-    actual = "//src/main/java/com/fillmore_labs/kafka/sensors/app:classcheck",
+    actual = "//src/main/java/com/fillmore_labs/kafka/sensors/classcheck",
 )
 
 alias(

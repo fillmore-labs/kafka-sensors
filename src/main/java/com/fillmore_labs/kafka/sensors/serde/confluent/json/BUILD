@@ -3,10 +3,7 @@ load("@rules_java//java:defs.bzl", "java_library")
 java_library(
     name = "json",
     srcs = glob(["*.java"]),
-    visibility = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent:__pkg__",
-        "//src/test:__subpackages__",
-    ],
+    visibility = ["//visibility:public"],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",

@@ -1,8 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization;
 
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateDurationSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.EventSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateSchema;
-import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
 import com.fillmore_labs.kafka.sensors.serde.serializer.confluent.GenericAvroDeserializer;
 import dagger.Module;
@@ -18,6 +18,28 @@ import org.apache.kafka.common.serialization.Serializer;
 @Module
 public abstract class SerializationModule {
   private SerializationModule() {}
+
+  @Provides
+  @Confluent.Event
+  /* package */ static Serializer<GenericRecord> eventSerializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config = serializerConfig(registryUrl);
+
+    var serializer = new GenericAvroSerializer();
+    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
+    return serializer;
+  }
+
+  @Provides
+  @Confluent.Event
+  /* package */ static Deserializer<GenericRecord> eventDeserializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config = serializerConfig(registryUrl);
+
+    var deserializer = new GenericAvroDeserializer(EventSchema.SCHEMA);
+    deserializer.configure(config, /* isKey= */ false);
+    return deserializer;
+  }
 
   @Provides
   @Confluent.SensorState
@@ -42,8 +64,8 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @Confluent.SensorStateDuration
-  /* package */ static Serializer<GenericRecord> sensorStateDurationSerializer(
+  @Confluent.StateDuration
+  /* package */ static Serializer<GenericRecord> stateDurationSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = serializerConfig(registryUrl);
 
@@ -53,12 +75,12 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @Confluent.SensorStateDuration
-  /* package */ static Deserializer<GenericRecord> sensorStateDurationDeserializer(
+  @Confluent.StateDuration
+  /* package */ static Deserializer<GenericRecord> stateDurationDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = serializerConfig(registryUrl);
 
-    var deserializer = new GenericAvroDeserializer(SensorStateDurationSchema.SCHEMA);
+    var deserializer = new GenericAvroDeserializer(StateDurationSchema.SCHEMA);
     deserializer.configure(config, /* isKey= */ false);
     return deserializer;
   }

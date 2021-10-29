@@ -1,56 +1,71 @@
 [
   {
-    "name": "State",
+    "name": "Event",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
-    "type": "enum",
-    "doc": "New state of the sensor",
-    "aliases": [
-      "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateReflect.State",
-      "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.SensorStateReflect.State"
-    ],
-    "symbols": [
-      "OFF",
-      "ON"
+    "type": "record",
+    "doc": "Measurement",
+    "fields": [
+      {
+        "name": "time",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-nanos"
+        }
+      },
+      {
+        "name": "position",
+        "type": {
+          "name": "Position",
+          "namespace": "com.fillmore_labs.kafka.sensors.avro",
+          "type": "enum",
+          "doc": "Position of a sensor",
+          "aliases": [
+            "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.EventReflect.Position",
+            "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.EventReflect.Position"
+          ],
+          "symbols": [
+            "OFF",
+            "ON"
+          ]
+        }
+      }
     ]
   },
   {
     "name": "SensorState",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
     "type": "record",
-    "doc": "State change of a sensor",
+    "doc": "State of a sensor",
     "fields": [
       {
         "name": "id",
         "type": "string"
       },
       {
-        "name": "time",
-        "type": {
-          "type": "long",
-          "logicalType": "timestamp-micros"
-        }
-      },
-      {
-        "name": "state",
-        "type": "State"
+        "name": "event",
+        "type": "Event"
       }
     ]
   },
   {
-    "name": "SensorStateDuration",
+    "name": "StateDuration",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
     "type": "record",
-    "doc": "Duration a sensor was in this state",
+    "doc": "Duration a sensor was in this position",
     "fields": [
       {
+        "name": "id",
+        "type": "string"
+      },
+      {
         "name": "event",
-        "type": "SensorState"
+        "type": "Event"
       },
       {
         "name": "duration",
         "type": {
           "type": "long",
-          "logicalType": "duration-micros"
+          "logicalType": "duration-nanos"
         }
       }
     ]

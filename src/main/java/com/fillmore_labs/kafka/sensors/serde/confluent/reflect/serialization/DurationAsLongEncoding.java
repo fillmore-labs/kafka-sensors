@@ -1,7 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization;
 
-import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.DurationMicroHelper;
-import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.DurationMicrosConversion;
+import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.DurationNanosConversion;
 import java.io.IOException;
 import java.time.Duration;
 import org.apache.avro.Schema;
@@ -17,18 +16,18 @@ public final class DurationAsLongEncoding extends CustomEncoding<Duration> {
   public DurationAsLongEncoding() {
     super();
     super.schema =
-        DurationMicrosConversion.durationMicros().addToSchema(Schema.create(Schema.Type.LONG));
+        DurationNanosConversion.durationNanos().addToSchema(Schema.create(Schema.Type.LONG));
   }
 
   @Override
   protected void write(Object datum, Encoder out) throws IOException {
-    var value = DurationMicroHelper.duration2Micros((Duration) datum);
+    var value = ((Duration) datum).toNanos();
     out.writeLong(value);
   }
 
   @Override
   protected Duration read(Object reuse, Decoder in) throws IOException {
     var value = in.readLong();
-    return DurationMicroHelper.micros2Duration(value);
+    return Duration.ofNanos(value);
   }
 }

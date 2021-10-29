@@ -103,7 +103,8 @@ public final class EmbeddedKafka extends ExternalResource {
     var props = createProperties(logDir, ports);
 
     var clusterId = UUID.randomUUID();
-    EmbeddedKafkaHelper.formatStorage(props, clusterId);
+    // EmbeddedKafkaHelper.formatStorage(props, clusterId);
+    EmbeddedKafkaHelper.formatStorage(logDir, clusterId, NODE_ID);
 
     var config = new KafkaConfig(props, /* doLog= */ false);
     kafka = new KafkaRaftServer(config, Time.SYSTEM, Option.empty());

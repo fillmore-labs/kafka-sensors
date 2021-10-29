@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin.serialization;
 
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.Component;
 import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -18,8 +18,8 @@ public interface TestComponent {
   Deserializer<SensorState> deserializer();
 
   @MixIn
-  Serializer<SensorStateDuration> serializerDuration();
+  Serializer<StateDuration> serializerDuration();
 
   @MixIn
-  Deserializer<SensorStateDuration> deserializerDuration();
+  Deserializer<StateDuration> deserializerDuration();
 }

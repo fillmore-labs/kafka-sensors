@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.interop.context.TestComponent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.interop.context.TestComponent.SingleTestComponent;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -16,8 +16,8 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public final class Avro2ConfluentTest {
   private final Recoder recoder;
-  private final Serializer<SensorStateDuration> serializer;
-  private final Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<StateDuration> serializer;
+  private final Deserializer<StateDuration> deserializer;
 
   public Avro2ConfluentTest(String description, SingleTestComponent singleTestComponent) {
     this.recoder = singleTestComponent.recoder();
@@ -32,7 +32,7 @@ public final class Avro2ConfluentTest {
 
   @Test
   public void testReverseInterop() {
-    var sensorState = TestHelper.standardSensorStateDuration();
+    var sensorState = TestHelper.standardStateDuration();
 
     var encoded = serializer.serialize(TestHelper.KAFKA_TOPIC, sensorState);
 

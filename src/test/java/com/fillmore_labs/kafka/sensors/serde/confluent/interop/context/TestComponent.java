@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Recoder;
@@ -35,9 +35,9 @@ public interface TestComponent {
   interface SingleTestComponent {
     Recoder recoder();
 
-    Serializer<SensorStateDuration> serializer();
+    Serializer<StateDuration> serializer();
 
-    Deserializer<SensorStateDuration> deserializer();
+    Deserializer<StateDuration> deserializer();
 
     @Subcomponent.Builder
     interface Builder {
@@ -61,8 +61,8 @@ public interface TestComponent {
     private SingleTestModule() {}
 
     @Provides
-    /* package */ static Serializer<SensorStateDuration> serializerDuration(
-        @Serialization String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
+    /* package */ static Serializer<StateDuration> serializerDuration(
+        @Serialization String format, Map<String, Serde<StateDuration>> serdeMap) {
       var serde = serdeMap.get(format);
       if (serde == null) {
         throw new IllegalArgumentException(String.format("Unknown format: %s", format));
@@ -71,8 +71,8 @@ public interface TestComponent {
     }
 
     @Provides
-    /* package */ static Deserializer<SensorStateDuration> deserializerDuration(
-        @Deserialization String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
+    /* package */ static Deserializer<StateDuration> deserializerDuration(
+        @Deserialization String format, Map<String, Serde<StateDuration>> serdeMap) {
       var serde = serdeMap.get(format);
       if (serde == null) {
         throw new IllegalArgumentException(String.format("Unknown format: %s", format));

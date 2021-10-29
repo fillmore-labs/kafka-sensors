@@ -36,17 +36,15 @@ public final class Parameters implements Iterable<Object[]> {
     return formats.stream()
         .flatMap(
             serializer ->
-                formats.stream().map(deserializer -> createParam(serializer, deserializer)));
+                formats.stream()
+                    .map(deserializer -> new SingleTestModule.Formats(serializer, deserializer)))
+        .map(this::createParam);
   }
 
-  private Object[] createParam(String serializer, String deserializer) {
+  private Object[] createParam(SingleTestModule.Formats formats) {
     return new Object[] {
-      serializer + " -> " + deserializer,
-      singleTestComponentBuilder
-          .get()
-          .serializationFormat(serializer)
-          .deserializationFormat(deserializer)
-          .build()
+      formats.serialization() + " -> " + formats.deserialization(),
+      singleTestComponentBuilder.get().formats(formats).build()
     };
   }
 }

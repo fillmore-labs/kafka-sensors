@@ -1,11 +1,13 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.reflect;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateDurationReflect;
+import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.EventReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SerializationModule;
+import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.StateDurationReflect;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -28,14 +30,20 @@ public abstract class ReflectModule {
 
   @Provides
   @IntoSet
+  /* package */ static Schema eventSchema() {
+    return EventReflect.SCHEMA;
+  }
+
+  @Provides
+  @IntoSet
   /* package */ static Schema sensorStateSchema() {
     return SensorStateReflect.SCHEMA;
   }
 
   @Provides
   @IntoSet
-  /* package */ static Schema sensorStateDurationSchema() {
-    return SensorStateDurationReflect.SCHEMA;
+  /* package */ static Schema stateDurationSchema() {
+    return StateDurationReflect.SCHEMA;
   }
 
   @Provides
@@ -44,6 +52,15 @@ public abstract class ReflectModule {
   @StringKey(AVRO_REFLECT)
   /* package */ static String encoding() {
     return "avro";
+  }
+
+  @Provides
+  @Named(AVRO_REFLECT)
+  /* package */ static Serde<Event> eventSerde(
+      Serializer<EventReflect> serializer,
+      Deserializer<EventReflect> deserializer,
+      BiMapper<Event, EventReflect> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
   @Provides
@@ -57,12 +74,17 @@ public abstract class ReflectModule {
 
   @Provides
   @Named(AVRO_REFLECT)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      Serializer<SensorStateDurationReflect> serializer,
-      Deserializer<SensorStateDurationReflect> deserializer,
-      BiMapper<SensorStateDuration, SensorStateDurationReflect> mapper) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      Serializer<StateDurationReflect> serializer,
+      Deserializer<StateDurationReflect> deserializer,
+      BiMapper<StateDuration, StateDurationReflect> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(AVRO_REFLECT)
+  /* package */ abstract Serde<Event> avroReflectEvent(@Named(AVRO_REFLECT) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -73,6 +95,6 @@ public abstract class ReflectModule {
   @Binds
   @IntoMap
   @StringKey(AVRO_REFLECT)
-  /* package */ abstract Serde<SensorStateDuration> avroReflectDuration(
-      @Named(AVRO_REFLECT) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> avroReflectDuration(
+      @Named(AVRO_REFLECT) Serde<StateDuration> serde);
 }

@@ -15,7 +15,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/converter",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/gson/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping:mapstruct",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
         "//toolchain:checker",
         "//toolchain:dagger",

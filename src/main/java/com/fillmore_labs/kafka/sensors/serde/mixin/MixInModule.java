@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.mixin.serialization.MixIn;
 import com.fillmore_labs.kafka.sensors.serde.mixin.serialization.SerializationModule;
 import dagger.Binds;
@@ -25,8 +26,15 @@ public abstract class MixInModule {
   @IntoMap
   @Named("encoding")
   @StringKey(MIXIN)
-  /* package */ static String encodingText() {
+  /* package */ static String encoding() {
     return "json";
+  }
+
+  @Provides
+  @Named(MIXIN)
+  /* package */ static Serde<Event> eventSerde(
+      @MixIn Serializer<Event> serializer, @MixIn Deserializer<Event> deserializer) {
+    return Serdes.serdeFrom(serializer, deserializer);
   }
 
   @Provides
@@ -38,11 +46,16 @@ public abstract class MixInModule {
 
   @Provides
   @Named(MIXIN)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      @MixIn Serializer<SensorStateDuration> serializer,
-      @MixIn Deserializer<SensorStateDuration> deserializer) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      @MixIn Serializer<StateDuration> serializer,
+      @MixIn Deserializer<StateDuration> deserializer) {
     return Serdes.serdeFrom(serializer, deserializer);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(MIXIN)
+  /* package */ abstract Serde<Event> mixinEvent(@Named(MIXIN) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -52,6 +65,6 @@ public abstract class MixInModule {
   @Binds
   @IntoMap
   @StringKey(MIXIN)
-  /* package */ abstract Serde<SensorStateDuration> mixinDuration(
-      @Named(MIXIN) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> mixinDuration(
+      @Named(MIXIN) Serde<StateDuration> serde);
 }

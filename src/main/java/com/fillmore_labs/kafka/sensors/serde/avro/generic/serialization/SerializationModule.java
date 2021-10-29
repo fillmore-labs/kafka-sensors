@@ -16,6 +16,19 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
+  @Avro.Event
+  /* package */ static Serializer<GenericRecord> eventSerializer() {
+    return new AvroSerializer<>(EventSchema.MODEL, EventSchema.SCHEMA);
+  }
+
+  @Provides
+  @Avro.Event
+  /* package */ static Deserializer<GenericRecord> eventDeserializer(
+      Optional<SchemaStore> resolver) {
+    return new AvroDeserializer<>(EventSchema.MODEL, EventSchema.SCHEMA, resolver.orNull());
+  }
+
+  @Provides
   @Avro.SensorState
   /* package */ static Serializer<GenericRecord> sensorStateSerializer() {
     return new AvroSerializer<>(SensorStateSchema.MODEL, SensorStateSchema.SCHEMA);
@@ -30,17 +43,17 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @Avro.SensorStateDuration
-  /* package */ static Serializer<GenericRecord> sensorStateDurationSerializer() {
-    return new AvroSerializer<>(SensorStateDurationSchema.MODEL, SensorStateDurationSchema.SCHEMA);
+  @Avro.StateDuration
+  /* package */ static Serializer<GenericRecord> stateDurationSerializer() {
+    return new AvroSerializer<>(StateDurationSchema.MODEL, StateDurationSchema.SCHEMA);
   }
 
   @Provides
-  @Avro.SensorStateDuration
-  /* package */ static Deserializer<GenericRecord> sensorStateDurationDeserializer(
+  @Avro.StateDuration
+  /* package */ static Deserializer<GenericRecord> stateDurationDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
-        SensorStateDurationSchema.MODEL, SensorStateDurationSchema.SCHEMA, resolver.orNull());
+        StateDurationSchema.MODEL, StateDurationSchema.SCHEMA, resolver.orNull());
   }
 
   @BindsOptionalOf

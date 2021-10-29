@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.ImmutableEvent;
 import com.fillmore_labs.kafka.sensors.model.ImmutableSensorState;
-import com.fillmore_labs.kafka.sensors.model.ImmutableSensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.ImmutableStateDuration;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonSerializer;
 import dagger.Module;
@@ -27,13 +29,26 @@ public abstract class SerializationModule {
   /* package */ static ObjectMapper mixInMapper() {
     return JsonMapper.builder()
         .addModules(new Jdk8Module(), new JavaTimeModule(), new GuavaModule())
+        .addMixIn(Event.class, EventMixIn.class)
+        .addMixIn(Event.Position.class, EventMixIn.PositionMixIn.class)
+        .addMixIn(ImmutableEvent.Builder.class, EventMixIn.BuilderMixIn.class)
         .addMixIn(SensorState.class, SensorStateMixIn.class)
-        .addMixIn(SensorState.State.class, SensorStateMixIn.StateMixIn.class)
         .addMixIn(ImmutableSensorState.Builder.class, SensorStateMixIn.BuilderMixIn.class)
-        .addMixIn(SensorStateDuration.class, SensorStateDurationMixIn.class)
-        .addMixIn(
-            ImmutableSensorStateDuration.Builder.class, SensorStateDurationMixIn.BuilderMixIn.class)
+        .addMixIn(StateDuration.class, StateDurationMixIn.class)
+        .addMixIn(ImmutableStateDuration.Builder.class, StateDurationMixIn.BuilderMixIn.class)
         .build();
+  }
+
+  @Provides
+  @MixIn
+  /* package */ static Serializer<Event> eventSerializer(@MixIn ObjectMapper mapper) {
+    return new JsonSerializer<>(mapper, Event.class);
+  }
+
+  @Provides
+  @MixIn
+  /* package */ static Deserializer<Event> eventDeserializer(@MixIn ObjectMapper mapper) {
+    return new JsonDeserializer<>(mapper, Event.class);
   }
 
   @Provides
@@ -51,15 +66,15 @@ public abstract class SerializationModule {
 
   @Provides
   @MixIn
-  /* package */ static Serializer<SensorStateDuration> sensorStateDurationSerializer(
+  /* package */ static Serializer<StateDuration> stateDurationSerializer(
       @MixIn ObjectMapper mapper) {
-    return new JsonSerializer<>(mapper, SensorStateDuration.class);
+    return new JsonSerializer<>(mapper, StateDuration.class);
   }
 
   @Provides
   @MixIn
-  /* package */ static Deserializer<SensorStateDuration> sensorStateDurationDeserializer(
+  /* package */ static Deserializer<StateDuration> stateDurationDeserializer(
       @MixIn ObjectMapper mapper) {
-    return new JsonDeserializer<>(mapper, SensorStateDuration.class);
+    return new JsonDeserializer<>(mapper, StateDuration.class);
   }
 }

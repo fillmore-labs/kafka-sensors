@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.specific_faster;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
@@ -25,13 +26,22 @@ public abstract class ConfluentSpecificFasterModule {
   @IntoMap
   @Named("encoding")
   @StringKey(CONFLUENT_SPECIFIC_FASTER)
-  /* package */ static String encodingDirect() {
+  /* package */ static String encoding() {
     return "confluent/avro";
   }
 
   @Provides
   @Named(CONFLUENT_SPECIFIC_FASTER)
-  /* package */ static Serde<SensorState> sensorStateDirectSerde(
+  /* package */ static Serde<Event> eventSerde(
+      @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.Event> serializer,
+      @Confluent Deserializer<com.fillmore_labs.kafka.sensors.avro.Event> deserializer,
+      @Named("faster") BiMapper<Event, com.fillmore_labs.kafka.sensors.avro.Event> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
+  }
+
+  @Provides
+  @Named(CONFLUENT_SPECIFIC_FASTER)
+  /* package */ static Serde<SensorState> sensorStateSerde(
       @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.SensorState> serializer,
       @Confluent Deserializer<com.fillmore_labs.kafka.sensors.avro.SensorState> deserializer,
       @Named("faster")
@@ -41,25 +51,29 @@ public abstract class ConfluentSpecificFasterModule {
 
   @Provides
   @Named(CONFLUENT_SPECIFIC_FASTER)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationDirectSerde(
-      @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.SensorStateDuration> serializer,
-      @Confluent
-          Deserializer<com.fillmore_labs.kafka.sensors.avro.SensorStateDuration> deserializer,
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.StateDuration> serializer,
+      @Confluent Deserializer<com.fillmore_labs.kafka.sensors.avro.StateDuration> deserializer,
       @Named("faster")
-          BiMapper<SensorStateDuration, com.fillmore_labs.kafka.sensors.avro.SensorStateDuration>
-              mapper) {
+          BiMapper<StateDuration, com.fillmore_labs.kafka.sensors.avro.StateDuration> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
   @Binds
   @IntoMap
   @StringKey(CONFLUENT_SPECIFIC_FASTER)
-  /* package */ abstract Serde<SensorState> confluentDirect(
+  /* package */ abstract Serde<Event> confluentSpecificFasterEvent(
+      @Named(CONFLUENT_SPECIFIC_FASTER) Serde<Event> serde);
+
+  @Binds
+  @IntoMap
+  @StringKey(CONFLUENT_SPECIFIC_FASTER)
+  /* package */ abstract Serde<SensorState> confluentSpecificFaster(
       @Named(CONFLUENT_SPECIFIC_FASTER) Serde<SensorState> serde);
 
   @Binds
   @IntoMap
   @StringKey(CONFLUENT_SPECIFIC_FASTER)
-  /* package */ abstract Serde<SensorStateDuration> confluentDirectDuration(
-      @Named(CONFLUENT_SPECIFIC_FASTER) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> confluentSpecificFasterDuration(
+      @Named(CONFLUENT_SPECIFIC_FASTER) Serde<StateDuration> serde);
 }

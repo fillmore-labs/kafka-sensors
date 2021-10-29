@@ -21,6 +21,18 @@ public abstract class SerializationModule {
   }
 
   @Provides
+  /* package */ static Serializer<EventGson> eventSerializer(Gson gson) {
+    var adapter = gson.getAdapter(EventGson.class);
+    return new GsonSerializer<>(adapter);
+  }
+
+  @Provides
+  /* package */ static Deserializer<EventGson> eventDeserializer(Gson gson) {
+    var adapter = gson.getAdapter(EventGson.class);
+    return new GsonDeserializer<>(adapter);
+  }
+
+  @Provides
   /* package */ static Serializer<SensorStateGson> sensorStateSerializer(Gson gson) {
     var adapter = gson.getAdapter(SensorStateGson.class);
     return new GsonSerializer<>(adapter);
@@ -33,16 +45,14 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<SensorStateDurationGson> sensorStateDurationSerializer(
-      Gson gson) {
-    var adapter = gson.getAdapter(SensorStateDurationGson.class);
+  /* package */ static Serializer<StateDurationGson> stateDurationSerializer(Gson gson) {
+    var adapter = gson.getAdapter(StateDurationGson.class);
     return new GsonSerializer<>(adapter);
   }
 
   @Provides
-  /* package */ static Deserializer<SensorStateDurationGson> sensorStateDurationDeserializer(
-      Gson gson) {
-    var adapter = gson.getAdapter(SensorStateDurationGson.class);
+  /* package */ static Deserializer<StateDurationGson> stateDurationDeserializer(Gson gson) {
+    var adapter = gson.getAdapter(StateDurationGson.class);
     return new GsonDeserializer<>(adapter);
   }
 }

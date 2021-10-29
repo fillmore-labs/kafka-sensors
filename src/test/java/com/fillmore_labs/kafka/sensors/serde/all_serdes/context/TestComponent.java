@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
@@ -21,9 +22,11 @@ public interface TestComponent {
   @Named("encoding")
   Map<String, String> encodings();
 
+  Map<String, Serde<Event>> serdeMapEvent();
+
   Map<String, Serde<SensorState>> serdeMap();
 
-  Map<String, Serde<SensorStateDuration>> serdeDurationMap();
+  Map<String, Serde<StateDuration>> serdeDurationMap();
 
   Parameters parameters();
 

@@ -6,37 +6,32 @@ import static org.junit.Assert.assertThrows;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.avro.AvroTypeException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ @MonotonicNonNull Serializer<SensorStateDurationReflect> serializer;
-  @Inject /* package */ @MonotonicNonNull Deserializer<SensorStateDurationReflect> deserializer;
+  private final Serializer<StateDurationReflect> serializer;
+  private final Deserializer<StateDurationReflect> deserializer;
 
-  @Before
-  public void before() {
+  public SerializationTest() {
     var testComponent = TestComponent.create();
-    testComponent.inject(this);
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
-    var event = new SensorStateReflect();
-    event.id = "7331";
+    var event = new EventReflect();
     event.time = INSTANT;
-    event.state = SensorStateReflect.State.ON;
+    event.position = EventReflect.Position.ON;
 
-    var sensorState = new SensorStateDurationReflect();
+    var sensorState = new StateDurationReflect();
+    sensorState.id = "7331";
     sensorState.event = event;
     sensorState.duration = Duration.ofSeconds(15);
 
@@ -53,13 +48,12 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull("serializer")
-  public void stateIsRequired() {
-    var event = new SensorStateReflect();
-    event.id = "7331";
+  public void positionIsRequired() {
+    var event = new EventReflect();
     event.time = INSTANT;
 
-    var sensorState = new SensorStateDurationReflect();
+    var sensorState = new StateDurationReflect();
+    sensorState.id = "7331";
     sensorState.event = event;
     sensorState.duration = Duration.ofSeconds(15);
 
@@ -73,6 +67,8 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    Serializer<StateDurationReflect> serializer();
+
+    Deserializer<StateDurationReflect> deserializer();
   }
 }

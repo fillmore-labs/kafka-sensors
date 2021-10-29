@@ -1,8 +1,9 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.generic.mapper;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Binds;
 import dagger.Module;
@@ -14,14 +15,19 @@ public abstract class MapperModule {
   private MapperModule() {}
 
   @Binds
-  @Confluent
   @Singleton
+  @Confluent
+  /* package */ abstract BiMapper<Event, GenericRecord> eventBiMapper(EventMapper mapper);
+
+  @Binds
+  @Singleton
+  @Confluent
   /* package */ abstract BiMapper<SensorState, GenericRecord> sensorStateBiMapper(
       SensorStateMapper mapper);
 
   @Binds
-  @Confluent
   @Singleton
-  /* package */ abstract BiMapper<SensorStateDuration, GenericRecord> sensorStateDurationBiMapper(
-      SensorStateDurationMapper mapper);
+  @Confluent
+  /* package */ abstract BiMapper<StateDuration, GenericRecord> stateDurationBiMapper(
+      StateDurationMapper mapper);
 }

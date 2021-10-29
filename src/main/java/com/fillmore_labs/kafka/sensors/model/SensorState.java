@@ -1,7 +1,6 @@
 package com.fillmore_labs.kafka.sensors.model;
 
 import com.google.errorprone.annotations.Immutable;
-import java.time.Instant;
 import org.immutables.value.Value;
 
 @Immutable
@@ -16,12 +15,5 @@ public abstract class SensorState implements WithSensorState {
 
   public abstract String getId();
 
-  public abstract Instant getTime();
-
-  public abstract State getState();
-
-  public enum State {
-    OFF,
-    ON
-  }
+  public abstract Event getEvent();
 }

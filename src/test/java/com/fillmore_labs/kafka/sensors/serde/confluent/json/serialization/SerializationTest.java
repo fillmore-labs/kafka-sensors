@@ -4,48 +4,47 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateDurationJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson.Position;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final String TOPIC = "topic";
-  @Inject @Confluent /* package */ @MonotonicNonNull Serializer<SensorStateDurationJson> serializer;
 
-  @Inject @Confluent /* package */ @MonotonicNonNull
-  Deserializer<SensorStateDurationJson> deserializer;
+  private final Serializer<StateWithDurationJson> serializer;
+  private final Deserializer<StateWithDurationJson> deserializer;
 
-  private static SensorStateDurationJson sampleSensorStateDuration() {
-    var event =
-        SensorStateJson.builder()
-            .id("7331")
-            .time(Instant.ofEpochSecond(443634300L))
-            .state(SensorStateJson.State.ON)
-            .build();
-    return SensorStateDurationJson.builder().event(event).duration(Duration.ofSeconds(15)).build();
-  }
-
-  @Before
-  public void before() {
-    TestComponent.create().inject(this);
+  public SerializationTest() {
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
-    var sensorState = sampleSensorStateDuration();
+    var event =
+        EventJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
+
+    var sensorState =
+        StateWithDurationJson.builder()
+            .id("7331")
+            .event(event)
+            .duration(Duration.ofSeconds(15))
+            .build();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
+
+    // Check for “Magic Byte”
+    // https://docs.confluent.io/current/schema-registry/serializer-formatter.html#wire-format
+    assertThat(encoded[0]).isEqualTo((byte) 0);
+
     var decoded = deserializer.deserialize(TOPIC, encoded);
 
     assertThat(decoded).isEqualTo(sensorState);
@@ -58,6 +57,10 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    @Confluent
+    Serializer<StateWithDurationJson> serializer();
+
+    @Confluent
+    Deserializer<StateWithDurationJson> deserializer();
   }
 }

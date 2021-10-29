@@ -5,16 +5,9 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.Sen
 import com.fillmore_labs.kafka.sensors.serde.mapping.MapStructConfig;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
-import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class)
+@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
 /* package */ abstract class SensorStateMapper
-    implements BiMapper<SensorState, SensorStateReflect> {
-  @Override
-  public abstract @PolyNull SensorStateReflect map(@PolyNull SensorState model);
-
-  @Override
-  public abstract @PolyNull SensorState unmap(@PolyNull SensorStateReflect data);
-}
+    implements BiMapper<SensorState, SensorStateReflect> {}

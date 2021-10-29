@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.specific.serialization;
 
+import com.fillmore_labs.kafka.sensors.avro.Event;
 import com.fillmore_labs.kafka.sensors.avro.SensorState;
-import com.fillmore_labs.kafka.sensors.avro.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.avro.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroSerializer;
 import com.google.common.base.Optional;
@@ -17,6 +18,17 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
+  /* package */ static Serializer<Event> eventSerializer() {
+    return new AvroSerializer<>(Event.getEncoder());
+  }
+
+  @Provides
+  @SuppressWarnings({"CloseableProvides", "nullness:argument"})
+  /* package */ static Deserializer<Event> eventDeserializer(Optional<SchemaStore> resolver) {
+    return new AvroDeserializer<>(Event.createDecoder(resolver.orNull()));
+  }
+
+  @Provides
   /* package */ static Serializer<SensorState> sensorStateSerializer() {
     return new AvroSerializer<>(SensorState.getEncoder());
   }
@@ -29,15 +41,15 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<SensorStateDuration> sensorStateDurationSerializer() {
-    return new AvroSerializer<>(SensorStateDuration.getEncoder());
+  /* package */ static Serializer<StateDuration> stateDurationSerializer() {
+    return new AvroSerializer<>(StateDuration.getEncoder());
   }
 
   @Provides
   @SuppressWarnings({"CloseableProvides", "nullness:argument"})
-  /* package */ static Deserializer<SensorStateDuration> sensorStateDurationDeserializer(
+  /* package */ static Deserializer<StateDuration> stateDurationDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(SensorStateDuration.createDecoder(resolver.orNull()));
+    return new AvroDeserializer<>(StateDuration.createDecoder(resolver.orNull()));
   }
 
   @BindsOptionalOf

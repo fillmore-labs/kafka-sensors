@@ -16,6 +16,24 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
+  /* package */ static Serializer<EventReflect> eventSerializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
+    var serializer = new ReflectionAvroSerializer<EventReflect>();
+    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
+    return serializer;
+  }
+
+  @Provides
+  /* package */ static Deserializer<EventReflect> eventDeserializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
+    var deserializer = new ReflectionAvroDeserializer<>(EventReflect.class);
+    deserializer.configure(config, /* isDeserializerForRecordKeys= */ false);
+    return deserializer;
+  }
+
+  @Provides
   /* package */ static Serializer<SensorStateReflect> sensorStateSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
@@ -34,19 +52,19 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<SensorStateDurationReflect> sensorStateDurationSerializer(
+  /* package */ static Serializer<StateDurationReflect> stateDurationSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
-    var serializer = new ReflectionAvroSerializer<SensorStateDurationReflect>();
+    var serializer = new ReflectionAvroSerializer<StateDurationReflect>();
     serializer.configure(config, /* isSerializerForRecordKeys= */ false);
     return serializer;
   }
 
   @Provides
-  /* package */ static Deserializer<SensorStateDurationReflect> sensorStateDurationDeserializer(
+  /* package */ static Deserializer<StateDurationReflect> stateDurationDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
-    var deserializer = new ReflectionAvroDeserializer<>(SensorStateDurationReflect.class);
+    var deserializer = new ReflectionAvroDeserializer<>(StateDurationReflect.class);
     deserializer.configure(config, /* isDeserializerForRecordKeys= */ false);
     return deserializer;
   }

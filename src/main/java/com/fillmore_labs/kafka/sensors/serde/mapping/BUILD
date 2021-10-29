@@ -9,16 +9,11 @@ java_plugin(
 )
 
 java_library(
-    name = "mapstruct",
+    name = "mapping",
+    srcs = glob(["*.java"]),
     exported_plugins = ["mapstruct_processor"],
     visibility = ["//visibility:public"],
     exports = ["@maven//:org_mapstruct_mapstruct"],
-)
-
-java_library(
-    name = "mapping",
-    srcs = glob(["*.java"]),
-    visibility = ["//visibility:public"],
     deps = [
         "//toolchain:checker",
         "@maven//:com_google_errorprone_error_prone_annotations",

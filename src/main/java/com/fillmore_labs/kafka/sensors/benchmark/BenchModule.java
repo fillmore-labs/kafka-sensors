@@ -2,8 +2,7 @@ package com.fillmore_labs.kafka.sensors.benchmark;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
 import dagger.Module;
 import dagger.Provides;
@@ -21,8 +20,8 @@ import org.apache.kafka.common.serialization.Serializer;
   private BenchModule() {}
 
   @Provides
-  /* package */ static Serializer<SensorState> serializer(
-      @Format String format, Map<String, Serde<SensorState>> serdeMap) {
+  /* package */ static Serializer<StateDuration> serializerDuration(
+      @Format String format, Map<String, Serde<StateDuration>> serdeMap) {
     var serde = serdeMap.get(format);
     if (serde == null) {
       throw new IllegalArgumentException(String.format("Unknown format: %s", format));
@@ -31,28 +30,8 @@ import org.apache.kafka.common.serialization.Serializer;
   }
 
   @Provides
-  /* package */ static Deserializer<SensorState> deserializer(
-      @Format String format, Map<String, Serde<SensorState>> serdeMap) {
-    var serde = serdeMap.get(format);
-    if (serde == null) {
-      throw new IllegalArgumentException(String.format("Unknown format: %s", format));
-    }
-    return serde.deserializer();
-  }
-
-  @Provides
-  /* package */ static Serializer<SensorStateDuration> serializerDuration(
-      @Format String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
-    var serde = serdeMap.get(format);
-    if (serde == null) {
-      throw new IllegalArgumentException(String.format("Unknown format: %s", format));
-    }
-    return serde.serializer();
-  }
-
-  @Provides
-  /* package */ static Deserializer<SensorStateDuration> deserializerDuration(
-      @Format String format, Map<String, Serde<SensorStateDuration>> serdeMap) {
+  /* package */ static Deserializer<StateDuration> deserializerDuration(
+      @Format String format, Map<String, Serde<StateDuration>> serdeMap) {
     var serde = serdeMap.get(format);
     if (serde == null) {
       throw new IllegalArgumentException(String.format("Unknown format: %s", format));

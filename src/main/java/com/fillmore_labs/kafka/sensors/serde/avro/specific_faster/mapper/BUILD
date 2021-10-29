@@ -14,9 +14,7 @@ java_library(
     deps = [
         "//src/main/avro/com/fillmore_labs/kafka/sensors/avro",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/specific/mapper",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping:mapstruct",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
         "//toolchain:checker",
         "//toolchain:dagger",

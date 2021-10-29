@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import org.apache.kafka.common.serialization.Serde;
 import org.immutables.value.Value;
 
@@ -15,11 +16,11 @@ public interface TopologySettings {
 
   String inputTopic();
 
-  Serde<SensorState> storeSerde();
+  Serde<Event> storeSerde();
 
   String storeName();
 
-  Serde<SensorStateDuration> resultSerde();
+  Serde<StateDuration> resultSerde();
 
   String resultTopic();
 }

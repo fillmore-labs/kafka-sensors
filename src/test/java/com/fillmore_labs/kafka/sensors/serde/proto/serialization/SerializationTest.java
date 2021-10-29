@@ -3,43 +3,39 @@ package com.fillmore_labs.kafka.sensors.serde.proto.serialization;
 import static com.google.common.truth.extensions.proto.ProtoTruth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.v1.SensorState;
-import com.fillmore_labs.kafka.sensors.v1.SensorState.State;
-import com.fillmore_labs.kafka.sensors.v1.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.proto.v1.Event;
+import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
+import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import dagger.Component;
-import java.time.Duration;
-import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject /* package */ Serializer<SensorStateDuration> serializer;
-  @Inject /* package */ Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<StateDuration> serializer;
+  private final Deserializer<StateDuration> deserializer;
 
   public SerializationTest() {
-    TestComponent.create().inject(this);
-    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
   public void canDecode() {
     var event =
-        SensorState.newBuilder()
-            .setId("7331")
-            .setTime(ProtoTypesMapper.instant2Timestamp(INSTANT))
-            .setState(State.STATE_ON);
+        Event.newBuilder()
+            .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+            .setPosition(Event.Position.POSITION_ON);
 
     var sensorState =
-        SensorStateDuration.newBuilder()
+        StateDuration.newBuilder()
+            .setId("3771")
             .setEvent(event)
-            .setDuration(ProtoTypesMapper.duration2Duration(Duration.ofSeconds(15)))
+            .setDuration(Duration.newBuilder().setSeconds(15L))
             .build();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -55,10 +51,9 @@ public final class SerializationTest {
     assertThrows(
         NullPointerException.class,
         () ->
-            SensorState.newBuilder()
-                .setId("7331")
-                .setTime(ProtoTypesMapper.instant2Timestamp(INSTANT))
-                .setState(null)
+            Event.newBuilder()
+                .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+                .setPosition(null)
                 .build());
   }
 
@@ -68,6 +63,8 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(@UnknownInitialization SerializationTest test);
+    Serializer<StateDuration> serializer();
+
+    Deserializer<StateDuration> deserializer();
   }
 }

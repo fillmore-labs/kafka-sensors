@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package fillmore_labs.kafka.sensors.proto.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "protov1";
+option java_multiple_files = true;
+option java_outer_classname = "SensorStateProto";
+option java_package = "com.fillmore_labs.kafka.sensors.proto.v1";
+
+// Measurement.
+message Event {
+  google.protobuf.Timestamp time = 1;
+
+  // Position of a sensor.
+  enum Position {
+    POSITION_UNSPECIFIED = 0;
+    POSITION_OFF = 1;
+    POSITION_ON = 2;
+  }
+
+  Position position = 2;
+}
+
+// State of a sensor.
+message SensorState {
+  string id = 1;
+  Event event = 2;
+}

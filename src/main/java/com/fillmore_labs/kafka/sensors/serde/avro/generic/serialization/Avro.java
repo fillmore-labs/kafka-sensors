@@ -10,10 +10,15 @@ public @interface Avro {
   @Qualifier
   @Documented
   @Retention(RUNTIME)
+  @interface Event {}
+
+  @Qualifier
+  @Documented
+  @Retention(RUNTIME)
   @interface SensorState {}
 
   @Qualifier
   @Documented
   @Retention(RUNTIME)
-  @interface SensorStateDuration {}
+  @interface StateDuration {}
 }

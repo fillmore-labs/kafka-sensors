@@ -10,6 +10,7 @@ import com.fillmore_labs.kafka.sensors.serde.ion.IonModule;
 import com.fillmore_labs.kafka.sensors.serde.json.JsonModule;
 import com.fillmore_labs.kafka.sensors.serde.mixin.MixInModule;
 import com.fillmore_labs.kafka.sensors.serde.proto.ProtoModule;
+import com.fillmore_labs.kafka.sensors.serde.thrift.ThriftModule;
 import dagger.Module;
 
 @Module(
@@ -24,6 +25,7 @@ import dagger.Module;
       MixInModule.class,
       ProtoModule.class,
       SpecificFasterModule.class,
+      ThriftModule.class,
     })
 public abstract class AllSerdesModule {
   private AllSerdesModule() {}

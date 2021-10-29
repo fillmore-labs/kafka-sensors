@@ -13,11 +13,11 @@ java_library(
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mapping/protobuf:mapstruct",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
+        "//src/main/proto/fillmore_labs/kafka/sensors/proto/v1",
         "//toolchain:checker",
         "//toolchain:dagger",
+        "@com_google_protobuf//:protobuf_java",
         "@maven//:com_google_errorprone_error_prone_annotations",
     ],
 )

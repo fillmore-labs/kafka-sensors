@@ -1,11 +1,13 @@
 package com.fillmore_labs.kafka.sensors.serde.json;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.json.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SerializationModule;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -34,7 +36,16 @@ public abstract class JsonModule {
 
   @Provides
   @Named(JSON)
-  /* package */ static Serde<SensorState> sensorStateSerde(
+  /* package */ static Serde<Event> sensorEventSerde(
+      Serializer<EventJson> serializer,
+      Deserializer<EventJson> deserializer,
+      BiMapper<Event, EventJson> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
+  }
+
+  @Provides
+  @Named(JSON)
+  /* package */ static Serde<SensorState> sensorEventWithIdSerde(
       Serializer<SensorStateJson> serializer,
       Deserializer<SensorStateJson> deserializer,
       BiMapper<SensorState, SensorStateJson> mapper) {
@@ -43,12 +54,17 @@ public abstract class JsonModule {
 
   @Provides
   @Named(JSON)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      Serializer<SensorStateDurationJson> serializer,
-      Deserializer<SensorStateDurationJson> deserializer,
-      BiMapper<SensorStateDuration, SensorStateDurationJson> mapper) {
+  /* package */ static Serde<StateDuration> stateWithDurationSerde(
+      Serializer<StateWithDurationJson> serializer,
+      Deserializer<StateWithDurationJson> deserializer,
+      BiMapper<StateDuration, StateWithDurationJson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(JSON)
+  /* package */ abstract Serde<Event> jsonEvent(@Named(JSON) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -58,6 +74,5 @@ public abstract class JsonModule {
   @Binds
   @IntoMap
   @StringKey(JSON)
-  /* package */ abstract Serde<SensorStateDuration> jsonDuration(
-      @Named(JSON) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> jsonDuration(@Named(JSON) Serde<StateDuration> serde);
 }

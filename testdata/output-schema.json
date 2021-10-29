@@ -4,7 +4,7 @@
   "required": [
     "id",
     "time",
-    "state",
+    "position",
     "duration"
   ],
   "properties": {
@@ -14,7 +14,7 @@
     "time": {
       "type": "number"
     },
-    "state": {
+    "position": {
       "enum": [
         "off",
         "on"

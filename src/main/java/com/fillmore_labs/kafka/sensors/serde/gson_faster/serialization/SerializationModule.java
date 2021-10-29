@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.gson_faster.serialization;
 
-import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateDurationGson;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.EventGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateGson;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.StateDurationGson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.gson_faster.GsonFastDeserializer;
 import com.google.gson.Gson;
 import dagger.Module;
@@ -15,6 +16,13 @@ public abstract class SerializationModule {
 
   @Provides
   @Named("faster")
+  /* package */ static Deserializer<EventGson> eventFastDeserializer(Gson gson) {
+    var adapter = gson.getAdapter(EventGson.class);
+    return new GsonFastDeserializer<>(adapter);
+  }
+
+  @Provides
+  @Named("faster")
   /* package */ static Deserializer<SensorStateGson> sensorStateFastDeserializer(Gson gson) {
     var adapter = gson.getAdapter(SensorStateGson.class);
     return new GsonFastDeserializer<>(adapter);
@@ -22,9 +30,8 @@ public abstract class SerializationModule {
 
   @Provides
   @Named("faster")
-  /* package */ static Deserializer<SensorStateDurationGson> sensorStateDurationFastDeserializer(
-      Gson gson) {
-    var adapter = gson.getAdapter(SensorStateDurationGson.class);
+  /* package */ static Deserializer<StateDurationGson> stateDurationFastDeserializer(Gson gson) {
+    var adapter = gson.getAdapter(StateDurationGson.class);
     return new GsonFastDeserializer<>(adapter);
   }
 }

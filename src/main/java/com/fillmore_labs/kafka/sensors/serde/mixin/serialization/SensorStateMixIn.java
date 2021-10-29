@@ -1,20 +1,19 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin.serialization;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.ImmutableSensorState;
 
 @JsonDeserialize(builder = ImmutableSensorState.Builder.class)
-public abstract class SensorStateMixIn {
-  private SensorStateMixIn() {}
+interface SensorStateMixIn {
+  @JsonUnwrapped
+  Event getEvent();
 
   @JsonPOJOBuilder(withPrefix = "")
-  public abstract static class BuilderMixIn {
-    private BuilderMixIn() {}
+  interface BuilderMixIn {
+    @JsonUnwrapped
+    ImmutableSensorState.Builder event(Event event);
   }
-
-  @JsonSerialize(converter = State2StringConverter.class)
-  @JsonDeserialize(converter = String2StateConverter.class)
-  public abstract static class StateMixIn {}
 }

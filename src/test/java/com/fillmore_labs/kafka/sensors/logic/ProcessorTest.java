@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.logic.ProcessorTestHelper.Advancement;
-import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.Event.Position;
 import java.time.Duration;
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,69 +14,66 @@ public final class ProcessorTest {
 
   @Test
   public void testSimple() {
-    var initialState = ProcessorTestHelper.initial(SensorState.State.OFF);
-    var advancement = new Advancement(Duration.ofSeconds(30), SensorState.State.ON);
+    var state1 = ProcessorTestHelper.initial(Position.OFF);
 
-    var newState = ProcessorTestHelper.advance(initialState, advancement);
+    var advancement = Advancement.ofSecondsTo(30, Position.ON);
+    var state2 = ProcessorTestHelper.advance(state1, advancement);
 
-    var result1 = processor.transform(initialState);
-    var result2 = processor.transform(newState);
+    var result1 = processor.transform(state1);
+    var result2 = processor.transform(state2);
 
     ProcessorTestHelper.assertStateDuration(result1, null, Duration.ZERO);
-    ProcessorTestHelper.assertStateDuration(result2, initialState, advancement.duration);
+    ProcessorTestHelper.assertStateDuration(result2, state1.getEvent(), advancement.duration());
   }
 
   @Test
   public void testRepeated() {
-    var initialState = ProcessorTestHelper.initial(SensorState.State.OFF);
-    var advancement1 = new Advancement(Duration.ofSeconds(30), SensorState.State.OFF);
-    var advancement2 = new Advancement(Duration.ofSeconds(30), SensorState.State.ON);
-    var advancement3 = new Advancement(Duration.ofSeconds(15), SensorState.State.OFF);
+    var state1 = ProcessorTestHelper.initial(Position.OFF);
 
-    var newState1 = ProcessorTestHelper.advance(initialState, advancement1);
-    var newState2 = ProcessorTestHelper.advance(newState1, advancement2);
-    var newState3 = ProcessorTestHelper.advance(newState2, advancement3);
+    var advancement1 = Advancement.ofSecondsTo(30, Position.OFF);
+    var state2 = ProcessorTestHelper.advance(state1, advancement1);
 
-    var result1 = processor.transform(initialState);
-    var result2 = processor.transform(newState1);
-    var result3 = processor.transform(newState2);
-    var result4 = processor.transform(newState3);
+    var advancement2 = Advancement.ofSecondsTo(30, Position.ON);
+    var state3 = ProcessorTestHelper.advance(state2, advancement2);
 
-    var duration1 = Duration.ZERO;
-    var duration2 = advancement1.duration;
-    var duration3 = duration2.plus(advancement2.duration);
-    var duration4 = advancement3.duration;
+    var advancement3 = Advancement.ofSecondsTo(15, Position.OFF);
+    var state4 = ProcessorTestHelper.advance(state3, advancement3);
 
-    ProcessorTestHelper.assertStateDuration(result1, null, duration1);
-    ProcessorTestHelper.assertStateDuration(result2, initialState, duration2);
-    ProcessorTestHelper.assertStateDuration(result3, initialState, duration3);
-    ProcessorTestHelper.assertStateDuration(result4, newState2, duration4);
+    var result1 = processor.transform(state1);
+    var result2 = processor.transform(state2);
+    var result3 = processor.transform(state3);
+    var result4 = processor.transform(state4);
+
+    ProcessorTestHelper.assertStateDuration(result1, null, Duration.ZERO);
+    ProcessorTestHelper.assertStateDuration(result2, state1.getEvent(), advancement1.duration());
+    ProcessorTestHelper.assertStateDuration(
+        result3, state1.getEvent(), advancement1.duration().plus(advancement2.duration()));
+    ProcessorTestHelper.assertStateDuration(result4, state3.getEvent(), advancement3.duration());
   }
 
   @Test
   public void outOfOrder() {
-    var initialState = ProcessorTestHelper.initial(SensorState.State.OFF);
-    var advancement1 = new Advancement(Duration.ofSeconds(-10), SensorState.State.ON);
+    var state1 = ProcessorTestHelper.initial(Position.OFF);
 
-    var newState1 = ProcessorTestHelper.advance(initialState, advancement1);
+    var advancement1 = Advancement.ofSecondsTo(-10, Position.ON);
+    var state2 = ProcessorTestHelper.advance(state1, advancement1);
 
-    processor.transform(initialState);
+    processor.transform(state1);
     var calc = processor; // effectively final (JLS §4.12.4)
-    assertThrows(IllegalStateException.class, () -> calc.transform(newState1));
+    assertThrows(IllegalStateException.class, () -> calc.transform(state2));
   }
 
   @Test
   public void nullHandling() {
-    var initialState = ProcessorTestHelper.initial(SensorState.State.OFF);
-    var advancement1 = new Advancement(Duration.ofSeconds(-10), SensorState.State.ON);
+    var state1 = ProcessorTestHelper.initial(Position.OFF);
 
-    var newState1 = ProcessorTestHelper.advance(initialState, advancement1);
+    var advancement1 = Advancement.ofSecondsTo(-10, Position.ON);
+    var state2 = ProcessorTestHelper.advance(state1, advancement1);
 
-    processor.transform(initialState);
-    var result1 = processor.tombstone(ProcessorTestHelper.SENSOR_ID);
-    var result2 = processor.transform(newState1);
+    processor.transform(state1);
+    processor.delete(ProcessorTestHelper.SENSOR_ID);
+    var result = processor.transform(state2);
 
-    assertThat(result1).isNull();
-    assertThat(result2).isNull();
+    assertThat(result).isNull();
   }
 }

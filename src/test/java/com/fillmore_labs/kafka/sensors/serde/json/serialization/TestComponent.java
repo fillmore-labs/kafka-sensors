@@ -14,7 +14,7 @@ public interface TestComponent {
 
   Deserializer<SensorStateJson> deserializer();
 
-  Serializer<SensorStateDurationJson> serializerDuration();
+  Serializer<StateWithDurationJson> serializerDuration();
 
-  Deserializer<SensorStateDurationJson> deserializerDuration();
+  Deserializer<StateWithDurationJson> deserializerDuration();
 }

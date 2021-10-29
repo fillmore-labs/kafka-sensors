@@ -4,8 +4,9 @@ import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHE
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
 import dagger.Module;
 import dagger.Provides;
 import io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer;
@@ -18,6 +19,35 @@ import org.apache.kafka.common.serialization.Serializer;
 @Module
 public abstract class SerializationModule {
   private SerializationModule() {}
+
+  @Provides
+  @Confluent
+  /* package */ static Serializer<EventJson> eventSerializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
+
+    var serializer = new KafkaJsonSchemaSerializer<EventJson>();
+    serializer.configure(config, /* isKey= */ false);
+
+    return serializer;
+  }
+
+  @Provides
+  @Confluent
+  /* package */ static Deserializer<EventJson> eventDeserializer(
+      @SchemaRegistryUrl String registryUrl) {
+    var config =
+        Map.of(
+            SCHEMA_REGISTRY_URL_CONFIG,
+            registryUrl,
+            KafkaJsonSchemaDeserializerConfig.JSON_VALUE_TYPE,
+            EventJson.class);
+
+    var deserializer = new KafkaJsonSchemaDeserializer<EventJson>();
+    deserializer.configure(config, /* isKey= */ false);
+
+    return deserializer;
+  }
 
   @Provides
   @Confluent
@@ -50,11 +80,11 @@ public abstract class SerializationModule {
 
   @Provides
   @Confluent
-  /* package */ static Serializer<SensorStateDurationJson> sensorStateDurationSerializer(
+  /* package */ static Serializer<StateWithDurationJson> stateDurationSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
 
-    var serializer = new KafkaJsonSchemaSerializer<SensorStateDurationJson>();
+    var serializer = new KafkaJsonSchemaSerializer<StateWithDurationJson>();
     serializer.configure(config, /* isKey= */ false);
 
     return serializer;
@@ -62,16 +92,16 @@ public abstract class SerializationModule {
 
   @Provides
   @Confluent
-  /* package */ static Deserializer<SensorStateDurationJson> sensorStateDurationDeserializer(
+  /* package */ static Deserializer<StateWithDurationJson> stateDurationDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config =
         Map.of(
             SCHEMA_REGISTRY_URL_CONFIG,
             registryUrl,
             KafkaJsonSchemaDeserializerConfig.JSON_VALUE_TYPE,
-            SensorStateDurationJson.class);
+            StateWithDurationJson.class);
 
-    var deserializer = new KafkaJsonSchemaDeserializer<SensorStateDurationJson>();
+    var deserializer = new KafkaJsonSchemaDeserializer<StateWithDurationJson>();
     deserializer.configure(config, /* isKey= */ false);
 
     return deserializer;

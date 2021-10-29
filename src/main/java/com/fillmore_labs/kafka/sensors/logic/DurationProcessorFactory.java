@@ -4,5 +4,5 @@ import dagger.assisted.AssistedFactory;
 
 @AssistedFactory
 public interface DurationProcessorFactory {
-  DurationProcessor create(String storeName);
+  DurationProcessor create(LastEventStore store);
 }

@@ -1,9 +1,11 @@
 package com.fillmore_labs.kafka.sensors.serde.gson_faster;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
-import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateDurationGson;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.EventGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateGson;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.StateDurationGson;
 import com.fillmore_labs.kafka.sensors.serde.gson_faster.serialization.SerializationModule;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
@@ -27,13 +29,22 @@ public abstract class GsonFasterModule {
   @IntoMap
   @Named("encoding")
   @StringKey(GSON_FASTER)
-  /* package */ static String encodingFast() {
+  /* package */ static String encoding() {
     return "json";
   }
 
   @Provides
   @Named(GSON_FASTER)
-  /* package */ static Serde<SensorState> sensorStateFastSerde(
+  /* package */ static Serde<Event> eventStateSerde(
+      Serializer<EventGson> serializer,
+      @Named("faster") Deserializer<EventGson> deserializer,
+      BiMapper<Event, EventGson> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
+  }
+
+  @Provides
+  @Named(GSON_FASTER)
+  /* package */ static Serde<SensorState> sensorStateSerde(
       Serializer<SensorStateGson> serializer,
       @Named("faster") Deserializer<SensorStateGson> deserializer,
       BiMapper<SensorState, SensorStateGson> mapper) {
@@ -42,21 +53,27 @@ public abstract class GsonFasterModule {
 
   @Provides
   @Named(GSON_FASTER)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationFastSerde(
-      Serializer<SensorStateDurationGson> serializer,
-      @Named("faster") Deserializer<SensorStateDurationGson> deserializer,
-      BiMapper<SensorStateDuration, SensorStateDurationGson> mapper) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      Serializer<StateDurationGson> serializer,
+      @Named("faster") Deserializer<StateDurationGson> deserializer,
+      BiMapper<StateDuration, StateDurationGson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
   @Binds
   @IntoMap
   @StringKey(GSON_FASTER)
-  /* package */ abstract Serde<SensorState> gsonFast(@Named(GSON_FASTER) Serde<SensorState> serde);
+  /* package */ abstract Serde<Event> gsonFasterEvent(@Named(GSON_FASTER) Serde<Event> serde);
 
   @Binds
   @IntoMap
   @StringKey(GSON_FASTER)
-  /* package */ abstract Serde<SensorStateDuration> gsonFastDuration(
-      @Named(GSON_FASTER) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<SensorState> gsonFaster(
+      @Named(GSON_FASTER) Serde<SensorState> serde);
+
+  @Binds
+  @IntoMap
+  @StringKey(GSON_FASTER)
+  /* package */ abstract Serde<StateDuration> gsonFasterDuration(
+      @Named(GSON_FASTER) Serde<StateDuration> serde);
 }

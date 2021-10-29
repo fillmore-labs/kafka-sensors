@@ -1,25 +1,40 @@
 package com.fillmore_labs.kafka.sensors.topology.server;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static scala.jdk.javaapi.CollectionConverters.asScala;
 
 import com.google.common.flogger.FluentLogger;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serial;
-import java.io.UncheckedIOException;
+import java.io.PrintStream;
 import java.nio.ByteBuffer;
 import java.util.Base64;
-import java.util.Properties;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
+import kafka.server.MetaProperties;
 import kafka.tools.StorageTool;
-import org.apache.kafka.common.utils.Exit;
+import scala.collection.immutable.Seq;
 
 /* package */ final class EmbeddedKafkaHelper {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private EmbeddedKafkaHelper() {}
+
+  /* package */ static void formatStorage(File logDir, UUID clusterId, int nodeId) {
+    var logDirs = Seq.from(asScala(List.of(logDir.toString())));
+    var properties = new MetaProperties(uuid2Base64(clusterId), nodeId);
+    var out = new ByteArrayOutputStream();
+    int result;
+    try (var stream = new PrintStream(out, /* autoFlush= */ false, UTF_8)) {
+      result = StorageTool.formatCommand(stream, logDirs, properties, /* ignoreFormatted= */ true);
+    }
+    if (result == 0) {
+      logger.atInfo().log("Successful formatted Kafka log dir: %s", out.toString(UTF_8));
+    } else {
+      logger.atWarning().log("Formatting returned error %d: %s", result, out.toString(UTF_8));
+    }
+  }
 
   /* package */ static void killRaftExpirationReaper() {
     var isRaftExpirationReaper =
@@ -30,35 +45,6 @@ import org.apache.kafka.common.utils.Exit;
         .forEach(Thread::interrupt);
   }
 
-  /* package */ static void formatStorage(Properties props, UUID clusterId) {
-    var propFile = writeProperties(props);
-
-    callStorageTool(
-        "format", "--config", propFile.toString(), "--cluster-id", uuid2Base64(clusterId));
-
-    if (!propFile.delete()) {
-      logger.atWarning().log("Failed to delete properties file");
-    }
-  }
-
-  private static File writeProperties(Properties props) {
-    File propFile;
-    try {
-      propFile = File.createTempFile("kafka-", ".properties");
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
-    }
-
-    try (var writer = new FileWriter(propFile, UTF_8)) {
-      props.store(writer, null);
-    } catch (IOException e) {
-      propFile.deleteOnExit();
-      throw new UncheckedIOException(e);
-    }
-
-    return propFile;
-  }
-
   private static String uuid2Base64(UUID uuid) {
     var uuidBytes = ByteBuffer.allocate(2 * Long.BYTES);
     uuidBytes.putLong(uuid.getMostSignificantBits());
@@ -66,23 +52,5 @@ import org.apache.kafka.common.utils.Exit;
 
     var encoder = Base64.getUrlEncoder().withoutPadding();
     return encoder.encodeToString(uuidBytes.array());
-  }
-
-  private static void callStorageTool(String... args) {
-    try {
-      Exit.setExitProcedure(
-          (statusCode, message) -> {
-            throw new NoErrorException();
-          });
-      StorageTool.main(args);
-    } catch (NoErrorException e) {
-      // ignore
-    } finally {
-      Exit.resetExitProcedure();
-    }
-  }
-
-  private static final class NoErrorException extends RuntimeException {
-    @Serial private static final long serialVersionUID = -1L;
   }
 }

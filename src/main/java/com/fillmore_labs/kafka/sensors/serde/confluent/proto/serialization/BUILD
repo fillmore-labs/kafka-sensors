@@ -7,12 +7,9 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/proto:__pkg__",
         "//src/test:__subpackages__",
     ],
-    exports = [
-        "//src/main/proto/fillmore_labs/kafka/sensors/v1:sensorsv1_java_proto",
-    ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
-        "//src/main/proto/fillmore_labs/kafka/sensors/v1:sensorsv1_java_proto",
+        "//src/main/proto/fillmore_labs/kafka/sensors/proto/v1",
         "//toolchain:checker",
         "//toolchain:dagger",
         "@com_google_protobuf//:protobuf_java",

@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Binds;
 import dagger.Module;
@@ -14,11 +15,15 @@ public abstract class MapperModule {
 
   @Binds
   @Singleton
+  /* package */ abstract BiMapper<Event, GenericRecord> eventBiMapper(EventMapper mapper);
+
+  @Binds
+  @Singleton
   /* package */ abstract BiMapper<SensorState, GenericRecord> sensorStateBiMapper(
       SensorStateMapper mapper);
 
   @Binds
   @Singleton
-  /* package */ abstract BiMapper<SensorStateDuration, GenericRecord> sensorStateDurationBiMapper(
-      SensorStateDurationMapper mapper);
+  /* package */ abstract BiMapper<StateDuration, GenericRecord> stateDurationBiMapper(
+      StateDurationMapper mapper);
 }

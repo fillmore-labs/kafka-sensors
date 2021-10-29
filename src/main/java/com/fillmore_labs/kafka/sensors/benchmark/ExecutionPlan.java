@@ -1,10 +1,9 @@
 package com.fillmore_labs.kafka.sensors.benchmark;
 
-import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
@@ -20,20 +19,23 @@ import org.openjdk.jmh.annotations.State;
 public /* open */ class ExecutionPlan {
   public static final String TOPIC = "topic";
 
+  public final StateDuration data;
+
   @Param({
     "json",
     "mixin",
     "gson",
     "gson-faster",
     "proto",
-    "avro-generic",
-    "avro-reflect",
+    "thrift",
     "avro-specific",
     "avro-specific-faster",
-    "confluent-generic",
-    "confluent-reflect",
+    "avro-generic",
+    "avro-reflect",
     "confluent-specific",
     "confluent-specific-faster",
+    "confluent-generic",
+    "confluent-reflect",
     "confluent-json",
     "confluent-proto",
     "ion-binary",
@@ -41,31 +43,27 @@ public /* open */ class ExecutionPlan {
   })
   public @MonotonicNonNull String format;
 
-  @Inject public @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  @Inject public @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
-
-  public @MonotonicNonNull SensorStateDuration data;
+  public @MonotonicNonNull Serializer<StateDuration> serializer;
+  public @MonotonicNonNull Deserializer<StateDuration> deserializer;
   public byte @MonotonicNonNull [] serialized;
 
-  public ExecutionPlan() {}
-
-  private static SensorStateDuration createData() {
+  public ExecutionPlan() {
     var instant = Instant.ofEpochSecond(443_634_300L);
 
-    var event = SensorState.builder().id("7331").time(instant).state(SensorState.State.ON).build();
+    var event = Event.builder().time(instant).position(Event.Position.ON).build();
 
-    return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
+    this.data =
+        StateDuration.builder().id("7331").event(event).duration(Duration.ofSeconds(15)).build();
   }
 
   @Setup(Level.Trial)
   @RequiresNonNull("format")
-  @EnsuresNonNull({"serializer", "deserializer", "data", "serialized"})
+  @EnsuresNonNull({"serializer", "deserializer", "serialized"})
   public void setup() {
-    BenchComponent.builder().format(format).build().injectMembers(this);
-    assert serializer != null : "@AssumeAssertion(nullness): inject() failed";
-    assert deserializer != null : "@AssumeAssertion(nullness): inject() failed";
+    var benchComponent = BenchComponent.builder().format(format).build();
+    serializer = benchComponent.serializer();
+    deserializer = benchComponent.deserializer();
 
-    data = createData();
     serialized = serializer.serialize(TOPIC, data);
   }
 }

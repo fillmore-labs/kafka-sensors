@@ -2,24 +2,26 @@ package com.fillmore_labs.kafka.sensors.serde.all_serdes;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.google.common.collect.ImmutableMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 import org.apache.kafka.common.serialization.Serde;
 import org.junit.Test;
 
 public abstract class ConsistencyTestBase {
   private final ImmutableMap<String, String> encodings;
   private final ImmutableMap<String, Serde<SensorState>> serdeMap;
-  private final ImmutableMap<String, Serde<SensorStateDuration>> serdeDurationMap;
+  private final ImmutableMap<String, Serde<StateDuration>> serdeDurationMap;
 
   protected ConsistencyTestBase(
       Map<String, String> encodings,
+      Map<String, Serde<Event>> serdeMapEvent,
       Map<String, Serde<SensorState>> serdeMap,
-      Map<String, Serde<SensorStateDuration>> serdeDurationMap) {
+      Map<String, Serde<StateDuration>> serdeDurationMap) {
     this.encodings = ImmutableMap.copyOf(encodings);
     this.serdeMap = ImmutableMap.copyOf(serdeMap);
     this.serdeDurationMap = ImmutableMap.copyOf(serdeDurationMap);
@@ -29,8 +31,9 @@ public abstract class ConsistencyTestBase {
 
   @Test
   public final void testEncodingValues() {
-    var encodingValues = encodings.values().stream().collect(Collectors.toUnmodifiableSet());
-    assertThat(encodingValues).containsExactlyElementsIn(encodingValues());
+    var encodingValues = Set.copyOf(encodings.values());
+    // This is the wrong way around. Is there an inverse to containsAtLeastElementsIn?
+    assertThat(encodingValues()).containsAtLeastElementsIn(encodingValues);
   }
 
   @Test

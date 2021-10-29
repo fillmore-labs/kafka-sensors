@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.specific_faster;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.specific_faster.mapper.MapperModule;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
@@ -31,6 +32,15 @@ public abstract class SpecificFasterModule {
 
   @Provides
   @Named(AVRO_SPECIFIC_FASTER)
+  /* package */ static Serde<Event> eventSerde(
+      Serializer<com.fillmore_labs.kafka.sensors.avro.Event> serializer,
+      Deserializer<com.fillmore_labs.kafka.sensors.avro.Event> deserializer,
+      @Named("faster") BiMapper<Event, com.fillmore_labs.kafka.sensors.avro.Event> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
+  }
+
+  @Provides
+  @Named(AVRO_SPECIFIC_FASTER)
   /* package */ static Serde<SensorState> sensorStateSerde(
       Serializer<com.fillmore_labs.kafka.sensors.avro.SensorState> serializer,
       Deserializer<com.fillmore_labs.kafka.sensors.avro.SensorState> deserializer,
@@ -41,14 +51,18 @@ public abstract class SpecificFasterModule {
 
   @Provides
   @Named(AVRO_SPECIFIC_FASTER)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      Serializer<com.fillmore_labs.kafka.sensors.avro.SensorStateDuration> serializer,
-      Deserializer<com.fillmore_labs.kafka.sensors.avro.SensorStateDuration> deserializer,
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      Serializer<com.fillmore_labs.kafka.sensors.avro.StateDuration> serializer,
+      Deserializer<com.fillmore_labs.kafka.sensors.avro.StateDuration> deserializer,
       @Named("faster")
-          BiMapper<SensorStateDuration, com.fillmore_labs.kafka.sensors.avro.SensorStateDuration>
-              mapper) {
+          BiMapper<StateDuration, com.fillmore_labs.kafka.sensors.avro.StateDuration> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(AVRO_SPECIFIC_FASTER)
+  /* package */ abstract Serde<Event> avroEvent(@Named(AVRO_SPECIFIC_FASTER) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -59,6 +73,6 @@ public abstract class SpecificFasterModule {
   @Binds
   @IntoMap
   @StringKey(AVRO_SPECIFIC_FASTER)
-  /* package */ abstract Serde<SensorStateDuration> avroDuration(
-      @Named(AVRO_SPECIFIC_FASTER) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> avroDuration(
+      @Named(AVRO_SPECIFIC_FASTER) Serde<StateDuration> serde);
 }

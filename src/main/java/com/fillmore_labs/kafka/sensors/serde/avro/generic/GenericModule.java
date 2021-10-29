@@ -1,12 +1,14 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.generic;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper.MapperModule;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.Avro;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateDurationSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.EventSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SerializationModule;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -30,14 +32,20 @@ public abstract class GenericModule {
 
   @Provides
   @IntoSet
+  /* package */ static Schema eventSchema() {
+    return EventSchema.SCHEMA;
+  }
+
+  @Provides
+  @IntoSet
   /* package */ static Schema sensorStateSchema() {
     return SensorStateSchema.SCHEMA;
   }
 
   @Provides
   @IntoSet
-  /* package */ static Schema sensorStateDurationSchema() {
-    return SensorStateDurationSchema.SCHEMA;
+  /* package */ static Schema stateDurationSchema() {
+    return StateDurationSchema.SCHEMA;
   }
 
   @Provides
@@ -46,6 +54,15 @@ public abstract class GenericModule {
   @StringKey(AVRO_GENERIC)
   /* package */ static String encoding() {
     return "avro";
+  }
+
+  @Provides
+  @Named(AVRO_GENERIC)
+  /* package */ static Serde<Event> eventSerde(
+      @Avro.Event Serializer<GenericRecord> serializer,
+      @Avro.Event Deserializer<GenericRecord> deserializer,
+      BiMapper<Event, GenericRecord> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
   @Provides
@@ -59,12 +76,17 @@ public abstract class GenericModule {
 
   @Provides
   @Named(AVRO_GENERIC)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      @Avro.SensorStateDuration Serializer<GenericRecord> serializer,
-      @Avro.SensorStateDuration Deserializer<GenericRecord> deserializer,
-      BiMapper<SensorStateDuration, GenericRecord> mapper) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      @Avro.StateDuration Serializer<GenericRecord> serializer,
+      @Avro.StateDuration Deserializer<GenericRecord> deserializer,
+      BiMapper<StateDuration, GenericRecord> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(AVRO_GENERIC)
+  /* package */ abstract Serde<Event> avroGenericEvent(@Named(AVRO_GENERIC) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -75,6 +97,6 @@ public abstract class GenericModule {
   @Binds
   @IntoMap
   @StringKey(AVRO_GENERIC)
-  /* package */ abstract Serde<SensorStateDuration> avroGenericDuration(
-      @Named(AVRO_GENERIC) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> avroGenericDuration(
+      @Named(AVRO_GENERIC) Serde<StateDuration> serde);
 }

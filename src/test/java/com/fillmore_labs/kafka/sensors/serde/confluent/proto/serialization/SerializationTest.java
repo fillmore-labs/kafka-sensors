@@ -4,49 +4,42 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.extensions.proto.ProtoTruth.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import com.fillmore_labs.kafka.sensors.proto.v1.Event;
+import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
-import com.fillmore_labs.kafka.sensors.serde.proto.serialization.ProtoTypesMapper;
-import com.fillmore_labs.kafka.sensors.v1.SensorState;
-import com.fillmore_labs.kafka.sensors.v1.SensorState.State;
-import com.fillmore_labs.kafka.sensors.v1.SensorStateDuration;
+import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import dagger.Component;
-import java.time.Duration;
-import java.time.Instant;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject @Confluent /* package */ @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  @Inject @Confluent /* package */ @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<StateDuration> serializer;
+  private final Deserializer<StateDuration> deserializer;
 
-  @Before
-  public void before() {
-    TestComponent.create().inject(this);
+  public SerializationTest() {
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var event =
-        SensorState.newBuilder()
-            .setId("7331")
-            .setTime(ProtoTypesMapper.instant2Timestamp(INSTANT))
-            .setState(State.STATE_ON);
+        Event.newBuilder()
+            .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+            .setPosition(Event.Position.POSITION_ON);
 
     var sensorState =
-        SensorStateDuration.newBuilder()
+        StateDuration.newBuilder()
+            .setId("7331")
             .setEvent(event)
-            .setDuration(ProtoTypesMapper.duration2Duration(Duration.ofSeconds(15)))
+            .setDuration(Duration.newBuilder().setSeconds(15L))
             .build();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -66,10 +59,9 @@ public final class SerializationTest {
     assertThrows(
         NullPointerException.class,
         () ->
-            SensorState.newBuilder()
-                .setId("7331")
-                .setTime(ProtoTypesMapper.instant2Timestamp(INSTANT))
-                .setState(null)
+            Event.newBuilder()
+                .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+                .setPosition(null)
                 .build());
   }
 
@@ -80,6 +72,10 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    @Confluent
+    Serializer<StateDuration> serializer();
+
+    @Confluent
+    Deserializer<StateDuration> deserializer();
   }
 }

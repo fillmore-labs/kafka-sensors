@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization;
 
-import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.InstantMicroHelper;
+import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.InstantNanosHelper;
 import java.io.IOException;
 import java.time.Instant;
 import org.apache.avro.LogicalTypes;
@@ -22,13 +22,13 @@ public final class InstantAsLongEncoding extends CustomEncoding<Instant> {
 
   @Override
   protected void write(Object datum, Encoder out) throws IOException {
-    var value = InstantMicroHelper.instant2Micros((Instant) datum);
+    var value = InstantNanosHelper.instant2Nanos((Instant) datum);
     out.writeLong(value);
   }
 
   @Override
   protected Instant read(Object reuse, Decoder in) throws IOException {
     var value = in.readLong();
-    return InstantMicroHelper.micros2Instant(value);
+    return InstantNanosHelper.nanos2Instant(value);
   }
 }

@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.serde.mixin.serialization;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
-import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
@@ -15,8 +15,8 @@ import org.junit.Test;
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  private final Serializer<SensorStateDuration> serializer;
-  private final Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<StateDuration> serializer;
+  private final Deserializer<StateDuration> deserializer;
 
   public SerializationTest() {
     var testComponent = TestComponent.create();
@@ -24,19 +24,15 @@ public final class SerializationTest {
     this.deserializer = testComponent.deserializerDuration();
   }
 
-  private static SensorStateDuration sampleSensorStateDuration() {
+  private static StateDuration sampleStateDuration() {
     var event =
-        SensorState.builder()
-            .id("7331")
-            .time(Instant.ofEpochSecond(443634300L))
-            .state(SensorState.State.ON)
-            .build();
-    return SensorStateDuration.builder().event(event).duration(Duration.ofSeconds(15)).build();
+        Event.builder().time(Instant.ofEpochSecond(443634300L)).position(Event.Position.ON).build();
+    return StateDuration.builder().id("7331").event(event).duration(Duration.ofSeconds(15)).build();
   }
 
   @Test
   public void canDecode() {
-    var sensorState = sampleSensorStateDuration();
+    var sensorState = sampleStateDuration();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
     var decoded = deserializer.deserialize(TOPIC, encoded);
@@ -46,7 +42,7 @@ public final class SerializationTest {
 
   @Test
   public void matchesSchema() throws IOException {
-    var sensorState = sampleSensorStateDuration();
+    var sensorState = sampleStateDuration();
     var encoded = serializer.serialize(TOPIC, sensorState);
 
     var validationMessages = JsonTestHelper.validate(encoded);

@@ -1,26 +1,29 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorState.State;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.time.Duration;
 import java.time.Instant;
 
 /* package */ final class TestHelper {
   private TestHelper() {}
 
-  /* package */ static SensorState standardSensorState() {
-    var instant = Instant.ofEpochSecond(443634300L, 1_000L);
+  /* package */ static Event standardEvent() {
+    var instant = Instant.ofEpochSecond(443634300L, 1L);
 
-    return SensorState.builder().id("7331").time(instant).state(State.ON).build();
+    return Event.builder().time(instant).position(Event.Position.ON).build();
   }
 
-  /* package */ static SensorStateDuration standardSensorStateDuration() {
-    var event = standardSensorState();
+  /* package */ static SensorState standardSensorState() {
+    return SensorState.builder().id("7331").event(standardEvent()).build();
+  }
 
-    return SensorStateDuration.builder()
-        .event(event)
-        .duration(Duration.ofSeconds(15, 999_999_000L))
+  /* package */ static StateDuration standardStateDuration() {
+    return StateDuration.builder()
+        .id("7331")
+        .event(standardEvent())
+        .duration(Duration.ofSeconds(15, 999_999_999L))
         .build();
   }
 }

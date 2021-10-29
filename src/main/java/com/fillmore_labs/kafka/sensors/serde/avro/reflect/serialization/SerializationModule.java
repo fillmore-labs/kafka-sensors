@@ -15,6 +15,17 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
+  /* package */ static Serializer<EventReflect> eventSerializer() {
+    return new AvroSerializer<>(EventReflect.MODEL, EventReflect.SCHEMA);
+  }
+
+  @Provides
+  /* package */ static Deserializer<EventReflect> eventDeserializer(
+      Optional<SchemaStore> resolver) {
+    return new AvroDeserializer<>(EventReflect.MODEL, EventReflect.SCHEMA, resolver.orNull());
+  }
+
+  @Provides
   /* package */ static Serializer<SensorStateReflect> sensorStateSerializer() {
     return new AvroSerializer<>(SensorStateReflect.MODEL, SensorStateReflect.SCHEMA);
   }
@@ -27,16 +38,15 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<SensorStateDurationReflect> sensorStateDurationSerializer() {
-    return new AvroSerializer<>(
-        SensorStateDurationReflect.MODEL, SensorStateDurationReflect.SCHEMA);
+  /* package */ static Serializer<StateDurationReflect> stateDurationSerializer() {
+    return new AvroSerializer<>(StateDurationReflect.MODEL, StateDurationReflect.SCHEMA);
   }
 
   @Provides
-  /* package */ static Deserializer<SensorStateDurationReflect> sensorStateDurationDeserializer(
+  /* package */ static Deserializer<StateDurationReflect> stateDurationDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
-        SensorStateDurationReflect.MODEL, SensorStateDurationReflect.SCHEMA, resolver.orNull());
+        StateDurationReflect.MODEL, StateDurationReflect.SCHEMA, resolver.orNull());
   }
 
   @BindsOptionalOf

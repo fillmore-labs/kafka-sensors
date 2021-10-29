@@ -1,10 +1,12 @@
 package com.fillmore_labs.kafka.sensors.benchmark;
 
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import dagger.BindsInstance;
 import dagger.Component;
 import javax.inject.Singleton;
-import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.Serializer;
 
 @Singleton
 @Component(modules = {BenchModule.class, AllSerdesModule.class})
@@ -13,7 +15,9 @@ public interface BenchComponent {
     return DaggerBenchComponent.builder();
   }
 
-  void injectMembers(@UnknownInitialization ExecutionPlan state);
+  Serializer<StateDuration> serializer();
+
+  Deserializer<StateDuration> deserializer();
 
   @Component.Builder
   interface Builder {

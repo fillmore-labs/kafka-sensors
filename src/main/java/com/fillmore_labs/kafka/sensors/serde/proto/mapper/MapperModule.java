@@ -1,7 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.proto.mapper;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Binds;
 import dagger.Module;
@@ -14,13 +15,20 @@ public abstract class MapperModule {
 
   @Provides
   @Singleton
-  /* package */ static BiMapper<SensorState, com.fillmore_labs.kafka.sensors.v1.SensorState>
-      sensorStateBiMapper() {
-    return new SensorStateMapperImpl();
+  /* package */ static EventMapper eventMapper() {
+    return new EventMapperImpl();
   }
 
   @Binds
+  /* package */ abstract BiMapper<Event, com.fillmore_labs.kafka.sensors.proto.v1.Event>
+      eventBiMapper(EventMapper mapper);
+
+  @Binds
+  /* package */ abstract BiMapper<SensorState, com.fillmore_labs.kafka.sensors.proto.v1.SensorState>
+      sensorStateBiMapper(SensorStateMapperImpl mapper);
+
+  @Binds
   /* package */ abstract BiMapper<
-          SensorStateDuration, com.fillmore_labs.kafka.sensors.v1.SensorStateDuration>
-      sensorStateDurationBiMapper(SensorStateDurationMapper mapper);
+          StateDuration, com.fillmore_labs.kafka.sensors.proto.v1.StateDuration>
+      stateDurationBiMapper(StateDurationMapperImpl mapper);
 }

@@ -2,19 +2,6 @@ load("@io_bazel_rules_docker//java:image.bzl", "java_image")
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 load("//third_party/images:java_base.bzl", "JAVA_BASE")
 
-APP_DEPS = [
-    "@maven//:com_google_errorprone_error_prone_annotations",
-    "@maven//:com_google_flogger_flogger",
-    "@maven//:info_picocli_picocli",
-    "@maven//:io_helidon_config_helidon_config",
-]
-
-RUNTIME_DEPS = [
-    "@maven//:com_google_flogger_flogger_system_backend",
-    "@maven//:io_helidon_config_helidon_config_yaml",
-    "@maven//:org_slf4j_slf4j_jdk14",
-]
-
 DATA = [
     "//conf",
     "//conf:logging",
@@ -33,12 +20,25 @@ java_library(
         ["*.java"],
         exclude = ["ClassCheck.java"],
     ),
-    runtime_deps = RUNTIME_DEPS,
+    data = [
+        "//conf",
+        "//conf:logging",
+    ],
+    visibility = ["//visibility:public"],
+    runtime_deps = [
+        "@maven//:com_google_flogger_flogger_system_backend",
+        "@maven//:io_helidon_config_helidon_config_yaml",
+        "@maven//:org_slf4j_slf4j_jdk14",
+    ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/app/context",
         "//src/main/java/com/fillmore_labs/kafka/sensors/lifecycle",
         "//toolchain:checker",
-    ] + APP_DEPS,
+        "@maven//:com_google_errorprone_error_prone_annotations",
+        "@maven//:com_google_flogger_flogger",
+        "@maven//:info_picocli_picocli",
+        "@maven//:io_helidon_config_helidon_config",
+    ],
 )
 
 java_binary(
@@ -47,9 +47,7 @@ java_binary(
     jvm_flags = JVM_FLAGS,
     main_class = "com.fillmore_labs.kafka.sensors.app.Main",
     visibility = ["//visibility:public"],
-    runtime_deps = [
-        ":app_library",
-    ],
+    runtime_deps = [":app_library"],
 )
 
 java_image(
@@ -59,25 +57,5 @@ java_image(
     jvm_flags = JVM_FLAGS,
     main_class = "com.fillmore_labs.kafka.sensors.app.Main",
     visibility = ["//visibility:public"],
-    runtime_deps = [
-        ":app_library",
-    ] + RUNTIME_DEPS,
-)
-
-java_binary(
-    name = "classcheck",
-    srcs = ["ClassCheck.java"],
-    data = ["//conf:logging"],
-    jvm_flags = ["-Djava.util.logging.config.file=$(rootpath //conf:logging)"],
-    main_class = "com.fillmore_labs.kafka.sensors.app.ClassCheck",
-    visibility = ["//visibility:public"],
-    runtime_deps = [
-        ":app_library",
-        "@maven//:io_github_toolfactory_narcissus",
-    ] + RUNTIME_DEPS,
-    deps = [
-        "@maven//:com_google_flogger_flogger",
-        "@maven//:com_google_guava_guava",
-        "@maven//:io_github_classgraph_classgraph",
-    ],
+    runtime_deps = [":app_library"],
 )

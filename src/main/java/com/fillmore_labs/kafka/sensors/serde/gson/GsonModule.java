@@ -1,11 +1,13 @@
 package com.fillmore_labs.kafka.sensors.serde.gson;
 
+import com.fillmore_labs.kafka.sensors.model.Event;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.SensorStateDuration;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.gson.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateDurationGson;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.EventGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SerializationModule;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.StateDurationGson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -34,6 +36,15 @@ public abstract class GsonModule {
 
   @Provides
   @Named(GSON)
+  /* package */ static Serde<Event> eventSerde(
+      Serializer<EventGson> serializer,
+      Deserializer<EventGson> deserializer,
+      BiMapper<Event, EventGson> mapper) {
+    return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
+  }
+
+  @Provides
+  @Named(GSON)
   /* package */ static Serde<SensorState> sensorStateSerde(
       Serializer<SensorStateGson> serializer,
       Deserializer<SensorStateGson> deserializer,
@@ -43,12 +54,17 @@ public abstract class GsonModule {
 
   @Provides
   @Named(GSON)
-  /* package */ static Serde<SensorStateDuration> sensorStateDurationSerde(
-      Serializer<SensorStateDurationGson> serializer,
-      Deserializer<SensorStateDurationGson> deserializer,
-      BiMapper<SensorStateDuration, SensorStateDurationGson> mapper) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      Serializer<StateDurationGson> serializer,
+      Deserializer<StateDurationGson> deserializer,
+      BiMapper<StateDuration, StateDurationGson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
+
+  @Binds
+  @IntoMap
+  @StringKey(GSON)
+  /* package */ abstract Serde<Event> gsonEvent(@Named(GSON) Serde<Event> serde);
 
   @Binds
   @IntoMap
@@ -58,6 +74,5 @@ public abstract class GsonModule {
   @Binds
   @IntoMap
   @StringKey(GSON)
-  /* package */ abstract Serde<SensorStateDuration> gsonDuration(
-      @Named(GSON) Serde<SensorStateDuration> serde);
+  /* package */ abstract Serde<StateDuration> gsonDuration(@Named(GSON) Serde<StateDuration> serde);
 }

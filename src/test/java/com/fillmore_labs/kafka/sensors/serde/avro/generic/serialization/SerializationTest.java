@@ -6,48 +6,40 @@ import static org.junit.Assert.assertThrows;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import org.apache.avro.AvroMissingFieldException;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject @Avro.SensorStateDuration /* package */ @MonotonicNonNull
-  Serializer<GenericRecord> serializer;
+  private final Serializer<GenericRecord> serializer;
+  private final Deserializer<GenericRecord> deserializer;
 
-  @Inject @Avro.SensorStateDuration /* package */ @MonotonicNonNull
-  Deserializer<GenericRecord> deserializer;
-
-  @Before
-  public void before() {
+  public SerializationTest() {
     var testComponent = TestComponent.create();
-    testComponent.inject(this);
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var event =
-        new GenericRecordBuilder(SensorStateSchema.SCHEMA)
-            .set(SensorStateSchema.FIELD_ID, "7331")
-            .set(SensorStateSchema.FIELD_TIME, INSTANT)
-            .set(SensorStateSchema.FIELD_STATE, SensorStateStateSchema.ENUM_OFF)
+        new GenericRecordBuilder(EventSchema.SCHEMA)
+            .set(EventSchema.FIELD_TIME, INSTANT)
+            .set(EventSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
             .build();
 
     var sensorState =
-        new GenericRecordBuilder(SensorStateDurationSchema.SCHEMA)
-            .set(SensorStateDurationSchema.FIELD_EVENT, event)
-            .set(SensorStateDurationSchema.FIELD_DURATION, Duration.ofSeconds(15))
+        new GenericRecordBuilder(StateDurationSchema.SCHEMA)
+            .set(StateDurationSchema.FIELD_ID, "7331")
+            .set(StateDurationSchema.FIELD_EVENT, event)
+            .set(StateDurationSchema.FIELD_DURATION, Duration.ofSeconds(15))
             .build();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -63,14 +55,12 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull("serializer")
-  public void stateIsRequired() {
+  public void positionIsRequired() {
     assertThrows(
         AvroMissingFieldException.class,
         () ->
-            new GenericRecordBuilder(SensorStateSchema.SCHEMA)
-                .set(SensorStateSchema.FIELD_ID, "7331")
-                .set(SensorStateSchema.FIELD_TIME, INSTANT)
+            new GenericRecordBuilder(EventSchema.SCHEMA)
+                .set(EventSchema.FIELD_TIME, INSTANT)
                 .build());
   }
 
@@ -80,10 +70,9 @@ public final class SerializationTest {
     assertThrows(
         AvroRuntimeException.class,
         () ->
-            new GenericRecordBuilder(SensorStateSchema.SCHEMA)
-                .set(SensorStateSchema.FIELD_ID, "7331")
-                .set(SensorStateSchema.FIELD_TIME, INSTANT)
-                .set(SensorStateSchema.FIELD_STATE, null)
+            new GenericRecordBuilder(EventSchema.SCHEMA)
+                .set(EventSchema.FIELD_TIME, INSTANT)
+                .set(EventSchema.FIELD_POSITION, null)
                 .build());
   }
 
@@ -93,6 +82,10 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    @Avro.StateDuration
+    Serializer<GenericRecord> serializer();
+
+    @Avro.StateDuration
+    Deserializer<GenericRecord> deserializer();
   }
 }

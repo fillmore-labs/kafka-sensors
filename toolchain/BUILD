@@ -34,6 +34,8 @@ default_java_toolchain(
         "all",
         "-processing",
         "-classfile",
+        "-cast",
+        "-serial",
     ],
 )
 
@@ -52,6 +54,8 @@ default_java_toolchain(
         "all",
         "-processing",
         "-classfile",
+        "-cast",
+        "-serial",
     ],
 )
 
@@ -72,7 +76,6 @@ JAVACOPTS = [
     "-Xep:WildcardImport:OFF",
     "-Xep:ReturnMissingNullable:OFF",
     "-Xep:CloseableProvides:OFF",
-    "-Xep:UseCorrectAssertInTests:OFF",
 ]
 
 java_package_configuration(
@@ -207,5 +210,9 @@ java_library(
         "@maven//:com_google_truth_extensions_truth_proto_extension",
         "@maven//:com_google_truth_truth",
         "@maven//:junit_junit",
+    ],
+    runtime_deps = [
+        "@maven//:com_google_flogger_flogger_system_backend",
+        "@maven//:org_slf4j_slf4j_jdk14",
     ],
 )

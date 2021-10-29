@@ -3,47 +3,46 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.specific.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.avro.SensorState;
-import com.fillmore_labs.kafka.sensors.avro.SensorStateDuration;
-import com.fillmore_labs.kafka.sensors.avro.State;
-import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.DurationMicroHelper;
+import com.fillmore_labs.kafka.sensors.avro.Event;
+import com.fillmore_labs.kafka.sensors.avro.Position;
+import com.fillmore_labs.kafka.sensors.avro.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.avro.AvroMissingFieldException;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
-import org.junit.Before;
 import org.junit.Test;
 
 public final class SerializationTest {
   private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
   private static final String TOPIC = "topic";
 
-  @Inject @Confluent /* package */ @MonotonicNonNull Serializer<SensorStateDuration> serializer;
-  @Inject @Confluent /* package */ @MonotonicNonNull Deserializer<SensorStateDuration> deserializer;
+  private final Serializer<StateDuration> serializer;
+  private final Deserializer<StateDuration> deserializer;
 
-  @Before
-  public void before() {
-    TestComponent.create().inject(this);
+  public SerializationTest() {
+    var testComponent = TestComponent.create();
+    this.serializer = testComponent.serializer();
+    this.deserializer = testComponent.deserializer();
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
-    var event = SensorState.newBuilder().setId("7331").setTime(INSTANT).setState(State.ON);
+    var event =
+        Event.newBuilder()
+            .setTime(INSTANT.toEpochMilli() * 1_000_000L + 1L)
+            .setPosition(Position.ON);
 
     var sensorState =
-        SensorStateDuration.newBuilder()
+        StateDuration.newBuilder()
+            .setId("7331")
             .setEventBuilder(event)
-            .setDuration(DurationMicroHelper.duration2Micros(Duration.ofSeconds(15)))
+            .setDuration(Duration.ofSeconds(15).toNanos())
             .build();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -58,15 +57,15 @@ public final class SerializationTest {
   }
 
   @Test
-  public void stateIsRequired() {
-    var event = SensorState.newBuilder().setId("7331").setTime(INSTANT);
+  public void positionIsRequired() {
+    var event = Event.newBuilder().setTime(INSTANT.toEpochMilli() * 1_000_000L + 1L);
 
     assertThrows(
         AvroMissingFieldException.class,
         () ->
-            SensorStateDuration.newBuilder()
+            StateDuration.newBuilder()
                 .setEventBuilder(event)
-                .setDuration(DurationMicroHelper.duration2Micros(Duration.ofSeconds(15)))
+                .setDuration(Duration.ofSeconds(15).toNanos())
                 .build());
   }
 
@@ -75,7 +74,11 @@ public final class SerializationTest {
   public void notNull() {
     assertThrows(
         AvroRuntimeException.class,
-        () -> SensorState.newBuilder().setId("7331").setTime(INSTANT).setState(null).build());
+        () ->
+            Event.newBuilder()
+                .setTime(INSTANT.toEpochMilli() * 1_000_000L + 1L)
+                .setPosition(null)
+                .build());
   }
 
   @Singleton
@@ -85,6 +88,10 @@ public final class SerializationTest {
       return DaggerSerializationTest_TestComponent.create();
     }
 
-    void inject(SerializationTest test);
+    @Confluent
+    Serializer<StateDuration> serializer();
+
+    @Confluent
+    Deserializer<StateDuration> deserializer();
   }
 }
