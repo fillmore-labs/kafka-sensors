@@ -17,7 +17,6 @@ public final class MemoryEventStore implements LastEventStore {
     event = value;
   }
 
-  @Override
   public void delete() {
     event = null;
   }

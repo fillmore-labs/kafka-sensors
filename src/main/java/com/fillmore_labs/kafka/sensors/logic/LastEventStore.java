@@ -7,6 +7,4 @@ public interface LastEventStore {
   Optional<Event> get();
 
   void put(Event value);
-
-  void delete();
 }

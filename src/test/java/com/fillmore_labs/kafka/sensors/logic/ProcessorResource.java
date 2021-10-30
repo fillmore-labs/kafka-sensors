@@ -8,7 +8,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.junit.rules.ExternalResource;
 
 public final class ProcessorResource extends ExternalResource {
-  private @MonotonicNonNull LastEventStore eventStore;
+  private @MonotonicNonNull MemoryEventStore eventStore;
   private @MonotonicNonNull DurationProcessor processor;
 
   @Override

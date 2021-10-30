@@ -43,9 +43,8 @@ public final class DurationTransformer
     // A Kafka tombstone
     if (value == null) {
       if (key != null) {
-        var eventStore = new StoreAdapter(store, key);
         // delete the historic sensor position
-        eventStore.delete();
+        store.delete(key);
         // And return a Kafka tombstone
         // https://kafka.apache.org/documentation.html#design_compactionbasics
         return KeyValue.pair(key, null);
@@ -100,11 +99,6 @@ public final class DurationTransformer
     @Override
     public void put(Event value) {
       delegate.put(id, value);
-    }
-
-    @Override
-    public void delete() {
-      delegate.delete(id);
     }
   }
 }
