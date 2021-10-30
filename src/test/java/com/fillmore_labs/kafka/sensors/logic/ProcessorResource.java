@@ -1,34 +1,30 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
-import com.fillmore_labs.kafka.sensors.model.SensorState;
-import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.EventDuration;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.util.Optional;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.rules.ExternalResource;
 
 public final class ProcessorResource extends ExternalResource {
+  private @MonotonicNonNull LastEventStore eventStore;
   private @MonotonicNonNull DurationProcessor processor;
 
   @Override
   public void before() {
-    processor = new DurationProcessor(new MemoryEventStore());
-  }
-
-  @Override
-  public void after() {
-    assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    processor.close();
+    eventStore = new MemoryEventStore();
+    processor = new DurationProcessor(eventStore);
   }
 
   @CanIgnoreReturnValue
-  public @Nullable StateDuration transform(SensorState sensorState) {
+  public Optional<EventDuration> transform(Event event) {
     assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    return processor.transform(sensorState.getId(), sensorState.getEvent());
+    return processor.transform(event);
   }
 
-  public void delete(String id) {
-    assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    processor.delete(id);
+  public void delete() {
+    assert eventStore != null : "@AssumeAssertion(nullness): before() not called";
+    eventStore.delete();
   }
 }

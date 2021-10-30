@@ -1,6 +1,5 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
-import com.fillmore_labs.kafka.sensors.logic.DurationProcessor;
 import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
 import com.fillmore_labs.kafka.sensors.logic.LastEventStore;
 import com.fillmore_labs.kafka.sensors.model.Event;
@@ -8,6 +7,7 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
+import java.util.Optional;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.errors.StreamsException;
 import org.apache.kafka.streams.kstream.Transformer;
@@ -21,7 +21,7 @@ public final class DurationTransformer
   private final DurationProcessorFactory factory;
   private final String storeName;
 
-  private @MonotonicNonNull DurationProcessor processor;
+  private @MonotonicNonNull KeyValueStore<String, Event> store;
 
   @AssistedInject
   /* package */ DurationTransformer(DurationProcessorFactory factory, @Assisted String storeName) {
@@ -31,21 +31,21 @@ public final class DurationTransformer
 
   @Override
   public void init(ProcessorContext context) {
-    KeyValueStore<String, Event> store = context.getStateStore(storeName);
-    processor = factory.create(new StoreAdapter(store));
+    store = context.getStateStore(storeName);
   }
 
   @Override
   @SuppressWarnings({"nullness:override.return", "nullness:return"}) // Transformer is not annotated
   public @Nullable KeyValue<String, StateDuration> transform(
       @Nullable String key, @Nullable SensorState value) {
-    assert processor != null : "@AssumeAssertion(nullness): init() not called";
+    assert store != null : "@AssumeAssertion(nullness): init() not called";
 
     // A Kafka tombstone
     if (value == null) {
       if (key != null) {
+        var eventStore = new StoreAdapter(store, key);
         // delete the historic sensor position
-        processor.delete(key);
+        eventStore.delete();
         // And return a Kafka tombstone
         // https://kafka.apache.org/documentation.html#design_compactionbasics
         return KeyValue.pair(key, null);
@@ -60,42 +60,51 @@ public final class DurationTransformer
       throw new StreamsException(String.format("Expected id %s, got %s", value.getId(), key));
     }
 
-    var result = processor.transform(id, value.getEvent());
+    var eventStore = new StoreAdapter(store, id);
+    var processor = factory.create(eventStore);
+    var transformed = processor.transform(value.getEvent());
 
     // Skip if no result (No historic data).
-    if (result == null) {
+    if (transformed.isEmpty()) {
       return null;
     }
 
-    return KeyValue.pair(id, result);
+    var result = transformed.get();
+
+    var stateDuration =
+        StateDuration.builder()
+            .id(id)
+            .event(result.getEvent())
+            .duration(result.getDuration())
+            .build();
+    return KeyValue.pair(id, stateDuration);
   }
 
   @Override
-  public void close() {
-    assert processor != null : "@AssumeAssertion(nullness): init() not called";
-    processor.close();
-  }
+  public void close() {}
 
   private static class StoreAdapter implements LastEventStore {
     private final KeyValueStore<String, Event> delegate;
+    private final String id;
 
-    /* pacakge */ StoreAdapter(KeyValueStore<String, Event> delegate) {
+    /* pacakge */ StoreAdapter(KeyValueStore<String, Event> delegate, String id) {
       this.delegate = delegate;
+      this.id = id;
     }
 
     @Override
-    public @Nullable Event get(String id) {
-      return delegate.get(id);
+    public Optional<Event> get() {
+      return Optional.ofNullable(delegate.get(id));
     }
 
     @Override
-    public void put(String id, Event value) {
+    public void put(Event value) {
       delegate.put(id, value);
     }
 
     @Override
-    public @Nullable Event delete(String id) {
-      return delegate.delete(id);
+    public void delete() {
+      delegate.delete(id);
     }
   }
 }

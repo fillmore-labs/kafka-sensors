@@ -1,25 +1,24 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
 import com.fillmore_labs.kafka.sensors.model.Event;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class MemoryEventStore implements LastEventStore {
-  private final Map<String, Event> map = new HashMap<>();
+  private @Nullable Event event;
 
   @Override
-  public @Nullable Event get(String id) {
-    return map.get(id);
+  public Optional<Event> get() {
+    return Optional.ofNullable(event);
   }
 
   @Override
-  public void put(String id, Event value) {
-    map.put(id, value);
+  public void put(Event value) {
+    event = value;
   }
 
   @Override
-  public @Nullable Event delete(String id) {
-    return map.remove(id);
+  public void delete() {
+    event = null;
   }
 }

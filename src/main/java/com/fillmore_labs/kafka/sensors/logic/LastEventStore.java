@@ -1,14 +1,12 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
 import com.fillmore_labs.kafka.sensors.model.Event;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import java.util.Optional;
 
 public interface LastEventStore {
-  @Nullable Event get(String id);
+  Optional<Event> get();
 
-  void put(String id, Event value);
+  void put(Event value);
 
-  @CanIgnoreReturnValue
-  @Nullable Event delete(String id);
+  void delete();
 }
