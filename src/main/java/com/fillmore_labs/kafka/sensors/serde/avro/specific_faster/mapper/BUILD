@@ -9,7 +9,6 @@ java_library(
     ],
     visibility = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/specific_faster:__pkg__",
-        "//src/test:__subpackages__",
     ],
     deps = [
         "//src/main/avro/com/fillmore_labs/kafka/sensors/avro",

@@ -20,26 +20,6 @@ config_setting(
 # ---
 
 default_java_toolchain(
-    name = "toolchain_java16",
-    configuration = dict(),
-    java_runtime = "@bazel_tools//tools/jdk:remotejdk_16",
-    package_configuration = [
-        ":src_package_configuration_16",
-        ":external_package_configuration",
-    ],
-    source_version = "16",
-    target_version = "16",
-    visibility = ["//visibility:public"],
-    xlint = [
-        "all",
-        "-processing",
-        "-classfile",
-        "-cast",
-        "-serial",
-    ],
-)
-
-default_java_toolchain(
     name = "toolchain_java17",
     configuration = dict(),
     java_runtime = "@bazel_tools//tools/jdk:remotejdk_17",
@@ -79,14 +59,8 @@ JAVACOPTS = [
 ]
 
 java_package_configuration(
-    name = "src_package_configuration_16",
-    javacopts = JAVACOPTS + ["-Werror"],
-    packages = [":src_package_group"],
-)
-
-java_package_configuration(
     name = "src_package_configuration",
-    javacopts = JAVACOPTS,
+    javacopts = JAVACOPTS + ["-Werror"],
     packages = [":src_package_group"],
 )
 

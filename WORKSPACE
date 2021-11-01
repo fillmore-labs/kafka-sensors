@@ -1,7 +1,5 @@
 workspace(name = "com_fillmore_labs_kafka_sensors")
 
-register_toolchains("//toolchain:toolchain_java16_definition")
-
 register_toolchains("//toolchain:toolchain_java17_definition")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -276,9 +274,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.0.0",
         "org.apache.kafka:kafka_2.13:3.0.0",
         "org.apache.thrift:libthrift:0.15.0",
-        "org.checkerframework:checker-qual:3.18.1",
-        "org.checkerframework:checker-util:3.18.1",
-        "org.checkerframework:checker:3.18.1",
+        "org.checkerframework:checker-qual:3.19.0",
+        "org.checkerframework:checker-util:3.19.0",
+        "org.checkerframework:checker:3.19.0",
         "org.immutables:gson:2.9.0-rc1",
         "org.immutables:value-annotations:2.9.0-rc1",
         "org.immutables:value-processor:2.9.0-rc1",
