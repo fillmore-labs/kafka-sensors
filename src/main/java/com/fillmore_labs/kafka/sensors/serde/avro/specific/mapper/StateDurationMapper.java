@@ -12,11 +12,11 @@ import org.mapstruct.Mapping;
 @Immutable
 @Mapper(
     config = MapStructConfig.class,
-    uses = {EventMapper.class, TimeNanoMapper.class})
+    uses = {ReadingMapper.class, TimeNanoMapper.class})
 /* package */ abstract class StateDurationMapper
     implements BiMapper<StateDuration, com.fillmore_labs.kafka.sensors.avro.StateDuration> {
   @Override
-  @Mapping(ignore = true, target = "eventBuilder")
+  @Mapping(ignore = true, target = "readingBuilder")
   public abstract com.fillmore_labs.kafka.sensors.avro.@PolyNull StateDuration map(
       @PolyNull StateDuration model);
 }

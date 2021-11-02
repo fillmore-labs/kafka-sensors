@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.topology;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
-import com.fillmore_labs.kafka.sensors.model.Event.Position;
+import com.fillmore_labs.kafka.sensors.model.Reading;
+import com.fillmore_labs.kafka.sensors.model.Reading.Position;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.topology.context.SingleTestComponent;
@@ -59,16 +59,16 @@ public final class TopologyTest {
 
     var start = Instant.ofEpochSecond(443634300L);
 
-    var event1 = Event.builder().time(start).position(Position.OFF).build();
+    var reading1 = Reading.builder().time(start).position(Position.OFF).build();
 
-    var sensorEvent1 = SensorState.builder().id(sensorId).event(event1).build();
+    var sensorReading1 = SensorState.builder().id(sensorId).reading(reading1).build();
 
-    pipeState(sensorEvent1);
+    pipeState(sensorReading1);
     assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
 
     var next = start.plusSeconds(30);
-    var event2 = Event.builder().time(next).position(Position.ON).build();
-    var newState = SensorState.builder().id(sensorId).event(event2).build();
+    var reading2 = Reading.builder().time(next).position(Position.ON).build();
+    var newState = SensorState.builder().id(sensorId).reading(reading2).build();
 
     pipeState(newState);
 
@@ -76,7 +76,7 @@ public final class TopologyTest {
 
     assertThat(result2.key).isEqualTo(sensorId);
     assertThat(result2.value).isNotNull();
-    assertThat(result2.value.getEvent()).isEqualTo(sensorEvent1.getEvent());
+    assertThat(result2.value.getReading()).isEqualTo(sensorReading1.getReading());
     assertThat(result2.value.getDuration()).isEqualTo(Duration.ofSeconds(30));
 
     assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
@@ -91,7 +91,7 @@ public final class TopologyTest {
     var initialState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(start).position(Position.OFF).build())
+            .reading(Reading.builder().time(start).position(Position.OFF).build())
             .build();
 
     pipeState(initialState);
@@ -101,7 +101,7 @@ public final class TopologyTest {
     var newState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(next).position(Position.OFF).build())
+            .reading(Reading.builder().time(next).position(Position.OFF).build())
             .build();
 
     pipeState(newState);
@@ -110,14 +110,14 @@ public final class TopologyTest {
 
     assertThat(result2.key).isEqualTo(sensorId);
     assertThat(result2.value).isNotNull();
-    assertThat(result2.value.getEvent()).isEqualTo(initialState.getEvent());
+    assertThat(result2.value.getReading()).isEqualTo(initialState.getReading());
     assertThat(result2.value.getDuration()).isEqualTo(Duration.ofSeconds(30));
 
     var next2 = next.plusSeconds(30);
     var newState2 =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(next2).position(Position.ON).build())
+            .reading(Reading.builder().time(next2).position(Position.ON).build())
             .build();
 
     pipeState(newState2);
@@ -126,14 +126,14 @@ public final class TopologyTest {
 
     assertThat(result3.key).isEqualTo(sensorId);
     assertThat(result3.value).isNotNull();
-    assertThat(result3.value.getEvent()).isEqualTo(initialState.getEvent());
+    assertThat(result3.value.getReading()).isEqualTo(initialState.getReading());
     assertThat(result3.value.getDuration()).isEqualTo(Duration.ofSeconds(60));
 
     var next3 = next2.plusSeconds(15);
     var newState3 =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(next3).position(Position.OFF).build())
+            .reading(Reading.builder().time(next3).position(Position.OFF).build())
             .build();
 
     pipeState(newState3);
@@ -142,7 +142,7 @@ public final class TopologyTest {
 
     assertThat(result4.key).isEqualTo(sensorId);
     assertThat(result4.value).isNotNull();
-    assertThat(result4.value.getEvent()).isEqualTo(newState2.getEvent());
+    assertThat(result4.value.getReading()).isEqualTo(newState2.getReading());
     assertThat(result4.value.getDuration()).isEqualTo(Duration.ofSeconds(15));
 
     assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
@@ -157,7 +157,7 @@ public final class TopologyTest {
     var initialState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(start).position(Position.OFF).build())
+            .reading(Reading.builder().time(start).position(Position.OFF).build())
             .build();
 
     pipeState(initialState);
@@ -172,7 +172,7 @@ public final class TopologyTest {
     var newState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(next).position(Position.OFF).build())
+            .reading(Reading.builder().time(next).position(Position.OFF).build())
             .build();
 
     pipeState(newState);
@@ -187,7 +187,7 @@ public final class TopologyTest {
     var initialState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(start).position(Position.OFF).build())
+            .reading(Reading.builder().time(start).position(Position.OFF).build())
             .build();
 
     pipeState(initialState);
@@ -197,7 +197,7 @@ public final class TopologyTest {
     var newState =
         SensorState.builder()
             .id(sensorId)
-            .event(Event.builder().time(next).position(Position.OFF).build())
+            .reading(Reading.builder().time(next).position(Position.OFF).build())
             .build();
 
     var excpetion = assertThrows(StreamsException.class, () -> pipeState(newState));

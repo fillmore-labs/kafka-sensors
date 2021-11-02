@@ -10,7 +10,7 @@ public interface StateDurationIon {
 
   String getId();
 
-  EventIon getEvent();
+  ReadingIon getReading();
 
   long getDuration();
 }

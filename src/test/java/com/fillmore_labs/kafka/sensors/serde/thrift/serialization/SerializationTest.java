@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.serde.thrift.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.thrift.v1.Event;
 import com.fillmore_labs.kafka.sensors.thrift.v1.Position;
+import com.fillmore_labs.kafka.sensors.thrift.v1.Reading;
 import com.fillmore_labs.kafka.sensors.thrift.v1.StateDuration;
 import dagger.Component;
 import java.time.Duration;
@@ -30,13 +30,13 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event = new Event();
-    event.setPosition(Position.ON);
-    event.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
+    var reading = new Reading();
+    reading.setPosition(Position.ON);
+    reading.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
 
     var sensorState = new StateDuration();
     sensorState.setId("3771");
-    sensorState.setEvent(event);
+    sensorState.setReading(reading);
     sensorState.setDuration(Duration.ofSeconds(15).toNanos());
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -49,13 +49,13 @@ public final class SerializationTest {
   @Test
   @SuppressWarnings("nullness:argument")
   public void notNull() {
-    var event = new Event();
-    event.setPosition(null);
-    event.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
+    var reading = new Reading();
+    reading.setPosition(null);
+    reading.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
 
     var sensorState = new StateDuration();
     sensorState.setId("3771");
-    sensorState.setEvent(event);
+    sensorState.setReading(reading);
     sensorState.setDuration(Duration.ofSeconds(15).toNanos());
 
     var exception =

@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
 import com.fillmore_labs.kafka.sensors.serde.converter.DurationDecimalHelper;
 import com.fillmore_labs.kafka.sensors.serde.converter.InstantDecimalHelper;
-import com.fillmore_labs.kafka.sensors.serde.gson.serialization.EventGson.Position;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.ReadingGson.Position;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;

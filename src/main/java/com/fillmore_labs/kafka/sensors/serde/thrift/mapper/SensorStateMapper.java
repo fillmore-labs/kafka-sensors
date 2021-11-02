@@ -11,7 +11,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 public abstract class SensorStateMapper
     implements BiMapper<SensorState, com.fillmore_labs.kafka.sensors.thrift.v1.SensorState> {
   @Override

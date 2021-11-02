@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.Module;
@@ -15,23 +15,23 @@ import org.apache.kafka.common.serialization.Serializer;
   private SingleTestModule() {}
 
   @Provides
-  /* package */ static Serializer<Event> serializerEvent(
-      Formats formats, Map<String, Serde<Event>> serdeMap) {
+  /* package */ static Serializer<Reading> serializerReading(
+      Formats formats, Map<String, Serde<Reading>> serdeMap) {
     var serde = serdeMap.get(formats.serialization());
     if (serde == null) {
       throw new IllegalArgumentException(
-          String.format("Unknown format: %s for Event", formats.serialization()));
+          String.format("Unknown format: %s for Reading", formats.serialization()));
     }
     return serde.serializer();
   }
 
   @Provides
-  /* package */ static Deserializer<Event> deserializerEvent(
-      Formats formats, Map<String, Serde<Event>> serdeMap) {
+  /* package */ static Deserializer<Reading> deserializerReading(
+      Formats formats, Map<String, Serde<Reading>> serdeMap) {
     var serde = serdeMap.get(formats.deserialization());
     if (serde == null) {
       throw new IllegalArgumentException(
-          String.format("Unknown format: %s for Event", formats.deserialization()));
+          String.format("Unknown format: %s for Reading", formats.deserialization()));
     }
     return serde.deserializer();
   }

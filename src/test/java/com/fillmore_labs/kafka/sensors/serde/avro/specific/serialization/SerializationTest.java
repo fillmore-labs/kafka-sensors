@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.serde.avro.specific.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.avro.Event;
 import com.fillmore_labs.kafka.sensors.avro.Position;
+import com.fillmore_labs.kafka.sensors.avro.Reading;
 import com.fillmore_labs.kafka.sensors.avro.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.InstantNanosHelper;
 import dagger.Component;
@@ -32,12 +32,12 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event = Event.newBuilder().setTime(TIME).setPosition(Position.ON);
+    var reading = Reading.newBuilder().setTime(TIME).setPosition(Position.ON);
 
     var sensorState =
         StateDuration.newBuilder()
             .setId("7331")
-            .setEventBuilder(event)
+            .setReadingBuilder(reading)
             .setDuration(Duration.ofSeconds(15).toNanos())
             .build();
 
@@ -55,14 +55,14 @@ public final class SerializationTest {
 
   @Test
   public void positionIsRequired() {
-    var event = Event.newBuilder().setTime(TIME);
+    var reading = Reading.newBuilder().setTime(TIME);
 
     assertThrows(
         AvroMissingFieldException.class,
         () ->
             StateDuration.newBuilder()
                 .setId("7331")
-                .setEventBuilder(event)
+                .setReadingBuilder(reading)
                 .setDuration(Duration.ofSeconds(15).toNanos())
                 .build());
   }
@@ -72,7 +72,7 @@ public final class SerializationTest {
   public void notNull() {
     assertThrows(
         AvroRuntimeException.class,
-        () -> Event.newBuilder().setTime(TIME).setPosition(null).build());
+        () -> Reading.newBuilder().setTime(TIME).setPosition(null).build());
   }
 
   @Component(modules = {SerializationModule.class})

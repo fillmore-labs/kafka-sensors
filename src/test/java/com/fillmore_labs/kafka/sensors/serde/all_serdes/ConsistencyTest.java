@@ -20,7 +20,7 @@ public final class ConsistencyTest extends ConsistencyTestBase {
   public ConsistencyTest() {
     super(
         TEST_COMPONENT.encodings(),
-        TEST_COMPONENT.serdeMapEvent(),
+        TEST_COMPONENT.serdeMapReading(),
         TEST_COMPONENT.serdeMap(),
         TEST_COMPONENT.serdeDurationMap());
   }

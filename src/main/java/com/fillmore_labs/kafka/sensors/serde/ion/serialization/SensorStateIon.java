@@ -10,5 +10,5 @@ public interface SensorStateIon {
 
   String getId();
 
-  EventIon getEvent();
+  ReadingIon getReading();
 }

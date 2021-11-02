@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.benchmark;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.time.Duration;
 import java.time.Instant;
@@ -50,10 +50,14 @@ public /* open */ class ExecutionPlan {
   public ExecutionPlan() {
     var instant = Instant.ofEpochSecond(443_634_300L);
 
-    var event = Event.builder().time(instant).position(Event.Position.ON).build();
+    var reading = Reading.builder().time(instant).position(Reading.Position.ON).build();
 
     this.data =
-        StateDuration.builder().id("7331").event(event).duration(Duration.ofSeconds(15)).build();
+        StateDuration.builder()
+            .id("7331")
+            .reading(reading)
+            .duration(Duration.ofSeconds(15))
+            .build();
   }
 
   @Setup(Level.Trial)

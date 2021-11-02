@@ -29,16 +29,16 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event =
-        new GenericRecordBuilder(EventSchema.SCHEMA)
-            .set(EventSchema.FIELD_TIME, INSTANT)
-            .set(EventSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
+    var reading =
+        new GenericRecordBuilder(ReadingSchema.SCHEMA)
+            .set(ReadingSchema.FIELD_TIME, INSTANT)
+            .set(ReadingSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
             .build();
 
     var sensorState =
         new GenericRecordBuilder(StateDurationSchema.SCHEMA)
             .set(StateDurationSchema.FIELD_ID, "7331")
-            .set(StateDurationSchema.FIELD_EVENT, event)
+            .set(StateDurationSchema.FIELD_READING, reading)
             .set(StateDurationSchema.FIELD_DURATION, Duration.ofSeconds(15))
             .build();
 
@@ -59,8 +59,8 @@ public final class SerializationTest {
     assertThrows(
         AvroMissingFieldException.class,
         () ->
-            new GenericRecordBuilder(EventSchema.SCHEMA)
-                .set(EventSchema.FIELD_TIME, INSTANT)
+            new GenericRecordBuilder(ReadingSchema.SCHEMA)
+                .set(ReadingSchema.FIELD_TIME, INSTANT)
                 .build());
   }
 
@@ -70,9 +70,9 @@ public final class SerializationTest {
     assertThrows(
         AvroRuntimeException.class,
         () ->
-            new GenericRecordBuilder(EventSchema.SCHEMA)
-                .set(EventSchema.FIELD_TIME, INSTANT)
-                .set(EventSchema.FIELD_POSITION, null)
+            new GenericRecordBuilder(ReadingSchema.SCHEMA)
+                .set(ReadingSchema.FIELD_TIME, INSTANT)
+                .set(ReadingSchema.FIELD_POSITION, null)
                 .build());
   }
 

@@ -13,7 +13,7 @@ public @interface Confluent {
   @Qualifier
   @Documented
   @Retention(RUNTIME)
-  @interface Event {}
+  @interface Reading {}
 
   @Qualifier
   @Documented

@@ -1,11 +1,11 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin.serialization;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 
-public final class Position2StringConverter extends StdConverter<Event.Position, String> {
+public final class Position2StringConverter extends StdConverter<Reading.Position, String> {
   @Override
-  public String convert(Event.Position value) {
+  public String convert(Reading.Position value) {
     // Checkstyle ignore MissingSwitchDefault
     switch (value) {
       case OFF:

@@ -12,7 +12,7 @@ import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 /* package */ abstract class StateDurationMapper
     implements BiMapper<StateDuration, com.fillmore_labs.kafka.sensors.proto.v1.StateDuration> {
   protected static Duration unmapDuration(com.google.protobuf.Duration data) {

@@ -29,13 +29,13 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event = new EventReflect();
-    event.time = INSTANT;
-    event.position = EventReflect.Position.ON;
+    var reading = new ReadingReflect();
+    reading.time = INSTANT;
+    reading.position = ReadingReflect.Position.ON;
 
     var sensorState = new StateDurationReflect();
     sensorState.id = "7331";
-    sensorState.event = event;
+    sensorState.reading = reading;
     sensorState.duration = Duration.ofSeconds(15);
 
     var encoded = serializer.serialize(TOPIC, sensorState);
@@ -53,12 +53,12 @@ public final class SerializationTest {
   @RequiresNonNull("serializer")
   @SuppressWarnings("nullness:assignment")
   public void positionIsRequired() {
-    var event = new EventReflect();
-    event.time = INSTANT;
-    event.position = null;
+    var reading = new ReadingReflect();
+    reading.time = INSTANT;
+    reading.position = null;
 
     var sensorState = new StateDurationReflect();
-    sensorState.event = event;
+    sensorState.reading = reading;
     sensorState.duration = Duration.ofSeconds(15);
 
     var ser = serializer; // effectively final (JLS §4.12.4)

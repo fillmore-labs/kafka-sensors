@@ -9,11 +9,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 /* package */ abstract class SensorStateMapper
     implements BiMapper<SensorState, com.fillmore_labs.kafka.sensors.avro.SensorState> {
   @Override
-  @Mapping(ignore = true, target = "eventBuilder")
+  @Mapping(ignore = true, target = "readingBuilder")
   public abstract com.fillmore_labs.kafka.sensors.avro.@PolyNull SensorState map(
       @PolyNull SensorState model);
 }

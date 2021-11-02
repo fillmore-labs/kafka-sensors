@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.mixin;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.mixin.serialization.MixIn;
@@ -32,8 +32,8 @@ public abstract class MixInModule {
 
   @Provides
   @Named(MIXIN)
-  /* package */ static Serde<Event> eventSerde(
-      @MixIn Serializer<Event> serializer, @MixIn Deserializer<Event> deserializer) {
+  /* package */ static Serde<Reading> readingSerde(
+      @MixIn Serializer<Reading> serializer, @MixIn Deserializer<Reading> deserializer) {
     return Serdes.serdeFrom(serializer, deserializer);
   }
 
@@ -55,7 +55,7 @@ public abstract class MixInModule {
   @Binds
   @IntoMap
   @StringKey(MIXIN)
-  /* package */ abstract Serde<Event> mixinEvent(@Named(MIXIN) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> mixinReading(@Named(MIXIN) Serde<Reading> serde);
 
   @Binds
   @IntoMap

@@ -36,13 +36,13 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<EventJson> eventSerializer(ObjectMapper mapper) {
-    return new JsonSerializer<>(mapper, EventJson.class);
+  /* package */ static Serializer<ReadingJson> readingSerializer(ObjectMapper mapper) {
+    return new JsonSerializer<>(mapper, ReadingJson.class);
   }
 
   @Provides
-  /* package */ static Deserializer<EventJson> eventDeserializer(ObjectMapper mapper) {
-    return new JsonDeserializer<>(mapper, EventJson.class);
+  /* package */ static Deserializer<ReadingJson> readingDeserializer(ObjectMapper mapper) {
+    return new JsonDeserializer<>(mapper, ReadingJson.class);
   }
 
   @Provides

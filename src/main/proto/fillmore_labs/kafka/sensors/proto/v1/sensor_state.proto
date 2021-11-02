@@ -10,7 +10,7 @@ option java_outer_classname = "SensorStateProto";
 option java_package = "com.fillmore_labs.kafka.sensors.proto.v1";
 
 // Measurement.
-message Event {
+message Reading {
   google.protobuf.Timestamp time = 1;
 
   // Position of a sensor.
@@ -26,5 +26,5 @@ message Event {
 // State of a sensor.
 message SensorState {
   string id = 1;
-  Event event = 2;
+  Reading reading = 2;
 }

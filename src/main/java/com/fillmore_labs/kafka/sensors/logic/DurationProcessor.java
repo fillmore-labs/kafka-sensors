@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
-import com.fillmore_labs.kafka.sensors.model.EventDuration;
+import com.fillmore_labs.kafka.sensors.model.Reading;
+import com.fillmore_labs.kafka.sensors.model.ReadingDuration;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
@@ -9,21 +9,21 @@ import java.time.Duration;
 import java.util.Optional;
 
 public final class DurationProcessor {
-  private final LastEventStore store;
+  private final LastReadingStore store;
 
   @AssistedInject
-  /* package */ DurationProcessor(@Assisted LastEventStore store) {
+  /* package */ DurationProcessor(@Assisted LastReadingStore store) {
     this.store = store;
   }
 
   @CanIgnoreReturnValue
-  public Optional<EventDuration> transform(Event event) {
+  public Optional<ReadingDuration> transform(Reading reading) {
     // Get the historical position
     var storedState = store.get();
 
     // When we have no historical data, just store the current position
     if (storedState.isEmpty()) {
-      store.put(event);
+      store.put(reading);
       return Optional.empty();
     }
 
@@ -31,14 +31,14 @@ public final class DurationProcessor {
     var oldState = storedState.get();
 
     // Update the position store if necessary.
-    // We do not update for new events with the same position.
-    if (oldState.getPosition() != event.getPosition()) {
-      store.put(event);
+    // We do not update for new readings with the same position.
+    if (oldState.getPosition() != reading.getPosition()) {
+      store.put(reading);
     }
 
-    var duration = Duration.between(oldState.getTime(), event.getTime());
+    var duration = Duration.between(oldState.getTime(), reading.getTime());
 
     // Wrap the old position with a duration how log it lasted.
-    return Optional.of(EventDuration.builder().event(oldState).duration(duration).build());
+    return Optional.of(ReadingDuration.builder().reading(oldState).duration(duration).build());
   }
 }

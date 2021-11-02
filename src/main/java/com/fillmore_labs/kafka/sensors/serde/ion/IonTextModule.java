@@ -1,9 +1,9 @@
 package com.fillmore_labs.kafka.sensors.serde.ion;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
-import com.fillmore_labs.kafka.sensors.serde.ion.serialization.EventIon;
+import com.fillmore_labs.kafka.sensors.serde.ion.serialization.ReadingIon;
 import com.fillmore_labs.kafka.sensors.serde.ion.serialization.SensorStateIon;
 import com.fillmore_labs.kafka.sensors.serde.ion.serialization.SerializationModule.Text;
 import com.fillmore_labs.kafka.sensors.serde.ion.serialization.StateDurationIon;
@@ -35,10 +35,10 @@ public abstract class IonTextModule {
 
   @Provides
   @Named(ION_TEXT)
-  /* package */ static Serde<Event> evenSerde(
-      @Text Serializer<EventIon> serializer,
-      Deserializer<EventIon> deserializer,
-      BiMapper<Event, EventIon> mapper) {
+  /* package */ static Serde<Reading> evenSerde(
+      @Text Serializer<ReadingIon> serializer,
+      Deserializer<ReadingIon> deserializer,
+      BiMapper<Reading, ReadingIon> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -63,7 +63,7 @@ public abstract class IonTextModule {
   @Binds
   @IntoMap
   @StringKey(ION_TEXT)
-  /* package */ abstract Serde<Event> ionTextEvent(@Named(ION_TEXT) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> ionTextReading(@Named(ION_TEXT) Serde<Reading> serde);
 
   @Binds
   @IntoMap

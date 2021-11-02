@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.thrift;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
@@ -33,10 +33,10 @@ public abstract class ThriftModule {
 
   @Provides
   @Named(THRIFT)
-  /* package */ static Serde<Event> eventSerde(
-      Serializer<com.fillmore_labs.kafka.sensors.thrift.v1.Event> serializer,
-      Deserializer<com.fillmore_labs.kafka.sensors.thrift.v1.Event> deserializer,
-      BiMapper<Event, com.fillmore_labs.kafka.sensors.thrift.v1.Event> mapper) {
+  /* package */ static Serde<Reading> readingSerde(
+      Serializer<com.fillmore_labs.kafka.sensors.thrift.v1.Reading> serializer,
+      Deserializer<com.fillmore_labs.kafka.sensors.thrift.v1.Reading> deserializer,
+      BiMapper<Reading, com.fillmore_labs.kafka.sensors.thrift.v1.Reading> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -61,7 +61,7 @@ public abstract class ThriftModule {
   @Binds
   @IntoMap
   @StringKey(THRIFT)
-  /* package */ abstract Serde<Event> thriftEvent(@Named(THRIFT) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> thriftReading(@Named(THRIFT) Serde<Reading> serde);
 
   @Binds
   @IntoMap

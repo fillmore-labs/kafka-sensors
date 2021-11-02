@@ -9,12 +9,12 @@ public final class IonSerializerHelper {
   private static final String FIELD_ID = "id";
   private static final String FIELD_POSITION = "position";
   private static final String FIELD_TIME = "time";
-  private static final String FIELD_EVENT = "event";
+  private static final String FIELD_READING = "reading";
   private static final String FIELD_DURATION = "duration";
 
   private IonSerializerHelper() {}
 
-  public static void serializeEvent(IonWriter writer, EventIon message) throws IOException {
+  public static void serializeReading(IonWriter writer, ReadingIon message) throws IOException {
     writer.stepIn(IonType.STRUCT);
     writer.setFieldName(FIELD_TIME);
     writer.writeInt(message.getTime());
@@ -28,8 +28,8 @@ public final class IonSerializerHelper {
     writer.stepIn(IonType.STRUCT);
     writer.setFieldName(FIELD_ID);
     writer.writeString(message.getId());
-    writer.setFieldName(FIELD_EVENT);
-    serializeEvent(writer, message.getEvent());
+    writer.setFieldName(FIELD_READING);
+    serializeReading(writer, message.getReading());
     writer.stepOut();
   }
 
@@ -38,20 +38,20 @@ public final class IonSerializerHelper {
     writer.stepIn(IonType.STRUCT);
     writer.setFieldName(FIELD_ID);
     writer.writeString(message.getId());
-    writer.setFieldName(FIELD_EVENT);
-    serializeEvent(writer, message.getEvent());
+    writer.setFieldName(FIELD_READING);
+    serializeReading(writer, message.getReading());
     writer.setFieldName(FIELD_DURATION);
     writer.writeInt(message.getDuration());
     writer.stepOut();
   }
 
-  public static EventIon deserializeEvent(IonReader reader) {
+  public static ReadingIon deserializeReading(IonReader reader) {
     reader.next();
-    return deserializeEventInternal(reader);
+    return deserializeReadingInternal(reader);
   }
 
-  private static EventIon deserializeEventInternal(IonReader reader) {
-    var builder = EventIon.builder();
+  private static ReadingIon deserializeReadingInternal(IonReader reader) {
+    var builder = ReadingIon.builder();
 
     reader.stepIn();
     for (var type = reader.next(); type != null; type = reader.next()) {
@@ -62,7 +62,7 @@ public final class IonSerializerHelper {
           break;
 
         case FIELD_POSITION:
-          builder.position(EventIon.Position.valueOf(reader.symbolValue().getText()));
+          builder.position(ReadingIon.Position.valueOf(reader.symbolValue().getText()));
           break;
 
         default:
@@ -88,8 +88,8 @@ public final class IonSerializerHelper {
           builder.id(reader.stringValue());
           break;
 
-        case FIELD_EVENT:
-          builder.event(deserializeEventInternal(reader));
+        case FIELD_READING:
+          builder.reading(deserializeReadingInternal(reader));
           break;
 
         default:
@@ -115,8 +115,8 @@ public final class IonSerializerHelper {
           builder.id(reader.stringValue());
           break;
 
-        case FIELD_EVENT:
-          builder.event(deserializeEventInternal(reader));
+        case FIELD_READING:
+          builder.reading(deserializeReadingInternal(reader));
           break;
 
         case FIELD_DURATION:

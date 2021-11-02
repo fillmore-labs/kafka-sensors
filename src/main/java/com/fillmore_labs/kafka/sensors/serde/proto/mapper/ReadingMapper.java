@@ -5,8 +5,8 @@ import static org.mapstruct.MappingConstants.PREFIX_TRANSFORMATION;
 import static org.mapstruct.MappingConstants.THROW_EXCEPTION;
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
-import com.fillmore_labs.kafka.sensors.model.Event.Position;
+import com.fillmore_labs.kafka.sensors.model.Reading;
+import com.fillmore_labs.kafka.sensors.model.Reading.Position;
 import com.fillmore_labs.kafka.sensors.serde.mapping.MapStructConfig;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
@@ -21,8 +21,8 @@ import org.mapstruct.ValueMapping;
 
 @Immutable
 @Mapper(config = MapStructConfig.class)
-public abstract class EventMapper
-    implements BiMapper<Event, com.fillmore_labs.kafka.sensors.proto.v1.Event> {
+public abstract class ReadingMapper
+    implements BiMapper<Reading, com.fillmore_labs.kafka.sensors.proto.v1.Reading> {
   protected static Instant mapTime(Timestamp timestamp) {
     return Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos());
   }
@@ -36,15 +36,15 @@ public abstract class EventMapper
 
   @Override
   @BeanMapping(unmappedTargetPolicy = IGNORE)
-  public abstract com.fillmore_labs.kafka.sensors.proto.v1.@PolyNull Event map(
-      @PolyNull Event model);
+  public abstract com.fillmore_labs.kafka.sensors.proto.v1.@PolyNull Reading map(
+      @PolyNull Reading model);
 
   @EnumMapping(nameTransformationStrategy = PREFIX_TRANSFORMATION, configuration = "POSITION_")
-  protected abstract com.fillmore_labs.kafka.sensors.proto.v1.Event.Position unmapPosition(
+  protected abstract com.fillmore_labs.kafka.sensors.proto.v1.Reading.Position unmapPosition(
       Position position);
 
   @InheritInverseConfiguration
   @ValueMapping(source = ANY_REMAINING, target = THROW_EXCEPTION)
   protected abstract Position mapPosition(
-      com.fillmore_labs.kafka.sensors.proto.v1.Event.Position position);
+      com.fillmore_labs.kafka.sensors.proto.v1.Reading.Position position);
 }

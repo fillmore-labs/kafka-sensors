@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import org.apache.kafka.common.serialization.Serde;
@@ -16,7 +16,7 @@ public interface TopologySettings {
 
   String inputTopic();
 
-  Serde<Event> storeSerde();
+  Serde<Reading> storeSerde();
 
   String storeName();
 

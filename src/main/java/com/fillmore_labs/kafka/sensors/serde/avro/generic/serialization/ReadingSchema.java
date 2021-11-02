@@ -6,7 +6,7 @@ import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericData.StringType;
 
-public final class EventSchema {
+public final class ReadingSchema {
   public static final String FIELD_TIME = "time";
   public static final String FIELD_POSITION = "position";
   public static final GenericData MODEL;
@@ -33,7 +33,7 @@ public final class EventSchema {
     var timestampSchema = timestampConversion.getRecommendedSchema();
 
     SCHEMA =
-        SchemaBuilder.record("Event")
+        SchemaBuilder.record("Reading")
             .namespace(NAMESPACE)
             .doc("Measurement")
             .fields()
@@ -46,5 +46,5 @@ public final class EventSchema {
             .endRecord();
   }
 
-  private EventSchema() {}
+  private ReadingSchema() {}
 }

@@ -4,7 +4,7 @@ import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHE
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
 import dagger.Module;
@@ -22,11 +22,11 @@ public abstract class SerializationModule {
 
   @Provides
   @Confluent
-  /* package */ static Serializer<EventJson> eventSerializer(
+  /* package */ static Serializer<ReadingJson> readingSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
 
-    var serializer = new KafkaJsonSchemaSerializer<EventJson>();
+    var serializer = new KafkaJsonSchemaSerializer<ReadingJson>();
     serializer.configure(config, /* isKey= */ false);
 
     return serializer;
@@ -34,16 +34,16 @@ public abstract class SerializationModule {
 
   @Provides
   @Confluent
-  /* package */ static Deserializer<EventJson> eventDeserializer(
+  /* package */ static Deserializer<ReadingJson> readingDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config =
         Map.of(
             SCHEMA_REGISTRY_URL_CONFIG,
             registryUrl,
             KafkaJsonSchemaDeserializerConfig.JSON_VALUE_TYPE,
-            EventJson.class);
+            ReadingJson.class);
 
-    var deserializer = new KafkaJsonSchemaDeserializer<EventJson>();
+    var deserializer = new KafkaJsonSchemaDeserializer<ReadingJson>();
     deserializer.configure(config, /* isKey= */ false);
 
     return deserializer;

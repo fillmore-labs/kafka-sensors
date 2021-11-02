@@ -4,8 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson.Position;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson.Position;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
 import dagger.Component;
 import java.time.Duration;
@@ -29,13 +29,13 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event =
-        EventJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
+    var reading =
+        ReadingJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
 
     var sensorState =
         StateWithDurationJson.builder()
             .id("7331")
-            .event(event)
+            .reading(reading)
             .duration(Duration.ofSeconds(15))
             .build();
 

@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth8.assertThat;
 import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.logic.ProcessorTestHelper.Advancement;
-import com.fillmore_labs.kafka.sensors.model.Event.Position;
+import com.fillmore_labs.kafka.sensors.model.Reading.Position;
 import java.time.Duration;
 import org.junit.Rule;
 import org.junit.Test;

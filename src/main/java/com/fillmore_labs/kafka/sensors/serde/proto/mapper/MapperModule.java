@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.proto.mapper;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
@@ -15,13 +15,13 @@ public abstract class MapperModule {
 
   @Provides
   @Singleton
-  /* package */ static EventMapper eventMapper() {
-    return new EventMapperImpl();
+  /* package */ static ReadingMapper readingMapper() {
+    return new ReadingMapperImpl();
   }
 
   @Binds
-  /* package */ abstract BiMapper<Event, com.fillmore_labs.kafka.sensors.proto.v1.Event>
-      eventBiMapper(EventMapper mapper);
+  /* package */ abstract BiMapper<Reading, com.fillmore_labs.kafka.sensors.proto.v1.Reading>
+      readingBiMapper(ReadingMapper mapper);
 
   @Binds
   /* package */ abstract BiMapper<SensorState, com.fillmore_labs.kafka.sensors.proto.v1.SensorState>

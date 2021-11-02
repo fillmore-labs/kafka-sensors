@@ -19,7 +19,7 @@ import org.mapstruct.Mapping;
 /* package */ abstract class StateDurationMapper
     implements BiMapper<StateDuration, StateDurationGson> {
   @Override
-  @Mapping(source = "event", target = ".")
+  @Mapping(source = "reading", target = ".")
   public abstract @PolyNull StateDurationGson map(@PolyNull StateDuration model);
 
   @Override

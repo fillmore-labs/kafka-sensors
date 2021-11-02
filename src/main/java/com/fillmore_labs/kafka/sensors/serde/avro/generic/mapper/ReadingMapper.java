@@ -1,8 +1,8 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.EventSchema;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.PositionSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingSchema;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
 import java.time.Instant;
@@ -13,11 +13,11 @@ import org.apache.avro.generic.GenericRecordBuilder;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 
 @Immutable
-public final class EventMapper implements BiMapper<Event, GenericRecord> {
+public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
   @Inject
-  /* package */ EventMapper() {}
+  /* package */ ReadingMapper() {}
 
-  private static GenericEnumSymbol<?> mapPosition(Event.Position model) {
+  private static GenericEnumSymbol<?> mapPosition(Reading.Position model) {
     // Checkstyle ignore MissingSwitchDefault
     switch (model) {
       case OFF:
@@ -30,13 +30,13 @@ public final class EventMapper implements BiMapper<Event, GenericRecord> {
     throw new IllegalArgumentException("Unexpected Position Enum: " + model);
   }
 
-  private static Event.Position unmapPosition(GenericEnumSymbol<?> data) {
+  private static Reading.Position unmapPosition(GenericEnumSymbol<?> data) {
     switch (data.toString()) {
       case PositionSchema.POSITION_OFF:
-        return Event.Position.OFF;
+        return Reading.Position.OFF;
 
       case PositionSchema.POSITION_ON:
-        return Event.Position.ON;
+        return Reading.Position.ON;
 
       default:
         throw new IllegalArgumentException("Unexpected Enum value: " + data);
@@ -44,24 +44,24 @@ public final class EventMapper implements BiMapper<Event, GenericRecord> {
   }
 
   @Override
-  public @PolyNull GenericRecord map(@PolyNull Event model) {
+  public @PolyNull GenericRecord map(@PolyNull Reading model) {
     if (model == null) {
       return null;
     }
-    return new GenericRecordBuilder(EventSchema.SCHEMA)
-        .set(EventSchema.FIELD_TIME, model.getTime())
-        .set(EventSchema.FIELD_POSITION, mapPosition(model.getPosition()))
+    return new GenericRecordBuilder(ReadingSchema.SCHEMA)
+        .set(ReadingSchema.FIELD_TIME, model.getTime())
+        .set(ReadingSchema.FIELD_POSITION, mapPosition(model.getPosition()))
         .build();
   }
 
   @Override
-  public @PolyNull Event unmap(@PolyNull GenericRecord data) {
+  public @PolyNull Reading unmap(@PolyNull GenericRecord data) {
     if (data == null) {
       return null;
     }
-    return Event.builder()
-        .time((Instant) data.get(EventSchema.FIELD_TIME))
-        .position(unmapPosition((GenericEnumSymbol<?>) data.get(EventSchema.FIELD_POSITION)))
+    return Reading.builder()
+        .time((Instant) data.get(ReadingSchema.FIELD_TIME))
+        .position(unmapPosition((GenericEnumSymbol<?>) data.get(ReadingSchema.FIELD_POSITION)))
         .build();
   }
 }

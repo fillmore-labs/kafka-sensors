@@ -16,19 +16,19 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  /* package */ static Serializer<EventReflect> eventSerializer(
+  /* package */ static Serializer<ReadingReflect> readingSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
-    var serializer = new ReflectionAvroSerializer<EventReflect>();
+    var serializer = new ReflectionAvroSerializer<ReadingReflect>();
     serializer.configure(config, /* isSerializerForRecordKeys= */ false);
     return serializer;
   }
 
   @Provides
-  /* package */ static Deserializer<EventReflect> eventDeserializer(
+  /* package */ static Deserializer<ReadingReflect> readingDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
-    var deserializer = new ReflectionAvroDeserializer<>(EventReflect.class);
+    var deserializer = new ReflectionAvroDeserializer<>(ReadingReflect.class);
     deserializer.configure(config, /* isDeserializerForRecordKeys= */ false);
     return deserializer;
   }

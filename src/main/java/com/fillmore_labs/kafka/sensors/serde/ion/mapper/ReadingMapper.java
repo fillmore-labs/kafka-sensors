@@ -1,6 +1,7 @@
-package com.fillmore_labs.kafka.sensors.serde.avro.specific.mapper;
+package com.fillmore_labs.kafka.sensors.serde.ion.mapper;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
+import com.fillmore_labs.kafka.sensors.serde.ion.serialization.ReadingIon;
 import com.fillmore_labs.kafka.sensors.serde.mapping.MapStructConfig;
 import com.fillmore_labs.kafka.sensors.serde.mapping.TimeNanoMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
@@ -9,5 +10,4 @@ import org.mapstruct.Mapper;
 
 @Immutable
 @Mapper(config = MapStructConfig.class, uses = TimeNanoMapper.class)
-/* package */ abstract class EventMapper
-    implements BiMapper<Event, com.fillmore_labs.kafka.sensors.avro.Event> {}
+/* package */ abstract class ReadingMapper implements BiMapper<Reading, ReadingIon> {}

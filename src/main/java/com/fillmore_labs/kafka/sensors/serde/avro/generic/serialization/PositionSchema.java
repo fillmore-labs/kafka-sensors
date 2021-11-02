@@ -14,8 +14,8 @@ public final class PositionSchema {
 
   private static final String NAMESPACE = "com.fillmore_labs.kafka.sensors.avro";
   private static final String[] ENUM_ALIASES = {
-    "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.EventReflect.Position",
-    "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.EventReflect.Position"
+    "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect.Position",
+    "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.ReadingReflect.Position"
   };
 
   static {

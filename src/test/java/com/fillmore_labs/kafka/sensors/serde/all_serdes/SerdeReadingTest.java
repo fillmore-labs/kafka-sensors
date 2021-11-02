@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.context.SingleTestComponent;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.context.TestComponent;
 import org.junit.runner.RunWith;
@@ -8,12 +8,12 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public final class SerdeEventTest extends SerdeTestBase<Event> {
-  public SerdeEventTest(String description, SingleTestComponent singleTestComponent) {
+public final class SerdeReadingTest extends SerdeTestBase<Reading> {
+  public SerdeReadingTest(String description, SingleTestComponent singleTestComponent) {
     super(
-        singleTestComponent.serializerEvent(),
-        singleTestComponent.deserializerEvent(),
-        TestHelper.standardEvent());
+        singleTestComponent.serializerReading(),
+        singleTestComponent.deserializerReading(),
+        TestHelper.standardReading());
   }
 
   @Parameters(name = "{index}: {0}")

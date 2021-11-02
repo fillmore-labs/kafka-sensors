@@ -36,21 +36,22 @@ public abstract class SerializationModule {
 
   @Provides
   @Binary
-  /* package */ static Serializer<EventIon> eventSerializerBinary(
+  /* package */ static Serializer<ReadingIon> readingSerializerBinary(
       IonBinaryWriterBuilder writerBuilder) {
-    return new IonSerializer<>(writerBuilder, IonSerializerHelper::serializeEvent);
+    return new IonSerializer<>(writerBuilder, IonSerializerHelper::serializeReading);
   }
 
   @Provides
   @Text
-  /* package */ static Serializer<EventIon> eventSerializerText(
+  /* package */ static Serializer<ReadingIon> readingSerializerText(
       IonTextWriterBuilder writerBuilder) {
-    return new IonSerializer<>(writerBuilder, IonSerializerHelper::serializeEvent);
+    return new IonSerializer<>(writerBuilder, IonSerializerHelper::serializeReading);
   }
 
   @Provides
-  /* package */ static Deserializer<EventIon> eventDeserializer(IonReaderBuilder readerBuilder) {
-    return new IonDeserializer<>(readerBuilder, IonSerializerHelper::deserializeEvent);
+  /* package */ static Deserializer<ReadingIon> readingDeserializer(
+      IonReaderBuilder readerBuilder) {
+    return new IonDeserializer<>(readerBuilder, IonSerializerHelper::deserializeReading);
   }
 
   @Provides

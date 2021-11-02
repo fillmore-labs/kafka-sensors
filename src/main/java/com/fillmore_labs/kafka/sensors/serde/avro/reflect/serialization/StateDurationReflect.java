@@ -27,12 +27,12 @@ public final class StateDurationReflect {
   }
 
   public String id;
-  public EventReflect event;
+  public ReadingReflect reading;
   public Duration duration;
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, event, duration);
+    return Objects.hash(id, reading, duration);
   }
 
   @Override
@@ -40,7 +40,7 @@ public final class StateDurationReflect {
     return o == this
         || (o instanceof StateDurationReflect that
             && Objects.equals(id, that.id)
-            && Objects.equals(event, that.event)
+            && Objects.equals(reading, that.reading)
             && Objects.equals(duration, that.duration));
   }
 
@@ -48,7 +48,7 @@ public final class StateDurationReflect {
   public String toString() {
     return MoreObjects.toStringHelper(this)
         .add("id", id)
-        .add("event", event)
+        .add("reading", reading)
         .add("duration", duration)
         .toString();
   }

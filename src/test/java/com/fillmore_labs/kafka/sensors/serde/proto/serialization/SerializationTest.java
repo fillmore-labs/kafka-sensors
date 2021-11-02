@@ -3,7 +3,7 @@ package com.fillmore_labs.kafka.sensors.serde.proto.serialization;
 import static com.google.common.truth.extensions.proto.ProtoTruth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.proto.v1.Event;
+import com.fillmore_labs.kafka.sensors.proto.v1.Reading;
 import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
 import com.google.protobuf.Duration;
 import com.google.protobuf.Timestamp;
@@ -26,15 +26,15 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event =
-        Event.newBuilder()
+    var reading =
+        Reading.newBuilder()
             .setTime(Timestamp.newBuilder().setSeconds(443634300L))
-            .setPosition(Event.Position.POSITION_ON);
+            .setPosition(Reading.Position.POSITION_ON);
 
     var sensorState =
         StateDuration.newBuilder()
             .setId("3771")
-            .setEvent(event)
+            .setReading(reading)
             .setDuration(Duration.newBuilder().setSeconds(15L))
             .build();
 
@@ -51,7 +51,7 @@ public final class SerializationTest {
     assertThrows(
         NullPointerException.class,
         () ->
-            Event.newBuilder()
+            Reading.newBuilder()
                 .setTime(Timestamp.newBuilder().setSeconds(443634300L))
                 .setPosition(null)
                 .build());

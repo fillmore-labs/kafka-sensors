@@ -1,10 +1,10 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.reflect;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.EventReflect;
+import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SerializationModule;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.StateDurationReflect;
@@ -30,8 +30,8 @@ public abstract class ReflectModule {
 
   @Provides
   @IntoSet
-  /* package */ static Schema eventSchema() {
-    return EventReflect.SCHEMA;
+  /* package */ static Schema readingSchema() {
+    return ReadingReflect.SCHEMA;
   }
 
   @Provides
@@ -56,10 +56,10 @@ public abstract class ReflectModule {
 
   @Provides
   @Named(AVRO_REFLECT)
-  /* package */ static Serde<Event> eventSerde(
-      Serializer<EventReflect> serializer,
-      Deserializer<EventReflect> deserializer,
-      BiMapper<Event, EventReflect> mapper) {
+  /* package */ static Serde<Reading> readingSerde(
+      Serializer<ReadingReflect> serializer,
+      Deserializer<ReadingReflect> deserializer,
+      BiMapper<Reading, ReadingReflect> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -84,7 +84,8 @@ public abstract class ReflectModule {
   @Binds
   @IntoMap
   @StringKey(AVRO_REFLECT)
-  /* package */ abstract Serde<Event> avroReflectEvent(@Named(AVRO_REFLECT) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> avroReflectReading(
+      @Named(AVRO_REFLECT) Serde<Reading> serde);
 
   @Binds
   @IntoMap

@@ -23,11 +23,11 @@ public final class SensorStateReflect {
   }
 
   public String id;
-  public EventReflect event;
+  public ReadingReflect reading;
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, event);
+    return Objects.hash(id, reading);
   }
 
   @Override
@@ -35,11 +35,11 @@ public final class SensorStateReflect {
     return o == this
         || (o instanceof SensorStateReflect that
             && Objects.equals(id, that.id)
-            && Objects.equals(event, that.event));
+            && Objects.equals(reading, that.reading));
   }
 
   @Override
   public String toString() {
-    return MoreObjects.toStringHelper(this).add("id", id).add("event", event).toString();
+    return MoreObjects.toStringHelper(this).add("id", id).add("reading", reading).toString();
   }
 }

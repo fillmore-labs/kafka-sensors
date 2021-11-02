@@ -6,10 +6,10 @@ import java.time.Instant;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = ImmutableEventJson.Builder.class)
-public interface EventJson {
-  static ImmutableEventJson.Builder builder() {
-    return ImmutableEventJson.builder();
+@JsonDeserialize(builder = ImmutableReadingJson.Builder.class)
+public interface ReadingJson {
+  static ImmutableReadingJson.Builder builder() {
+    return ImmutableReadingJson.builder();
   }
 
   Instant getTime();

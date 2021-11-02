@@ -8,6 +8,6 @@ import com.google.errorprone.annotations.Immutable;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 /* package */ abstract class StateDurationMapper
     implements BiMapper<StateDuration, StateDurationReflect> {}

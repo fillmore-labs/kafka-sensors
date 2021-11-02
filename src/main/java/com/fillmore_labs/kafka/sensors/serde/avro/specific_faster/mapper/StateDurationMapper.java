@@ -13,7 +13,7 @@ import org.mapstruct.Mapper;
 @Immutable
 @Mapper(
     config = MapStructConfig.class,
-    uses = {EventMapper.class, TimeNanoMapper.class})
+    uses = {ReadingMapper.class, TimeNanoMapper.class})
 /* package */ abstract class StateDurationMapper
     implements BiMapper<StateDuration, com.fillmore_labs.kafka.sensors.avro.StateDuration> {
   @Override

@@ -15,7 +15,7 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapStructConfig.class, uses = InstantDecimalHelper.class)
 /* package */ abstract class SensorStateMapper implements BiMapper<SensorState, SensorStateGson> {
   @Override
-  @Mapping(source = "event", target = ".")
+  @Mapping(source = "reading", target = ".")
   public abstract @PolyNull SensorStateGson map(@PolyNull SensorState model);
 
   @Override

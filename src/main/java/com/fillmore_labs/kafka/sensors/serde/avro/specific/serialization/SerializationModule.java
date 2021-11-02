@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.specific.serialization;
 
-import com.fillmore_labs.kafka.sensors.avro.Event;
+import com.fillmore_labs.kafka.sensors.avro.Reading;
 import com.fillmore_labs.kafka.sensors.avro.SensorState;
 import com.fillmore_labs.kafka.sensors.avro.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroDeserializer;
@@ -18,14 +18,14 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  /* package */ static Serializer<Event> eventSerializer() {
-    return new AvroSerializer<>(Event.getEncoder());
+  /* package */ static Serializer<Reading> readingSerializer() {
+    return new AvroSerializer<>(Reading.getEncoder());
   }
 
   @Provides
   @SuppressWarnings({"CloseableProvides", "nullness:argument"})
-  /* package */ static Deserializer<Event> eventDeserializer(Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(Event.createDecoder(resolver.orNull()));
+  /* package */ static Deserializer<Reading> readingDeserializer(Optional<SchemaStore> resolver) {
+    return new AvroDeserializer<>(Reading.createDecoder(resolver.orNull()));
   }
 
   @Provides

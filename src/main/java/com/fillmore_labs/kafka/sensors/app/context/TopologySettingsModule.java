@@ -4,7 +4,7 @@ import static com.fillmore_labs.kafka.sensors.serde.json.JsonModule.JSON;
 import static com.fillmore_labs.kafka.sensors.serde.proto.ProtoModule.PROTO;
 
 import com.fillmore_labs.kafka.sensors.configuration.KafkaConfiguration;
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
@@ -28,7 +28,7 @@ public abstract class TopologySettingsModule {
   /* package */ static TopologySettings topologySettings(
       KafkaConfiguration configuration,
       @Named(JSON) Serde<SensorState> inputSerde,
-      @Named(PROTO) Serde<Event> storeSerde,
+      @Named(PROTO) Serde<Reading> storeSerde,
       @Named(JSON) Serde<StateDuration> resultSerde) {
     return TopologySettings.builder()
         .inputSerde(inputSerde)

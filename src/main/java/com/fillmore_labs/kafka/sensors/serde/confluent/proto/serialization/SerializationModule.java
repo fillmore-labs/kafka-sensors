@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.proto.serialization;
 
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 
-import com.fillmore_labs.kafka.sensors.proto.v1.Event;
+import com.fillmore_labs.kafka.sensors.proto.v1.Reading;
 import com.fillmore_labs.kafka.sensors.proto.v1.SensorState;
 import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
@@ -22,24 +22,25 @@ public abstract class SerializationModule {
 
   @Provides
   @Confluent
-  /* package */ static Serializer<Event> eventSerializer(@SchemaRegistryUrl String registryUrl) {
+  /* package */ static Serializer<Reading> readingSerializer(
+      @SchemaRegistryUrl String registryUrl) {
     var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
-    var serializer = new KafkaProtobufSerializer<Event>();
+    var serializer = new KafkaProtobufSerializer<Reading>();
     serializer.configure(config, /* isKey= */ false);
     return serializer;
   }
 
   @Provides
   @Confluent
-  /* package */ static Deserializer<Event> eventDeserializer(
+  /* package */ static Deserializer<Reading> readingDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config =
         Map.of(
             SCHEMA_REGISTRY_URL_CONFIG,
             registryUrl,
             KafkaProtobufDeserializerConfig.SPECIFIC_PROTOBUF_VALUE_TYPE,
-            Event.class);
-    var deserializer = new KafkaProtobufDeserializer<Event>();
+            Reading.class);
+    var deserializer = new KafkaProtobufDeserializer<Reading>();
     deserializer.configure(config, /* isKey= */ false);
     return deserializer;
   }

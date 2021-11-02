@@ -13,6 +13,6 @@ option java_package = "com.fillmore_labs.kafka.sensors.proto.v1";
 // Duration a sensor was in this position.
 message StateDuration {
   string id = 1;
-  fillmore_labs.kafka.sensors.proto.v1.Event event = 2;
+  fillmore_labs.kafka.sensors.proto.v1.Reading reading = 2;
   google.protobuf.Duration duration = 3;
 }

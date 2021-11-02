@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fillmore_labs.kafka.sensors.model.Event;
-import com.fillmore_labs.kafka.sensors.model.ImmutableEvent;
+import com.fillmore_labs.kafka.sensors.model.ImmutableReading;
 import com.fillmore_labs.kafka.sensors.model.ImmutableSensorState;
 import com.fillmore_labs.kafka.sensors.model.ImmutableStateDuration;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonDeserializer;
@@ -29,9 +29,9 @@ public abstract class SerializationModule {
   /* package */ static ObjectMapper mixInMapper() {
     return JsonMapper.builder()
         .addModules(new Jdk8Module(), new JavaTimeModule(), new GuavaModule())
-        .addMixIn(Event.class, EventMixIn.class)
-        .addMixIn(Event.Position.class, EventMixIn.PositionMixIn.class)
-        .addMixIn(ImmutableEvent.Builder.class, EventMixIn.BuilderMixIn.class)
+        .addMixIn(Reading.class, ReadingMixIn.class)
+        .addMixIn(Reading.Position.class, ReadingMixIn.PositionMixIn.class)
+        .addMixIn(ImmutableReading.Builder.class, ReadingMixIn.BuilderMixIn.class)
         .addMixIn(SensorState.class, SensorStateMixIn.class)
         .addMixIn(ImmutableSensorState.Builder.class, SensorStateMixIn.BuilderMixIn.class)
         .addMixIn(StateDuration.class, StateDurationMixIn.class)
@@ -41,14 +41,14 @@ public abstract class SerializationModule {
 
   @Provides
   @MixIn
-  /* package */ static Serializer<Event> eventSerializer(@MixIn ObjectMapper mapper) {
-    return new JsonSerializer<>(mapper, Event.class);
+  /* package */ static Serializer<Reading> readingSerializer(@MixIn ObjectMapper mapper) {
+    return new JsonSerializer<>(mapper, Reading.class);
   }
 
   @Provides
   @MixIn
-  /* package */ static Deserializer<Event> eventDeserializer(@MixIn ObjectMapper mapper) {
-    return new JsonDeserializer<>(mapper, Event.class);
+  /* package */ static Deserializer<Reading> readingDeserializer(@MixIn ObjectMapper mapper) {
+    return new JsonDeserializer<>(mapper, Reading.class);
   }
 
   @Provides

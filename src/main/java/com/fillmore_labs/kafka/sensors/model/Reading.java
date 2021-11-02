@@ -10,11 +10,11 @@ import org.immutables.value.Value;
     of = "new",
     allParameters = true)
 @Value.Immutable
-public abstract class Event implements WithEvent {
-  /* package */ Event() {}
+public abstract class Reading implements WithReading {
+  /* package */ Reading() {}
 
-  public static ImmutableEvent.Builder builder() {
-    return ImmutableEvent.builder();
+  public static ImmutableReading.Builder builder() {
+    return ImmutableReading.builder();
   }
 
   public abstract Instant getTime();

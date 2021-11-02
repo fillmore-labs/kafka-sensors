@@ -10,7 +10,7 @@ import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 /* package */ abstract class SensorStateMapper
     implements BiMapper<SensorState, com.fillmore_labs.kafka.sensors.avro.SensorState> {
   @Override

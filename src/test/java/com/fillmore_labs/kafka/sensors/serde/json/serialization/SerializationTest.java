@@ -3,7 +3,7 @@ package com.fillmore_labs.kafka.sensors.serde.json.serialization;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson.Position;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson.Position;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
@@ -25,11 +25,11 @@ public final class SerializationTest {
   }
 
   private static StateWithDurationJson sampleStateDuration() {
-    var event =
-        EventJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
+    var reading =
+        ReadingJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
     return StateWithDurationJson.builder()
         .id("7331")
-        .event(event)
+        .reading(reading)
         .duration(Duration.ofSeconds(15))
         .build();
   }

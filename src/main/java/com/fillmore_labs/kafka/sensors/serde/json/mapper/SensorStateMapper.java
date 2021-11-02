@@ -8,5 +8,5 @@ import com.google.errorprone.annotations.Immutable;
 import org.mapstruct.Mapper;
 
 @Immutable
-@Mapper(config = MapStructConfig.class, uses = EventMapper.class)
+@Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 public abstract class SensorStateMapper implements BiMapper<SensorState, SensorStateJson> {}

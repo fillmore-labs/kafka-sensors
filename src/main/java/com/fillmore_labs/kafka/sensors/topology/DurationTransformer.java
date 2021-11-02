@@ -1,8 +1,8 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
 import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
-import com.fillmore_labs.kafka.sensors.logic.LastEventStore;
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.logic.LastReadingStore;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.assisted.Assisted;
@@ -21,7 +21,7 @@ public final class DurationTransformer
   private final DurationProcessorFactory factory;
   private final String storeName;
 
-  private @MonotonicNonNull KeyValueStore<String, Event> store;
+  private @MonotonicNonNull KeyValueStore<String, Reading> store;
 
   @AssistedInject
   /* package */ DurationTransformer(DurationProcessorFactory factory, @Assisted String storeName) {
@@ -59,9 +59,9 @@ public final class DurationTransformer
       throw new StreamsException(String.format("Expected id %s, got %s", value.getId(), key));
     }
 
-    var eventStore = new StoreAdapter(store, id);
-    var processor = factory.create(eventStore);
-    var transformed = processor.transform(value.getEvent());
+    var readingStore = new StoreAdapter(store, id);
+    var processor = factory.create(readingStore);
+    var transformed = processor.transform(value.getReading());
 
     // Skip if no result (No historic data).
     if (transformed.isEmpty()) {
@@ -73,7 +73,7 @@ public final class DurationTransformer
     var stateDuration =
         StateDuration.builder()
             .id(id)
-            .event(result.getEvent())
+            .reading(result.getReading())
             .duration(result.getDuration())
             .build();
     return KeyValue.pair(id, stateDuration);
@@ -82,22 +82,22 @@ public final class DurationTransformer
   @Override
   public void close() {}
 
-  private static class StoreAdapter implements LastEventStore {
-    private final KeyValueStore<String, Event> delegate;
+  private static class StoreAdapter implements LastReadingStore {
+    private final KeyValueStore<String, Reading> delegate;
     private final String id;
 
-    /* pacakge */ StoreAdapter(KeyValueStore<String, Event> delegate, String id) {
+    /* pacakge */ StoreAdapter(KeyValueStore<String, Reading> delegate, String id) {
       this.delegate = delegate;
       this.id = id;
     }
 
     @Override
-    public Optional<Event> get() {
+    public Optional<Reading> get() {
       return Optional.ofNullable(delegate.get(id));
     }
 
     @Override
-    public void put(Event value) {
+    public void put(Reading value) {
       delegate.put(id, value);
     }
   }

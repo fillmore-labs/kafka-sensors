@@ -15,5 +15,5 @@ public abstract class SensorState implements WithSensorState {
 
   public abstract String getId();
 
-  public abstract Event getEvent();
+  public abstract Reading getReading();
 }

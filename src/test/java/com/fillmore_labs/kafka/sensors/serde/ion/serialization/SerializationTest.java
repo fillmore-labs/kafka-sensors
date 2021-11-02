@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.ion.serialization;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.fillmore_labs.kafka.sensors.serde.ion.serialization.EventIon.Position;
+import com.fillmore_labs.kafka.sensors.serde.ion.serialization.ReadingIon.Position;
 import dagger.Component;
 import java.time.Duration;
 import java.util.List;
@@ -40,11 +40,11 @@ public final class SerializationTest {
   }
 
   private static StateDurationIon sampleStateDuration() {
-    var event =
-        EventIon.builder().time(443634300L * NANOS_PER_SECOND).position(Position.ON).build();
+    var reading =
+        ReadingIon.builder().time(443634300L * NANOS_PER_SECOND).position(Position.ON).build();
     return StateDurationIon.builder()
         .id("7331")
-        .event(event)
+        .reading(reading)
         .duration(Duration.ofSeconds(15).toNanos())
         .build();
   }

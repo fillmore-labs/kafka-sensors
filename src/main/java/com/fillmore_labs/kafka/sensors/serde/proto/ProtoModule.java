@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.proto;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.proto.mapper.MapperModule;
@@ -33,10 +33,10 @@ public abstract class ProtoModule {
 
   @Provides
   @Named(PROTO)
-  /* package */ static Serde<Event> eventSerde(
-      Serializer<com.fillmore_labs.kafka.sensors.proto.v1.Event> serializer,
-      Deserializer<com.fillmore_labs.kafka.sensors.proto.v1.Event> deserializer,
-      BiMapper<Event, com.fillmore_labs.kafka.sensors.proto.v1.Event> mapper) {
+  /* package */ static Serde<Reading> readingSerde(
+      Serializer<com.fillmore_labs.kafka.sensors.proto.v1.Reading> serializer,
+      Deserializer<com.fillmore_labs.kafka.sensors.proto.v1.Reading> deserializer,
+      BiMapper<Reading, com.fillmore_labs.kafka.sensors.proto.v1.Reading> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -61,7 +61,7 @@ public abstract class ProtoModule {
   @Binds
   @IntoMap
   @StringKey(PROTO)
-  /* package */ abstract Serde<Event> protoEvent(@Named(PROTO) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> protoReading(@Named(PROTO) Serde<Reading> serde);
 
   @Binds
   @IntoMap

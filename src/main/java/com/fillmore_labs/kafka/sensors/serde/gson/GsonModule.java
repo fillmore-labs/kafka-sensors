@@ -1,10 +1,10 @@
 package com.fillmore_labs.kafka.sensors.serde.gson;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.gson.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.gson.serialization.EventGson;
+import com.fillmore_labs.kafka.sensors.serde.gson.serialization.ReadingGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SensorStateGson;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.SerializationModule;
 import com.fillmore_labs.kafka.sensors.serde.gson.serialization.StateDurationGson;
@@ -36,10 +36,10 @@ public abstract class GsonModule {
 
   @Provides
   @Named(GSON)
-  /* package */ static Serde<Event> eventSerde(
-      Serializer<EventGson> serializer,
-      Deserializer<EventGson> deserializer,
-      BiMapper<Event, EventGson> mapper) {
+  /* package */ static Serde<Reading> readingSerde(
+      Serializer<ReadingGson> serializer,
+      Deserializer<ReadingGson> deserializer,
+      BiMapper<Reading, ReadingGson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -64,7 +64,7 @@ public abstract class GsonModule {
   @Binds
   @IntoMap
   @StringKey(GSON)
-  /* package */ abstract Serde<Event> gsonEvent(@Named(GSON) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> gsonReading(@Named(GSON) Serde<Reading> serde);
 
   @Binds
   @IntoMap

@@ -15,14 +15,14 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  /* package */ static Serializer<EventReflect> eventSerializer() {
-    return new AvroSerializer<>(EventReflect.MODEL, EventReflect.SCHEMA);
+  /* package */ static Serializer<ReadingReflect> readingSerializer() {
+    return new AvroSerializer<>(ReadingReflect.MODEL, ReadingReflect.SCHEMA);
   }
 
   @Provides
-  /* package */ static Deserializer<EventReflect> eventDeserializer(
+  /* package */ static Deserializer<ReadingReflect> readingDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(EventReflect.MODEL, EventReflect.SCHEMA, resolver.orNull());
+    return new AvroDeserializer<>(ReadingReflect.MODEL, ReadingReflect.SCHEMA, resolver.orNull());
   }
 
   @Provides

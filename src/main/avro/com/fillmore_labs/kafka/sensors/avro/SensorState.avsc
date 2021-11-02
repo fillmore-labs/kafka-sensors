@@ -1,6 +1,6 @@
 [
   {
-    "name": "Event",
+    "name": "Reading",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
     "type": "record",
     "doc": "Measurement",
@@ -20,8 +20,8 @@
           "type": "enum",
           "doc": "Position of a sensor",
           "aliases": [
-            "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.EventReflect.Position",
-            "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.EventReflect.Position"
+            "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect.Position",
+            "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.ReadingReflect.Position"
           ],
           "symbols": [
             "OFF",
@@ -42,8 +42,8 @@
         "type": "string"
       },
       {
-        "name": "event",
-        "type": "Event"
+        "name": "reading",
+        "type": "Reading"
       }
     ]
   },
@@ -58,8 +58,8 @@
         "type": "string"
       },
       {
-        "name": "event",
-        "type": "Event"
+        "name": "reading",
+        "type": "Reading"
       },
       {
         "name": "duration",

@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.proto.serialization;
 
-import com.fillmore_labs.kafka.sensors.proto.v1.Event;
+import com.fillmore_labs.kafka.sensors.proto.v1.Reading;
 import com.fillmore_labs.kafka.sensors.proto.v1.SensorState;
 import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.proto.ProtoDeserializer;
@@ -15,13 +15,13 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  /* package */ static Serializer<Event> eventSerializer() {
+  /* package */ static Serializer<Reading> readingSerializer() {
     return new ProtoSerializer<>();
   }
 
   @Provides
-  /* package */ static Deserializer<Event> eventDeserializer() {
-    return new ProtoDeserializer<>(Event.parser());
+  /* package */ static Deserializer<Reading> readingDeserializer() {
+    return new ProtoDeserializer<>(Reading.parser());
   }
 
   @Provides

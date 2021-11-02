@@ -14,5 +14,5 @@ public interface SensorStateJson {
   String getId();
 
   @JsonUnwrapped
-  EventJson getEvent();
+  ReadingJson getReading();
 }

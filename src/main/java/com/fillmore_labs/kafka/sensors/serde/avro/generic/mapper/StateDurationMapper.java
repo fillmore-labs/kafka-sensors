@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
@@ -13,11 +13,11 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
 
 @Immutable
 /* package */ final class StateDurationMapper implements BiMapper<StateDuration, GenericRecord> {
-  private final BiMapper<Event, GenericRecord> eventMapper;
+  private final BiMapper<Reading, GenericRecord> readingMapper;
 
   @Inject
-  /* package */ StateDurationMapper(EventMapper eventMapper) {
-    this.eventMapper = eventMapper;
+  /* package */ StateDurationMapper(ReadingMapper readingMapper) {
+    this.readingMapper = readingMapper;
   }
 
   @Override
@@ -27,7 +27,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
     }
     return new GenericRecordBuilder(StateDurationSchema.SCHEMA)
         .set(StateDurationSchema.FIELD_ID, model.getId())
-        .set(StateDurationSchema.FIELD_EVENT, eventMapper.map(model.getEvent()))
+        .set(StateDurationSchema.FIELD_READING, readingMapper.map(model.getReading()))
         .set(StateDurationSchema.FIELD_DURATION, model.getDuration())
         .build();
   }
@@ -39,7 +39,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
     }
     return StateDuration.builder()
         .id((String) data.get(StateDurationSchema.FIELD_ID))
-        .event(eventMapper.unmap((GenericRecord) data.get(StateDurationSchema.FIELD_EVENT)))
+        .reading(readingMapper.unmap((GenericRecord) data.get(StateDurationSchema.FIELD_READING)))
         .duration((Duration) data.get(StateDurationSchema.FIELD_DURATION))
         .build();
   }

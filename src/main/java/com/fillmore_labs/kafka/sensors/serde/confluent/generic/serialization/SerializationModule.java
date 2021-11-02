@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization;
 
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.EventSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
@@ -20,8 +20,8 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @Confluent.Event
-  /* package */ static Serializer<GenericRecord> eventSerializer(
+  @Confluent.Reading
+  /* package */ static Serializer<GenericRecord> readingSerializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = serializerConfig(registryUrl);
 
@@ -31,12 +31,12 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  @Confluent.Event
-  /* package */ static Deserializer<GenericRecord> eventDeserializer(
+  @Confluent.Reading
+  /* package */ static Deserializer<GenericRecord> readingDeserializer(
       @SchemaRegistryUrl String registryUrl) {
     var config = serializerConfig(registryUrl);
 
-    var deserializer = new GenericAvroDeserializer(EventSchema.SCHEMA);
+    var deserializer = new GenericAvroDeserializer(ReadingSchema.SCHEMA);
     deserializer.configure(config, /* isKey= */ false);
     return deserializer;
   }

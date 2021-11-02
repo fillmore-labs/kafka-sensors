@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.topology.context;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.topology.TopologySettings;
@@ -58,14 +58,14 @@ public abstract class SingleTestModule {
   /* package */ static TopologySettings topologySettings(
       Formats formats,
       Map<String, Serde<SensorState>> serdeMap,
-      Map<String, Serde<Event>> serdeEventMap,
+      Map<String, Serde<Reading>> serdeReadingMap,
       Map<String, Serde<StateDuration>> serdeDurationMap) {
     var random = new Random().nextInt(10000);
     var inputTopic = INPUT_TOPIC + random;
     var resultTopic = RESULT_TOPIC + random;
     var storeName = STORE_NAME + random;
     var inputSerde = serdeMap.get(formats.input());
-    var storeSerde = serdeEventMap.get(formats.store());
+    var storeSerde = serdeReadingMap.get(formats.store());
     var resultSerde = serdeDurationMap.get(formats.result());
 
     if (inputSerde == null) {

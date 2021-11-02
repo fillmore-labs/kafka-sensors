@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import org.immutables.value.Value;
 
 @Value.Immutable
-public interface EventGson {
-  static ImmutableEventGson.Builder builder() {
-    return ImmutableEventGson.builder();
+public interface ReadingGson {
+  static ImmutableReadingGson.Builder builder() {
+    return ImmutableReadingGson.builder();
   }
 
   BigDecimal getTime();

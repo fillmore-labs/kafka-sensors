@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.EventSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.PositionSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
@@ -34,16 +34,16 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var event =
-        new GenericRecordBuilder(EventSchema.SCHEMA)
-            .set(EventSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
-            .set(EventSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
+    var reading =
+        new GenericRecordBuilder(ReadingSchema.SCHEMA)
+            .set(ReadingSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
+            .set(ReadingSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
             .build();
 
     var sensorState =
         new GenericRecordBuilder(StateDurationSchema.SCHEMA)
             .set(StateDurationSchema.FIELD_ID, "7331")
-            .set(StateDurationSchema.FIELD_EVENT, event)
+            .set(StateDurationSchema.FIELD_READING, reading)
             .set(StateDurationSchema.FIELD_DURATION, Duration.ofSeconds(15).toNanos())
             .build();
 
@@ -63,8 +63,8 @@ public final class SerializationTest {
     assertThrows(
         AvroMissingFieldException.class,
         () ->
-            new GenericRecordBuilder(EventSchema.SCHEMA)
-                .set(EventSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
+            new GenericRecordBuilder(ReadingSchema.SCHEMA)
+                .set(ReadingSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
                 .build());
   }
 
@@ -74,9 +74,9 @@ public final class SerializationTest {
     assertThrows(
         AvroRuntimeException.class,
         () ->
-            new GenericRecordBuilder(EventSchema.SCHEMA)
-                .set(EventSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
-                .set(EventSchema.FIELD_POSITION, null)
+            new GenericRecordBuilder(ReadingSchema.SCHEMA)
+                .set(ReadingSchema.FIELD_TIME, INSTANT.toEpochMilli() * 1_000_000L + 1L)
+                .set(ReadingSchema.FIELD_POSITION, null)
                 .build());
   }
 

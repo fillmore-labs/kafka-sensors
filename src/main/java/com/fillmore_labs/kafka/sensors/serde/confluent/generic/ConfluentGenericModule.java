@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.generic;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.generic.mapper.MapperModule;
@@ -35,10 +35,10 @@ public abstract class ConfluentGenericModule {
 
   @Provides
   @Named(CONFLUENT_GENERIC)
-  /* package */ static Serde<Event> eventSerde(
-      @Confluent.Event Serializer<GenericRecord> serializer,
-      @Confluent.Event Deserializer<GenericRecord> deserializer,
-      @Confluent BiMapper<Event, GenericRecord> mapper) {
+  /* package */ static Serde<Reading> readingSerde(
+      @Confluent.Reading Serializer<GenericRecord> serializer,
+      @Confluent.Reading Deserializer<GenericRecord> deserializer,
+      @Confluent BiMapper<Reading, GenericRecord> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -63,8 +63,8 @@ public abstract class ConfluentGenericModule {
   @Binds
   @IntoMap
   @StringKey(CONFLUENT_GENERIC)
-  /* package */ abstract Serde<Event> confluentGenerictEvent(
-      @Named(CONFLUENT_GENERIC) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> confluentGenerictReading(
+      @Named(CONFLUENT_GENERIC) Serde<Reading> serde);
 
   @Binds
   @IntoMap

@@ -1,10 +1,10 @@
 package com.fillmore_labs.kafka.sensors.serde.json;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.json.mapper.MapperModule;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.EventJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SerializationModule;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
@@ -36,16 +36,16 @@ public abstract class JsonModule {
 
   @Provides
   @Named(JSON)
-  /* package */ static Serde<Event> sensorEventSerde(
-      Serializer<EventJson> serializer,
-      Deserializer<EventJson> deserializer,
-      BiMapper<Event, EventJson> mapper) {
+  /* package */ static Serde<Reading> sensorReadingSerde(
+      Serializer<ReadingJson> serializer,
+      Deserializer<ReadingJson> deserializer,
+      BiMapper<Reading, ReadingJson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
   @Provides
   @Named(JSON)
-  /* package */ static Serde<SensorState> sensorEventWithIdSerde(
+  /* package */ static Serde<SensorState> sensorReadingWithIdSerde(
       Serializer<SensorStateJson> serializer,
       Deserializer<SensorStateJson> deserializer,
       BiMapper<SensorState, SensorStateJson> mapper) {
@@ -64,7 +64,7 @@ public abstract class JsonModule {
   @Binds
   @IntoMap
   @StringKey(JSON)
-  /* package */ abstract Serde<Event> jsonEvent(@Named(JSON) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> jsonReading(@Named(JSON) Serde<Reading> serde);
 
   @Binds
   @IntoMap

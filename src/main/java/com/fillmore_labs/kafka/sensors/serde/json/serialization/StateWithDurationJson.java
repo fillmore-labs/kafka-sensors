@@ -15,7 +15,7 @@ public interface StateWithDurationJson {
   String getId();
 
   @JsonUnwrapped
-  EventJson getEvent();
+  ReadingJson getReading();
 
   Duration getDuration();
 }

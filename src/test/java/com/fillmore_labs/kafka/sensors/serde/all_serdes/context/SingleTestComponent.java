@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.BindsInstance;
@@ -10,9 +10,9 @@ import org.apache.kafka.common.serialization.Serializer;
 
 @Subcomponent(modules = SingleTestModule.class)
 public interface SingleTestComponent {
-  Serializer<Event> serializerEvent();
+  Serializer<Reading> serializerReading();
 
-  Deserializer<Event> deserializerEvent();
+  Deserializer<Reading> deserializerReading();
 
   Serializer<SensorState> serializer();
 

@@ -8,14 +8,14 @@ import org.immutables.value.Value;
 @Immutable
 @Value.Style(passAnnotations = {Immutable.class})
 @Value.Immutable
-public abstract class EventDuration implements WithEventDuration {
-  /* package */ EventDuration() {}
+public abstract class ReadingDuration implements WithReadingDuration {
+  /* package */ ReadingDuration() {}
 
-  public static ImmutableEventDuration.Builder builder() {
-    return ImmutableEventDuration.builder();
+  public static ImmutableReadingDuration.Builder builder() {
+    return ImmutableReadingDuration.builder();
   }
 
-  public abstract Event getEvent();
+  public abstract Reading getReading();
 
   public abstract Duration getDuration();
 

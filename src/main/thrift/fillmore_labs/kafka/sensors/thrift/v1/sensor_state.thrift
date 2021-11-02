@@ -7,7 +7,7 @@ enum Position {
 }
 
 // Measurement.
-struct Event {
+struct Reading {
   1: required i64 time
   2: required Position position
 }
@@ -15,5 +15,5 @@ struct Event {
 // State of a sensor.
 struct SensorState {
   1: required string id
-  2: required Event event
+  2: required Reading reading
 }

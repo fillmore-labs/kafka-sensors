@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.all_serdes;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.google.common.collect.ImmutableMap;
@@ -19,7 +19,7 @@ public abstract class ConsistencyTestBase {
 
   protected ConsistencyTestBase(
       Map<String, String> encodings,
-      Map<String, Serde<Event>> serdeMapEvent,
+      Map<String, Serde<Reading>> serdeMapReading,
       Map<String, Serde<SensorState>> serdeMap,
       Map<String, Serde<StateDuration>> serdeDurationMap) {
     this.encodings = ImmutableMap.copyOf(encodings);

@@ -21,14 +21,14 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<EventGson> eventSerializer(Gson gson) {
-    var adapter = gson.getAdapter(EventGson.class);
+  /* package */ static Serializer<ReadingGson> readingSerializer(Gson gson) {
+    var adapter = gson.getAdapter(ReadingGson.class);
     return new GsonSerializer<>(adapter);
   }
 
   @Provides
-  /* package */ static Deserializer<EventGson> eventDeserializer(Gson gson) {
-    var adapter = gson.getAdapter(EventGson.class);
+  /* package */ static Deserializer<ReadingGson> readingDeserializer(Gson gson) {
+    var adapter = gson.getAdapter(ReadingGson.class);
     return new GsonDeserializer<>(adapter);
   }
 

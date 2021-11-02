@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.specific;
 
-import com.fillmore_labs.kafka.sensors.model.Event;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
@@ -33,10 +33,10 @@ public abstract class ConfluentSpecificModule {
 
   @Provides
   @Named(CONFLUENT_SPECIFIC)
-  /* package */ static Serde<Event> eventStateSerde(
-      @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.Event> serializer,
-      @Confluent Deserializer<com.fillmore_labs.kafka.sensors.avro.Event> deserializer,
-      BiMapper<Event, com.fillmore_labs.kafka.sensors.avro.Event> mapper) {
+  /* package */ static Serde<Reading> readingStateSerde(
+      @Confluent Serializer<com.fillmore_labs.kafka.sensors.avro.Reading> serializer,
+      @Confluent Deserializer<com.fillmore_labs.kafka.sensors.avro.Reading> deserializer,
+      BiMapper<Reading, com.fillmore_labs.kafka.sensors.avro.Reading> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 
@@ -61,8 +61,8 @@ public abstract class ConfluentSpecificModule {
   @Binds
   @IntoMap
   @StringKey(CONFLUENT_SPECIFIC)
-  /* package */ abstract Serde<Event> confluentSpecificEvent(
-      @Named(CONFLUENT_SPECIFIC) Serde<Event> serde);
+  /* package */ abstract Serde<Reading> confluentSpecificReading(
+      @Named(CONFLUENT_SPECIFIC) Serde<Reading> serde);
 
   @Binds
   @IntoMap

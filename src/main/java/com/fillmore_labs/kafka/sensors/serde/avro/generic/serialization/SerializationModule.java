@@ -16,16 +16,16 @@ public abstract class SerializationModule {
   private SerializationModule() {}
 
   @Provides
-  @Avro.Event
-  /* package */ static Serializer<GenericRecord> eventSerializer() {
-    return new AvroSerializer<>(EventSchema.MODEL, EventSchema.SCHEMA);
+  @Avro.Reading
+  /* package */ static Serializer<GenericRecord> readingSerializer() {
+    return new AvroSerializer<>(ReadingSchema.MODEL, ReadingSchema.SCHEMA);
   }
 
   @Provides
-  @Avro.Event
-  /* package */ static Deserializer<GenericRecord> eventDeserializer(
+  @Avro.Reading
+  /* package */ static Deserializer<GenericRecord> readingDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(EventSchema.MODEL, EventSchema.SCHEMA, resolver.orNull());
+    return new AvroDeserializer<>(ReadingSchema.MODEL, ReadingSchema.SCHEMA, resolver.orNull());
   }
 
   @Provides

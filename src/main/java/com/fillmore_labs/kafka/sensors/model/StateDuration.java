@@ -17,7 +17,7 @@ public abstract class StateDuration implements WithStateDuration {
 
   public abstract String getId();
 
-  public abstract Event getEvent();
+  public abstract Reading getReading();
 
   public abstract Duration getDuration();
 

@@ -8,7 +8,7 @@ import org.apache.avro.generic.GenericData.StringType;
 
 public final class SensorStateSchema {
   public static final String FIELD_ID = "id";
-  public static final String FIELD_EVENT = "event";
+  public static final String FIELD_READING = "reading";
   public static final GenericData MODEL;
   public static final Schema SCHEMA;
 
@@ -38,8 +38,8 @@ public final class SensorStateSchema {
             .name(FIELD_ID)
             .type(stringSchema)
             .noDefault()
-            .name(FIELD_EVENT)
-            .type(EventSchema.SCHEMA)
+            .name(FIELD_READING)
+            .type(ReadingSchema.SCHEMA)
             .noDefault()
             .endRecord();
   }

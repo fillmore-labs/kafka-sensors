@@ -3,7 +3,7 @@ package com.fillmore_labs.kafka.sensors.model;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.model.Event.Position;
+import com.fillmore_labs.kafka.sensors.model.Reading.Position;
 import java.time.Duration;
 import java.time.Instant;
 import org.junit.Test;
@@ -16,12 +16,12 @@ public final class SensorStateTest {
     var sensorState =
         SensorState.builder()
             .id("7331")
-            .event(Event.builder().time(time).position(Position.ON).build())
+            .reading(Reading.builder().time(time).position(Position.ON).build())
             .build();
 
     assertThat(sensorState.getId()).isEqualTo("7331");
-    assertThat(sensorState.getEvent().getTime()).isEqualTo(time);
-    assertThat(sensorState.getEvent().getPosition()).isEqualTo(Position.ON);
+    assertThat(sensorState.getReading().getTime()).isEqualTo(time);
+    assertThat(sensorState.getReading().getPosition()).isEqualTo(Position.ON);
   }
 
   @Test
@@ -39,14 +39,14 @@ public final class SensorStateTest {
   public void durationShouldNotBeNegative() {
     var instant = Instant.ofEpochSecond(443634300L);
 
-    var event = Event.builder().time(instant).position(Position.ON).build();
+    var reading = Reading.builder().time(instant).position(Position.ON).build();
 
     assertThrows(
         IllegalStateException.class,
         () ->
             StateDuration.builder()
                 .id("7331")
-                .event(event)
+                .reading(reading)
                 .duration(Duration.ofMillis(-1L))
                 .build());
   }
