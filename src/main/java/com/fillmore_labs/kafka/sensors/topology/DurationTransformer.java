@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
 import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
-import com.fillmore_labs.kafka.sensors.logic.LastReadingStore;
+import com.fillmore_labs.kafka.sensors.logic.ReadingStore;
 import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
@@ -59,7 +59,7 @@ public final class DurationTransformer
       throw new StreamsException(String.format("Expected id %s, got %s", value.getId(), key));
     }
 
-    var readingStore = new StoreAdapter(store, id);
+    var readingStore = new ReadingStoreAdapter(store, id);
     var processor = factory.create(readingStore);
     var transformed = processor.transform(value.getReading());
 
@@ -82,22 +82,22 @@ public final class DurationTransformer
   @Override
   public void close() {}
 
-  private static class StoreAdapter implements LastReadingStore {
+  private static class ReadingStoreAdapter implements ReadingStore {
     private final KeyValueStore<String, Reading> delegate;
     private final String id;
 
-    /* pacakge */ StoreAdapter(KeyValueStore<String, Reading> delegate, String id) {
+    /* pacakge */ ReadingStoreAdapter(KeyValueStore<String, Reading> delegate, String id) {
       this.delegate = delegate;
       this.id = id;
     }
 
     @Override
-    public Optional<Reading> get() {
+    public Optional<Reading> latest() {
       return Optional.ofNullable(delegate.get(id));
     }
 
     @Override
-    public void put(Reading value) {
+    public void add(Reading value) {
       delegate.put(id, value);
     }
   }

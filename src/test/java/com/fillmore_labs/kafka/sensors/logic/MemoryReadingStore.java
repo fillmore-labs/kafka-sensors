@@ -4,20 +4,20 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 import java.util.Optional;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class MemoryReadingStore implements LastReadingStore {
+public final class MemoryReadingStore implements ReadingStore {
   private @Nullable Reading reading;
 
   @Override
-  public Optional<Reading> get() {
+  public Optional<Reading> latest() {
     return Optional.ofNullable(reading);
   }
 
   @Override
-  public void put(Reading value) {
+  public void add(Reading value) {
     reading = value;
   }
 
-  public void delete() {
+  public void clear() {
     reading = null;
   }
 }

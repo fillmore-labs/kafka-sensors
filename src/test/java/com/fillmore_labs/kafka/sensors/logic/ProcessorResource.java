@@ -25,6 +25,6 @@ public final class ProcessorResource extends ExternalResource {
 
   public void delete() {
     assert readingStore != null : "@AssumeAssertion(nullness): before() not called";
-    readingStore.delete();
+    readingStore.clear();
   }
 }

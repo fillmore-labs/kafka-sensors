@@ -9,21 +9,21 @@ import java.time.Duration;
 import java.util.Optional;
 
 public final class DurationProcessor {
-  private final LastReadingStore store;
+  private final ReadingStore store;
 
   @AssistedInject
-  /* package */ DurationProcessor(@Assisted LastReadingStore store) {
+  /* package */ DurationProcessor(@Assisted ReadingStore store) {
     this.store = store;
   }
 
   @CanIgnoreReturnValue
   public Optional<ReadingDuration> transform(Reading reading) {
     // Get the historical position
-    var storedState = store.get();
+    var storedState = store.latest();
 
     // When we have no historical data, just store the current position
     if (storedState.isEmpty()) {
-      store.put(reading);
+      store.add(reading);
       return Optional.empty();
     }
 
@@ -33,7 +33,7 @@ public final class DurationProcessor {
     // Update the position store if necessary.
     // We do not update for new readings with the same position.
     if (oldState.getPosition() != reading.getPosition()) {
-      store.put(reading);
+      store.add(reading);
     }
 
     var duration = Duration.between(oldState.getTime(), reading.getTime());

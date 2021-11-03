@@ -3,8 +3,8 @@ package com.fillmore_labs.kafka.sensors.logic;
 import com.fillmore_labs.kafka.sensors.model.Reading;
 import java.util.Optional;
 
-public interface LastReadingStore {
-  Optional<Reading> get();
+public interface ReadingStore {
+  Optional<Reading> latest();
 
-  void put(Reading value);
+  void add(Reading value);
 }
