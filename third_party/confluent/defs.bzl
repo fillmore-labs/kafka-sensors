@@ -20,9 +20,9 @@ def confluent_repositories():
     http_archive(
         name = "confluent_common",
         build_file = "//third_party/confluent:BUILD.common.bazel",
-        sha256 = "4ab39def361c0af972c51d3d914df41415b3fdfb10aaaa70d3282b56ec5240a4",
-        strip_prefix = "common-66cf390b821e381f55def51443244e2b60345698",
-        urls = ["https://github.com/confluentinc/common/archive/66cf390b821e381f55def51443244e2b60345698.tar.gz"],
+        sha256 = "2171f6fc92234c040496a3964ae45e7764fb0200c3dd3c926f69776f14488477",
+        strip_prefix = "common-53d73b140eb55cc91fd3fbd9db7f24944b5431df",
+        urls = ["https://github.com/confluentinc/common/archive/53d73b140eb55cc91fd3fbd9db7f24944b5431df.tar.gz"],
     )
     http_archive(
         name = "confluent_schema_registry",
