@@ -181,7 +181,7 @@ bind(
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala_config(scala_version = "2.13.6")
+scala_config(scala_version = "2.13.7")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
@@ -251,8 +251,6 @@ maven_install(
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.0",
         "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.0",
-        "com.google.auto.service:auto-service-annotations:1.0",
-        "com.google.auto.service:auto-service:1.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.8.9",
         "com.google.errorprone:error_prone_annotations:2.9.0",
@@ -263,7 +261,7 @@ maven_install(
         "com.networknt:json-schema-validator:1.0.63",
         "info.picocli:picocli:4.6.1",
         "io.github.classgraph:classgraph:4.8.129",
-        "io.github.toolfactory:narcissus:1.0.6",
+        "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:2.4.0",
         "io.helidon.config:helidon-config-yaml:2.4.0",
         "io.helidon.config:helidon-config:2.4.0",

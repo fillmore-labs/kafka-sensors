@@ -52,12 +52,12 @@ public interface TestComponent {
   }
 
   @Module(includes = AllSerdesModule.class, subcomponents = SingleTestComponent.class)
-  abstract class TestModule {
+  /* package */ abstract class TestModule {
     private TestModule() {}
   }
 
   @Module
-  abstract class SingleTestModule {
+  /* package */ abstract class SingleTestModule {
     private SingleTestModule() {}
 
     @Provides

@@ -134,23 +134,6 @@ java_library(
 )
 
 # ---
-# https://github.com/google/auto/tree/master/service
-
-java_plugin(
-    name = "auto_service_processor",
-    processor_class = "com.google.auto.service.processor.AutoServiceProcessor",
-    deps = ["@maven//:com_google_auto_service_auto_service"],
-)
-
-java_library(
-    name = "autoservice",
-    exported_plugins = ["auto_service_processor"],
-    neverlink = True,
-    visibility = ["//visibility:public"],
-    exports = ["@maven//:com_google_auto_service_auto_service_annotations"],
-)
-
-# ---
 # https://dagger.dev/dev-guide/
 
 dagger_rules(repo_name = "@maven")

@@ -63,7 +63,7 @@ public /* open */ class ExecutionPlan {
   @Setup(Level.Trial)
   @RequiresNonNull("format")
   @EnsuresNonNull({"serializer", "deserializer", "serialized"})
-  public void setup() {
+  public final void setup() {
     var benchComponent = BenchComponent.builder().format(format).build();
     serializer = benchComponent.serializer();
     deserializer = benchComponent.deserializer();

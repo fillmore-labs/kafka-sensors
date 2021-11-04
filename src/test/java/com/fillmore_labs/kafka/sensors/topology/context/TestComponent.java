@@ -30,7 +30,7 @@ public interface TestComponent {
   }
 
   @Module(includes = SchemaRegistryModule.class, subcomponents = SingleTestComponent.class)
-  abstract class TestModule {
+  /* package */ abstract class TestModule {
 
     private static final String APPLICATION_ID = "topology-test";
     private static final String PARTITIONS = "1";
