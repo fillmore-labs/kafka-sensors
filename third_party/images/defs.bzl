@@ -9,7 +9,7 @@ def base_images():
     container_pull(
         name = "java17_jre",
         architecture = "amd64",
-        digest = "sha256:ac86211f73c18ccf563bfece3099faaf0d3690f03bc1dab28fa40b1b493a16ff",
+        digest = "sha256:cc37e1550b1eb1f93696f6d7265164b4872db7e3a20ef61086d5e55ca4f63f07",
         os = "linux",
         registry = "registry-1.docker.io",
         repository = "azul/zulu-openjdk-alpine",
