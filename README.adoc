@@ -91,7 +91,7 @@ https://json.org[JSON], https://avro.apache.org/docs/current/[Apache Avro], the
 https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them,
 https://thrift.apache.org[Apache Thrift] and https://amzn.github.io/ion-docs/[Amazon Ion]. Since the
 example needs an input format, a result format, a format for the state store and some format have
-alternate implementations we have 5,832 (18^3^) different combinations which are all tested.
+alternate implementations we have 3,375 (15^3^) different combinations which are all tested.
 
 While this abstraction might not be necessary in practice, it demonstrates two important design
 considerations:

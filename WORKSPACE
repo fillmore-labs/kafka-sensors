@@ -253,7 +253,7 @@ maven_install(
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.8.9",
-        "com.google.errorprone:error_prone_annotations:2.9.0",
+        "com.google.errorprone:error_prone_annotations:2.10.0",
         "com.google.flogger:flogger-system-backend:0.7.1",
         "com.google.flogger:flogger:0.7.1",
         "com.google.guava:guava:31.0.1-jre",
@@ -326,7 +326,7 @@ maven_install(
         ),
     ] + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
     fetch_sources = True,
-    maven_install_json = "@com_fillmore_labs_kafka_sensors//:maven_install.json",
+    maven_install_json = "//:maven_install.json",
     override_targets = {
         "com.google.protobuf:protobuf-java": "@com_google_protobuf//:protobuf_java",
         "javax.annotation:javax.annotation-api": ":jakarta_annotation_jakarta_annotation_api",

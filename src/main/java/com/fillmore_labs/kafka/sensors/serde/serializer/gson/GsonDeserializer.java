@@ -1,9 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.serializer.gson;
 
 import com.google.gson.TypeAdapter;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -22,10 +20,10 @@ public final class GsonDeserializer<T> implements Deserializer<T> {
     if (data == null || data.length == 0) {
       return null;
     }
-    try (var inputStream = new ByteArrayInputStream(data);
-        var reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-      return adapter.fromJson(reader);
-    } catch (IOException | NullPointerException e) {
+    try {
+      var json = new String(data, StandardCharsets.UTF_8);
+      return adapter.fromJson(json);
+    } catch (IOException | IllegalArgumentException e) {
       var message = String.format("Error while parsing GSON from topic \"%s\"", topic);
       throw new SerializationException(message, e);
     }

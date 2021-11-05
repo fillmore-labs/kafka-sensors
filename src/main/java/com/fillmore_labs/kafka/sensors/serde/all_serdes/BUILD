@@ -7,11 +7,8 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/specific_faster",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/specific_faster",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/gson",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/gson_faster",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/ion",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mixin",
