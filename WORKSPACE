@@ -44,16 +44,16 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "87407cd28e7a9c95d9f61a098a53cf031109d451a7763e7dd1253abf8b4df422",
-    strip_prefix = "protobuf-3.19.1",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.19.1.tar.gz"],
+    sha256 = "53da54ce3e7ce8d6aebcb1e22ed2fabc6b36649f90e8c0944e3127761d2dbbeb",
+    strip_prefix = "protobuf-98511c0e2f53e51bc2d593b4dee880030370c1db",
+    url = "https://github.com/eikemeier/protobuf/archive/98511c0e2f53e51bc2d593b4dee880030370c1db.tar.gz",
 )
 
 http_archive(
     name = "io_bazel_rules_docker",
     sha256 = "92779d3445e7bdc79b961030b996cb0c91820ade7ffa7edca69273f404b085d5",
     strip_prefix = "rules_docker-0.20.0",
-    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.20.0/rules_docker-v0.20.0.tar.gz"],
+    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.20.0/rules_docker-v0.20.0.tar.gz",
 )
 
 http_archive(
@@ -74,7 +74,7 @@ http_archive(
     name = "com_google_dagger",
     sha256 = "159f526dcc3584a2ac6fd8422e39dfec2a20fb05997f07e42e108b999d6fc5f4",
     strip_prefix = "dagger-dagger-2.40",
-    urls = ["https://github.com/google/dagger/archive/dagger-2.40.tar.gz"],
+    url = "https://github.com/google/dagger/archive/dagger-2.40.tar.gz",
 )
 
 http_archive(
@@ -88,7 +88,7 @@ http_archive(
     name = "google_bazel_common",
     sha256 = "10da34d97f282b60078e472407a23fb505565cf398da578b800572ccce20b468",
     strip_prefix = "bazel-common-efc6731b1d72535f3009061af87538a0a826f3fc",
-    urls = ["https://github.com/google/bazel-common/archive/efc6731b1d72535f3009061af87538a0a826f3fc.tar.gz"],
+    url = "https://github.com/google/bazel-common/archive/efc6731b1d72535f3009061af87538a0a826f3fc.tar.gz",
 )
 
 # ---
@@ -145,6 +145,7 @@ bind(
     name = "j2objc_annotations",
     actual = "@maven//:com_google_j2objc_j2objc_annotations",
 )
+
 # ---
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
@@ -185,7 +186,30 @@ scala_config(scala_version = "2.13.7")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
-scala_repositories(fetch_sources = True)
+scala_repositories(
+    fetch_sources = True,
+    overriden_artifacts = {
+        "io_bazel_rules_scala_scala_compiler": {
+            "artifact": "org.scala-lang:scala-compiler:2.13.7",
+            "deps": [
+                "@io_bazel_rules_scala_scala_library",
+                "@io_bazel_rules_scala_scala_reflect",
+            ],
+            "sha256": "a450602f03a4686919e60d1aeced549559f1eaffbaf30ffa7987c8d97e3e79a9",
+        },
+        "io_bazel_rules_scala_scala_library": {
+            "artifact": "org.scala-lang:scala-library:2.13.7",
+            "sha256": "a8bc08f3b9ff93d0496032bf2677163071b8d212992f41dbf04212e07d91616b",
+        },
+        "io_bazel_rules_scala_scala_reflect": {
+            "artifact": "org.scala-lang:scala-reflect:2.13.7",
+            "deps": [
+                "@io_bazel_rules_scala_scala_library",
+            ],
+            "sha256": "a7bc4eca6970083d426a8d081aec313c7b7207d5f83b6724995e34078edc5cbb",
+        },
+    },
+)
 
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains", "scala_register_unused_deps_toolchains")
 
@@ -259,7 +283,7 @@ maven_install(
         "com.google.guava:guava:31.0.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
         "com.networknt:json-schema-validator:1.0.63",
-        "info.picocli:picocli:4.6.1",
+        "info.picocli:picocli:4.6.2",
         "io.github.classgraph:classgraph:4.8.129",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:2.4.0",
@@ -329,11 +353,13 @@ maven_install(
     maven_install_json = "//:maven_install.json",
     override_targets = {
         "com.google.protobuf:protobuf-java": "@com_google_protobuf//:protobuf_java",
+        "com.google.protobuf:protobuf-java-util": "@com_google_protobuf//:protobuf_java_util",
         "javax.annotation:javax.annotation-api": ":jakarta_annotation_jakarta_annotation_api",
         "javax.servlet:javax.servlet-api": ":jakarta_servlet_jakarta_servlet_api",
         "javax.validation:validation-api": ":jakarta_validation_jakarta_validation_api",
         "javax.ws.rs:javax.ws.rs-api": ":jakarta_ws_rs_jakarta_ws_rs_api",
         "org.scala-lang:scala-library": "@io_bazel_rules_scala_scala_library",
+        "org.scala-lang:scala-reflect": "@io_bazel_rules_scala_scala_reflect",
     },
     repositories = [
         "https://repo1.maven.org/maven2",

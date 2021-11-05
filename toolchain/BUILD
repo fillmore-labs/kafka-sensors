@@ -30,13 +30,6 @@ default_java_toolchain(
     source_version = "17",
     target_version = "17",
     visibility = ["//visibility:public"],
-    xlint = [
-        "all",
-        "-processing",
-        "-classfile",
-        "-cast",
-        "-serial",
-    ],
 )
 
 JAVACOPTS = [
@@ -60,13 +53,17 @@ JAVACOPTS = [
 
 java_package_configuration(
     name = "src_package_configuration",
-    javacopts = JAVACOPTS + ["-Werror"],
+    javacopts = JAVACOPTS + [
+        "-Xlint:all,-processing,-classfile",
+        "-Werror",
+    ],
     packages = [":src_package_group"],
 )
 
 package_group(
     name = "src_package_group",
     packages = [
+        "-//src/main/thrift/...",
         "//src/...",
     ],
 )
@@ -82,6 +79,7 @@ package_group(
     packages = [
         "-//src/...",
         "//...",
+        "//src/main/thrift/...",
     ],
 )
 
