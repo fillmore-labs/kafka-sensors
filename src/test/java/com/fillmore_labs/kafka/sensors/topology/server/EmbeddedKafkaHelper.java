@@ -7,13 +7,11 @@ import com.google.common.flogger.FluentLogger;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-import java.nio.ByteBuffer;
-import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Predicate;
 import kafka.server.MetaProperties;
 import kafka.tools.StorageTool;
+import org.apache.kafka.common.Uuid;
 import scala.collection.immutable.Seq;
 
 /* package */ final class EmbeddedKafkaHelper {
@@ -21,9 +19,10 @@ import scala.collection.immutable.Seq;
 
   private EmbeddedKafkaHelper() {}
 
-  /* package */ static void formatStorage(File logDir, UUID clusterId, int nodeId) {
+  /* package */ static void formatStorage(File logDir, Uuid clusterId, int nodeId) {
     var logDirs = Seq.from(asScala(List.of(logDir.toString())));
-    var properties = new MetaProperties(uuid2Base64(clusterId), nodeId);
+
+    var properties = new MetaProperties(clusterId.toString(), nodeId);
     var out = new ByteArrayOutputStream();
     int result;
     try (var stream = new PrintStream(out, /* autoFlush= */ false, UTF_8)) {
@@ -43,14 +42,5 @@ import scala.collection.immutable.Seq;
     Thread.getAllStackTraces().keySet().stream()
         .filter(isRaftExpirationReaper)
         .forEach(Thread::interrupt);
-  }
-
-  private static String uuid2Base64(UUID uuid) {
-    var uuidBytes = ByteBuffer.allocate(2 * Long.BYTES);
-    uuidBytes.putLong(uuid.getMostSignificantBits());
-    uuidBytes.putLong(uuid.getLeastSignificantBits());
-
-    var encoder = Base64.getUrlEncoder().withoutPadding();
-    return encoder.encodeToString(uuidBytes.array());
   }
 }

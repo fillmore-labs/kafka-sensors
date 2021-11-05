@@ -10,10 +10,10 @@ import java.net.ServerSocket;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Properties;
-import java.util.UUID;
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaRaftServer;
 import kafka.server.Server;
+import org.apache.kafka.common.Uuid;
 import org.apache.kafka.common.utils.Time;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
@@ -102,7 +102,7 @@ public final class EmbeddedKafka extends ExternalResource {
 
     var props = createProperties(logDir, ports);
 
-    var clusterId = UUID.randomUUID();
+    var clusterId = Uuid.randomUuid();
     // EmbeddedKafkaHelper.formatStorage(props, clusterId);
     EmbeddedKafkaHelper.formatStorage(logDir, clusterId, NODE_ID);
 
