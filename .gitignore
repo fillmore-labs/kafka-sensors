@@ -2,10 +2,10 @@
 !/.bazelignore
 !/.bazelrc
 !/.bazelversion
-!/.bazelci/
 !/.envrc
 !/.gitattributes
 !/.gitignore
+!/.scalafmt.conf
 !/.yamllint
 !/.github/
 !/.buildkite/
