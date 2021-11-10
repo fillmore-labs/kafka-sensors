@@ -7,45 +7,62 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.Reading.Position;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
-import com.fillmore_labs.kafka.sensors.topology.context.SingleTestComponent;
-import com.fillmore_labs.kafka.sensors.topology.context.TestComponent;
-import com.fillmore_labs.kafka.sensors.topology.server.EmbeddedKafka;
+import com.fillmore_labs.kafka.sensors.topology.context.Formats;
+import com.fillmore_labs.kafka.sensors.topology.context.SingleTestResource;
+import com.fillmore_labs.kafka.sensors.topology.context.TestResource;
 import java.time.Duration;
 import java.time.Instant;
 import org.apache.kafka.streams.TestInputTopic;
 import org.apache.kafka.streams.TestOutputTopic;
 import org.apache.kafka.streams.errors.StreamsException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.AfterParam;
+import org.junit.runners.Parameterized.BeforeParam;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public final class TopologyTest {
-  @ClassRule public static final EmbeddedKafka KAFKA_TEST_RESOURCE = new EmbeddedKafka();
+  @ClassRule public static final TestResource TEST_RESOURCE = new TestResource();
+
+  @SuppressWarnings(
+      "nullness:initialization.static.field.uninitialized") // Initialized in beforeParam(...)
+  private static SingleTestResource singleTestResource;
+
   private final TestInputTopic<String, SensorState> inputTopic;
   private final TestOutputTopic<String, StateDuration> resultTopic;
 
-  public TopologyTest(String description, SingleTestComponent singleTestComponent) {
-    this.inputTopic = singleTestComponent.inputTopic();
-    this.resultTopic = singleTestComponent.resultTopic();
+  public TopologyTest(Formats formats) {
+    this.inputTopic = singleTestResource.inputTopic();
+    this.resultTopic = singleTestResource.resultTopic();
   }
 
   @Parameters(name = "{index}: {0}")
-  public static Iterable<Object[]> parameters() {
-    return TestComponent.builder().embeddedKafka(KAFKA_TEST_RESOURCE).build().parameters();
+  public static Iterable<Formats> parameters() {
+    return TEST_RESOURCE.parameters();
+  }
+
+  @BeforeParam
+  public static void beforeParam(Formats formats) {
+    singleTestResource = new SingleTestResource(TEST_RESOURCE, formats);
   }
 
   @AfterParam
-  public static void afterParam(String description, SingleTestComponent singleTestComponent) {
-    singleTestComponent.testDriver().close();
+  public static void afterParam() {
+    singleTestResource.close();
   }
 
   @Before
   public void before() {
+    assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
+  }
+
+  @After
+  public void after() {
     assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
   }
 
@@ -78,8 +95,6 @@ public final class TopologyTest {
     assertThat(result2.value).isNotNull();
     assertThat(result2.value.getReading()).isEqualTo(sensorReading1.getReading());
     assertThat(result2.value.getDuration()).isEqualTo(Duration.ofSeconds(30));
-
-    assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
   }
 
   @Test
@@ -144,8 +159,6 @@ public final class TopologyTest {
     assertThat(result4.value).isNotNull();
     assertThat(result4.value.getReading()).isEqualTo(newState2.getReading());
     assertThat(result4.value.getDuration()).isEqualTo(Duration.ofSeconds(15));
-
-    assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
   }
 
   @Test
@@ -176,7 +189,7 @@ public final class TopologyTest {
             .build();
 
     pipeState(newState);
-    assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
+    // Should not produce any output, tested by {@link after()}
   }
 
   @Test
@@ -203,7 +216,5 @@ public final class TopologyTest {
     var excpetion = assertThrows(StreamsException.class, () -> pipeState(newState));
     // This is an implementation detail of our model and should probably not be tested here.
     assertThat(excpetion).hasCauseThat().isInstanceOf(IllegalStateException.class);
-
-    assertThat(resultTopic.getQueueSize()).isEqualTo(0L);
   }
 }

@@ -13,7 +13,6 @@ import java.lang.annotation.Retention;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-import javax.inject.Qualifier;
 import javax.inject.Scope;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -90,21 +89,6 @@ public abstract class SingleTestModule {
         .resultTopic(resultTopic)
         .build();
   }
-
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  public @interface Input {}
-
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  public @interface Store {}
-
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  public @interface Result {}
 
   @Scope
   @Documented
