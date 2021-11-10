@@ -1,5 +1,8 @@
 ---
 steps:
-  - label: ":bazel: Test"
+  - label: ':bazel: Build'
+    commands:
+      - bazel build //src/...
+  - label: ':bazel: Test'
     commands:
       - bazel test //src/test/...
