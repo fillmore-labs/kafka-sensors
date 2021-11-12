@@ -15,7 +15,7 @@ public final class TimeNanoMapper {
     return Instant.ofEpochSecond(epochSecond, nanoAdjustment);
   }
 
-  public static Long mapTime(Instant instant) {
+  public static long mapTime(Instant instant) {
     var seconds = instant.getEpochSecond();
     var nanos = instant.getNano();
 
