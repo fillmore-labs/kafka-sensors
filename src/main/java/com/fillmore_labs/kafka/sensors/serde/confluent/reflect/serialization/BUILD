@@ -4,6 +4,7 @@ java_library(
     name = "serialization",
     srcs = glob(["*.java"]),
     visibility = [
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/avro_demo:__pkg__",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/reflect:__subpackages__",
         "//src/test:__subpackages__",
     ],

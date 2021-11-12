@@ -15,6 +15,11 @@ alias(
     actual = "//src/main/java/com/fillmore_labs/kafka/sensors/benchmark",
 )
 
+alias(
+    name = "confluent-avro-demo",
+    actual = "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/avro_demo:main",
+)
+
 buildifier(
     name = "lint_fix",
     lint_mode = "fix",
