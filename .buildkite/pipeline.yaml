@@ -6,3 +6,8 @@ steps:
   - label: ':bazel: Test'
     commands:
       - bazel test //src/test/...
+  - label: ':codecov: Coverage'
+    commands:
+      - bazel coverage --instrumentation_filter "^//src/main/java/com/fillmore_labs[/:]" //src/...
+      - codecov -s "$(bazel info bazel-testlogs)"
+    if: build.branch == "main"
