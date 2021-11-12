@@ -72,9 +72,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "159f526dcc3584a2ac6fd8422e39dfec2a20fb05997f07e42e108b999d6fc5f4",
-    strip_prefix = "dagger-dagger-2.40",
-    url = "https://github.com/google/dagger/archive/dagger-2.40.tar.gz",
+    sha256 = "48cfeb8bc6538e57f6e42de03975c392108b30dac3b7e7a304b555dc8616c673",
+    strip_prefix = "dagger-dagger-2.40.1",
+    url = "https://github.com/google/dagger/archive/dagger-2.40.1.tar.gz",
 )
 
 http_archive(
@@ -282,7 +282,7 @@ maven_install(
         "com.google.flogger:flogger:0.7.1",
         "com.google.guava:guava:31.0.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
-        "com.networknt:json-schema-validator:1.0.63",
+        "com.networknt:json-schema-validator:1.0.64",
         "info.picocli:picocli:4.6.2",
         "io.github.classgraph:classgraph:4.8.131",
         "io.github.toolfactory:narcissus:1.0.7",
