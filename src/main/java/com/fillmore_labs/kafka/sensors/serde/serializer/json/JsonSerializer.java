@@ -3,7 +3,6 @@ package com.fillmore_labs.kafka.sensors.serde.serializer.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
-import java.util.Map;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -13,13 +12,6 @@ public final class JsonSerializer<T> implements Serializer<T> {
 
   public JsonSerializer(ObjectMapper objectMapper, Class<T> type) {
     this.objectWriter = objectMapper.writerFor(type);
-  }
-
-  @Override
-  public void configure(Map<String, ?> configs, boolean isKey) {
-    if (isKey) {
-      throw new IllegalArgumentException("JSON encoding is not stable");
-    }
   }
 
   @Override

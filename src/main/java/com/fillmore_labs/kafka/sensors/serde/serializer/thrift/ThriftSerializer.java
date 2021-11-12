@@ -5,11 +5,13 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TConfiguration;
 import org.apache.thrift.TException;
+import org.apache.thrift.TFieldIdEnum;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.transport.AutoExpandingBufferWriteTransport;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class ThriftSerializer<T extends TBase<T, ?>> implements Serializer<T> {
+public final class ThriftSerializer<T extends TBase<T, F>, F extends TFieldIdEnum>
+    implements Serializer<T> {
   @Override
   @SuppressWarnings("nullness:override.return") // Serializer is not annotated
   public byte @Nullable [] serialize(String topic, @Nullable T thrift) {

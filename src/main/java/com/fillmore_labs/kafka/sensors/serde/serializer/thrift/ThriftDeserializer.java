@@ -5,13 +5,15 @@ import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
+import org.apache.thrift.TFieldIdEnum;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TMemoryInputTransport;
 import org.apache.thrift.transport.TTransportException;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-public final class ThriftDeserializer<T extends TBase<T, ?>> implements Deserializer<T> {
+public final class ThriftDeserializer<T extends TBase<T, F>, F extends TFieldIdEnum>
+    implements Deserializer<T> {
   private final Supplier<T> tSupplier;
   private final TMemoryInputTransport itrans;
   private final TProtocol iprot;
