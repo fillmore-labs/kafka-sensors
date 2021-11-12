@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.time.Instant;
 import org.apache.avro.AvroMissingFieldException;
 import org.apache.avro.AvroRuntimeException;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -73,6 +74,12 @@ public final class SerializationTest {
     assertThrows(
         AvroRuntimeException.class,
         () -> Reading.newBuilder().setTime(TIME).setPosition(null).build());
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Component(modules = {SerializationModule.class})

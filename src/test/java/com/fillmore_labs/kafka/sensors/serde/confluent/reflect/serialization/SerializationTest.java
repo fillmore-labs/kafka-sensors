@@ -11,7 +11,6 @@ import javax.inject.Singleton;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.junit.Test;
 
 public final class SerializationTest {
@@ -50,7 +49,6 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull("serializer")
   @SuppressWarnings("nullness:assignment")
   public void positionIsRequired() {
     var reading = new ReadingReflect();

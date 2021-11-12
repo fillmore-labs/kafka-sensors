@@ -1,14 +1,15 @@
 package com.fillmore_labs.kafka.sensors.serde.ion.serialization;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.serde.ion.serialization.ReadingIon.Position;
 import dagger.Component;
 import java.time.Duration;
 import java.util.List;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -50,7 +51,6 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var sensorState = sampleStateDuration();
 
@@ -58,6 +58,12 @@ public final class SerializationTest {
     var decoded = deserializer.deserialize(TOPIC, encoded);
 
     assertThat(decoded).isEqualTo(sensorState);
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Component(modules = {SerializationModule.class})

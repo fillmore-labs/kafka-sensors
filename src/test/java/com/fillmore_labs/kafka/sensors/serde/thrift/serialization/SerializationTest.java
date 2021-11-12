@@ -63,6 +63,12 @@ public final class SerializationTest {
     assertThat(exception).hasCauseThat().isInstanceOf(TProtocolException.class);
   }
 
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
+  }
+
   @Component(modules = {SerializationModule.class})
   public interface TestComponent {
     static TestComponent create() {

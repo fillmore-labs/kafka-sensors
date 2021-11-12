@@ -10,6 +10,7 @@ import org.apache.avro.AvroMissingFieldException;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -74,6 +75,12 @@ public final class SerializationTest {
                 .set(ReadingSchema.FIELD_TIME, INSTANT)
                 .set(ReadingSchema.FIELD_POSITION, null)
                 .build());
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Component(modules = {SerializationModule.class})

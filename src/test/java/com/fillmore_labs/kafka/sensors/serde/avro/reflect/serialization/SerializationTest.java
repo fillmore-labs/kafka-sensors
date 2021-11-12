@@ -7,6 +7,7 @@ import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
 import org.apache.avro.AvroTypeException;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -59,6 +60,12 @@ public final class SerializationTest {
 
     var ser = serializer; // effectively final (JLS §4.12.4)
     assertThrows(AvroTypeException.class, () -> ser.serialize(TOPIC, sensorState));
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Component(modules = {SerializationModule.class})

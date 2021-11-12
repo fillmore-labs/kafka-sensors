@@ -8,6 +8,7 @@ import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
 import com.google.protobuf.Duration;
 import com.google.protobuf.Timestamp;
 import dagger.Component;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -55,6 +56,12 @@ public final class SerializationTest {
                 .setTime(Timestamp.newBuilder().setSeconds(443634300L))
                 .setPosition(null)
                 .build());
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x1};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Component(modules = {SerializationModule.class})

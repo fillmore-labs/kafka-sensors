@@ -1,6 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.serializer.avro;
 
 import java.io.IOException;
+import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.message.BinaryMessageDecoder;
@@ -31,7 +32,7 @@ public final class AvroDeserializer<T> implements Deserializer<T> {
     }
     try {
       return decoder.decode(data);
-    } catch (IOException e) {
+    } catch (IOException | AvroRuntimeException e) {
       var message = String.format("Error while parsing Avro from topic \"%s\"", topic);
       throw new SerializationException(message, e);
     }

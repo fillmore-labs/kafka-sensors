@@ -1,15 +1,17 @@
 package com.fillmore_labs.kafka.sensors.serde.json.serialization;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson.Position;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.junit.Test;
 
 public final class SerializationTest {
@@ -35,7 +37,6 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull({"serializer", "deserializer"})
   public void canDecode() {
     var sensorState = sampleStateDuration();
 
@@ -46,12 +47,17 @@ public final class SerializationTest {
   }
 
   @Test
-  @RequiresNonNull("serializer")
   public void matchesSchema() throws IOException {
     var sensorState = sampleStateDuration();
     var encoded = serializer.serialize(TOPIC, sensorState);
 
     var validationMessages = JsonTestHelper.validate(encoded);
     assertThat(validationMessages).isEmpty();
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = "false".getBytes(StandardCharsets.UTF_8);
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 }

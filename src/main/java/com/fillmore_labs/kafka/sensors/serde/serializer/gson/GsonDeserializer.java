@@ -23,7 +23,7 @@ public final class GsonDeserializer<T> implements Deserializer<T> {
     try {
       var json = new String(data, StandardCharsets.UTF_8);
       return adapter.fromJson(json);
-    } catch (IOException | IllegalArgumentException e) {
+    } catch (IOException | IllegalArgumentException | IllegalStateException e) {
       var message = String.format("Error while parsing GSON from topic \"%s\"", topic);
       throw new SerializationException(message, e);
     }
