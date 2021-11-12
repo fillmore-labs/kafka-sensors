@@ -10,7 +10,7 @@ import org.apache.avro.reflect.CustomEncoding;
 
 /**
  * This encoder/decoder writes a java.time.Duration object as a long to avro and reads a Duration
- * object from long. The long stores the number of microseconds represented by the Duration object.
+ * object from long. The long stores the number of nanoseconds represented by the Duration object.
  */
 public final class DurationAsLongEncoding extends CustomEncoding<Duration> {
   public DurationAsLongEncoding() {
