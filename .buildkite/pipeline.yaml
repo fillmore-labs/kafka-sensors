@@ -1,13 +1,11 @@
 ---
 steps:
-  - label: ':bazel: Build'
+  - label: ':bazel: Test & Coverage'
     commands:
-      - bazel build //src/...
-  - label: ':bazel: Test'
+      - bazel coverage //src/test/...
+    branches: "main"
+  - wait
+  - label: ':codecov: Upload Coverage'
     commands:
-      - bazel test //src/test/...
-  - label: ':codecov: Coverage'
-    commands:
-      - bazel coverage --instrumentation_filter "^//src/main/java/com/fillmore_labs[/:]" //src/...
       - codecov -s "$(bazel info bazel-testlogs)"
-    if: build.branch == "main"
+    branches: "main"
