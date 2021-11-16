@@ -10,6 +10,7 @@ gen_java_tests(
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:test",
+        "@maven//:nl_jqno_equalsverifier_equalsverifier",
         "@maven//:org_apache_avro_avro",
         "@maven//:org_apache_kafka_kafka_clients",
     ],

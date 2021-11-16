@@ -337,6 +337,12 @@ maven_install(
             testonly = True,
         ),
         maven.artifact(
+            "nl.jqno.equalsverifier",
+            "equalsverifier",
+            "3.7.2",
+            testonly = True,
+        ),
+        maven.artifact(
             "org.apache.kafka",
             "kafka-streams-test-utils",
             "3.0.0",
