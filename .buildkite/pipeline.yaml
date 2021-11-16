@@ -2,10 +2,9 @@
 steps:
   - label: ':bazel: Test & Coverage'
     commands:
-      - bazel coverage //src/test/...
-    branches: "main"
+      - bazel coverage --combined_report=lcov //src/test/...
   - wait
   - label: ':codecov: Upload Coverage'
     commands:
-      - codecov -s "$(bazel info bazel-testlogs)"
+      - codecov -f "$(bazel info output_path)/_coverage/_coverage_report.dat"
     branches: "main"
