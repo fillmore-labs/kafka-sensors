@@ -1,0 +1,8 @@
+---
+ignore:
+  - src/main/java/com/fillmore_labs/kafka/sensors/app
+  - src/main/java/com/fillmore_labs/kafka/sensors/benchmark
+  - src/main/java/com/fillmore_labs/kafka/sensors/classcheck
+  - src/main/java/com/fillmore_labs/kafka/sensors/configuration
+  - src/main/java/com/fillmore_labs/kafka/sensors/lifecycle
+  - src/main/java/com/fillmore_labs/kafka/sensors/streams
