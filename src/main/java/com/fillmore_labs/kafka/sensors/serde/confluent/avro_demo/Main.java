@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaValidationException;
 import org.apache.avro.SchemaValidatorBuilder;
@@ -36,34 +35,29 @@ public final class Main {
 
   public static void main(String... args) {
     // Create a message with the reflection serializer
-    var stateDurationReflect = createStateDuration();
-    logger.atInfo().log("Serializing: %s", stateDurationReflect);
-    var serialized = serialize(stateDurationReflect);
+    var serialized = createSerializedMessage();
 
     // We use the generic deserializer to retrieve the schema of the written message
-    var genericRecord = deserialize(serialized, GenericAvroDeserializer::new);
-    logger.atInfo().log("Deserialized (generic): %s", genericRecord);
-
-    var schema = genericRecord.getSchema();
+    var writerSchema = getWriterSchema(serialized);
 
     // We plan to read the message with the specific deserializer, so this is the reader schema
     var readerSchema = StateDuration.getClassSchema();
 
     // Check Avro compatibility via {@link org.apache.avro.SchemaValidator}
     try {
-      validateSchema(schema, readerSchema);
+      validateSchema(writerSchema, readerSchema);
       logger.atInfo().log("Schema is read compatible");
     } catch (SchemaValidationException e) {
       logger.atWarning().withCause(e).log("Schema mismatch");
     }
 
-    // Now read with our deserializer
-    var stateDurationSpecific =
-        deserialize(
-            serialized,
-            () ->
-                new com.fillmore_labs.kafka.sensors.serde.serializer.confluent
-                    .SpecificAvroDeserializer<>(StateDuration.class));
+    // Our specific deserializer for the confluent format
+    var specificDeserializer =
+        new com.fillmore_labs.kafka.sensors.serde.serializer.confluent.SpecificAvroDeserializer<>(
+            StateDuration.class);
+
+    // Read with our deserializer
+    var stateDurationSpecific = deserialize(serialized, specificDeserializer);
     logger.atInfo().log("Deserialized (specific): %s", stateDurationSpecific);
 
     // Retrieve a “parsed schema” from the Confluent registry
@@ -78,13 +72,38 @@ public final class Main {
       logger.atWarning().log("Confluent compatability problem: %s", problem);
     }
 
-    // ... try to deserialize nevertheless, which ends in a ClassCastException
-    var deserializdeConfluentSpecific =
-        deserialize(
-            serialized,
-            io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer<StateDuration>::new);
+    // The original Confluent specifi deserializer
+    var specificDeserializerConfluent =
+        new io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer<StateDuration>();
+    // ... try to deserialize, which ends in a ClassCastException
+    var deserializdeConfluentSpecific = deserialize(serialized, specificDeserializerConfluent);
     // unreachable
     logger.atInfo().log("Deserialized (Confluent Specific): %s", deserializdeConfluentSpecific);
+  }
+
+  /**
+   * Use the generic deserializer to retrieve the schema of a serialized message.
+   *
+   * @param serialized the serialized message
+   * @return the writer schema
+   */
+  private static Schema getWriterSchema(byte[] serialized) {
+    var deserializer = new GenericAvroDeserializer();
+    var genericRecord = deserialize(serialized, deserializer);
+    logger.atInfo().log("Deserialized (generic): %s", genericRecord);
+
+    return genericRecord.getSchema();
+  }
+
+  /**
+   * Create a message with the reflection serializer.
+   *
+   * @return serialized Message
+   */
+  private static byte[] createSerializedMessage() {
+    var stateDurationReflect = createStateDuration();
+    logger.atInfo().log("Serializing: %s", stateDurationReflect);
+    return serialize(stateDurationReflect);
   }
 
   /**
@@ -125,22 +144,19 @@ public final class Main {
    * Deserializes Confluent Avro format using a provided deserializer.
    *
    * @param serialized serialized data
-   * @param deserializerSupplier Confluent Avro deserializer supplier
+   * @param deserializer Confluent Avro deserializer
    * @param <T> some type, depending on the deserializer
    * @return the deserialized value
    */
-  private static <T> T deserialize(
-      byte[] serialized, Supplier<Deserializer<T>> deserializerSupplier) {
-    try (var deserializer = deserializerSupplier.get()) {
-      var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, REGISTRY_URL);
-      deserializer.configure(config, /* isKey= */ false);
+  private static <T> T deserialize(byte[] serialized, Deserializer<T> deserializer) {
+    var config = Map.of(SCHEMA_REGISTRY_URL_CONFIG, REGISTRY_URL);
+    deserializer.configure(config, /* isKey= */ false);
 
-      var deserialized = deserializer.deserialize(TOPIC, serialized);
-      if (deserialized == null) {
-        throw new NullPointerException();
-      }
-      return deserialized;
+    var deserialized = deserializer.deserialize(TOPIC, serialized);
+    if (deserialized == null) {
+      throw new NullPointerException();
     }
+    return deserialized;
   }
 
   /**
