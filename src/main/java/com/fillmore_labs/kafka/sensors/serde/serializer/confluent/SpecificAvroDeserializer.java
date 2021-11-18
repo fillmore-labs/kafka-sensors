@@ -2,6 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.serializer.confluent;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
+import java.nio.BufferUnderflowException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.avro.Schema;
@@ -49,7 +50,12 @@ public final class SpecificAvroDeserializer<T extends GenericContainer> implemen
     "nullness:override.return"
   }) // Deserializer and KafkaAvroDeserializer are not annotated
   public @Nullable T deserialize(String topic, byte @Nullable [] bytes) {
-    return type.cast(inner.deserialize(topic, bytes, schema));
+    try {
+      return type.cast(inner.deserialize(topic, bytes, schema));
+    } catch (BufferUnderflowException e) {
+      var message = String.format("Error while parsing Confluent Avro from topic \"%s\"", topic);
+      throw new SerializationException(message, e);
+    }
   }
 
   @Override

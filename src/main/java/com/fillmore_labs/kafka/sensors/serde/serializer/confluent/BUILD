@@ -7,6 +7,7 @@ java_library(
     deps = [
         "//toolchain:checker",
         "@confluent_schema_registry//:kafka-avro-serializer",
+        "@confluent_schema_registry//:kafka-streams-avro-serde",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
         "@maven//:org_apache_avro_avro",

@@ -11,6 +11,7 @@ java_library(
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/logicaltypes",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/confluent",
         "//toolchain:checker",
         "//toolchain:dagger",
         "@confluent_schema_registry//:kafka-schema-serializer",

@@ -60,6 +60,22 @@ public final class SerializationTest {
   }
 
   @Test
+  public void nullEncoding() {
+    @SuppressWarnings("nullness:argument") // Serializer is not annotated
+    var encoded = serializer.serialize(TOPIC, null);
+
+    assertThat(encoded).isNull();
+  }
+
+  @Test
+  public void nullDecoding() {
+    @SuppressWarnings("nullness:argument") // Deserializer is not annotated
+    var decoded = deserializer.deserialize(TOPIC, null);
+
+    assertThat(decoded).isNull();
+  }
+
+  @Test
   public void invalid() {
     var encoded = "false".getBytes(StandardCharsets.UTF_8);
     assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));

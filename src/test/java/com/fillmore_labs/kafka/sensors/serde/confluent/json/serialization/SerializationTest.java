@@ -1,6 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.json.serialization;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
@@ -11,6 +12,7 @@ import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Singleton;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -48,6 +50,28 @@ public final class SerializationTest {
     var decoded = deserializer.deserialize(TOPIC, encoded);
 
     assertThat(decoded).isEqualTo(sensorState);
+  }
+
+  @Test
+  public void nullEncoding() {
+    @SuppressWarnings("nullness:argument") // Serializer is not annotated
+    var encoded = serializer.serialize(TOPIC, null);
+
+    assertThat(encoded).isNull();
+  }
+
+  @Test
+  public void nullDecoding() {
+    @SuppressWarnings("nullness:argument") // Deserializer is not annotated
+    var decoded = deserializer.deserialize(TOPIC, null);
+
+    assertThat(decoded).isNull();
+  }
+
+  @Test
+  public void invalid() {
+    var encoded = new byte[] {0x0};
+    assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
   }
 
   @Singleton

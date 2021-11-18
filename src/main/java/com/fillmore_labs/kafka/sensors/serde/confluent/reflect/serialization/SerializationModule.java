@@ -3,9 +3,9 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization;
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryUrl;
+import com.fillmore_labs.kafka.sensors.serde.serializer.confluent.ReflectionAvroDeserializer;
 import dagger.Module;
 import dagger.Provides;
-import io.confluent.kafka.streams.serdes.avro.ReflectionAvroDeserializer;
 import io.confluent.kafka.streams.serdes.avro.ReflectionAvroSerializer;
 import java.util.Map;
 import org.apache.kafka.common.serialization.Deserializer;
