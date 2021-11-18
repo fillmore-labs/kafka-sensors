@@ -1,7 +1,7 @@
 load("@rules_java//java:defs.bzl", "java_library")
 
 java_library(
-    name = "common-utils",
+    name = "common_utils",
     srcs = glob(["utils/src/main/java/**/*.java"]),
     visibility = ["//visibility:public"],
     deps = [
@@ -10,11 +10,11 @@ java_library(
 )
 
 java_library(
-    name = "common-config",
+    name = "common_config",
     srcs = glob(["config/src/main/java/**/*.java"]),
     visibility = ["//visibility:public"],
     deps = [
-        ":common-utils",
+        ":common_utils",
         "@maven//:org_slf4j_slf4j_api",
     ],
 )
