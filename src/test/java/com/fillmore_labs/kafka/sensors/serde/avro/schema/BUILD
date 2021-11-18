@@ -9,7 +9,7 @@ gen_java_tests(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/reflect/serialization",
         "//toolchain:checker",
         "//toolchain:test",
-        "@maven//:com_google_guava_guava",
+        "@maven//:com_google_testparameterinjector_test_parameter_injector",
         "@maven//:org_apache_avro_avro",
     ],
 )

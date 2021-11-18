@@ -11,15 +11,27 @@ import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDur
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.SensorStateReflect;
 import com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.StateDurationReflect;
+import com.google.testing.junit.testparameterinjector.TestParameters.TestParametersValues;
+import com.google.testing.junit.testparameterinjector.TestParameters.TestParametersValuesProvider;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 import org.apache.avro.Schema;
 
-/* package */ final class TestHelper {
-  private TestHelper() {}
+/* package */ final class SchemaProvider implements TestParametersValuesProvider {
+  private static Stream<TestParametersValues> combinations(Collection<Schema> schemata) {
+    return schemata.stream()
+        .map(
+            schema ->
+                TestParametersValues.builder()
+                    .name(schema.getFullName())
+                    .addParameter("schema", schema)
+                    .addParameter("schemata", schemata)
+                    .build());
+  }
 
-  /* package */ static List<Object[]> createParameters() {
+  @Override
+  public List<TestParametersValues> provideValues() {
     var positionSchemas =
         List.of(
             Position.getClassSchema(),
@@ -39,11 +51,7 @@ import org.apache.avro.Schema;
             StateDurationReflect.SCHEMA);
 
     return Stream.of(positionSchemas, readingSchemas, sensorStateSchemas, stateDurationSchemas)
-        .flatMap(TestHelper::combinations)
+        .flatMap(SchemaProvider::combinations)
         .toList();
-  }
-
-  private static Stream<Object[]> combinations(Collection<Schema> schemata) {
-    return schemata.stream().map(schema -> new Object[] {schema.getFullName(), schema, schemata});
   }
 }

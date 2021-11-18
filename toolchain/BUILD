@@ -171,3 +171,22 @@ java_library(
         "@maven//:org_slf4j_slf4j_jdk14",
     ],
 )
+
+# ---
+# https://site.mockito.org
+
+java_plugin(
+    name = "mockito_plugin",
+    testonly = True,
+    deps = ["@maven//:org_mockito_mockito_errorprone"],
+)
+
+java_library(
+    name = "mockito",
+    testonly = True,
+    exported_plugins = ["mockito_plugin"],
+    visibility = ["//visibility:public"],
+    exports = [
+        "@maven//:org_mockito_mockito_core",
+    ],
+)

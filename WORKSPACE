@@ -307,6 +307,12 @@ maven_install(
         "org.slf4j:slf4j-api:1.8.0-beta4",
         "org.slf4j:slf4j-jdk14:1.8.0-beta4",
         maven.artifact(
+            "com.google.testparameterinjector",
+            "test-parameter-injector",
+            "1.6",
+            testonly = True,
+        ),
+        maven.artifact(
             "com.google.truth",
             "truth",
             "1.1.3",
@@ -346,6 +352,18 @@ maven_install(
             "org.apache.kafka",
             "kafka-streams-test-utils",
             "3.0.0",
+            testonly = True,
+        ),
+        maven.artifact(
+            "org.mockito",
+            "mockito-core",
+            "4.0.0",
+            testonly = True,
+        ),
+        maven.artifact(
+            "org.mockito",
+            "mockito-errorprone",
+            "4.0.0",
             testonly = True,
         ),
         maven.artifact(
