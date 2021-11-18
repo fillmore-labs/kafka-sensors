@@ -2,13 +2,14 @@
 !/.bazelignore
 !/.bazelrc
 !/.bazelversion
+!/.buildkite/
+!/.codeclimate.yml
 !/.envrc
 !/.gitattributes
+!/.github/
 !/.gitignore
 !/.scalafmt.conf
 !/.yamllint
-!/.github/
-!/.buildkite/
 /bazel-*
 /bin/
 /user.bazelrc
