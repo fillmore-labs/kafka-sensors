@@ -102,7 +102,7 @@ considerations:
 mechanism.
 
 We can simply use
-https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.htmlhtml#between(java.time.temporal.Temporal,java.time.temporal.Temporal)[`Duration::between`],
+https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html#between(java.time.temporal.Temporal,java.time.temporal.Temporal)[`Duration::between`],
 which is a simple call and easy to understand and test, instead of cluttering our logic with
 conversions and unnecessary error-prone calculations.
 
@@ -133,7 +133,7 @@ just use [source,shell]`brew install bazelbuild/tap/bazelisk`.
 To run all tests, use
 
 [source,shell]
-bazel test //...
+bazel test //src/test/...
 
 To run a single test, use
 
@@ -144,31 +144,31 @@ The tests run with an embedded Kafka and mock schema registry, when necessary.
 
 === Main App
 
-The main app needs Kafka running at localhost, port 9092 (see
-link:conf/application.yaml[application.yaml]). Start it with
+The main app needs Kafka running at `localhost`, port 9092 (see
+link:conf/application.yaml[application.yaml]). There is a script doing that:
+
+[source,shell]
+scripts/kafka-server.sh
+
+When Kafka has finished starting, create the topics in a different terminal:
+
+[source,shell]
+scripts/kafka-topics.sh
+
+Now start the main app:
 
 [source,shell]
 bazel run //:kafka-sensors
 
-Watch the results with
+Open another terminal to watch the results:
 
 [source,shell]
-kafka-console-consumer --bootstrap-server localhost:9092 --topic result-topic
+scripts/kafka-consume.sh
 
-and publish sensor values with
+Publish sensor values:
 
 [source,shell]
-kafka-console-producer --broker-list localhost:9092 --topic input-topic
-
-The main app runs with JSON in- and output, so you can use sample sensor values like
-
-[source,json lines]
-----
-{"id":"7331", "time":443634300.0, "position":"off"}
-{"id":"7331", "time":443634310.0, "position":"off"}
-{"id":"7331", "time":443634330.0, "position":"on"}
-{"id":"7331", "time":443634390.0, "position":"off"}
-----
+scripts/kafka-produce.sh
 
 === Benchmark
 
@@ -178,12 +178,12 @@ Run the https://openjdk.java.net/projects/code-tools/jmh/[JMH] microbenchmarks w
 bazel run //:benchmark
 
 [source,shell]
-bazel run //:benchmark -- -p "name=PROTO" "Bench\\.deserialize"
+bazel run //:benchmark -- -p "format=proto" "Bench\\.deserialize"
 
 [source,shell]
-bazel run //:benchmark -- -p "name=PROTO" "Bench\\.deserialize" \
+bazel run //:benchmark -- -p "format=proto" "Bench\\.deserialize" \
     -prof "async:output=flamegraph;direction=forward"
-open "$(bazel info bazel-bin)/src/main/java/com/fillmore_labs/kafka/sensors/benchmark/benchmark.runfiles/com_fillmore_labs_kafka_sensors/com.fillmore_labs.kafka.sensors.benchmark.Bench.deserialize-AverageTime-name-PROTO/flame-cpu-forward.html"
+open "$(bazel info bazel-bin)/src/main/java/com/fillmore_labs/kafka/sensors/benchmark/benchmark.runfiles/com_fillmore_labs_kafka_sensors/com.fillmore_labs.kafka.sensors.benchmark.Bench.deserialize-AverageTime-format-proto/flame-cpu-forward.html"
 
 == Notes
 === Mapping
