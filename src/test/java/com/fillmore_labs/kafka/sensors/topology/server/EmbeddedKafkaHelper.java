@@ -124,6 +124,10 @@ import scala.collection.immutable.Seq;
 
     props.put(KafkaConfig.AutoCreateTopicsEnableProp(), "false");
 
+    props.put(KafkaConfig.NumPartitionsProp(), "1");
+    props.put(KafkaConfig.OffsetsTopicPartitionsProp(), "1");
+    props.put(KafkaConfig.OffsetsTopicReplicationFactorProp(), "1");
+
     return props;
   }
 

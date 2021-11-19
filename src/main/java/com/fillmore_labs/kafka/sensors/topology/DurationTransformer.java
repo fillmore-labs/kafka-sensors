@@ -3,6 +3,7 @@ package com.fillmore_labs.kafka.sensors.topology;
 import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
 import com.fillmore_labs.kafka.sensors.logic.ReadingStore;
 import com.fillmore_labs.kafka.sensors.model.Reading;
+import com.fillmore_labs.kafka.sensors.model.ReadingDuration;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import dagger.assisted.Assisted;
@@ -15,6 +16,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
 public final class DurationTransformer
     implements Transformer<String, SensorState, KeyValue<String, StateDuration>> {
@@ -27,6 +29,16 @@ public final class DurationTransformer
   /* package */ DurationTransformer(DurationProcessorFactory factory, @Assisted String storeName) {
     this.factory = factory;
     this.storeName = storeName;
+  }
+
+  private static KeyValue<String, StateDuration> mapReturnValue(String id, ReadingDuration result) {
+    var stateDuration =
+        StateDuration.builder()
+            .id(id)
+            .reading(result.getReading())
+            .duration(result.getDuration())
+            .build();
+    return KeyValue.pair(id, stateDuration);
   }
 
   @Override
@@ -42,19 +54,12 @@ public final class DurationTransformer
 
     // A Kafka tombstone
     if (value == null) {
-      if (key != null) {
-        // delete the historic sensor position
-        store.delete(key);
-        // And return a Kafka tombstone
-        // https://kafka.apache.org/documentation.html#design_compactionbasics
-        return KeyValue.pair(key, null);
-      }
-      return null;
+      return handleTombstone(key);
     }
 
     var id = value.getId();
 
-    // Either we have no key or it is our sensor id
+    // Either we have no key or it should be our sensor id
     if (key != null && !id.equals(key)) {
       throw new StreamsException(String.format("Expected id %s, got %s", value.getId(), key));
     }
@@ -63,24 +68,36 @@ public final class DurationTransformer
     var processor = factory.create(readingStore);
     var transformed = processor.transform(value.getReading());
 
-    // Skip if no result (No historic data).
-    if (transformed.isEmpty()) {
-      return null;
-    }
-
-    var result = transformed.get();
-
-    var stateDuration =
-        StateDuration.builder()
-            .id(id)
-            .reading(result.getReading())
-            .duration(result.getDuration())
-            .build();
-    return KeyValue.pair(id, stateDuration);
+    // Skip if no result (No historic data), else return result.
+    return transformed.map(result -> mapReturnValue(id, result)).orElse(null);
   }
 
   @Override
   public void close() {}
+
+  /**
+   * Handle a Kafka tombstone (null value).
+   *
+   * @param key The key of the tombstone
+   * @return A tombstone, or null
+   * @see <a href="https://kafka.apache.org/documentation.html#design_compactionbasics">Log
+   *     Compaction Basics</a>
+   */
+  @RequiresNonNull("store")
+  private @Nullable KeyValue<String, StateDuration> handleTombstone(@Nullable String key) {
+    if (key == null) {
+      return null;
+    }
+
+    // delete the historic sensor position
+    store.delete(key);
+
+    @SuppressWarnings("nullness:argument") // KeyValue is not annotated
+    var tombstone = KeyValue.<String, StateDuration>pair(key, null);
+
+    // And return a Kafka tombstone
+    return tombstone;
+  }
 
   private static class ReadingStoreAdapter implements ReadingStore {
     private final KeyValueStore<String, Reading> delegate;

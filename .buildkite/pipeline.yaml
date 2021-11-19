@@ -8,3 +8,9 @@ steps:
     commands:
       - codecov -f "$(bazel info output_path)/_coverage/_coverage_report.dat"
     branches: "main"
+  - wait
+  - label: ':codeclimate: Upload Coverage'
+    commands:
+      - cc-test-reporter format-coverage -t lcov -o .coverage/codeclimate.json "$(bazel info output_path)/_coverage/_coverage_report.dat"
+      - cc-test-reporter upload-coverage -r "$CC_TEST_REPORTER_ID" -i .coverage/codeclimate.json
+    branches: "main"

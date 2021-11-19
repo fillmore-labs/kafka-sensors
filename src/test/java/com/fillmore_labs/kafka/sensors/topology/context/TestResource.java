@@ -2,7 +2,6 @@ package com.fillmore_labs.kafka.sensors.topology.context;
 
 import com.fillmore_labs.kafka.sensors.topology.server.EmbeddedKafka;
 import java.util.Properties;
-import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
 import org.junit.rules.ExternalResource;
 
@@ -25,7 +24,6 @@ public final class TestResource extends ExternalResource {
     var settings = new Properties();
     settings.put(StreamsConfig.APPLICATION_ID_CONFIG, APPLICATION_ID);
     settings.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, embeddedKafka.getBrokerList());
-    settings.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.StringSerde.class.getName());
     settings.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, PARTITIONS);
 
     return settings;
