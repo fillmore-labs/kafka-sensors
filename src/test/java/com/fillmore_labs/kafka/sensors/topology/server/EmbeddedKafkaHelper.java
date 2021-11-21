@@ -25,6 +25,7 @@ import org.apache.kafka.common.Uuid;
 import scala.collection.immutable.Seq;
 
 /* package */ final class EmbeddedKafkaHelper {
+  @SuppressWarnings("PMD.AvoidUsingHardCodedIP")
   /* package */ static final String LOCALHOST_IP4 = "127.0.0.1";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();

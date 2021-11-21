@@ -30,7 +30,7 @@ public final class SerializationTest {
   private static StateDuration sampleStateDuration() {
     var reading =
         Reading.builder()
-            .time(Instant.ofEpochSecond(443634300L))
+            .time(Instant.ofEpochSecond(443_634_300L))
             .position(Reading.Position.ON)
             .build();
     return StateDuration.builder()

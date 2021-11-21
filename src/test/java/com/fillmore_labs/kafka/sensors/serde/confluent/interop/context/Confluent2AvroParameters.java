@@ -7,8 +7,8 @@ import javax.inject.Named;
 import javax.inject.Provider;
 
 public final class Confluent2AvroParameters extends Parameters {
-  @Inject /* package */
-  Confluent2AvroParameters(
+  @Inject
+  /* package */ Confluent2AvroParameters(
       Provider<TestComponent.SingleTestComponent.Builder> singleTestComponentBuilder,
       @Named("encoding") Map<String, String> encodings) {
     super(singleTestComponentBuilder, encodings);

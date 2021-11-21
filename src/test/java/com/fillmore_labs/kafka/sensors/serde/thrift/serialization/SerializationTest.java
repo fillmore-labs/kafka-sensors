@@ -16,8 +16,9 @@ import org.apache.thrift.protocol.TProtocolException;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
+  private static final Instant INSTANT = Instant.ofEpochSecond(443_634_300L);
   private static final String TOPIC = "topic";
+  private static final long NANOS_PER_MILLI = 1_000_000L;
 
   private final Serializer<StateDuration> serializer;
   private final Deserializer<StateDuration> deserializer;
@@ -32,7 +33,7 @@ public final class SerializationTest {
   public void canDecode() {
     var reading = new Reading();
     reading.setPosition(Position.ON);
-    reading.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
+    reading.setTime(INSTANT.toEpochMilli() * NANOS_PER_MILLI + 1L);
 
     var sensorState = new StateDuration();
     sensorState.setId("3771");
@@ -51,7 +52,7 @@ public final class SerializationTest {
   public void notNull() {
     var reading = new Reading();
     reading.setPosition(null);
-    reading.setTime(INSTANT.toEpochMilli() * 1_000_0000L + 1L);
+    reading.setTime(INSTANT.toEpochMilli() * NANOS_PER_MILLI + 1L);
 
     var sensorState = new StateDuration();
     sensorState.setId("3771");

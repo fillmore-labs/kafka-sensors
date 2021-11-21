@@ -13,7 +13,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
   private ProcessorTestHelper() {}
 
   /* package */ static Reading initial(Position position) {
-    var instant = Instant.ofEpochSecond(443634300L);
+    var instant = Instant.ofEpochSecond(443_634_300L);
     return Reading.builder().time(instant).position(position).build();
   }
 

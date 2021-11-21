@@ -32,7 +32,10 @@ public final class SerializationTest {
   @Test
   public void canDecode() {
     var reading =
-        ReadingJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
+        ReadingJson.builder()
+            .time(Instant.ofEpochSecond(443_634_300L))
+            .position(Position.ON)
+            .build();
 
     var sensorState =
         StateWithDurationJson.builder()

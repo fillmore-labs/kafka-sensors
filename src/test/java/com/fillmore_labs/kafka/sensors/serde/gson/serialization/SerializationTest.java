@@ -31,7 +31,7 @@ public final class SerializationTest {
   private static StateDurationGson sampleStateDuration() {
     return StateDurationGson.builder()
         .id("7331")
-        .time(InstantDecimalHelper.instant2Decimal(Instant.ofEpochSecond(443634300L)))
+        .time(InstantDecimalHelper.instant2Decimal(Instant.ofEpochSecond(443_634_300L)))
         .position(Position.ON)
         .duration(DurationDecimalHelper.duration2Decimal(Duration.ofSeconds(15)))
         .build();

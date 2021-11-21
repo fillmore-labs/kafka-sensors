@@ -33,7 +33,7 @@ public final class SerializationTest {
   public void canDecode() {
     var reading =
         Reading.newBuilder()
-            .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+            .setTime(Timestamp.newBuilder().setSeconds(443_634_300L))
             .setPosition(Reading.Position.POSITION_ON);
 
     var sensorState =
@@ -61,7 +61,7 @@ public final class SerializationTest {
         NullPointerException.class,
         () ->
             Reading.newBuilder()
-                .setTime(Timestamp.newBuilder().setSeconds(443634300L))
+                .setTime(Timestamp.newBuilder().setSeconds(443_634_300L))
                 .setPosition(null)
                 .build());
   }

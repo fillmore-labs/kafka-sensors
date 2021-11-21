@@ -10,7 +10,7 @@ import java.time.Instant;
   private TestHelper() {}
 
   /* package */ static Reading standardReading() {
-    var instant = Instant.ofEpochSecond(443634300L, 1L);
+    var instant = Instant.ofEpochSecond(443_634_300L, 1L);
 
     return Reading.builder().time(instant).position(Reading.Position.ON).build();
   }

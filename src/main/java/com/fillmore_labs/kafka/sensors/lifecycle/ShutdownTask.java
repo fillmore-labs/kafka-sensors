@@ -22,7 +22,10 @@ import java.util.concurrent.TimeoutException;
     shutdownServices();
   }
 
-  @SuppressWarnings("SystemOut") // Logging system might already be flushed / shut down
+  @SuppressWarnings({
+    "SystemOut",
+    "PMD.SystemPrintln"
+  }) // Logging system might already be flushed / shut down
   private void shutdownServices() {
     try {
       manager.stopAsync().awaitStopped(Duration.ofSeconds(5L));

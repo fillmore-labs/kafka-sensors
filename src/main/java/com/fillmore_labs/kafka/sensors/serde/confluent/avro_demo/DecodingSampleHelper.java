@@ -26,7 +26,7 @@ public final class DecodingSampleHelper {
    *
    * @return serialized Message
    */
-  static byte[] createSerializedMessage() {
+  /* package */ static byte[] createSerializedMessage() {
     var stateDurationReflect = createStateDuration();
     var serializer = configureSerializer(new ReflectionAvroSerializer<StateDurationReflect>());
     return serializer.serialize(DecodingSample.TOPIC, stateDurationReflect);
@@ -69,7 +69,7 @@ public final class DecodingSampleHelper {
    * @param <T> the deserializers type
    * @return the deserializer
    */
-  static <T> Deserializer<T> configureDeserializer(Deserializer<T> deserializer) {
+  /* package */ static <T> Deserializer<T> configureDeserializer(Deserializer<T> deserializer) {
     deserializer.configure(Map.of(SCHEMA_REGISTRY_URL_CONFIG, REGISTRY_URL), /* isKey= */ false);
     return deserializer;
   }
@@ -80,7 +80,7 @@ public final class DecodingSampleHelper {
    * @param schemaId the Schema id of the message, assigned by the schema registry
    * @return schema of the message
    */
-  static ParsedSchema retrieveSchema(int schemaId) {
+  /* package */ static ParsedSchema retrieveSchema(int schemaId) {
     var registryClient = MockSchemaRegistry.getClientForScope(DecodingSampleHelper.REGISTRY_SCOPE);
     try {
       return registryClient.getSchemaById(schemaId);

@@ -23,12 +23,13 @@ public final class StateDurationReflect {
   }
 
   @Override
+  @SuppressWarnings("OperatorPrecedence")
   public boolean equals(@Nullable Object o) {
     return this == o
-        || (o instanceof StateDurationReflect that
+        || o instanceof StateDurationReflect that
             && Objects.equals(id, that.id)
             && Objects.equals(reading, that.reading)
-            && Objects.equals(duration, that.duration));
+            && Objects.equals(duration, that.duration);
   }
 
   @Override

@@ -15,8 +15,8 @@ public final class Parameters implements Iterable<Object[]> {
 
   private final ImmutableMultimap<String, String> inverseEncodings;
 
-  @Inject /* package */
-  Parameters(
+  @Inject
+  /* package */ Parameters(
       Provider<SingleTestComponent.Builder> singleTestComponentBuilder,
       @Named("encoding") Map<String, String> encodings) {
     this.inverseEncodings = ImmutableMultimap.copyOf(Multimaps.forMap(encodings)).inverse();

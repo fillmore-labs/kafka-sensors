@@ -33,11 +33,12 @@ public final class ReadingReflect {
   }
 
   @Override
+  @SuppressWarnings("OperatorPrecedence")
   public boolean equals(@Nullable Object o) {
     return o == this
-        || (o instanceof ReadingReflect that
+        || o instanceof ReadingReflect that
             && Objects.equals(time, that.time)
-            && position == that.position);
+            && position == that.position;
   }
 
   @Override

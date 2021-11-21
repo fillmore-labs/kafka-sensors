@@ -13,7 +13,7 @@ public final class SchemaRegistryModule {
   @Singleton
   @SchemaRegistryUrl
   /* package */ static String schemaRegistryUrl() {
-    var random = new Random().nextInt(10000);
+    var random = new Random().nextInt(10_000);
     return "mock://test-" + random;
   }
 }

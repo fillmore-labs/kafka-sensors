@@ -17,6 +17,7 @@ public final class MemoryReadingStore implements ReadingStore {
     reading = value;
   }
 
+  @SuppressWarnings("PMD.NullAssignment")
   public void clear() {
     reading = null;
   }

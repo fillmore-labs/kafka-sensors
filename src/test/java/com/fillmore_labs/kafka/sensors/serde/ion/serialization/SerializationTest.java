@@ -42,7 +42,7 @@ public final class SerializationTest {
 
   private static StateDurationIon sampleStateDuration() {
     var reading =
-        ReadingIon.builder().time(443634300L * NANOS_PER_SECOND).position(Position.ON).build();
+        ReadingIon.builder().time(443_634_300L * NANOS_PER_SECOND).position(Position.ON).build();
     return StateDurationIon.builder()
         .id("7331")
         .reading(reading)

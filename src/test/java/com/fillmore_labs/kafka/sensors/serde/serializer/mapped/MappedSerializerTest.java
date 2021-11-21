@@ -15,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
-public class MappedSerializerTest {
+public final class MappedSerializerTest {
   @Mock
   @SuppressWarnings("nullness:initialization.field.uninitialized")
-  Serializer<?> serializer;
+  public Serializer<?> serializer;
 
   private @MonotonicNonNull Serializer<?> mappedSerializer;
 

@@ -11,7 +11,7 @@ import java.time.Instant;
   private TestHelper() {}
 
   /* package */ static StateDuration standardStateDuration() {
-    var time = Instant.ofEpochSecond(443634300L, 1L);
+    var time = Instant.ofEpochSecond(443_634_300L, 1L);
 
     return StateDuration.builder()
         .id("7331")

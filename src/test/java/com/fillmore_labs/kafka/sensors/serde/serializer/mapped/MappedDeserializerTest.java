@@ -15,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.StrictStubs.class)
-public class MappedDeserializerTest {
+public final class MappedDeserializerTest {
   @Mock
   @SuppressWarnings("nullness:initialization.field.uninitialized")
-  Deserializer<?> deserializer;
+  public Deserializer<?> deserializer;
 
   private @MonotonicNonNull Deserializer<?> mappedDeserializer;
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
-public class DecodingSampleTest {
+public final class DecodingSampleTest {
   private final DecodingSample decodingSample = new DecodingSample();
 
   @Test

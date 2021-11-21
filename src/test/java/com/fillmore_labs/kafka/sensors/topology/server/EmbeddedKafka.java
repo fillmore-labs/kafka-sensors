@@ -19,7 +19,7 @@ public final class EmbeddedKafka {
   private int brokerPort;
 
   public EmbeddedKafka(int nodeId) {
-    this.nodeId = 1;
+    this.nodeId = nodeId;
   }
 
   public void startup() {

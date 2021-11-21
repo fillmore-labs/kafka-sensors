@@ -16,6 +16,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
   @Inject
   /* package */ ReadingMapper() {}
 
+  @SuppressWarnings("PMD.SwitchStmtsShouldHaveDefault")
   private static Object mapPosition(Reading.Position model) {
     // Checkstyle ignore MissingSwitchDefault
     switch (model) {

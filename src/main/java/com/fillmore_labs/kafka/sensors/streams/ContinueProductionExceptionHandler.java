@@ -20,5 +20,7 @@ public final class ContinueProductionExceptionHandler implements ProductionExcep
   }
 
   @Override
-  public void configure(Map<String, ?> map) {}
+  public void configure(Map<String, ?> map) {
+    /* Nothing to do */
+  }
 }

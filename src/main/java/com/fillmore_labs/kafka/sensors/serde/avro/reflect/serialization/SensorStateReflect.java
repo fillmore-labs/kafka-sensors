@@ -31,11 +31,12 @@ public final class SensorStateReflect {
   }
 
   @Override
+  @SuppressWarnings("OperatorPrecedence")
   public boolean equals(@Nullable Object o) {
     return o == this
-        || (o instanceof SensorStateReflect that
+        || o instanceof SensorStateReflect that
             && Objects.equals(id, that.id)
-            && Objects.equals(reading, that.reading));
+            && Objects.equals(reading, that.reading);
   }
 
   @Override

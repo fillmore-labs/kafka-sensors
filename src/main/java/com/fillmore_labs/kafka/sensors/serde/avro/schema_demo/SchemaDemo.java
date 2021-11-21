@@ -89,9 +89,7 @@ public final class SchemaDemo {
     return baseEncoding.encode(bytes);
   }
 
-  /**
-   * Validate that both schemate are read-compatible to each other.
-   */
+  /** Validate that both schemate are read-compatible to each other. */
   public void validateSchemata() {
     try {
       var schemaValidator = new SchemaValidatorBuilder().mutualReadStrategy().validateAll();
@@ -102,9 +100,7 @@ public final class SchemaDemo {
     }
   }
 
-  /**
-   * Trys raw encoding (without header) with {@link RawMessageEncoder}.
-   */
+  /** Trys raw encoding (without header) with {@link RawMessageEncoder}. */
   public void tryRawEncoding() {
     ByteBuffer encodedV1;
     ByteBuffer encodedV2;
@@ -141,9 +137,7 @@ public final class SchemaDemo {
     tryDecode(recordV2, encodedV2, decoderV4);
   }
 
-  /**
-   * Trys binary encoding (with header) with {@link BinaryMessageEncoder}.
-   */
+  /** Trys binary encoding (with header) with {@link BinaryMessageEncoder}. */
   public void tryBinaryEncoding() {
     ByteBuffer encodedV1;
     ByteBuffer encodedV2;

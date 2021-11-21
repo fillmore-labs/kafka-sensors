@@ -5,6 +5,7 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 
 public final class Position2StringConverter extends StdConverter<Reading.Position, String> {
   @Override
+  @SuppressWarnings("PMD.SwitchStmtsShouldHaveDefault")
   public String convert(Reading.Position value) {
     // Checkstyle ignore MissingSwitchDefault
     switch (value) {

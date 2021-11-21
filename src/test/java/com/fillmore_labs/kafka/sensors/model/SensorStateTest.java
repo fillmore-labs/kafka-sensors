@@ -11,7 +11,7 @@ import org.junit.Test;
 public final class SensorStateTest {
   @Test
   public void creation() {
-    var time = Instant.ofEpochSecond(443634300L);
+    var time = Instant.ofEpochSecond(443_634_300L);
 
     var sensorState =
         SensorState.builder()
@@ -37,7 +37,7 @@ public final class SensorStateTest {
 
   @Test
   public void durationShouldNotBeNegative() {
-    var instant = Instant.ofEpochSecond(443634300L);
+    var instant = Instant.ofEpochSecond(443_634_300L);
 
     var reading = Reading.builder().time(instant).position(Position.ON).build();
 

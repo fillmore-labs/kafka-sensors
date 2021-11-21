@@ -74,7 +74,7 @@ public final class TopologyTest {
   public void testTopology() {
     var sensorId = "sensor-test1";
 
-    var start = Instant.ofEpochSecond(443634300L);
+    var start = Instant.ofEpochSecond(443_634_300L);
 
     var reading1 = Reading.builder().time(start).position(Position.OFF).build();
 
@@ -101,7 +101,7 @@ public final class TopologyTest {
   public void testRepeated() {
     var sensorId = "sensor-test2";
 
-    var start = Instant.ofEpochSecond(443634300L);
+    var start = Instant.ofEpochSecond(443_634_300L);
 
     var initialState =
         SensorState.builder()
@@ -165,7 +165,7 @@ public final class TopologyTest {
   @SuppressWarnings("nullness:argument") // TestInputTopic is not annotated
   public void testTombstone() {
     var sensorId = "sensor-test3";
-    var start = Instant.ofEpochSecond(443634300L);
+    var start = Instant.ofEpochSecond(443_634_300L);
 
     var initialState =
         SensorState.builder()
@@ -195,7 +195,7 @@ public final class TopologyTest {
   @Test
   public void testBackwards() {
     var sensorId = "sensor-test4";
-    var start = Instant.ofEpochSecond(443634300L);
+    var start = Instant.ofEpochSecond(443_634_300L);
 
     var initialState =
         SensorState.builder()

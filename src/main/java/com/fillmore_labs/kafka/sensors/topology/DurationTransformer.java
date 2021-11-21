@@ -73,7 +73,9 @@ public final class DurationTransformer
   }
 
   @Override
-  public void close() {}
+  public void close() {
+    /* Nothing to do */
+  }
 
   /**
    * Handle a Kafka tombstone (null value).
@@ -103,7 +105,7 @@ public final class DurationTransformer
     private final KeyValueStore<String, Reading> delegate;
     private final String id;
 
-    /* pacakge */ ReadingStoreAdapter(KeyValueStore<String, Reading> delegate, String id) {
+    /* package */ ReadingStoreAdapter(KeyValueStore<String, Reading> delegate, String id) {
       this.delegate = delegate;
       this.id = id;
     }

@@ -14,7 +14,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
+  private static final Instant INSTANT = Instant.ofEpochSecond(443_634_300L);
   private static final String TOPIC = "topic";
 
   private final Serializer<StateDurationReflect> serializer;
@@ -71,11 +71,10 @@ public final class SerializationTest {
   }
 
   @Test
-  @SuppressWarnings("nullness:assignment")
   public void positionIsRequired() {
     var reading = new ReadingReflect();
     reading.time = INSTANT;
-    reading.position = null;
+    assertThat(reading.position).isNull();
 
     var sensorState = new StateDurationReflect();
     sensorState.reading = reading;

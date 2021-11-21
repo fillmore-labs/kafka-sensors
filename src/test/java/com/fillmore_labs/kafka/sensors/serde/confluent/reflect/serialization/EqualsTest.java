@@ -7,7 +7,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Test;
 
-public class EqualsTest {
+public final class EqualsTest {
   private static final Class<?>[] CLASSES = {
     ReadingReflect.class, SensorStateReflect.class, StateDurationReflect.class
   };

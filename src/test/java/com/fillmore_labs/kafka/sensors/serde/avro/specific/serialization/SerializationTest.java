@@ -19,7 +19,7 @@ import org.junit.Test;
 
 public final class SerializationTest {
   private static final long TIME =
-      InstantNanosHelper.instant2Nanos(Instant.ofEpochSecond(443634300L));
+      InstantNanosHelper.instant2Nanos(Instant.ofEpochSecond(443_634_300L));
   private static final String TOPIC = "topic";
 
   private final Serializer<StateDuration> serializer;

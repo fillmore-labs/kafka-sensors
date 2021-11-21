@@ -16,7 +16,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443634300L);
+  private static final Instant INSTANT = Instant.ofEpochSecond(443_634_300L);
   private static final String TOPIC = "topic";
 
   private final Serializer<GenericRecord> serializer;

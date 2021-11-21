@@ -6,7 +6,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
 
-public abstract class SerdeTestBase<T> {
+public /* open */ class SerdeTestBase<T> {
   private static final String KAFKA_TOPIC = "topic";
   private final T standardValue;
   private final Serializer<T> serializer;

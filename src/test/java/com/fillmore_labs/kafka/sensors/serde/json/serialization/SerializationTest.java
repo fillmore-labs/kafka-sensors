@@ -28,7 +28,10 @@ public final class SerializationTest {
 
   private static StateWithDurationJson sampleStateDuration() {
     var reading =
-        ReadingJson.builder().time(Instant.ofEpochSecond(443634300L)).position(Position.ON).build();
+        ReadingJson.builder()
+            .time(Instant.ofEpochSecond(443_634_300L))
+            .position(Position.ON)
+            .build();
     return StateWithDurationJson.builder()
         .id("7331")
         .reading(reading)

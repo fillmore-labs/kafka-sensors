@@ -59,26 +59,28 @@ public abstract class SingleTestModule {
       Map<String, Serde<SensorState>> serdeMap,
       Map<String, Serde<Reading>> serdeReadingMap,
       Map<String, Serde<StateDuration>> serdeDurationMap) {
-    var random = new Random().nextInt(10000);
-    var inputTopic = INPUT_TOPIC + random;
-    var resultTopic = RESULT_TOPIC + random;
-    var storeName = STORE_NAME + random;
     var inputSerde = serdeMap.get(formats.input());
-    var storeSerde = serdeReadingMap.get(formats.store());
-    var resultSerde = serdeDurationMap.get(formats.result());
-
     if (inputSerde == null) {
       throw new IllegalArgumentException(
           String.format("Input format %s not defined", formats.input()));
     }
+
+    var storeSerde = serdeReadingMap.get(formats.store());
     if (storeSerde == null) {
       throw new IllegalArgumentException(
           String.format("Store format %s not defined", formats.store()));
     }
+
+    var resultSerde = serdeDurationMap.get(formats.result());
     if (resultSerde == null) {
       throw new IllegalArgumentException(
           String.format("Result format %s not defined", formats.result()));
     }
+
+    var random = new Random().nextInt(10_000);
+    var inputTopic = INPUT_TOPIC + random;
+    var resultTopic = RESULT_TOPIC + random;
+    var storeName = STORE_NAME + random;
 
     return TopologySettings.builder()
         .inputSerde(inputSerde)
