@@ -7,7 +7,6 @@ import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
 import java.time.Instant;
 import javax.inject.Inject;
-import org.apache.avro.generic.GenericEnumSymbol;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.checkerframework.checker.nullness.qual.PolyNull;
@@ -17,7 +16,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
   @Inject
   /* package */ ReadingMapper() {}
 
-  private static GenericEnumSymbol<?> mapPosition(Reading.Position model) {
+  private static Object mapPosition(Reading.Position model) {
     // Checkstyle ignore MissingSwitchDefault
     switch (model) {
       case OFF:
@@ -30,7 +29,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
     throw new IllegalArgumentException("Unexpected Position Enum: " + model);
   }
 
-  private static Reading.Position unmapPosition(GenericEnumSymbol<?> data) {
+  private static Reading.Position unmapPosition(Object data) {
     switch (data.toString()) {
       case PositionSchema.POSITION_OFF:
         return Reading.Position.OFF;
@@ -61,7 +60,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
     }
     return Reading.builder()
         .time((Instant) data.get(ReadingSchema.FIELD_TIME))
-        .position(unmapPosition((GenericEnumSymbol<?>) data.get(ReadingSchema.FIELD_POSITION)))
+        .position(unmapPosition(data.get(ReadingSchema.FIELD_POSITION)))
         .build();
   }
 }
