@@ -8,6 +8,7 @@
 image:https://badge.buildkite.com/4971a2c4dd08b27b3a39618d744d15ebac5a07c1892102c0b6.svg?branch=main[title="Buildkite build status",link=https://buildkite.com/fillmore-labs/kafka-sensors]
 image:https://codecov.io/gh/fillmore-labs/kafka-sensors/branch/main/graph/badge.svg?token=BHQ06364X7[title="Codecov test coverage",link=https://codecov.io/gh/fillmore-labs/kafka-sensors]
 image:https://api.codeclimate.com/v1/badges/787f6eeda9f0fba0355c/maintainability[title="Code Climate maintainability",link=https://codeclimate.com/github/fillmore-labs/kafka-sensors/maintainability]
+image:https://img.shields.io/github/license/fillmore-labs/kafka-sensors[title="License",link=https://github.com/fillmore-labs/kafka-sensors/blob/main/LICENSE]
 
 toc::[]
 
