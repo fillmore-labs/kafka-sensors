@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "V2",
+  "aliases": [
+    "V1"
+  ],
+  "namespace": "com.fillmore_labs.kafka.sensors.serde.avro.schema_demo",
+  "fields": [
+    {
+      "name": "one",
+      "aliases": [
+        "field1"
+      ],
+      "type": "string"
+    },
+    {
+      "name": "three",
+      "type": "string",
+      "default": "default"
+    }
+  ]
+}

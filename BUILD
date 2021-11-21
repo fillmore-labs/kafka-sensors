@@ -16,6 +16,11 @@ alias(
 )
 
 alias(
+    name = "avro-demo",
+    actual = "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/schema_demo:main",
+)
+
+alias(
     name = "confluent-avro-demo",
     actual = "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/avro_demo:main",
 )
