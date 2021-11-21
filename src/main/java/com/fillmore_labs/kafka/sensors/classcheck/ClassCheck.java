@@ -24,9 +24,9 @@ public final class ClassCheck {
 
   private static ImmutableMultimap<File, String> calculateDuplicates(ClassGraph classGraph) {
     try (var scan = classGraph.scan();
-        var resourceList = scan.getAllResources().filter(ClassCheck::resourceFilter)) {
+        var resourceList = scan.getAllResources()) {
       var builder = ImmutableMultimap.<File, String>builder();
-      for (var duplicate : resourceList.findDuplicatePaths()) {
+      for (var duplicate : resourceList.filter(ClassCheck::resourceFilter).findDuplicatePaths()) {
         try (var duplicates = duplicate.getValue()) {
           for (var resource : duplicates) {
             builder.put(resource.getClasspathElementFile(), duplicate.getKey());
