@@ -5,7 +5,6 @@ gen_java_tests(
     srcs = glob(["*.java"]),
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/all_serdes",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/interop",
         "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//src/test/java/com/fillmore_labs/kafka/sensors/serde/confluent/interop/context",
