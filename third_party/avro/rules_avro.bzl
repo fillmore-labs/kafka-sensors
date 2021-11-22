@@ -27,7 +27,7 @@ def _new_generator_command(ctx, src_dir, gen_dir):
     )
 
     if ctx.attr.strings:
-        gen_command += " -string -bigDecimal"
+        gen_command += " -string -bigDecimal -optionalGetters only_nullable_fields"
 
     if ctx.attr.encoding:
         gen_command += " -encoding {encoding}".format(
