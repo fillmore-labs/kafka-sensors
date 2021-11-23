@@ -92,9 +92,9 @@ The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the 
 different formats, https://developers.google.com/protocol-buffers/[protocol buffers],
 https://json.org[JSON], https://avro.apache.org/docs/current/[Apache Avro], the
 https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them,
-https://thrift.apache.org[Apache Thrift] and https://amzn.github.io/ion-docs/[Amazon Ion]. Since the
-example needs an input format, a result format, a format for the state store and some format have
-alternate implementations we have 3,375 (15^3^) different combinations which are all tested.
+https://thrift.apache.org[Apache Thrift] and https://amzn.github.io/ion-docs/[Amazon Ion].
+Different, random combinations of input format, result format, and format for the state store are
+tested.
 
 While this abstraction might not be necessary in practice, it demonstrates two important design
 considerations:

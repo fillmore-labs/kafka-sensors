@@ -101,7 +101,7 @@ public final class DurationTransformer
     return tombstone;
   }
 
-  private static class ReadingStoreAdapter implements ReadingStore {
+  private static final class ReadingStoreAdapter implements ReadingStore {
     private final KeyValueStore<String, Reading> delegate;
     private final String id;
 
