@@ -64,6 +64,7 @@ package_group(
     name = "src_package_group",
     packages = [
         "-//src/main/thrift/...",
+        "-//src/test/thrift/...",
         "//src/...",
     ],
 )
@@ -80,6 +81,7 @@ package_group(
         "-//src/...",
         "//...",
         "//src/main/thrift/...",
+        "//src/test/thrift/...",
     ],
 )
 

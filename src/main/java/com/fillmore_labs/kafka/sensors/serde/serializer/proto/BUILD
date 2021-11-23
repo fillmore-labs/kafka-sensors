@@ -3,7 +3,10 @@ load("@rules_java//java:defs.bzl", "java_library")
 java_library(
     name = "proto",
     srcs = glob(["*.java"]),
-    visibility = ["//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto/serialization:__pkg__"],
+    visibility = [
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto/serialization:__pkg__",
+        "//src/test:__subpackages__",
+    ],
     deps = [
         "//toolchain:checker",
         "@com_google_protobuf//:protobuf_java",

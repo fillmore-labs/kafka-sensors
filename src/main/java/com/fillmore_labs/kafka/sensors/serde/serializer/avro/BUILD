@@ -6,6 +6,7 @@ java_library(
     visibility = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro:__subpackages__",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent:__subpackages__",
+        "//src/test:__subpackages__",
     ],
     deps = [
         "//toolchain:checker",

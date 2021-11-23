@@ -366,12 +366,6 @@ maven_install(
             "4.1.0",
             testonly = True,
         ),
-        maven.artifact(
-            "org.ow2.asm",
-            "asm",
-            "9.2",
-            testonly = True,
-        ),
     ] + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

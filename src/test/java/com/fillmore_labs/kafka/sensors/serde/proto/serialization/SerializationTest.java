@@ -6,9 +6,7 @@ import static org.junit.Assert.assertThrows;
 
 import com.fillmore_labs.kafka.sensors.proto.v1.Reading;
 import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
-import com.google.protobuf.Duration;
 import com.google.protobuf.Timestamp;
-import dagger.Component;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
@@ -28,17 +26,7 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var reading =
-        Reading.newBuilder()
-            .setTime(Timestamp.newBuilder().setSeconds(443_634_300L))
-            .setPosition(Reading.Position.POSITION_ON);
-
-    var sensorState =
-        StateDuration.newBuilder()
-            .setId("3771")
-            .setReading(reading)
-            .setDuration(Duration.newBuilder().setSeconds(15L))
-            .build();
+    var sensorState = TestHelper.createStateDuration();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
 
@@ -79,16 +67,5 @@ public final class SerializationTest {
   public void invalid() {
     var encoded = new byte[] {0x1};
     assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
-  }
-
-  @Component(modules = {SerializationModule.class})
-  public interface TestComponent {
-    static TestComponent create() {
-      return DaggerSerializationTest_TestComponent.create();
-    }
-
-    Serializer<StateDuration> serializer();
-
-    Deserializer<StateDuration> deserializer();
   }
 }

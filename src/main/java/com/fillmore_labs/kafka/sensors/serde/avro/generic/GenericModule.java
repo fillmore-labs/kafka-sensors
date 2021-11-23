@@ -5,20 +5,15 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper.MapperModule;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.Avro;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingSchema;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SerializationModule;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationSchema;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
-import dagger.multibindings.IntoSet;
 import dagger.multibindings.StringKey;
 import javax.inject.Named;
-import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
@@ -29,24 +24,6 @@ public abstract class GenericModule {
   public static final String AVRO_GENERIC = "avro-generic";
 
   private GenericModule() {}
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema readingSchema() {
-    return ReadingSchema.SCHEMA;
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema sensorStateSchema() {
-    return SensorStateSchema.SCHEMA;
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema stateDurationSchema() {
-    return StateDurationSchema.SCHEMA;
-  }
 
   @Provides
   @IntoMap

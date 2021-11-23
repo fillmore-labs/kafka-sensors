@@ -11,10 +11,8 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
-import dagger.multibindings.IntoSet;
 import dagger.multibindings.StringKey;
 import javax.inject.Named;
-import org.apache.avro.Schema;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
@@ -24,24 +22,6 @@ public abstract class SpecificModule {
   public static final String AVRO_SPECIFIC = "avro-specific";
 
   private SpecificModule() {}
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema evenSchema() {
-    return com.fillmore_labs.kafka.sensors.avro.Reading.getClassSchema();
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema sensorStateSchema() {
-    return com.fillmore_labs.kafka.sensors.avro.SensorState.getClassSchema();
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema stateDurationSchema() {
-    return com.fillmore_labs.kafka.sensors.avro.StateDuration.getClassSchema();
-  }
 
   @Provides
   @IntoMap

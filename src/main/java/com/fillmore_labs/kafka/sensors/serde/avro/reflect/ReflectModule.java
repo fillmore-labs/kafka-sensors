@@ -14,10 +14,8 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
-import dagger.multibindings.IntoSet;
 import dagger.multibindings.StringKey;
 import javax.inject.Named;
-import org.apache.avro.Schema;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
@@ -27,24 +25,6 @@ public abstract class ReflectModule {
   public static final String AVRO_REFLECT = "avro-reflect";
 
   private ReflectModule() {}
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema readingSchema() {
-    return ReadingReflect.SCHEMA;
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema sensorStateSchema() {
-    return SensorStateReflect.SCHEMA;
-  }
-
-  @Provides
-  @IntoSet
-  /* package */ static Schema stateDurationSchema() {
-    return StateDurationReflect.SCHEMA;
-  }
 
   @Provides
   @IntoMap

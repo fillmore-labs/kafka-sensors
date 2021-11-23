@@ -6,6 +6,8 @@ import com.google.common.base.Optional;
 import dagger.BindsOptionalOf;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoSet;
+import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.message.SchemaStore;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -29,6 +31,12 @@ public abstract class SerializationModule {
   }
 
   @Provides
+  @IntoSet
+  /* package */ static Schema readingSchema() {
+    return ReadingSchema.SCHEMA;
+  }
+
+  @Provides
   @Avro.SensorState
   /* package */ static Serializer<GenericRecord> sensorStateSerializer() {
     return new AvroSerializer<>(SensorStateSchema.MODEL, SensorStateSchema.SCHEMA);
@@ -43,6 +51,12 @@ public abstract class SerializationModule {
   }
 
   @Provides
+  @IntoSet
+  /* package */ static Schema sensorStateSchema() {
+    return SensorStateSchema.SCHEMA;
+  }
+
+  @Provides
   @Avro.StateDuration
   /* package */ static Serializer<GenericRecord> stateDurationSerializer() {
     return new AvroSerializer<>(StateDurationSchema.MODEL, StateDurationSchema.SCHEMA);
@@ -54,6 +68,12 @@ public abstract class SerializationModule {
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
         StateDurationSchema.MODEL, StateDurationSchema.SCHEMA, resolver.orNull());
+  }
+
+  @Provides
+  @IntoSet
+  /* package */ static Schema stateDurationSchema() {
+    return StateDurationSchema.SCHEMA;
   }
 
   @BindsOptionalOf
