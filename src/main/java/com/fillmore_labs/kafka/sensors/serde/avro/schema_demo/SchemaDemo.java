@@ -48,7 +48,7 @@ public final class SchemaDemo {
   }
 
   /**
-   * Reads a Avro schame from a realative resource path.
+   * Reads a Avro schema from a relative resource path.
    *
    * @param clazz the class which package defines the start
    * @param name the resources name

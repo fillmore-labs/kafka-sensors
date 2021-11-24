@@ -16,10 +16,7 @@ JVM_FLAGS = [
 
 java_library(
     name = "app_library",
-    srcs = glob(
-        ["*.java"],
-        exclude = ["ClassCheck.java"],
-    ),
+    srcs = glob(["*.java"]),
     data = [
         "//conf",
         "//conf:logging",

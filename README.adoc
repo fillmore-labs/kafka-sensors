@@ -1,4 +1,4 @@
-= Kafka Streams Playground
+= Kafka Serialization Playground
 :Author:    Oliver Eikemeier
 :Email:     <eikemeier@fillmore-labs.com>
 :Date:      2021-10
