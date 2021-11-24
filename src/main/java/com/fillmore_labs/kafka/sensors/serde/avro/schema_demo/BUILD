@@ -18,9 +18,9 @@ java_library(
 
 java_binary(
     name = "main",
-    data = ["//conf:logging"],
+    data = ["//conf:shortlog"],
     jvm_flags = [
-        "-Djava.util.logging.config.file=$(rootpath //conf:logging)",
+        "-Djava.util.logging.config.file=$(rootpath //conf:shortlog)",
         "-XX:+CrashOnOutOfMemoryError",
     ],
     main_class = "com.fillmore_labs.kafka.sensors.serde.avro.schema_demo.Main",

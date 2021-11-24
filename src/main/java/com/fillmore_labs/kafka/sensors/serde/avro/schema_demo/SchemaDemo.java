@@ -9,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
+import org.apache.avro.SchemaNormalization;
 import org.apache.avro.SchemaValidationException;
 import org.apache.avro.SchemaValidatorBuilder;
 import org.apache.avro.generic.GenericData;
@@ -78,7 +79,9 @@ public final class SchemaDemo {
       var decoded = decoder.decode(encoded);
       logger.atInfo().log("Decoded: %s, Original: %s", decoded, original);
     } catch (AvroRuntimeException | IOException e) {
-      logger.atWarning().withCause(e).log("Decoding of %s failed:", original);
+      logger.atWarning().log(
+          "Decoding of %s failed with %s: \"%s\"",
+          original, e.getClass().getSimpleName(), e.getMessage());
     }
   }
 
@@ -172,5 +175,15 @@ public final class SchemaDemo {
     logger.atInfo().log("--- Swapped schema, with header + added schema");
     tryDecode(recordV1, encodedV1, decoderV2);
     tryDecode(recordV2, encodedV2, decoderV1);
+  }
+
+  public void logFingerprints() {
+    var fingerprint1 = SchemaNormalization.parsingFingerprint64(schemaV1);
+    logger.atInfo().log(
+        "Fingerprint 1: %s (%d)", String.format("0x%016x", fingerprint1), fingerprint1);
+
+    var fingerprint2 = SchemaNormalization.parsingFingerprint64(schemaV2);
+    logger.atInfo().log(
+        "Fingerprint 2: %s (%d)", String.format("0x%016x", fingerprint2), fingerprint2);
   }
 }

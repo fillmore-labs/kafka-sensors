@@ -9,3 +9,8 @@ filegroup(
     name = "logging",
     srcs = ["logging.properties"],
 )
+
+filegroup(
+    name = "shortlog",
+    srcs = ["shortlog.properties"],
+)
