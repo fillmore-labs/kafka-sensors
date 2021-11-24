@@ -58,9 +58,9 @@ http_archive(
 
 http_archive(
     name = "rules_jvm_external",
-    sha256 = "995ea6b5f41e14e1a17088b727dcff342b2c6534104e73d6f06f1ae0422c2308",
-    strip_prefix = "rules_jvm_external-4.1",
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.1.tar.gz",
+    sha256 = "2cd77de091e5376afaf9cc391c15f093ebd0105192373b334f0a855d89092ad5",
+    strip_prefix = "rules_jvm_external-4.2",
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.2.tar.gz",
 )
 
 http_archive(
@@ -72,9 +72,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "48cfeb8bc6538e57f6e42de03975c392108b30dac3b7e7a304b555dc8616c673",
-    strip_prefix = "dagger-dagger-2.40.1",
-    url = "https://github.com/google/dagger/archive/dagger-2.40.1.tar.gz",
+    sha256 = "3c591b785bbc7ea0dfac4db5c31ed3e4532ffd131bb1841c70621f7129a83630",
+    strip_prefix = "dagger-dagger-2.40.2",
+    url = "https://github.com/google/dagger/archive/dagger-2.40.2.tar.gz",
 )
 
 http_archive(
