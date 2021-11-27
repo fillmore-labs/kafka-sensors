@@ -233,7 +233,9 @@ google_common_workspace_rules()
 
 # ---
 
-load("//third_party/avro:defs.bzl", "AVRO_ARTIFACTS")
+load("//third_party/avro:defs.bzl", "AVRO_ARTIFACTS", "avro_repositories")
+
+avro_repositories()
 
 # ---
 

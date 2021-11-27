@@ -94,7 +94,7 @@ avro_gen = rule(
         "strings": attr.bool(),
         "_avro_tools": attr.label(
             cfg = "host",
-            default = "@maven//:org_apache_avro_avro_tools",
+            default = "@avro_tools//file",
             allow_single_file = True,
         ),
         "_jdk": attr.label(
