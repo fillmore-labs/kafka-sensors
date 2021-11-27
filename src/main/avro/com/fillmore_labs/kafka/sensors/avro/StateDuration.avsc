@@ -1,40 +1,41 @@
 [
   {
+    "type": "enum",
+    "name": "Position",
+    "namespace": "com.fillmore_labs.kafka.sensors.avro",
+    "doc": "Position of a sensor",
+    "symbols": [
+      "OFF",
+      "ON"
+    ],
+    "aliases": [
+      "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect.Position",
+      "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.ReadingReflect.Position"
+    ]
+  },
+  {
+    "type": "record",
     "name": "Reading",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
-    "type": "record",
     "doc": "Measurement",
     "fields": [
       {
         "name": "time",
         "type": {
           "type": "long",
-          "logicalType": "timestamp-nanos"
+          "logicaltype": "timestamp-nanos"
         }
       },
       {
         "name": "position",
-        "type": {
-          "name": "Position",
-          "namespace": "com.fillmore_labs.kafka.sensors.avro",
-          "type": "enum",
-          "doc": "Position of a sensor",
-          "aliases": [
-            "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect.Position",
-            "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.ReadingReflect.Position"
-          ],
-          "symbols": [
-            "OFF",
-            "ON"
-          ]
-        }
+        "type": "Position"
       }
     ]
   },
   {
+    "type": "record",
     "name": "SensorState",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
-    "type": "record",
     "doc": "State of a sensor",
     "fields": [
       {
@@ -48,9 +49,9 @@
     ]
   },
   {
+    "type": "record",
     "name": "StateDuration",
     "namespace": "com.fillmore_labs.kafka.sensors.avro",
-    "type": "record",
     "doc": "Duration a sensor was in this position",
     "fields": [
       {
@@ -65,7 +66,7 @@
         "name": "duration",
         "type": {
           "type": "long",
-          "logicalType": "duration-nanos"
+          "logicaltype": "duration-nanos"
         }
       }
     ]
