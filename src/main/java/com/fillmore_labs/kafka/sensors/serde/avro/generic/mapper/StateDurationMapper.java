@@ -9,6 +9,7 @@ import java.time.Duration;
 import javax.inject.Inject;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.util.Utf8;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 
 @Immutable
@@ -26,7 +27,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
       return null;
     }
     return new GenericRecordBuilder(StateDurationSchema.SCHEMA)
-        .set(StateDurationSchema.FIELD_ID, model.getId())
+        .set(StateDurationSchema.FIELD_ID, new Utf8(model.getId()))
         .set(StateDurationSchema.FIELD_READING, readingMapper.map(model.getReading()))
         .set(StateDurationSchema.FIELD_DURATION, model.getDuration())
         .build();
@@ -38,7 +39,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
       return null;
     }
     return StateDuration.builder()
-        .id((String) data.get(StateDurationSchema.FIELD_ID))
+        .id(((Utf8) data.get(StateDurationSchema.FIELD_ID)).toString())
         .reading(readingMapper.unmap((GenericRecord) data.get(StateDurationSchema.FIELD_READING)))
         .duration((Duration) data.get(StateDurationSchema.FIELD_DURATION))
         .build();

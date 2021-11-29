@@ -9,5 +9,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
         "//toolchain:checker",
         "//toolchain:dagger",
+        "@confluent_schema_registry//:kafka_schema_registry_client",
     ],
 )

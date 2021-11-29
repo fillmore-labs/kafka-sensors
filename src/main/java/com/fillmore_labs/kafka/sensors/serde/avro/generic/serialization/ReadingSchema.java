@@ -4,7 +4,6 @@ import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.TimestampNanosCon
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericData;
-import org.apache.avro.generic.GenericData.StringType;
 
 public final class ReadingSchema {
   public static final String FIELD_TIME = "time";
@@ -20,15 +19,6 @@ public final class ReadingSchema {
     MODEL = new GenericData();
     MODEL.addLogicalTypeConversion(timestampConversion);
     MODEL.setFastReaderEnabled(true);
-
-    /* Reusable shortcut `.type(stringSchema)` for
-     *   .type()
-     *     .stringBuilder()
-     *     .prop("avro.java.string", "String")
-     *     .endString()
-     */
-    var stringSchema = Schema.create(Schema.Type.STRING);
-    stringSchema.addProp(GenericData.STRING_PROP, StringType.String.name());
 
     var timestampSchema = timestampConversion.getRecommendedSchema();
 

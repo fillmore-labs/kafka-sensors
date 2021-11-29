@@ -2,11 +2,11 @@ package com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization;
 
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroSerializer;
-import com.google.common.base.Optional;
 import dagger.BindsOptionalOf;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoSet;
+import java.util.Optional;
 import org.apache.avro.Schema;
 import org.apache.avro.message.SchemaStore;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -24,7 +24,8 @@ public abstract class SerializationModule {
   @Provides
   /* package */ static Deserializer<ReadingReflect> readingDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(ReadingReflect.MODEL, ReadingReflect.SCHEMA, resolver.orNull());
+    return new AvroDeserializer<>(
+        ReadingReflect.MODEL, ReadingReflect.SCHEMA, resolver.orElse(null));
   }
 
   @Provides
@@ -42,7 +43,7 @@ public abstract class SerializationModule {
   /* package */ static Deserializer<SensorStateReflect> sensorStateDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
-        SensorStateReflect.MODEL, SensorStateReflect.SCHEMA, resolver.orNull());
+        SensorStateReflect.MODEL, SensorStateReflect.SCHEMA, resolver.orElse(null));
   }
 
   @Provides
@@ -60,7 +61,7 @@ public abstract class SerializationModule {
   /* package */ static Deserializer<StateDurationReflect> stateDurationDeserializer(
       Optional<SchemaStore> resolver) {
     return new AvroDeserializer<>(
-        StateDurationReflect.MODEL, StateDurationReflect.SCHEMA, resolver.orNull());
+        StateDurationReflect.MODEL, StateDurationReflect.SCHEMA, resolver.orElse(null));
   }
 
   @Provides

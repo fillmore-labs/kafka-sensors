@@ -8,9 +8,9 @@ import com.fillmore_labs.kafka.sensors.serde.serializer.confluent.GenericAvroDes
 import dagger.Module;
 import dagger.Provides;
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
-import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import io.confluent.kafka.streams.serdes.avro.GenericAvroSerializer;
 import java.util.Map;
+import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
@@ -23,73 +23,55 @@ public abstract class SerializationModule {
   @Confluent.Reading
   /* package */ static Serializer<GenericRecord> readingSerializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var serializer = new GenericAvroSerializer();
-    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
-    return serializer;
+    return createSerializer(registryUrl);
   }
 
   @Provides
   @Confluent.Reading
   /* package */ static Deserializer<GenericRecord> readingDeserializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var deserializer = new GenericAvroDeserializer(ReadingSchema.SCHEMA);
-    deserializer.configure(config, /* isKey= */ false);
-    return deserializer;
+    return createDeserializer(ReadingSchema.SCHEMA, registryUrl);
   }
 
   @Provides
   @Confluent.SensorState
   /* package */ static Serializer<GenericRecord> sensorStateSerializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var serializer = new GenericAvroSerializer();
-    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
-    return serializer;
+    return createSerializer(registryUrl);
   }
 
   @Provides
   @Confluent.SensorState
   /* package */ static Deserializer<GenericRecord> sensorStateDeserializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var deserializer = new GenericAvroDeserializer(SensorStateSchema.SCHEMA);
-    deserializer.configure(config, /* isKey= */ false);
-    return deserializer;
+    return createDeserializer(SensorStateSchema.SCHEMA, registryUrl);
   }
 
   @Provides
   @Confluent.StateDuration
   /* package */ static Serializer<GenericRecord> stateDurationSerializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var serializer = new GenericAvroSerializer();
-    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
-    return serializer;
+    return createSerializer(registryUrl);
   }
 
   @Provides
   @Confluent.StateDuration
   /* package */ static Deserializer<GenericRecord> stateDurationDeserializer(
       @SchemaRegistryUrl String registryUrl) {
-    var config = serializerConfig(registryUrl);
-
-    var deserializer = new GenericAvroDeserializer(StateDurationSchema.SCHEMA);
-    deserializer.configure(config, /* isKey= */ false);
-    return deserializer;
+    return createDeserializer(StateDurationSchema.SCHEMA, registryUrl);
   }
 
-  private static Map<String, ?> serializerConfig(String registryUrl) {
-    return Map.of(
-        AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG,
-        registryUrl,
-        KafkaAvroSerializerConfig.AVRO_USE_LOGICAL_TYPE_CONVERTERS_CONFIG,
-        true);
+  public static Serializer<GenericRecord> createSerializer(String registryUrl) {
+    var serializer = new GenericAvroSerializer();
+    var config = Map.of(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
+    serializer.configure(config, /* isSerializerForRecordKeys= */ false);
+    return serializer;
+  }
+
+  public static Deserializer<GenericRecord> createDeserializer(Schema schema, String registryUrl) {
+    var deserializer = new GenericAvroDeserializer(schema);
+    var config = Map.of(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, registryUrl);
+    deserializer.configure(config, /* isKey= */ false);
+    return deserializer;
   }
 }

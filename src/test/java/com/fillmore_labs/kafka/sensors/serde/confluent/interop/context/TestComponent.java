@@ -3,9 +3,12 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
-import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
+import com.fillmore_labs.kafka.sensors.serde.avro.AvroModule;
+import com.fillmore_labs.kafka.sensors.serde.avro.schema_store.SchemaStoreModule;
+import com.fillmore_labs.kafka.sensors.serde.confluent.ConfluentAvroModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
-import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Recoder;
+import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Avro2Confluent;
+import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Confluent2Avro;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
@@ -21,7 +24,7 @@ import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 
 @Singleton
-@Component(modules = {TestComponent.TestModule.class, SchemaRegistryModule.class})
+@Component(modules = TestComponent.TestModule.class)
 public interface TestComponent {
   static TestComponent create() {
     return DaggerTestComponent.create();
@@ -33,7 +36,9 @@ public interface TestComponent {
 
   @Subcomponent(modules = SingleTestModule.class)
   interface SingleTestComponent {
-    Recoder recoder();
+    Avro2Confluent avro2Confluent();
+
+    Confluent2Avro confluent2Avro();
 
     Serializer<StateDuration> serializer();
 
@@ -51,7 +56,14 @@ public interface TestComponent {
     }
   }
 
-  @Module(includes = AllSerdesModule.class, subcomponents = SingleTestComponent.class)
+  @Module(
+      includes = {
+        AvroModule.class,
+        ConfluentAvroModule.class,
+        SchemaStoreModule.class,
+        SchemaRegistryModule.class
+      },
+      subcomponents = SingleTestComponent.class)
   /* package */ abstract class TestModule {
     private TestModule() {}
   }

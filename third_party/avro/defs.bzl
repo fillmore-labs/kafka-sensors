@@ -9,7 +9,7 @@ def avro_repositories():
         urls = [
             "https://dlcdn.apache.org/avro/avro-1.11.0/java/avro-tools-1.11.0.jar",
             "https://downloads.apache.org/avro/avro-1.11.0/java/avro-tools-1.11.0.jar",
-            "http://archive.apache.org/dist/avro/avro-1.11.0/java/avro-tools-1.11.0.jar",
+            "https://archive.apache.org/dist/avro/avro-1.11.0/java/avro-tools-1.11.0.jar",
         ],
     )
 

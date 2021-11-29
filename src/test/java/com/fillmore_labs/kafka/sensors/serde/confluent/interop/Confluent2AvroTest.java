@@ -15,12 +15,12 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public final class Confluent2AvroTest {
-  private final Recoder recoder;
+  private final Confluent2Avro recoder;
   private final Serializer<StateDuration> serializer;
   private final Deserializer<StateDuration> deserializer;
 
   public Confluent2AvroTest(String description, SingleTestComponent singleTestComponent) {
-    this.recoder = singleTestComponent.recoder();
+    this.recoder = singleTestComponent.confluent2Avro();
     this.serializer = singleTestComponent.serializer();
     this.deserializer = singleTestComponent.deserializer();
   }
@@ -40,7 +40,7 @@ public final class Confluent2AvroTest {
     // https://docs.confluent.io/current/schema-registry/serializer-formatter.html#wire-format
     assertThat(encoded[0]).isEqualTo((byte) 0);
 
-    var reencoded = NullnessUtil.castNonNull(recoder.confluent2Avro(encoded));
+    var reencoded = NullnessUtil.castNonNull(recoder.transform(TestHelper.KAFKA_TOPIC, encoded));
 
     // Check for single-record format (version 1) marker
     // https://avro.apache.org/docs/current/spec.html#single_object_encoding

@@ -15,12 +15,12 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public final class Avro2ConfluentTest {
-  private final Recoder recoder;
+  private final Avro2Confluent recoder;
   private final Serializer<StateDuration> serializer;
   private final Deserializer<StateDuration> deserializer;
 
   public Avro2ConfluentTest(String description, SingleTestComponent singleTestComponent) {
-    this.recoder = singleTestComponent.recoder();
+    this.recoder = singleTestComponent.avro2Confluent();
     this.serializer = singleTestComponent.serializer();
     this.deserializer = singleTestComponent.deserializer();
   }
@@ -41,7 +41,7 @@ public final class Avro2ConfluentTest {
     assertThat(encoded[0]).isEqualTo((byte) 0xc3);
     assertThat(encoded[1]).isEqualTo((byte) 0x01);
 
-    var reencoded = NullnessUtil.castNonNull(recoder.avro2Confluent(encoded));
+    var reencoded = NullnessUtil.castNonNull(recoder.transform(TestHelper.KAFKA_TOPIC, encoded));
 
     // Check for “Magic Byte”
     // https://docs.confluent.io/current/schema-registry/serializer-formatter.html#wire-format

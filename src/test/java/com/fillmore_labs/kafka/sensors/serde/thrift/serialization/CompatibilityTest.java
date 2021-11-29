@@ -7,7 +7,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
 
-public class CompatibilityTest {
+public final class CompatibilityTest {
   private static final String TOPIC = "topic";
 
   private final Serializer<StateDuration> serializer;

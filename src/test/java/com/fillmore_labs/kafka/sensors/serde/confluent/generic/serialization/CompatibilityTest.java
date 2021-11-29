@@ -1,9 +1,9 @@
-package com.fillmore_labs.kafka.sensors.serde.proto.serialization;
+package com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization;
 
-import static com.fillmore_labs.kafka.sensors.test.proto.v1.StateDuration.COMMENT_FIELD_NUMBER;
-import static com.google.common.truth.extensions.proto.ProtoTruth.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 
-import com.fillmore_labs.kafka.sensors.proto.v1.StateDuration;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.StateDurationTestSchema;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
@@ -11,12 +11,10 @@ import org.junit.Test;
 public final class CompatibilityTest {
   private static final String TOPIC = "topic";
 
-  private final Serializer<StateDuration> serializer;
-  private final Deserializer<StateDuration> deserializer;
-  private final Serializer<com.fillmore_labs.kafka.sensors.test.proto.v1.StateDuration>
-      testSerializer;
-  private final Deserializer<com.fillmore_labs.kafka.sensors.test.proto.v1.StateDuration>
-      testDeserializer;
+  private final Serializer<GenericRecord> serializer;
+  private final Deserializer<GenericRecord> deserializer;
+  private final Serializer<GenericRecord> testSerializer;
+  private final Deserializer<GenericRecord> testDeserializer;
 
   public CompatibilityTest() {
     var testComponent = TestComponent.create();
@@ -34,10 +32,11 @@ public final class CompatibilityTest {
     var decoded = deserializer.deserialize(TOPIC, encoded);
 
     var expected = TestHelper.createStateDuration();
-    assertThat(decoded).ignoringFieldAbsence().isEqualTo(expected);
+    assertThat(decoded).isEqualTo(expected);
   }
 
   @Test
+  @SuppressWarnings("nullness:argument") // GenericRecord is not annotated
   public void testForwardCompatibility() {
     var sensorState = TestHelper.createStateDuration();
 
@@ -45,6 +44,7 @@ public final class CompatibilityTest {
     var decoded = testDeserializer.deserialize(TOPIC, encoded);
 
     var expected = TestHelper.createTestStateDuration();
-    assertThat(decoded).ignoringFields(COMMENT_FIELD_NUMBER).isEqualTo(expected);
+    expected.put(StateDurationTestSchema.FIELD_COMMENT, null);
+    assertThat(decoded).isEqualTo(expected);
   }
 }

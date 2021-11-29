@@ -3,9 +3,6 @@ package com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import dagger.Component;
-import java.time.Duration;
-import java.time.Instant;
 import org.apache.avro.AvroMissingFieldException;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.generic.GenericRecord;
@@ -16,7 +13,6 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.junit.Test;
 
 public final class SerializationTest {
-  private static final Instant INSTANT = Instant.ofEpochSecond(443_634_300L);
   private static final String TOPIC = "topic";
 
   private final Serializer<GenericRecord> serializer;
@@ -30,18 +26,7 @@ public final class SerializationTest {
 
   @Test
   public void canDecode() {
-    var reading =
-        new GenericRecordBuilder(ReadingSchema.SCHEMA)
-            .set(ReadingSchema.FIELD_TIME, INSTANT)
-            .set(ReadingSchema.FIELD_POSITION, PositionSchema.ENUM_OFF)
-            .build();
-
-    var sensorState =
-        new GenericRecordBuilder(StateDurationSchema.SCHEMA)
-            .set(StateDurationSchema.FIELD_ID, "7331")
-            .set(StateDurationSchema.FIELD_READING, reading)
-            .set(StateDurationSchema.FIELD_DURATION, Duration.ofSeconds(15))
-            .build();
+    var sensorState = TestHelper.createStateDuration();
 
     var encoded = serializer.serialize(TOPIC, sensorState);
 
@@ -61,7 +46,7 @@ public final class SerializationTest {
         AvroMissingFieldException.class,
         () ->
             new GenericRecordBuilder(ReadingSchema.SCHEMA)
-                .set(ReadingSchema.FIELD_TIME, INSTANT)
+                .set(ReadingSchema.FIELD_TIME, TestHelper.INSTANT)
                 .build());
   }
 
@@ -72,7 +57,7 @@ public final class SerializationTest {
         AvroRuntimeException.class,
         () ->
             new GenericRecordBuilder(ReadingSchema.SCHEMA)
-                .set(ReadingSchema.FIELD_TIME, INSTANT)
+                .set(ReadingSchema.FIELD_TIME, TestHelper.INSTANT)
                 .set(ReadingSchema.FIELD_POSITION, null)
                 .build());
   }
@@ -97,18 +82,5 @@ public final class SerializationTest {
   public void invalid() {
     var encoded = new byte[] {0x1};
     assertThrows(SerializationException.class, () -> deserializer.deserialize(TOPIC, encoded));
-  }
-
-  @Component(modules = {SerializationModule.class})
-  public interface TestComponent {
-    static TestComponent create() {
-      return DaggerSerializationTest_TestComponent.create();
-    }
-
-    @Avro.StateDuration
-    Serializer<GenericRecord> serializer();
-
-    @Avro.StateDuration
-    Deserializer<GenericRecord> deserializer();
   }
 }

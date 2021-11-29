@@ -8,6 +8,7 @@ import com.google.errorprone.annotations.Immutable;
 import javax.inject.Inject;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
+import org.apache.avro.util.Utf8;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 
 @Immutable
@@ -25,7 +26,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
       return null;
     }
     return new GenericRecordBuilder(SensorStateSchema.SCHEMA)
-        .set(SensorStateSchema.FIELD_ID, model.getId())
+        .set(SensorStateSchema.FIELD_ID, new Utf8(model.getId()))
         .set(SensorStateSchema.FIELD_READING, readingMapper.map(model.getReading()))
         .build();
   }
@@ -36,7 +37,7 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
       return null;
     }
     return SensorState.builder()
-        .id((String) data.get(SensorStateSchema.FIELD_ID))
+        .id(((Utf8) data.get(SensorStateSchema.FIELD_ID)).toString())
         .reading(readingMapper.unmap((GenericRecord) data.get(SensorStateSchema.FIELD_READING)))
         .build();
   }

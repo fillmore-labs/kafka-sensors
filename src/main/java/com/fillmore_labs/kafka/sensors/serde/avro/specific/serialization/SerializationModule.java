@@ -5,11 +5,11 @@ import com.fillmore_labs.kafka.sensors.avro.SensorState;
 import com.fillmore_labs.kafka.sensors.avro.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.avro.AvroSerializer;
-import com.google.common.base.Optional;
 import dagger.BindsOptionalOf;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoSet;
+import java.util.Optional;
 import org.apache.avro.Schema;
 import org.apache.avro.message.SchemaStore;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -27,7 +27,7 @@ public abstract class SerializationModule {
   @Provides
   @SuppressWarnings({"CloseableProvides", "nullness:argument"})
   /* package */ static Deserializer<Reading> readingDeserializer(Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(Reading.createDecoder(resolver.orNull()));
+    return new AvroDeserializer<>(Reading.createDecoder(resolver.orElse(null)));
   }
 
   @Provides
@@ -45,7 +45,7 @@ public abstract class SerializationModule {
   @SuppressWarnings({"CloseableProvides", "nullness:argument"})
   /* package */ static Deserializer<SensorState> sensorStateDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(SensorState.createDecoder(resolver.orNull()));
+    return new AvroDeserializer<>(SensorState.createDecoder(resolver.orElse(null)));
   }
 
   @Provides
@@ -63,7 +63,7 @@ public abstract class SerializationModule {
   @SuppressWarnings({"CloseableProvides", "nullness:argument"})
   /* package */ static Deserializer<StateDuration> stateDurationDeserializer(
       Optional<SchemaStore> resolver) {
-    return new AvroDeserializer<>(StateDuration.createDecoder(resolver.orNull()));
+    return new AvroDeserializer<>(StateDuration.createDecoder(resolver.orElse(null)));
   }
 
   @Provides
