@@ -286,7 +286,7 @@ maven_install(
         "com.google.j2objc:j2objc-annotations:1.3",
         "com.networknt:json-schema-validator:1.0.64",
         "info.picocli:picocli:4.6.2",
-        "io.github.classgraph:classgraph:4.8.136",
+        "io.github.classgraph:classgraph:4.8.137",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:2.4.0",
         "io.helidon.config:helidon-config-yaml:2.4.0",
