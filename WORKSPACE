@@ -44,9 +44,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "87c9b2054fa97cbb1b3fd5424138b35897c50dce25c20615bb0f5d7388d8198c",
-    strip_prefix = "protobuf-b79ac0e6e294019bf010cbdad2fd3f3af07ed423",
-    url = "https://github.com/protocolbuffers/protobuf/archive/b79ac0e6e294019bf010cbdad2fd3f3af07ed423.tar.gz",
+    sha256 = "19b1c4b52df464ff27f18051a660fd405e7a2f52c902c1c252bf5bf08f44362e",
+    strip_prefix = "protobuf-9a1d5dfa4bfcddac7e7db71c899aa0b832161bcc",
+    url = "https://github.com/protocolbuffers/protobuf/archive/9a1d5dfa4bfcddac7e7db71c899aa0b832161bcc.tar.gz",
 )
 
 http_archive(
