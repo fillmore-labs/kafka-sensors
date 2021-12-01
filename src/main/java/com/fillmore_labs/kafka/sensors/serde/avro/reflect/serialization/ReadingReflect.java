@@ -1,10 +1,10 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization;
 
 import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.TimestampNanosConversion;
-import com.google.common.base.MoreObjects;
 import java.time.Instant;
 import java.util.Objects;
 import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericContainer;
 import org.apache.avro.reflect.AvroAlias;
 import org.apache.avro.reflect.AvroDoc;
 import org.apache.avro.reflect.ReflectData;
@@ -12,7 +12,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @AvroDoc("Measurement")
-public final class ReadingReflect {
+public final class ReadingReflect implements GenericContainer {
   public static final ReflectData MODEL;
   public static final Schema SCHEMA;
 
@@ -26,6 +26,11 @@ public final class ReadingReflect {
 
   public Instant time;
   public Position position;
+
+  @Override
+  public Schema getSchema() {
+    return SCHEMA;
+  }
 
   @Override
   public int hashCode() {
@@ -43,7 +48,7 @@ public final class ReadingReflect {
 
   @Override
   public String toString() {
-    return MoreObjects.toStringHelper(this).add("time", time).add("position", position).toString();
+    return MODEL.toString(this);
   }
 
   @AvroDoc("Position of a sensor")

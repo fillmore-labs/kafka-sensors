@@ -1,16 +1,16 @@
 package com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization;
 
 import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.TimestampNanosConversion;
-import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericContainer;
 import org.apache.avro.reflect.AvroDoc;
 import org.apache.avro.reflect.ReflectData;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @AvroDoc("State of a sensor")
-public final class SensorStateReflect {
+public final class SensorStateReflect implements GenericContainer {
   public static final ReflectData MODEL;
   public static final Schema SCHEMA;
 
@@ -24,6 +24,11 @@ public final class SensorStateReflect {
 
   public String id;
   public ReadingReflect reading;
+
+  @Override
+  public Schema getSchema() {
+    return SCHEMA;
+  }
 
   @Override
   public int hashCode() {
@@ -41,6 +46,6 @@ public final class SensorStateReflect {
 
   @Override
   public String toString() {
-    return MoreObjects.toStringHelper(this).add("id", id).add("reading", reading).toString();
+    return MODEL.toString(this);
   }
 }
