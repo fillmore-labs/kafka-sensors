@@ -13,7 +13,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/confluent",
         "//toolchain:checker",
         "//toolchain:dagger",
-        "@confluent_schema_registry//:kafka_avro_serializer",
         "@confluent_schema_registry//:kafka_schema_serializer",
         "@confluent_schema_registry//:kafka_streams_avro_serde",
         "@maven//:com_google_errorprone_error_prone_annotations",

@@ -12,7 +12,7 @@ CONFLUENT_ARTIFACTS = [
     "jakarta.servlet:jakarta.servlet-api:4.0.4",
     "jakarta.validation:jakarta.validation-api:2.0.2",
     "jakarta.ws.rs:jakarta.ws.rs-api:2.1.6",
-    "org.jetbrains.kotlin:kotlin-stdlib:1.5.31",
+    "org.jetbrains.kotlin:kotlin-stdlib:1.5.32",
     "org.json:json:20210307",
 ]
 
