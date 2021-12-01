@@ -22,6 +22,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public final class Avro2Confluent {
   private static final byte[] AVRO_MAGIC = {(byte) 0xc3, (byte) 0x01};
   private static final byte CONFLUENT_MAGIC = (byte) 0;
+  private static final int AVRO_HEADER_LEN = 10;
 
   private final Cache resolver;
   private final SchemaRegistryClient registryClient;
@@ -54,6 +55,9 @@ public final class Avro2Confluent {
   public byte @Nullable [] transform(String topic, byte @Nullable [] encoded) {
     if (encoded == null || encoded.length == 0) {
       return null;
+    }
+    if (encoded.length < AVRO_HEADER_LEN) {
+      throw new IllegalArgumentException("Invalid Avro single-object encoding");
     }
     var buffer = ByteBuffer.wrap(encoded).order(ByteOrder.LITTLE_ENDIAN);
 
