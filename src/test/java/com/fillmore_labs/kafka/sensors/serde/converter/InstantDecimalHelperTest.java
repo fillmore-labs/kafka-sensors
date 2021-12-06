@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import org.junit.Test;
 
-public class InstantDecimalHelperTest {
+public final class InstantDecimalHelperTest {
   @Test
   public void decimal2Instant() {
     var decimal = BigDecimal.ZERO;

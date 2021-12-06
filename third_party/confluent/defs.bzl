@@ -8,7 +8,7 @@ CONFLUENT_ARTIFACTS = [
     "com.kjetland:mbknor-jackson-jsonschema_2.13:1.0.39",
     "com.squareup.wire:wire-runtime:3.7.0",
     "com.squareup.wire:wire-schema:3.7.0",
-    "io.swagger:swagger-annotations:jar:1.6.3",
+    "io.swagger:swagger-annotations:1.6.3",
     "jakarta.servlet:jakarta.servlet-api:4.0.4",
     "jakarta.validation:jakarta.validation-api:2.0.2",
     "jakarta.ws.rs:jakarta.ws.rs-api:2.1.6",
