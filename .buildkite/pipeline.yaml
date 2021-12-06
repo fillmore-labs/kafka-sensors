@@ -1,19 +1,27 @@
 ---
 steps:
+  - label: ':bazel: Build & Test'
+    commands:
+      - bazel build //src/main/...
+      - bazel test --test_output=errors --test_summary=terse //src/test/...
+    branches: "!main"
+
   - label: ':bazel: Test & Coverage'
     commands:
-      - bazel coverage --combined_report=lcov //src/test/...
-  - wait
+      - bazel coverage --test_output=errors --test_summary=terse --combined_report=lcov //src/test/...
+    branches: "main"
+    key: "coverage"
+
   - label: ':codecov: Upload Coverage'
     commands:
       - codecov -f "$(bazel info output_path)/_coverage/_coverage_report.dat"
     branches: "main"
-    soft_fail: true
-  - wait
+    depends_on: "coverage"
+
   - label: ':codeclimate: Upload Coverage'
     commands:
       - cc-test-reporter format-coverage -t lcov -o .coverage/codeclimate.json
         "$(bazel info output_path)/_coverage/_coverage_report.dat"
       - cc-test-reporter upload-coverage -r "$CC_TEST_REPORTER_ID" -i .coverage/codeclimate.json
     branches: "main"
-    soft_fail: true
+    depends_on: "coverage"
