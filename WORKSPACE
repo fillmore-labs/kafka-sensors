@@ -306,8 +306,8 @@ maven_install(
         "org.immutables:value-processor:2.9.0-rc1",
         "org.mapstruct:mapstruct-processor:1.5.0.Beta1",
         "org.mapstruct:mapstruct:1.5.0.Beta1",
-        "org.slf4j:slf4j-api:1.8.0-beta4",
-        "org.slf4j:slf4j-jdk14:1.8.0-beta4",
+        "org.slf4j:slf4j-api:2.0.0-alpha5",
+        "org.slf4j:slf4j-jdk14:2.0.0-alpha5",
         maven.artifact(
             "com.google.testparameterinjector",
             "test-parameter-injector",
@@ -347,7 +347,7 @@ maven_install(
         maven.artifact(
             "nl.jqno.equalsverifier",
             "equalsverifier",
-            "3.7.2",
+            "3.8",
             testonly = True,
         ),
         maven.artifact(
