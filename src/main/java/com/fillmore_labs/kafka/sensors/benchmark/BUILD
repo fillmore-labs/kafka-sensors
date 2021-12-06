@@ -9,6 +9,7 @@ java_library(
         "-Xlint:-cast",
         "-AskipDefs=\\.(jmh_generated\\.|Dagger)",
     ],
+    visibility = ["//visibility:public"],
     runtime_deps = [
         "@maven//:com_google_flogger_flogger_system_backend",
         "@maven//:org_slf4j_slf4j_jdk14",

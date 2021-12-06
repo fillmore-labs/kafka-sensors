@@ -6,11 +6,6 @@ alias(
 )
 
 alias(
-    name = "classcheck",
-    actual = "//src/main/java/com/fillmore_labs/kafka/sensors/classcheck",
-)
-
-alias(
     name = "benchmark",
     actual = "//src/main/java/com/fillmore_labs/kafka/sensors/benchmark",
 )
