@@ -72,9 +72,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "268211ca72aa02c0c4f5f67a10f90243ed8e776b541996cb8acea5ef53a05999",
-    strip_prefix = "dagger-dagger-2.40.4",
-    url = "https://github.com/google/dagger/archive/dagger-2.40.4.tar.gz",
+    sha256 = "f42ad246629eb127a56372a5ec2b2f977617dcefcf514c68a7a264c1fdd1bb82",
+    strip_prefix = "dagger-dagger-2.40.5",
+    url = "https://github.com/google/dagger/archive/dagger-2.40.5.tar.gz",
 )
 
 http_archive(
@@ -298,9 +298,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.0.0",
         "org.apache.kafka:kafka_2.13:3.0.0",
         "org.apache.thrift:libthrift:0.15.0",
-        "org.checkerframework:checker-qual:3.19.0",
-        "org.checkerframework:checker-util:3.19.0",
-        "org.checkerframework:checker:3.19.0",
+        "org.checkerframework:checker-qual:3.20.0",
+        "org.checkerframework:checker-util:3.20.0",
+        "org.checkerframework:checker:3.20.0",
         "org.immutables:gson:2.9.0-rc1",
         "org.immutables:value-annotations:2.9.0-rc1",
         "org.immutables:value-processor:2.9.0-rc1",
