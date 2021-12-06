@@ -126,8 +126,30 @@ for improvement in development speed and testability.
 
 === Prerequisites
 
-You need https://github.com/bazelbuild/bazelisk[Bazelisk] installed, with https://brew.sh[HomeBrew]
-just use [source,shell]`brew install bazelbuild/tap/bazelisk`.
+You need https://github.com/bazelbuild/bazelisk[Bazelisk] installed, see also
+https://docs.bazel.build/versions/main/install-bazelisk.html[Installing Bazel using Bazelisk].
+
+==== macOS
+
+Using https://brew.sh[HomeBrew] enter
+
+[source,shell]
+brew install bazelbuild/tap/bazelisk
+
+==== Windows
+
+Using https://chocolatey.org[Chocolatey] enter
+
+[source,shell]
+choco install bazelisk
+
+Enable developer mode:
+
+. Open Windows settings
+. Go to “Update & security”, then “For developers”
+. Under “Developer Mode” section enable “Install apps from any source, including loose files”.
+
+or run with administrator privileges.
 
 === Tests
 
