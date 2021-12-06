@@ -8,7 +8,8 @@ steps:
 
   - label: ':bazel: Test & Coverage'
     commands:
-      - bazel coverage --test_output=errors --test_summary=terse --combined_report=lcov //src/test/...
+      - bazel coverage --test_output=errors --test_summary=terse --combined_report=lcov
+        //src/test/...
     branches: "main"
     key: "coverage"
 

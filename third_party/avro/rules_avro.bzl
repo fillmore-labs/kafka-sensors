@@ -80,6 +80,7 @@ def _impl(ctx):
         arguments = [],
     )
 
+    # buildifier: disable=rule-impl-return
     return struct(
         codegen = ctx.outputs.codegen,
     )
