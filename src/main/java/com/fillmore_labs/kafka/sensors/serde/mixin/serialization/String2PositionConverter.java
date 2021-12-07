@@ -5,16 +5,12 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 
 public final class String2PositionConverter extends StdConverter<String, Reading.Position> {
   @Override
+  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
   public Reading.Position convert(String value) {
-    switch (value) {
-      case "off":
-        return Reading.Position.OFF;
-
-      case "on":
-        return Reading.Position.ON;
-
-      default:
-        throw new IllegalArgumentException("Expecting [off,on], got " + value);
-    }
+    return switch (value) {
+      case "off" -> Reading.Position.OFF;
+      case "on" -> Reading.Position.ON;
+      default -> throw new IllegalArgumentException("Expecting [off,on], got " + value);
+    };
   }
 }

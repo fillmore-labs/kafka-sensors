@@ -16,31 +16,21 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
   @Inject
   /* package */ ReadingMapper() {}
 
-  @SuppressWarnings("PMD.SwitchStmtsShouldHaveDefault")
+  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
   private static Object mapPosition(Reading.Position model) {
-    // Checkstyle ignore MissingSwitchDefault
-    switch (model) {
-      case OFF:
-        return PositionSchema.ENUM_OFF;
-
-      case ON:
-        return PositionSchema.ENUM_ON;
-    }
-
-    throw new IllegalArgumentException("Unexpected Position Enum: " + model);
+    return switch (model) {
+      case OFF -> PositionSchema.ENUM_OFF;
+      case ON -> PositionSchema.ENUM_ON;
+    };
   }
 
+  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
   private static Reading.Position unmapPosition(Object data) {
-    switch (data.toString()) {
-      case PositionSchema.POSITION_OFF:
-        return Reading.Position.OFF;
-
-      case PositionSchema.POSITION_ON:
-        return Reading.Position.ON;
-
-      default:
-        throw new IllegalArgumentException("Unexpected Enum value: " + data);
-    }
+    return switch (data.toString()) {
+      case PositionSchema.POSITION_OFF -> Reading.Position.OFF;
+      case PositionSchema.POSITION_ON -> Reading.Position.ON;
+      default -> throw new IllegalArgumentException("Unexpected Enum value: " + data);
+    };
   }
 
   @Override

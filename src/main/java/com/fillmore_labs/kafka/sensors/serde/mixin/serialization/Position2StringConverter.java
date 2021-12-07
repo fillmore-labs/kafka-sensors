@@ -5,15 +5,11 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 
 public final class Position2StringConverter extends StdConverter<Reading.Position, String> {
   @Override
-  @SuppressWarnings("PMD.SwitchStmtsShouldHaveDefault")
+  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
   public String convert(Reading.Position value) {
-    // Checkstyle ignore MissingSwitchDefault
-    switch (value) {
-      case OFF:
-        return "off";
-      case ON:
-        return "on";
-    }
-    throw new IllegalStateException("Unexpected position: " + value);
+    return switch (value) {
+      case OFF -> "off";
+      case ON -> "on";
+    };
   }
 }

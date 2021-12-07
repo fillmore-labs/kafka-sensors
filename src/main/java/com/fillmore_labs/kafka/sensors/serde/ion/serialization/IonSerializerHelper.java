@@ -50,6 +50,7 @@ public final class IonSerializerHelper {
     return deserializeReadingInternal(reader);
   }
 
+  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   private static ReadingIon deserializeReadingInternal(IonReader reader) {
     var builder = ReadingIon.builder();
 
@@ -57,17 +58,10 @@ public final class IonSerializerHelper {
     for (var type = reader.next(); type != null; type = reader.next()) {
       var name = reader.getFieldName();
       switch (name) {
-        case FIELD_TIME:
-          builder.time(reader.longValue());
-          break;
-
-        case FIELD_POSITION:
-          builder.position(ReadingIon.Position.valueOf(reader.symbolValue().getText()));
-          break;
-
-        default:
-          // Ignore unknown fields
-          break;
+        case FIELD_TIME -> builder.time(reader.longValue());
+        case FIELD_POSITION -> builder.position(
+            ReadingIon.Position.valueOf(reader.symbolValue().getText()));
+        default -> {} // Ignore unknown fields
       }
     }
     reader.stepOut();
@@ -75,6 +69,7 @@ public final class IonSerializerHelper {
     return builder.build();
   }
 
+  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   public static SensorStateIon deserializeSensorState(IonReader reader) {
     reader.next();
 
@@ -84,17 +79,9 @@ public final class IonSerializerHelper {
     for (var type = reader.next(); type != null; type = reader.next()) {
       var name = reader.getFieldName();
       switch (name) {
-        case FIELD_ID:
-          builder.id(reader.stringValue());
-          break;
-
-        case FIELD_READING:
-          builder.reading(deserializeReadingInternal(reader));
-          break;
-
-        default:
-          // Ignore unknown fields
-          break;
+        case FIELD_ID -> builder.id(reader.stringValue());
+        case FIELD_READING -> builder.reading(deserializeReadingInternal(reader));
+        default -> {} // Ignore unknown fields
       }
     }
     reader.stepOut();
@@ -102,6 +89,7 @@ public final class IonSerializerHelper {
     return builder.build();
   }
 
+  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   public static StateDurationIon deserializeStateDuration(IonReader reader) {
     reader.next();
 
@@ -111,21 +99,10 @@ public final class IonSerializerHelper {
     for (var type = reader.next(); type != null; type = reader.next()) {
       var name = reader.getFieldName();
       switch (name) {
-        case FIELD_ID:
-          builder.id(reader.stringValue());
-          break;
-
-        case FIELD_READING:
-          builder.reading(deserializeReadingInternal(reader));
-          break;
-
-        case FIELD_DURATION:
-          builder.duration(reader.longValue());
-          break;
-
-        default:
-          // Ignore unknown fields
-          break;
+        case FIELD_ID -> builder.id(reader.stringValue());
+        case FIELD_READING -> builder.reading(deserializeReadingInternal(reader));
+        case FIELD_DURATION -> builder.duration(reader.longValue());
+        default -> {} // Ignore unknown fields
       }
     }
     reader.stepOut();
