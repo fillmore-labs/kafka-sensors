@@ -264,7 +264,7 @@ base_images()
 # ---
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
-load("@rules_jvm_external//:specs.bzl", "maven")
+load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
@@ -308,67 +308,18 @@ maven_install(
         "org.mapstruct:mapstruct:1.5.0.Beta1",
         "org.slf4j:slf4j-api:2.0.0-alpha5",
         "org.slf4j:slf4j-jdk14:2.0.0-alpha5",
-        maven.artifact(
-            "com.google.testparameterinjector",
-            "test-parameter-injector",
-            "1.6",
-            testonly = True,
-        ),
-        maven.artifact(
-            "com.google.truth",
-            "truth",
-            "1.1.3",
-            testonly = True,
-        ),
-        maven.artifact(
-            "com.google.truth.extensions",
-            "truth-java8-extension",
-            "1.1.3",
-            testonly = True,
-        ),
-        maven.artifact(
-            "com.google.truth.extensions",
-            "truth-liteproto-extension",
-            "1.1.3",
-            testonly = True,
-        ),
-        maven.artifact(
-            "com.google.truth.extensions",
-            "truth-proto-extension",
-            "1.1.3",
-            testonly = True,
-        ),
-        maven.artifact(
-            "junit",
-            "junit",
-            "4.13.2",
-            testonly = True,
-        ),
-        maven.artifact(
-            "nl.jqno.equalsverifier",
-            "equalsverifier",
-            "3.8",
-            testonly = True,
-        ),
-        maven.artifact(
-            "org.apache.kafka",
-            "kafka-streams-test-utils",
-            "3.0.0",
-            testonly = True,
-        ),
-        maven.artifact(
-            "org.mockito",
-            "mockito-core",
-            "4.1.0",
-            testonly = True,
-        ),
-        maven.artifact(
-            "org.mockito",
-            "mockito-errorprone",
-            "4.1.0",
-            testonly = True,
-        ),
-    ] + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
+    ] + testonly_artifacts([
+        "com.google.testparameterinjector:test-parameter-injector:1.6",
+        "com.google.truth.extensions:truth-java8-extension:1.1.3",
+        "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
+        "com.google.truth.extensions:truth-proto-extension:1.1.3",
+        "com.google.truth:truth:1.1.3",
+        "junit:junit:4.13.2",
+        "nl.jqno.equalsverifier:equalsverifier:3.8",
+        "org.apache.kafka:kafka-streams-test-utils:3.0.0",
+        "org.mockito:mockito-core:4.1.0",
+        "org.mockito:mockito-errorprone:4.1.0",
+    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {
