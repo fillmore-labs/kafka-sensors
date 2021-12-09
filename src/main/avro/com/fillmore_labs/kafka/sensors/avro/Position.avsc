@@ -1,0 +1,8 @@
+{
+  "type" : "enum",
+  "name" : "Position",
+  "namespace" : "com.fillmore_labs.kafka.sensors.avro",
+  "doc" : "Position of a sensor",
+  "symbols" : [ "OFF", "ON" ],
+  "aliases" : [ "com.fillmore_labs.kafka.sensors.serde.avro.reflect.serialization.ReadingReflect.Position", "com.fillmore_labs.kafka.sensors.serde.confluent.reflect.serialization.ReadingReflect.Position" ]
+}

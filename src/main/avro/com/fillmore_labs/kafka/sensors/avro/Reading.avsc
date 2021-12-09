@@ -1,0 +1,16 @@
+{
+  "type" : "record",
+  "name" : "Reading",
+  "namespace" : "com.fillmore_labs.kafka.sensors.avro",
+  "doc" : "Measurement",
+  "fields" : [ {
+    "name" : "time",
+    "type" : {
+      "type" : "long",
+      "logicaltype" : "timestamp-nanos"
+    }
+  }, {
+    "name" : "position",
+    "type" : "Position"
+  } ]
+}

@@ -17,7 +17,7 @@ def _commonprefix(m):
             return s1[:i]
     return s1
 
-def _new_generator_command(ctx, src_dir, gen_dir):
+def _new_generator_command(ctx, gen_dir):
     java_path = ctx.attr._jdk[java_common.JavaRuntimeInfo].java_executable_exec_path
 
     gen_command = "{java} -cp {tool} {main} compile ".format(
@@ -35,7 +35,7 @@ def _new_generator_command(ctx, src_dir, gen_dir):
         )
 
     gen_command += " schema {src} {gen_dir}".format(
-        src = src_dir,
+        src = " ".join([f.path for f in ctx.files.srcs]),
         gen_dir = gen_dir,
     )
 
@@ -45,17 +45,13 @@ def _impl(ctx):
     java_home = ctx.attr._jdk[java_common.JavaRuntimeInfo].java_home
     jar_tool = ctx.attr.jar
 
-    src_dir = _commonprefix(
-        [f.dirname for f in ctx.files.srcs],
-    )
-
     gen_dir = "{out}-tmp".format(
         out = ctx.outputs.codegen.path,
     )
 
     commands = [
         "mkdir -p {gen_dir}".format(gen_dir = gen_dir),
-        _new_generator_command(ctx, src_dir, gen_dir),
+        _new_generator_command(ctx, gen_dir),
         # forcing a timestamp for deterministic artifacts
         "find {gen_dir} -exec touch -t 198001010000 {{}} \\;".format(
             gen_dir = gen_dir,

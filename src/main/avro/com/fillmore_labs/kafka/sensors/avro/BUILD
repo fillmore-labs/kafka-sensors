@@ -2,7 +2,13 @@ load("//third_party/avro:rules_avro.bzl", "avro_java_library")
 
 avro_java_library(
     name = "avro",
-    srcs = glob(["*.avsc"]),
+    srcs = [
+        # Order is important.
+        "Position.avsc",
+        "Reading.avsc",
+        "SensorState.avsc",
+        "StateDuration.avsc",
+    ],
     javacopts = ["-XepDisableAllChecks"],
     strings = True,
     visibility = [

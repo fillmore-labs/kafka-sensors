@@ -1,19 +1,13 @@
 {
   "type" : "record",
-  "name" : "StateDuration",
+  "name" : "SensorState",
   "namespace" : "com.fillmore_labs.kafka.sensors.avro",
-  "doc" : "Duration a sensor was in this position",
+  "doc" : "State of a sensor",
   "fields" : [ {
     "name" : "id",
     "type" : "string"
   }, {
     "name" : "reading",
     "type" : "Reading"
-  }, {
-    "name" : "duration",
-    "type" : {
-      "type" : "long",
-      "logicaltype" : "duration-nanos"
-    }
   } ]
 }
