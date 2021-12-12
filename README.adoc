@@ -134,7 +134,7 @@ https://docs.bazel.build/versions/main/install-bazelisk.html[Installing Bazel us
 Using https://brew.sh[HomeBrew] enter
 
 [source,shell]
-brew install bazelbuild/tap/bazelisk
+brew install bazelisk
 
 ==== Windows
 

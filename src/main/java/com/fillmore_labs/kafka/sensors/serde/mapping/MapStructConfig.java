@@ -16,5 +16,6 @@ import org.mapstruct.ReportingPolicy;
     nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
     collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED,
-    unmappedTargetPolicy = ReportingPolicy.ERROR)
+    unmappedTargetPolicy = ReportingPolicy.ERROR,
+    suppressTimestampInGenerated = true)
 public interface MapStructConfig {}
