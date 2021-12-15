@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
 public final class DuplicatesTest {
-  private static final int MAX_DUPLICATEST = 15;
+  private static final int MAX_DUPLICATES = 15;
 
   @Rule public final ErrorCollector errors = new ErrorCollector();
 
@@ -24,7 +24,7 @@ public final class DuplicatesTest {
     @Var var count = 0;
     for (var duplicate : duplicates) {
       count++;
-      if (count > MAX_DUPLICATEST) {
+      if (count > MAX_DUPLICATES) {
         break;
       }
       var path = duplicate.getKey();
