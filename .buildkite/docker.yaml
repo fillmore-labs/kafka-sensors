@@ -1,0 +1,12 @@
+---
+steps:
+  - label: ':bazel: Test'
+    commands:
+      - bazel test //src/test/...
+
+  - wait
+
+  - label: ':docker: Upload Docker image'
+    commands:
+      - bazel run //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:serializer_benchmark
+    branches: "main"

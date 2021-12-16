@@ -1,0 +1,11 @@
+---
+steps:
+  - label: ':bazel: Build'
+    commands:
+      - bazel build //src/...
+
+  - wait
+
+  - label: ':bazel: Test'
+    commands:
+      - bazel test //src/test/...
