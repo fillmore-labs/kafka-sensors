@@ -8,5 +8,5 @@ steps:
 
   - label: ':docker: Upload Docker image'
     commands:
-      - bazel run //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:serializer_benchmark
+      - bazel run //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark
     branches: "main"
