@@ -2,11 +2,12 @@
 steps:
   - label: ':bazel: Test'
     commands:
-      - bazel test //src/test/...
+      - bazel test --config=ci //src/test/...
 
   - wait
 
   - label: ':docker: Upload Docker image'
     commands:
-      - bazel run //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark
+      - bazel run --config=ci --stamp
+        //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark
     branches: "main"
