@@ -16,4 +16,5 @@ steps:
         fillmorelabs/serialization-benchmark:latest-amd64
         fillmorelabs/serialization-benchmark:latest-arm64
       - echo docker manifest push fillmorelabs/serialization-benchmark:latest
+      - echo docker manifest rm fillmorelabs/serialization-benchmark
     branches: "main"
