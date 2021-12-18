@@ -16,7 +16,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
   @Inject
   /* package */ ReadingMapper() {}
 
-  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
+  @SuppressWarnings("UnnecessaryParentheses")
   private static Object mapPosition(Reading.Position model) {
     return switch (model) {
       case OFF -> PositionSchema.ENUM_OFF;
@@ -24,7 +24,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
     };
   }
 
-  @SuppressWarnings({"nullness:return", "UnnecessaryParentheses"})
+  @SuppressWarnings("UnnecessaryParentheses")
   private static Reading.Position unmapPosition(Object data) {
     return switch (data.toString()) {
       case PositionSchema.POSITION_OFF -> Reading.Position.OFF;
