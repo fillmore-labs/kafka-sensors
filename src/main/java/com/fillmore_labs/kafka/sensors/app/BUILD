@@ -1,6 +1,5 @@
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
-load("//third_party/images:java_base.bzl", "JAVA_BASE")
 
 DATA = [
     "//conf",
@@ -49,7 +48,7 @@ java_binary(
 
 java_image(
     name = "kafka_sensors",
-    base = JAVA_BASE,
+    base = "@java17_amd64//image",
     data = DATA,
     jvm_flags = JVM_FLAGS,
     main_class = "com.fillmore_labs.kafka.sensors.app.Main",

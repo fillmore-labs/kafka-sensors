@@ -200,13 +200,23 @@ Run the https://openjdk.java.net/projects/code-tools/jmh/[JMH] microbenchmarks w
 [source,shell]
 bazel run //:benchmark
 
+Compare deserialization of two formats:
+
 [source,shell]
-bazel run //:benchmark -- -p "format=proto" "Bench\\.deserialize"
+bazel run //:benchmark -- -p "format=proto,thrift" "Bench\\.deserialize"
+
+Generate a flamegraph for detailed analysis:
 
 [source,shell]
 bazel run //:benchmark -- -p "format=proto" "Bench\\.deserialize" \
     -prof "async:output=flamegraph;direction=forward"
 open "$(bazel info bazel-bin)/src/main/java/com/fillmore_labs/kafka/sensors/benchmark/benchmark.runfiles/com_fillmore_labs_kafka_sensors/com.fillmore_labs.kafka.sensors.benchmark.Bench.deserialize-AverageTime-format-proto/flame-cpu-forward.html"
+
+Run the latest image on your Kubernetes cluster:
+
+[source,shell]
+kubectl run serialization-benchmark --restart Never --rm --attach \
+  --image fillmorelabs/serialization-benchmark
 
 == Notes
 === Mapping

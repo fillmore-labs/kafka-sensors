@@ -6,8 +6,14 @@ steps:
 
   - wait
 
-  - label: ':docker: Upload Docker image'
+  - label: ':docker: Upload Docker images'
     commands:
       - bazel run --config=ci --stamp
-        //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark
+        //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark_amd64
+      - bazel run --config=ci --stamp
+        //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark_arm64
+      - echo docker manifest create fillmorelabs/serialization-benchmark:latest
+        fillmorelabs/serialization-benchmark:latest-amd64
+        fillmorelabs/serialization-benchmark:latest-arm64
+      - echo docker manifest push fillmorelabs/serialization-benchmark:latest
     branches: "main"

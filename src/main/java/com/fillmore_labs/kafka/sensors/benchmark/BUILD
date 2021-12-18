@@ -1,7 +1,6 @@
-load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
 load("@rules_java//java:defs.bzl", "java_binary", "java_library")
-load("//third_party/images:java_base.bzl", "JAVA_BASE")
 
 java_library(
     name = "benchmark_library",
@@ -62,21 +61,42 @@ java_binary(
     runtime_deps = [":benchmark_library"],
 )
 
-java_image(
-    name = "serializer_benchmark",
-    base = JAVA_BASE,
-    data = DATA,
-    jvm_flags = JVM_FLAGS,
-    main_class = "org.openjdk.jmh.Main",
-    visibility = ["//visibility:public"],
-    runtime_deps = [":benchmark_library"],
-)
+# Docker images
 
-container_push(
-    name = "push_benchmark",
-    format = "Docker",
-    image = ":serializer_benchmark",
-    registry = "index.docker.io",
-    repository = "fillmorelabs/serialization-benchmark",
-    tag = "latest",
-)
+ARCHITECTURES = [
+    "amd64",
+    "arm64",
+]
+
+[
+    java_image(
+        name = "benchmark_java_image_" + architecture,
+        base = "@java17_%s//image" % architecture,
+        data = DATA,
+        jvm_flags = JVM_FLAGS,
+        main_class = "org.openjdk.jmh.Main",
+        runtime_deps = [":benchmark_library"],
+    )
+    for architecture in ARCHITECTURES
+]
+
+[
+    container_image(
+        name = "benchmark_image_" + architecture,
+        architecture = architecture,
+        base = ":benchmark_java_image_" + architecture,
+    )
+    for architecture in ARCHITECTURES
+]
+
+[
+    container_push(
+        name = "push_benchmark_" + architecture,
+        format = "Docker",
+        image = ":benchmark_image_" + architecture,
+        registry = "index.docker.io",
+        repository = "fillmorelabs/serialization-benchmark",
+        tag = "latest-" + architecture,
+    )
+    for architecture in ARCHITECTURES
+]
