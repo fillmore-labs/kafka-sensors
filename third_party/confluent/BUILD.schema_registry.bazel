@@ -151,7 +151,6 @@ java_library(
     srcs = glob(["protobuf-serializer/src/main/java/**/*.java"]),
     visibility = ["//visibility:public"],
     deps = [
-        ":kafka_core",
         ":kafka_protobuf_provider",
         ":kafka_schema_registry_client",
         ":kafka_schema_serializer",
