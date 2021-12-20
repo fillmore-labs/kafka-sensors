@@ -3,10 +3,11 @@ build --java_runtime_version=remotejdk_17
 build --tool_java_runtime_version=remotejdk_17
 build --enable_runfiles
 
-coverage --instrumentation_filter "^//src/main/java/com/fillmore_labs[/:]"
+coverage --instrumentation_filter=^//src/main/java/com/fillmore_labs[/:]
 
 build:ci --workspace_status_command=.buildkite/workspace-status.sh
 build:ci --noshow_progress
+build:ci --output_filter=^//
 test:ci --test_output=errors
 coverage:ci --test_summary=terse
 coverage:ci --combined_report=lcov
