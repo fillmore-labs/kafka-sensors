@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 import com.fillmore_labs.kafka.sensors.model.ImmutableReading;
 import com.fillmore_labs.kafka.sensors.model.ImmutableSensorState;
 import com.fillmore_labs.kafka.sensors.model.ImmutableStateDuration;
@@ -29,6 +30,7 @@ public abstract class SerializationModule {
   /* package */ static ObjectMapper mixInMapper() {
     return JsonMapper.builder()
         .addModules(new Jdk8Module(), new JavaTimeModule(), new GuavaModule())
+        .addModule(new BlackbirdModule())
         .addMixIn(Reading.class, ReadingMixIn.class)
         .addMixIn(Reading.Position.class, ReadingMixIn.PositionMixIn.class)
         .addMixIn(ImmutableReading.Builder.class, ReadingMixIn.BuilderMixIn.class)

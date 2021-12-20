@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonSerializer;
 import dagger.Module;
@@ -22,6 +23,7 @@ public abstract class SerializationModule {
   /* package */ static ObjectMapper mapper() {
     return JsonMapper.builder()
         .addModules(new Jdk8Module(), new JavaTimeModule(), new GuavaModule())
+        .addModule(new BlackbirdModule())
         .build();
   }
 
