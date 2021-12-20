@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.generic.mapper;
 
 import com.fillmore_labs.kafka.sensors.model.Reading;
-import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.PositionSchema;
+import com.fillmore_labs.kafka.sensors.serde.avro.generic.mapper.PositionMapper;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingSchema;
 import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.InstantNanosHelper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
@@ -13,24 +13,11 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
 
 @Immutable
 public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
+  private final PositionMapper positionMapper;
+
   @Inject
-  /* package */ ReadingMapper() {}
-
-  @SuppressWarnings("UnnecessaryParentheses")
-  private static Object mapPosition(Reading.Position model) {
-    return switch (model) {
-      case OFF -> PositionSchema.ENUM_OFF;
-      case ON -> PositionSchema.ENUM_ON;
-    };
-  }
-
-  @SuppressWarnings("UnnecessaryParentheses")
-  private static Reading.Position unmapPosition(Object data) {
-    return switch (data.toString()) {
-      case PositionSchema.POSITION_OFF -> Reading.Position.OFF;
-      case PositionSchema.POSITION_ON -> Reading.Position.ON;
-      default -> throw new IllegalArgumentException("Unexpected Enum value: " + data);
-    };
+  /* package */ ReadingMapper(PositionMapper positionMapper) {
+    this.positionMapper = positionMapper;
   }
 
   @Override
@@ -40,7 +27,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
     }
     return new GenericRecordBuilder(ReadingSchema.SCHEMA)
         .set(ReadingSchema.FIELD_TIME, InstantNanosHelper.instant2Nanos(model.getTime()))
-        .set(ReadingSchema.FIELD_POSITION, mapPosition(model.getPosition()))
+        .set(ReadingSchema.FIELD_POSITION, positionMapper.map(model.getPosition()))
         .build();
   }
 
@@ -51,7 +38,7 @@ public final class ReadingMapper implements BiMapper<Reading, GenericRecord> {
     }
     return Reading.builder()
         .time(InstantNanosHelper.nanos2Instant((Long) data.get(ReadingSchema.FIELD_TIME)))
-        .position(unmapPosition(data.get(ReadingSchema.FIELD_POSITION)))
+        .position(positionMapper.unmap(data.get(ReadingSchema.FIELD_POSITION)))
         .build();
   }
 }

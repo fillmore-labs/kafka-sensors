@@ -12,6 +12,7 @@ java_library(
     ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/generic/mapper",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/generic/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/logicaltypes",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/generic/serialization",
