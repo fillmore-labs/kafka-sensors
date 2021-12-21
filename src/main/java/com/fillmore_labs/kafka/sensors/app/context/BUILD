@@ -10,7 +10,7 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/lifecycle",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/common",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json_iso",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto",
         "//src/main/java/com/fillmore_labs/kafka/sensors/streams",
         "//src/main/java/com/fillmore_labs/kafka/sensors/topology",

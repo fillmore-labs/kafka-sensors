@@ -14,14 +14,17 @@ import java.util.List;
 import java.util.Set;
 
 public final class JsonTestHelper {
-  private static final Path OUTPUT_SCHEMA = Path.of("testdata", "output-schema.json");
-  private static final Path INPUT_SAMPLES = Path.of("testdata", "input-samples.jsonl");
+  private static final String TESTDATA = "testdata";
+  private static final Path OUTPUT_SCHEMA = Path.of(TESTDATA, "output-schema.json");
+  private static final Path OUTPUT_SCHEMA_ISO = Path.of(TESTDATA, "output-schema-iso.json");
+  private static final Path INPUT_SAMPLES = Path.of(TESTDATA, "input-samples.jsonl");
+  private static final Path INPUT_SAMPLES_ISO = Path.of(TESTDATA, "input-samples-iso.jsonl");
 
   private JsonTestHelper() {}
 
-  private static JsonSchema readSchema(ObjectMapper mapper) throws IOException {
+  private static JsonSchema readSchema(Path path, ObjectMapper mapper) throws IOException {
     JsonNode node;
-    try (var stream = Files.newInputStream(OUTPUT_SCHEMA)) {
+    try (var stream = Files.newInputStream(path)) {
       node = mapper.readTree(stream);
     }
 
@@ -31,19 +34,35 @@ public final class JsonTestHelper {
     return factory.getSchema(node);
   }
 
-  public static Set<ValidationMessage> validate(byte[] encoded) throws IOException {
+  private static Set<ValidationMessage> validate(byte[] encoded, Path path) throws IOException {
     var mapper = new ObjectMapper();
-    var schema = readSchema(mapper);
+    var schema = readSchema(path, mapper);
 
     var node = mapper.readTree(encoded);
     return schema.validate(node);
   }
 
-  public static List<String> sampleInput() {
+  public static Set<ValidationMessage> validate(byte[] encoded) throws IOException {
+    return validate(encoded, OUTPUT_SCHEMA);
+  }
+
+  public static Set<ValidationMessage> validateIso(byte[] encoded) throws IOException {
+    return validate(encoded, OUTPUT_SCHEMA_ISO);
+  }
+
+  private static List<String> sampleInput(Path path) {
     try {
-      return Files.readAllLines(INPUT_SAMPLES);
+      return Files.readAllLines(path);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
+  }
+
+  public static List<String> sampleInput() {
+    return sampleInput(INPUT_SAMPLES);
+  }
+
+  public static List<String> sampleInputIso() {
+    return sampleInput(INPUT_SAMPLES_ISO);
   }
 }

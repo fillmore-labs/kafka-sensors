@@ -3,18 +3,15 @@ load("@rules_java//java:defs.bzl", "java_library")
 java_library(
     name = "serialization",
     srcs = glob(["*.java"]),
-    javacopts = ["-AskipDefs=\\.Immutable[A-Z][A-Za-z0-9]*$$"],
     visibility = [
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/confluent/json:__subpackages__",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json:__subpackages__",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json_iso:__subpackages__",
         "//src/test:__subpackages__",
     ],
     deps = [
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/json/serialization",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/json",
         "//toolchain:checker",
         "//toolchain:dagger",
-        "//toolchain:immutables",
         "@maven//:com_fasterxml_jackson_core_jackson_annotations",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_fasterxml_jackson_datatype_jackson_datatype_guava",

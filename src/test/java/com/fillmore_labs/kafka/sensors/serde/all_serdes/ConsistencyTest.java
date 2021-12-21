@@ -11,6 +11,7 @@ public final class ConsistencyTest extends ConsistencyTestBase {
     "confluent/protobuf",
     "ion",
     "json",
+    "json-iso",
     "protobuf",
     "thrift",
   };

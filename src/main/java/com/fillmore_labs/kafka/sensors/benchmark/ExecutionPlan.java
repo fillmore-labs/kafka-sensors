@@ -25,6 +25,7 @@ public /* open */ class ExecutionPlan {
     "json",
     "mixin",
     "gson",
+    "json-iso",
     "proto",
     "thrift",
     "avro-specific",

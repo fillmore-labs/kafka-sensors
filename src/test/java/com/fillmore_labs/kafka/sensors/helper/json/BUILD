@@ -4,10 +4,7 @@ java_library(
     name = "json",
     testonly = True,
     srcs = glob(["*.java"]),
-    data = [
-        "//testdata:input_samples",
-        "//testdata:output_schema",
-    ],
+    data = ["//testdata"],
     visibility = ["//visibility:public"],
     deps = [
         "//toolchain:checker",
