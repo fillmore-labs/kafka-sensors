@@ -20,7 +20,7 @@ def base_images():
     container_pull(
         name = "java17_arm64",
         architecture = "arm64",
-        digest = "sha256:d4bd1cce87a483c923f62378c0dfe95a2589c708d5a86b08e5a797b5b3a9eb42",
+        digest = "sha256:b5b1fb425ee365c87dc74c72924529c3b805bda76877c240042bb635981fdf36",
         os = "linux",
         registry = "gcr.io",
         repository = "distroless/java17-debian11",
