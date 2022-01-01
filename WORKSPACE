@@ -245,12 +245,6 @@ confluent_repositories()
 
 # ---
 
-load("//third_party/jmh:defs.bzl", "JMH_ARTIFACTS", "jmh_repositories")
-
-jmh_repositories()
-
-# ---
-
 load("//third_party/async_profiler:defs.bzl", "async_profiler_repositories")
 
 async_profiler_repositories()
@@ -307,10 +301,12 @@ maven_install(
         "org.immutables:value-processor:2.9.0-rc1",
         "org.mapstruct:mapstruct-processor:1.5.0.Beta2",
         "org.mapstruct:mapstruct:1.5.0.Beta2",
+        "org.openjdk.jmh:jmh-core:1.34",
+        "org.openjdk.jmh:jmh-generator-annprocess:1.34",
         "org.slf4j:slf4j-api:2.0.0-alpha5",
         "org.slf4j:slf4j-jdk14:2.0.0-alpha5",
     ] + testonly_artifacts([
-        "com.google.testparameterinjector:test-parameter-injector:1.6",
+        "com.google.testparameterinjector:test-parameter-injector:1.7",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
@@ -320,7 +316,7 @@ maven_install(
         "org.apache.kafka:kafka-streams-test-utils:3.0.0",
         "org.mockito:mockito-core:4.2.0",
         "org.mockito:mockito-errorprone:4.2.0",
-    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
+    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {
