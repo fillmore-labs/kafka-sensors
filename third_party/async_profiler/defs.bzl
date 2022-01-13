@@ -6,23 +6,23 @@ def async_profiler_repositories():
     http_archive(
         name = "async_profiler_linux_x64",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "f533c1dcdcc7820f8e86f888f1becffabbe134ede97965df73026944bf0c7c2e",
-        strip_prefix = "async-profiler-2.5.1-linux-x64",
-        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.5.1/async-profiler-2.5.1-linux-x64.tar.gz"],
+        sha256 = "f833908a20a7e626e1f2c8f93fb6679ab139fb38287eca6407101ccc646995a7",
+        strip_prefix = "async-profiler-2.6-linux-x64",
+        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.6/async-profiler-2.6-linux-x64.tar.gz"],
     )
 
     http_archive(
         name = "async_profiler_linux_arm64",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "7834cbfe3957b82d235abc7def73f67279ab84d23cdcd63a4f74549948b5db81",
-        strip_prefix = "async-profiler-2.5.1-linux-arm64",
-        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.5.1/async-profiler-2.5.1-linux-arm64.tar.gz"],
+        sha256 = "61f240fdca52ccc2eba34acd4134a7af524715fc6a9c452071aac5ddc1fb494d",
+        strip_prefix = "async-profiler-2.6-linux-arm64",
+        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.6/async-profiler-2.6-linux-arm64.tar.gz"],
     )
 
     http_archive(
         name = "async_profiler_macos",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "ebd7409f15fa579e91fb1ef1263d285e526b2e87c3f0354975c2477889db6f02",
-        strip_prefix = "async-profiler-2.5.1-macos",
-        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.5.1/async-profiler-2.5.1-macos.zip"],
+        sha256 = "cd046214b5edafd79878211e877a98fea483f7804c6e60f1ae240d3eac02fb86",
+        strip_prefix = "async-profiler-2.6-macos",
+        urls = ["https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.6/async-profiler-2.6-macos.zip"],
     )
