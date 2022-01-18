@@ -305,7 +305,7 @@ maven_install(
         "org.slf4j:slf4j-api:2.0.0-alpha6",
         "org.slf4j:slf4j-jdk14:2.0.0-alpha6",
     ] + testonly_artifacts([
-        "com.google.testparameterinjector:test-parameter-injector:1.7",
+        "com.google.testparameterinjector:test-parameter-injector:1.8",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
