@@ -79,9 +79,9 @@ http_archive(
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "",
-    strip_prefix = "buildtools-4.2.4",
-    url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/4.2.4.tar.gz",
+    sha256 = "d368c47bbfc055010f118efb2962987475418737e901f7782d2a966d1dc80296",
+    strip_prefix = "buildtools-4.2.5",
+    url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/4.2.5.tar.gz",
 )
 
 http_archive(
@@ -95,7 +95,7 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.17.5")
+go_register_toolchains(go_version = "1.17.6")
 
 go_rules_dependencies()
 
@@ -295,9 +295,9 @@ maven_install(
         "org.checkerframework:checker-qual:3.21.1",
         "org.checkerframework:checker-util:3.21.1",
         "org.checkerframework:checker:3.21.1",
-        "org.immutables:gson:2.9.0-rc1",
-        "org.immutables:value-annotations:2.9.0-rc1",
-        "org.immutables:value-processor:2.9.0-rc1",
+        "org.immutables:gson:2.9.0",
+        "org.immutables:value-annotations:2.9.0",
+        "org.immutables:value-processor:2.9.0",
         "org.mapstruct:mapstruct-processor:1.5.0.Beta2",
         "org.mapstruct:mapstruct:1.5.0.Beta2",
         "org.openjdk.jmh:jmh-core:1.34",
