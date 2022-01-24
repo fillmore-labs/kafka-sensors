@@ -182,7 +182,7 @@ bind(
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala_config(scala_version = "2.13.7")
+scala_config(scala_version = "2.13.8")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
@@ -190,23 +190,23 @@ scala_repositories(
     fetch_sources = True,
     overriden_artifacts = {
         "io_bazel_rules_scala_scala_compiler": {
-            "artifact": "org.scala-lang:scala-compiler:2.13.7",
+            "artifact": "org.scala-lang:scala-compiler:2.13.8",
             "deps": [
                 "@io_bazel_rules_scala_scala_library",
                 "@io_bazel_rules_scala_scala_reflect",
             ],
-            "sha256": "a450602f03a4686919e60d1aeced549559f1eaffbaf30ffa7987c8d97e3e79a9",
+            "sha256": "b248cb6f390ee8bceb912af3da471146fdf003702a173d750f986b1d4a3362e6",
         },
         "io_bazel_rules_scala_scala_library": {
-            "artifact": "org.scala-lang:scala-library:2.13.7",
-            "sha256": "a8bc08f3b9ff93d0496032bf2677163071b8d212992f41dbf04212e07d91616b",
+            "artifact": "org.scala-lang:scala-library:2.13.8",
+            "sha256": "a0882b82514190c2bac7d1a459872a75f005fc0f3e88b2bc0390367146e35db7",
         },
         "io_bazel_rules_scala_scala_reflect": {
-            "artifact": "org.scala-lang:scala-reflect:2.13.7",
+            "artifact": "org.scala-lang:scala-reflect:2.13.8",
             "deps": [
                 "@io_bazel_rules_scala_scala_library",
             ],
-            "sha256": "a7bc4eca6970083d426a8d081aec313c7b7207d5f83b6724995e34078edc5cbb",
+            "sha256": "fdfbcc92e87f424578b303bcb47e0f55fee990c4b6da0006c9e75879d1e442e4",
         },
     },
 )
@@ -314,8 +314,8 @@ maven_install(
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.8.2",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
-        "org.mockito:mockito-core:4.2.0",
-        "org.mockito:mockito-errorprone:4.2.0",
+        "org.mockito:mockito-core:4.3.0",
+        "org.mockito:mockito-errorprone:4.3.0",
     ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
