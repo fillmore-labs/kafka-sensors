@@ -49,11 +49,12 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/archive/15add1af49f13d1661d3910d0eb6697b415a19d1.tar.gz",
 )
 
+# https://github.com/bazelbuild/rules_docker/issues/2009
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "85ffff62a4c22a74dbd98d05da6cf40f497344b3dbf1e1ab0a37ab2a1a6ca014",
-    strip_prefix = "rules_docker-0.23.0",
-    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.23.0/rules_docker-v0.23.0.tar.gz",
+    sha256 = "59536e6ae64359b716ba9c46c39183403b01eabfbd57578e84398b4829ca499a",
+    strip_prefix = "rules_docker-0.22.0",
+    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.22.0/rules_docker-v0.22.0.tar.gz",
 )
 
 http_archive(
@@ -274,7 +275,7 @@ maven_install(
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.1",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.8.9",
-        "com.google.errorprone:error_prone_annotations:2.10.0",
+        "com.google.errorprone:error_prone_annotations:2.11.0",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.0.1-jre",
@@ -312,10 +313,10 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.66",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.8.2",
+        "nl.jqno.equalsverifier:equalsverifier:3.8.3",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
-        "org.mockito:mockito-core:4.3.0",
-        "org.mockito:mockito-errorprone:4.3.0",
+        "org.mockito:mockito-core:4.3.1",
+        "org.mockito:mockito-errorprone:4.3.1",
     ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

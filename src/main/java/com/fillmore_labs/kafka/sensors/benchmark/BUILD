@@ -85,6 +85,7 @@ ARCHITECTURES = [
         name = "benchmark_image_" + architecture,
         architecture = architecture,
         base = ":benchmark_java_image_" + architecture,
+        operating_system = "linux",
     )
     for architecture in ARCHITECTURES
 ]

@@ -1,6 +1,6 @@
 ---
 protoc:
-  version: 3.19.3
+  version: 3.19.4
 lint:
   group: uber2
   rules:
