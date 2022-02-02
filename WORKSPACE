@@ -44,9 +44,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "a255792254a2f7e4085c1ea29295aa7a254df9114970f3208e30f7ac36630f93",
-    strip_prefix = "protobuf-55645ca5138e8e745ad1af0251c5036e8bfe496d",
-    url = "https://github.com/protocolbuffers/protobuf/archive/55645ca5138e8e745ad1af0251c5036e8bfe496d.tar.gz",
+    sha256 = "976176ee843da02164493491a095703b61f7cd8873f9bd213045e3eeae381883",
+    strip_prefix = "protobuf-8495372e1eb78a385f53bbc562c8935777107ce9",
+    url = "https://github.com/protocolbuffers/protobuf/archive/8495372e1eb78a385f53bbc562c8935777107ce9.tar.gz",
 )
 
 # https://github.com/bazelbuild/rules_docker/issues/2009
