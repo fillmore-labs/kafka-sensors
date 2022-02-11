@@ -4,19 +4,6 @@ load("@rules_java//java:defs.bzl", "java_library")
 
 # Loosely based on https://github.com/meetup/rules_avro
 
-def _commonprefix(m):
-    if not m:
-        return ""
-    s1 = min(m)
-    s2 = max(m)
-    chars = []
-    for i in range(0, len(s1)):
-        chars.append(s1[i])
-    for i, c in enumerate(chars):
-        if c != s2[i]:
-            return s1[:i]
-    return s1
-
 def _new_generator_command(ctx, gen_dir):
     java_path = ctx.attr._jdk[java_common.JavaRuntimeInfo].java_executable_exec_path
 
