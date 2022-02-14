@@ -1,4 +1,4 @@
-package com.fillmore_labs.kafka.sensors.topology;
+package com.fillmore_labs.kafka.sensors.topology.adapter;
 
 import dagger.assisted.AssistedFactory;
 

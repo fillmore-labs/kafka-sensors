@@ -11,6 +11,6 @@ public abstract class TopologyModule {
 
   @Provides
   /* package */ static Topology topology(TopologyFactory factory) {
-    return factory.get();
+    return factory.create();
   }
 }

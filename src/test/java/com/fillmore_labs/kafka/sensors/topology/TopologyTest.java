@@ -29,8 +29,8 @@ import org.junit.runners.Parameterized.Parameters;
 public final class TopologyTest {
   @ClassRule public static final TestResource TEST_RESOURCE = new TestResource();
 
-  @SuppressWarnings(
-      "nullness:initialization.static.field.uninitialized") // Initialized in beforeParam(...)
+  @SuppressWarnings("nullness:initialization.static.field.uninitialized")
+  /* Initialized in in {@link #beforeParam(Formats)} */
   private static SingleTestResource singleTestResource;
 
   private final TestInputTopic<String, SensorState> inputTopic;

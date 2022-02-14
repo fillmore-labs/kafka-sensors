@@ -1,8 +1,8 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
+import com.fillmore_labs.kafka.sensors.topology.adapter.DurationTransformerFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.function.Supplier;
 import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -13,7 +13,7 @@ import org.apache.kafka.streams.kstream.Named;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.state.Stores;
 
-/* package */ final class TopologyFactory implements Supplier<Topology> {
+/* package */ final class TopologyFactory {
   /** See {@link org.apache.kafka.common.serialization.StringSerializer}. */
   private static final String KEY_SERIALIZER_ENCODING = "key.serializer.encoding";
   /** See {@link org.apache.kafka.common.serialization.StringDeserializer}. */
@@ -37,8 +37,7 @@ import org.apache.kafka.streams.state.Stores;
     return stringSerde;
   }
 
-  @Override
-  public Topology get() {
+  public Topology create() {
     var inputTopic = settings.inputTopic();
     var consumed = Consumed.with(stringSerde(), settings.inputSerde());
 
