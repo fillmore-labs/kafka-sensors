@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 CONFLUENT_ARTIFACTS = [
     "com.github.erosb:everit-json-schema:1.14.0",
-    "com.google.api.grpc:proto-google-common-protos:2.7.3",
+    "com.google.api.grpc:proto-google-common-protos:2.7.4",
     "com.kjetland:mbknor-jackson-jsonschema_2.13:1.0.39",
     "com.squareup.wire:wire-runtime:3.7.1",
     "com.squareup.wire:wire-schema:3.7.1",
