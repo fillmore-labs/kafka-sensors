@@ -263,7 +263,7 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.9.0",
+        "com.amazon.ion:ion-java:1.9.1",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.1",
         "com.fasterxml.jackson.core:jackson-core:2.13.1",
         "com.fasterxml.jackson.core:jackson-databind:2.13.1",
@@ -283,9 +283,9 @@ maven_install(
         "info.picocli:picocli:4.6.3",
         "io.github.classgraph:classgraph:4.8.139",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:2.4.2",
-        "io.helidon.config:helidon-config-yaml:2.4.2",
-        "io.helidon.config:helidon-config:2.4.2",
+        "io.helidon.config:helidon-config-object-mapping:3.0.0-M1",
+        "io.helidon.config:helidon-config-yaml:3.0.0-M1",
+        "io.helidon.config:helidon-config:3.0.0-M1",
         "jakarta.annotation:jakarta.annotation-api:1.3.5",
         "javax.inject:javax.inject:1",
         "org.apache.kafka:kafka-clients:3.1.0",
