@@ -6,9 +6,8 @@ steps:
       - bazel test --config=ci //src/test/...
     branches: "!main"
 
-  - label: ':bazel: Test & Coverage'
+  - label: ':codecov: + :codeclimate: Test & Coverage'
     commands:
       - bazel coverage --config=ci //src/test/...
       - sh .buildkite/upload_coverage.sh
     branches: "main"
-    key: "coverage"
