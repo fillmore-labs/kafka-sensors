@@ -281,7 +281,7 @@ maven_install(
         "com.google.guava:guava:31.0.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
         "info.picocli:picocli:4.6.3",
-        "io.github.classgraph:classgraph:4.8.139",
+        "io.github.classgraph:classgraph:4.8.141",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:3.0.0-M1",
         "io.helidon.config:helidon-config-yaml:3.0.0-M1",
