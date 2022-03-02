@@ -263,7 +263,7 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.9.1",
+        "com.amazon.ion:ion-java:1.9.2",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.1",
         "com.fasterxml.jackson.core:jackson-core:2.13.1",
         "com.fasterxml.jackson.core:jackson-databind:2.13.1",
@@ -293,9 +293,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.1.0",
         "org.apache.kafka:kafka_2.13:3.1.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.21.1",
-        "org.checkerframework:checker-util:3.21.1",
-        "org.checkerframework:checker:3.21.1",
+        "org.checkerframework:checker-qual:3.21.3",
+        "org.checkerframework:checker-util:3.21.3",
+        "org.checkerframework:checker:3.21.3",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
         "org.immutables:value-processor:2.9.0",
