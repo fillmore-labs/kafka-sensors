@@ -9,5 +9,5 @@ steps:
   - label: ':codecov: + :codeclimate: Test & Coverage'
     commands:
       - bazel coverage --config=ci //src/test/...
-      - sh .buildkite/upload_coverage.sh
+      - sh .buildkite/upload_coverage.sh "$(bazel info output_path)/_coverage/_coverage_report.dat"
     branches: "main"
