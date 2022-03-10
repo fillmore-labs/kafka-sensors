@@ -246,6 +246,12 @@ confluent_repositories()
 
 # ---
 
+load("//third_party/jmh:defs.bzl", "JMH_ARTIFACTS", "jmh_repositories")
+
+jmh_repositories()
+
+# ---
+
 load("//third_party/async_profiler:defs.bzl", "async_profiler_repositories")
 
 async_profiler_repositories()
@@ -264,15 +270,15 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 maven_install(
     artifacts = [
         "com.amazon.ion:ion-java:1.9.2",
-        "com.fasterxml.jackson.core:jackson-annotations:2.13.1",
-        "com.fasterxml.jackson.core:jackson-core:2.13.1",
-        "com.fasterxml.jackson.core:jackson-databind:2.13.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.1",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.1",
+        "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
+        "com.fasterxml.jackson.core:jackson-core:2.13.2",
+        "com.fasterxml.jackson.core:jackson-databind:2.13.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.2",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.9.0",
         "com.google.errorprone:error_prone_annotations:2.11.0",
@@ -301,8 +307,6 @@ maven_install(
         "org.immutables:value-processor:2.9.0",
         "org.mapstruct:mapstruct-processor:1.5.0.Beta2",
         "org.mapstruct:mapstruct:1.5.0.Beta2",
-        "org.openjdk.jmh:jmh-core:1.34",
-        "org.openjdk.jmh:jmh-generator-annprocess:1.34",
         "org.slf4j:slf4j-api:2.0.0-alpha6",
         "org.slf4j:slf4j-jdk14:2.0.0-alpha6",
     ] + testonly_artifacts([
@@ -311,13 +315,13 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.66",
+        "com.networknt:json-schema-validator:1.0.67",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.9",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
-        "org.mockito:mockito-core:4.3.1",
-        "org.mockito:mockito-errorprone:4.3.1",
-    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
+        "org.mockito:mockito-core:4.4.0",
+        "org.mockito:mockito-errorprone:4.4.0",
+    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {

@@ -144,14 +144,14 @@ dagger_rules(repo_name = "@maven")
 java_plugin(
     name = "jmh_processor",
     processor_class = "org.openjdk.jmh.generators.BenchmarkProcessor",
-    deps = ["@maven//:org_openjdk_jmh_jmh_generator_annprocess"],
+    deps = ["@jmh//:jmh_generator_annprocess"],
 )
 
 java_library(
     name = "jmh",
     exported_plugins = ["jmh_processor"],
     visibility = ["//visibility:public"],
-    exports = ["@maven//:org_openjdk_jmh_jmh_core"],
+    exports = ["@jmh//:jmh_core"],
 )
 
 # ---
