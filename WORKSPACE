@@ -44,9 +44,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "413cdd214172f2124da8201e8b7281dc39073364ee2cb2a4c152eeb7db837be9",
-    strip_prefix = "protobuf-3.20.0-rc1",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.0-rc1.tar.gz",
+    sha256 = "19d1e6ea7d58ec0964aa616042c359a1d7b9e5d2517d6c9b69335fcebd16bd9c",
+    strip_prefix = "protobuf-3.20.0-rc2",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.0-rc2.tar.gz",
 )
 
 # https://github.com/bazelbuild/rules_docker/issues/2009
@@ -305,10 +305,10 @@ maven_install(
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
         "org.immutables:value-processor:2.9.0",
-        "org.mapstruct:mapstruct-processor:1.5.0.Beta2",
-        "org.mapstruct:mapstruct:1.5.0.Beta2",
-        "org.slf4j:slf4j-api:2.0.0-alpha6",
-        "org.slf4j:slf4j-jdk14:2.0.0-alpha6",
+        "org.mapstruct:mapstruct-processor:1.5.0.RC1",
+        "org.mapstruct:mapstruct:1.5.0.RC1",
+        "org.slf4j:slf4j-api:2.0.0-alpha7",
+        "org.slf4j:slf4j-jdk14:2.0.0-alpha7",
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.8",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
@@ -317,7 +317,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.67",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.9",
+        "nl.jqno.equalsverifier:equalsverifier:3.9.1",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
         "org.mockito:mockito-core:4.4.0",
         "org.mockito:mockito-errorprone:4.4.0",

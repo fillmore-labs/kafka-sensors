@@ -13,7 +13,7 @@ CONFLUENT_ARTIFACTS = [
     "jakarta.validation:jakarta.validation-api:2.0.2",
     "jakarta.ws.rs:jakarta.ws.rs-api:2.1.6",
     "org.jetbrains.kotlin:kotlin-stdlib:1.5.32",
-    "org.json:json:20211205",
+    "org.json:json:20220320",
 ]
 
 def confluent_repositories():
