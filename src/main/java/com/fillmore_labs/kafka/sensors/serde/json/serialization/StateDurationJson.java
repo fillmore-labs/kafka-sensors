@@ -6,10 +6,10 @@ import java.time.Duration;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = ImmutableStateWithDurationJson.Builder.class)
-public interface StateWithDurationJson {
-  static ImmutableStateWithDurationJson.Builder builder() {
-    return ImmutableStateWithDurationJson.builder();
+@JsonDeserialize(builder = ImmutableStateDurationJson.Builder.class)
+public interface StateDurationJson {
+  static ImmutableStateDurationJson.Builder builder() {
+    return ImmutableStateDurationJson.builder();
   }
 
   String getId();

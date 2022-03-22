@@ -11,7 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonSerializer;
 import dagger.Module;
@@ -66,16 +66,16 @@ public abstract class SerializationModule {
 
   @Provides
   @JsonIso
-  /* package */ static Serializer<StateWithDurationJson> stateDurationSerializer(
+  /* package */ static Serializer<StateDurationJson> stateDurationSerializer(
       @JsonIso ObjectMapper mapper) {
-    return new JsonSerializer<>(mapper, StateWithDurationJson.class);
+    return new JsonSerializer<>(mapper, StateDurationJson.class);
   }
 
   @Provides
   @JsonIso
-  /* package */ static Deserializer<StateWithDurationJson> stateDurationDeserializer(
+  /* package */ static Deserializer<StateDurationJson> stateDurationDeserializer(
       @JsonIso ObjectMapper mapper) {
-    return new JsonDeserializer<>(mapper, StateWithDurationJson.class);
+    return new JsonDeserializer<>(mapper, StateDurationJson.class);
   }
 
   @Qualifier

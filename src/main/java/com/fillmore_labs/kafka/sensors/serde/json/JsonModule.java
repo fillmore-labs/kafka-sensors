@@ -7,7 +7,7 @@ import com.fillmore_labs.kafka.sensors.serde.json.mapper.MapperModule;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SerializationModule;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -54,10 +54,10 @@ public abstract class JsonModule {
 
   @Provides
   @Named(JSON)
-  /* package */ static Serde<StateDuration> stateWithDurationSerde(
-      Serializer<StateWithDurationJson> serializer,
-      Deserializer<StateWithDurationJson> deserializer,
-      BiMapper<StateDuration, StateWithDurationJson> mapper) {
+  /* package */ static Serde<StateDuration> stateDurationSerde(
+      Serializer<StateDurationJson> serializer,
+      Deserializer<StateDurationJson> deserializer,
+      BiMapper<StateDuration, StateDurationJson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 

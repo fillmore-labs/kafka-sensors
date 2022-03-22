@@ -7,7 +7,7 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.json.serialization.SerializationModule;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.MappedSerdes;
 import dagger.Binds;
@@ -55,9 +55,9 @@ public abstract class ConfluentJsonModule {
   @Provides
   @Named(CONFLUENT_JSON)
   /* package */ static Serde<StateDuration> stateDurationSerde(
-      @Confluent Serializer<StateWithDurationJson> serializer,
-      @Confluent Deserializer<StateWithDurationJson> deserializer,
-      BiMapper<StateDuration, StateWithDurationJson> mapper) {
+      @Confluent Serializer<StateDurationJson> serializer,
+      @Confluent Deserializer<StateDurationJson> deserializer,
+      BiMapper<StateDuration, StateDurationJson> mapper) {
     return MappedSerdes.serdeFrom(serializer, deserializer, mapper);
   }
 

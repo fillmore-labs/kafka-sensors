@@ -48,14 +48,13 @@ public abstract class SerializationModule {
   }
 
   @Provides
-  /* package */ static Serializer<StateWithDurationJson> stateDurationSerializer(
-      ObjectMapper mapper) {
-    return new JsonSerializer<>(mapper, StateWithDurationJson.class);
+  /* package */ static Serializer<StateDurationJson> stateDurationSerializer(ObjectMapper mapper) {
+    return new JsonSerializer<>(mapper, StateDurationJson.class);
   }
 
   @Provides
-  /* package */ static Deserializer<StateWithDurationJson> stateDurationDeserializer(
+  /* package */ static Deserializer<StateDurationJson> stateDurationDeserializer(
       ObjectMapper mapper) {
-    return new JsonDeserializer<>(mapper, StateWithDurationJson.class);
+    return new JsonDeserializer<>(mapper, StateDurationJson.class);
   }
 }

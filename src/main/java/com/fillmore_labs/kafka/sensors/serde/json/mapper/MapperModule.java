@@ -5,7 +5,7 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Binds;
 import dagger.Module;
@@ -30,6 +30,6 @@ public abstract class MapperModule {
       SensorStateMapperImpl mapper);
 
   @Binds
-  /* package */ abstract BiMapper<StateDuration, StateWithDurationJson> stateWithDurationBiMapper(
-      StateWithDurationMapperImpl mapper);
+  /* package */ abstract BiMapper<StateDuration, StateDurationJson> stateDurationBiMapper(
+      StateDurationMapperImpl mapper);
 }

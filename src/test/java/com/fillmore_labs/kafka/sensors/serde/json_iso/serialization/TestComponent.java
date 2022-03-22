@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.json_iso.serialization;
 
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.json_iso.serialization.SerializationModule.JsonIso;
 import dagger.Component;
 import javax.inject.Singleton;
@@ -19,8 +19,8 @@ public interface TestComponent {
   Deserializer<SensorStateJson> deserializer();
 
   @JsonIso
-  Serializer<StateWithDurationJson> serializerDuration();
+  Serializer<StateDurationJson> serializerDuration();
 
   @JsonIso
-  Deserializer<StateWithDurationJson> deserializerDuration();
+  Deserializer<StateDurationJson> deserializerDuration();
 }

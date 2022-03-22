@@ -7,7 +7,7 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.common.Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson.Position;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import dagger.Component;
 import java.time.Duration;
 import java.time.Instant;
@@ -20,8 +20,8 @@ import org.junit.Test;
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  private final Serializer<StateWithDurationJson> serializer;
-  private final Deserializer<StateWithDurationJson> deserializer;
+  private final Serializer<StateDurationJson> serializer;
+  private final Deserializer<StateDurationJson> deserializer;
 
   public SerializationTest() {
     var testComponent = TestComponent.create();
@@ -38,7 +38,7 @@ public final class SerializationTest {
             .build();
 
     var sensorState =
-        StateWithDurationJson.builder()
+        StateDurationJson.builder()
             .id("7331")
             .reading(reading)
             .duration(Duration.ofSeconds(15))
@@ -85,9 +85,9 @@ public final class SerializationTest {
     }
 
     @Confluent
-    Serializer<StateWithDurationJson> serializer();
+    Serializer<StateDurationJson> serializer();
 
     @Confluent
-    Deserializer<StateWithDurationJson> deserializer();
+    Deserializer<StateDurationJson> deserializer();
   }
 }

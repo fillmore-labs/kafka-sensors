@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThrows;
 import com.fillmore_labs.kafka.sensors.helper.json.JsonTestHelper;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.ReadingJson.Position;
-import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateWithDurationJson;
+import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -19,8 +19,8 @@ import org.junit.Test;
 public final class SerializationTest {
   private static final String TOPIC = "topic";
 
-  private final Serializer<StateWithDurationJson> serializer;
-  private final Deserializer<StateWithDurationJson> deserializer;
+  private final Serializer<StateDurationJson> serializer;
+  private final Deserializer<StateDurationJson> deserializer;
 
   public SerializationTest() {
     var testComponent = TestComponent.create();
@@ -28,13 +28,13 @@ public final class SerializationTest {
     this.deserializer = testComponent.deserializerDuration();
   }
 
-  private static StateWithDurationJson sampleStateDuration() {
+  private static StateDurationJson sampleStateDuration() {
     var reading =
         ReadingJson.builder()
             .time(Instant.ofEpochSecond(443_634_300L))
             .position(Position.ON)
             .build();
-    return StateWithDurationJson.builder()
+    return StateDurationJson.builder()
         .id("7331")
         .reading(reading)
         .duration(Duration.ofSeconds(15))
