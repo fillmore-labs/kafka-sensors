@@ -8,6 +8,7 @@ java_library(
         "//src/test:__subpackages__",
     ],
     runtime_deps = [
+        "@maven//:com_fasterxml_woodstox_woodstox_core",
         "@maven//:org_glassfish_jaxb_jaxb_runtime",
     ],
     deps = [

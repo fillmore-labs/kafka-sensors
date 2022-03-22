@@ -7,9 +7,6 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/xml:__subpackages__",
         "//src/test:__subpackages__",
     ],
-    runtime_deps = [
-        "@maven//:org_glassfish_jaxb_jaxb_runtime",
-    ],
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/xml",
         "//toolchain:checker",

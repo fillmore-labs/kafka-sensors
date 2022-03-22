@@ -14,7 +14,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @XmlRootElement(name = "Reading")
 @XmlType(name = "")
-public class ReadingXml {
+public final class ReadingXml {
   @XmlAttribute
   @XmlJavaTypeAdapter(InstantXmlAdapter.class)
   public Instant time;

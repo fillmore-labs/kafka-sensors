@@ -5,10 +5,10 @@ import java.time.format.DateTimeParseException;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.apache.kafka.common.errors.SerializationException;
 
-public class DurationXmlAdapter extends XmlAdapter<String, Duration> {
+public final class DurationXmlAdapter extends XmlAdapter<String, Duration> {
 
   @Override
-  public Duration unmarshal(String string) throws Exception {
+  public Duration unmarshal(String string) {
     try {
       return Duration.parse(string);
     } catch (DateTimeParseException e) {
@@ -17,7 +17,7 @@ public class DurationXmlAdapter extends XmlAdapter<String, Duration> {
   }
 
   @Override
-  public String marshal(Duration duration) throws Exception {
+  public String marshal(Duration duration) {
     return duration.toString();
   }
 }

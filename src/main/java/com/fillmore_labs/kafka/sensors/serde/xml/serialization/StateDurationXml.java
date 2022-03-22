@@ -13,7 +13,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @XmlRootElement(name = "StateDuration")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StateDurationXml {
+public final class StateDurationXml {
   @XmlAttribute public String id;
 
   public ReadingXml reading;

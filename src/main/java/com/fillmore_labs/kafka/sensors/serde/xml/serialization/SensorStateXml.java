@@ -11,7 +11,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @XmlRootElement(name = "SensorState")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SensorStateXml {
+public final class SensorStateXml {
   @XmlAttribute public String id;
 
   public ReadingXml reading;
