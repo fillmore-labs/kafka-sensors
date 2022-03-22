@@ -15,6 +15,7 @@ java_library(
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/mixin",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/proto",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/thrift",
+        "//src/main/java/com/fillmore_labs/kafka/sensors/serde/xml",
         "//toolchain:checker",
         "//toolchain:dagger",
         "@maven//:com_google_errorprone_error_prone_annotations",

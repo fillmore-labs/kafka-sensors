@@ -28,6 +28,7 @@ public /* open */ class ExecutionPlan {
     "json-iso",
     "proto",
     "thrift",
+    "xml",
     "avro-specific",
     "avro-generic",
     "avro-reflect",

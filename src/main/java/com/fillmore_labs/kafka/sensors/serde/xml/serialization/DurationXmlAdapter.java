@@ -1,0 +1,23 @@
+package com.fillmore_labs.kafka.sensors.serde.xml.serialization;
+
+import java.time.Duration;
+import java.time.format.DateTimeParseException;
+import javax.xml.bind.annotation.adapters.XmlAdapter;
+import org.apache.kafka.common.errors.SerializationException;
+
+public class DurationXmlAdapter extends XmlAdapter<String, Duration> {
+
+  @Override
+  public Duration unmarshal(String string) throws Exception {
+    try {
+      return Duration.parse(string);
+    } catch (DateTimeParseException e) {
+      throw new SerializationException("Error while parsing duration from XML", e);
+    }
+  }
+
+  @Override
+  public String marshal(Duration duration) throws Exception {
+    return duration.toString();
+  }
+}

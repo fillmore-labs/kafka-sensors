@@ -14,6 +14,7 @@ public final class ConsistencyTest extends ConsistencyTestBase {
     "json-iso",
     "protobuf",
     "thrift",
+    "xml",
   };
 
   private static final TestComponent TEST_COMPONENT = TestComponent.create();
