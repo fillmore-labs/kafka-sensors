@@ -1,8 +1,8 @@
 = Kafka Serialization Playground
 :Author:    Oliver Eikemeier
 :Email:     <eikemeier@fillmore-labs.com>
-:Date:      2021-10
-:Revision:  v0.1
+:Date:      2022-03
+:Revision:  v0.1.1
 :toc: macro
 
 image:https://badge.buildkite.com/4971a2c4dd08b27b3a39618d744d15ebac5a07c1892102c0b6.svg?branch=main[title="Buildkite build status",link=https://buildkite.com/fillmore-labs/kafka-sensors]
@@ -88,13 +88,13 @@ serialization formats.
 The data model is in the link:src/main/java/com/fillmore_labs/kafka/sensors/model[model directory], the
 business logic in link:src/main/java/com/fillmore_labs/kafka/sensors/logic[logic].
 
-The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the topology with eight
-different formats, https://developers.google.com/protocol-buffers/[protocol buffers],
+The link:src/test/java/com/fillmore_labs/kafka/sensors/topology[tests] test the topology with nine
+different formats, https://developers.google.com/protocol-buffers/[Protocol Buffers],
 https://json.org[JSON], https://avro.apache.org/docs/current/[Apache Avro], the
-https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of them,
-https://thrift.apache.org[Apache Thrift] and https://amzn.github.io/ion-docs/[Amazon Ion].
-Different, random combinations of input format, result format, and format for the state store are
-tested.
+https://docs.confluent.io/platform/current/schema-registry/[Confluent variants] of these three,
+https://www.w3.org/XML/[XML], https://thrift.apache.org[Apache Thrift] and
+https://amzn.github.io/ion-docs/[Amazon Ion]. Different, random combinations of input, result, and
+state store formats are tested.
 
 While this abstraction might not be necessary in practice, it demonstrates two important design
 considerations:
@@ -205,7 +205,7 @@ Compare deserialization of two formats:
 [source,shell]
 bazel run //:benchmark -- -p "format=proto,thrift" "Bench\\.deserialize"
 
-Generate a flamegraph for detailed analysis:
+Generate a flame graph for detailed analysis:
 
 [source,shell]
 bazel run //:benchmark -- -p "format=proto" "Bench\\.deserialize" \
@@ -224,7 +224,7 @@ kubectl run serialization-benchmark --image=fillmorelabs/serialization-benchmark
 As noted in <<Implementation of Business Logic>> the business login is independent of the
 serialization, in the spirit of hexagonal architecture. This of course requires some mapping,
 where we mostly use https://mapstruct.org[MapStruct] for. This necessitates some limitations in
-data model naming conventions. MapStruct uses a fixed und quite unflexible accessor naming strategy,
-so you can't really decide that protocol buffers should have one convention but Immutables another.
+data model naming conventions. MapStruct uses a fixed und quite inflexible accessor naming strategy,
+so you can't really decide that Protocol Buffers should have one convention but Immutables another.
 Especially for Immutables we are forced to use JavaBeans-style naming convention, although this is
 not a JEE application.
