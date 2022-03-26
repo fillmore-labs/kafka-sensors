@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(TestParameterInjector.class)
-public class PositionMapperTest {
+public final class PositionMapperTest {
   private final PositionMapper positionMapper = new PositionMapper();
 
   @Test
