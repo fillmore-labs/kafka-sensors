@@ -44,9 +44,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "19d1e6ea7d58ec0964aa616042c359a1d7b9e5d2517d6c9b69335fcebd16bd9c",
-    strip_prefix = "protobuf-3.20.0-rc2",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.0-rc2.tar.gz",
+    sha256 = "b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889",
+    strip_prefix = "protobuf-3.20.0",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.0.tar.gz",
 )
 
 # https://github.com/bazelbuild/rules_docker/issues/2009
@@ -96,7 +96,7 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.17.7")
+go_register_toolchains(go_version = "1.18")
 
 go_rules_dependencies()
 
@@ -272,7 +272,7 @@ maven_install(
         "com.amazon.ion:ion-java:1.9.3",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
         "com.fasterxml.jackson.core:jackson-core:2.13.2",
-        "com.fasterxml.jackson.core:jackson-databind:2.13.2",
+        "com.fasterxml.jackson.core:jackson-databind:2.13.2.1",
         "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.2",
@@ -290,7 +290,7 @@ maven_install(
         "com.sun.activation:jakarta.activation:1.2.2",
         "com.sun.istack:istack-commons-runtime:3.0.12",
         "info.picocli:picocli:4.6.3",
-        "io.github.classgraph:classgraph:4.8.141",
+        "io.github.classgraph:classgraph:4.8.143",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:3.0.0-M1",
         "io.helidon.config:helidon-config-yaml:3.0.0-M1",
