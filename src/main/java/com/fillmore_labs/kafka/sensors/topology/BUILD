@@ -6,8 +6,8 @@ java_library(
     javacopts = ["-AskipDefs=\\.Immutable[A-Z][A-Za-z0-9]*$$"],
     visibility = ["//visibility:public"],
     deps = [
+        "//src/main/java/com/fillmore_labs/kafka/sensors/logic",
         "//src/main/java/com/fillmore_labs/kafka/sensors/model",
-        "//src/main/java/com/fillmore_labs/kafka/sensors/topology/adapter",
         "//toolchain:checker",
         "//toolchain:dagger",
         "//toolchain:immutables",

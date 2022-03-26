@@ -8,23 +8,25 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.junit.rules.ExternalResource;
 
 public final class ProcessorResource extends ExternalResource {
-  private @MonotonicNonNull MemoryReadingStore readingStore;
+  public static final String STORE_NAME = "test-store";
+  public static final String ID = "id";
+
   private @MonotonicNonNull DurationProcessor processor;
 
   @Override
   public void before() {
-    readingStore = new MemoryReadingStore();
+    var readingStore = new MapKeyValueStore<String, Reading>(STORE_NAME);
     processor = new DurationProcessor(readingStore);
   }
 
   @CanIgnoreReturnValue
   public Optional<ReadingDuration> transform(Reading reading) {
     assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    return processor.transform(reading);
+    return processor.transform(ID, reading);
   }
 
   public void delete() {
-    assert readingStore != null : "@AssumeAssertion(nullness): before() not called";
-    readingStore.clear();
+    assert processor != null : "@AssumeAssertion(nullness): before() not called";
+    processor.delete(ID);
   }
 }

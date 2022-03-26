@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
-import com.fillmore_labs.kafka.sensors.topology.adapter.DurationTransformerFactory;
+import com.fillmore_labs.kafka.sensors.logic.DurationTransformerFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import javax.inject.Inject;
