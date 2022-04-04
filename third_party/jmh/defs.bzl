@@ -11,7 +11,7 @@ def jmh_repositories():
     http_archive(
         name = "jmh",
         build_file = "//third_party/jmh:BUILD.jmh.bazel",
-        sha256 = "22fbae826e13ba872da73cbde580ece10ba2a2cf2d01cd0ae167dee075061205",
-        strip_prefix = "jmh-39519ed5b4efe2fd0b0b99619746cac6f8cb6dd3",
-        url = "https://github.com/openjdk/jmh/archive/39519ed5b4efe2fd0b0b99619746cac6f8cb6dd3.tar.gz",
+        sha256 = "15384e70568b5b4585795147e5a0b15ab56490a5e84f757c78982104cc943dd4",
+        strip_prefix = "jmh-b8f50b28c1a2bd758d9410eb21672c92d5eab286",
+        url = "https://github.com/openjdk/jmh/archive/b8f50b28c1a2bd758d9410eb21672c92d5eab286.tar.gz",
     )
