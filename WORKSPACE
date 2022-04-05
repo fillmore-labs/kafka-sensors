@@ -37,9 +37,7 @@ http_archive(
     name = "rules_proto",
     sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
     strip_prefix = "rules_proto-4.0.0",
-    urls = [
-        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
-    ],
+    url = "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
 )
 
 http_archive(
@@ -246,12 +244,6 @@ confluent_repositories()
 
 # ---
 
-load("//third_party/jmh:defs.bzl", "JMH_ARTIFACTS", "jmh_repositories")
-
-jmh_repositories()
-
-# ---
-
 load("//third_party/async_profiler:defs.bzl", "async_profiler_repositories")
 
 async_profiler_repositories()
@@ -272,7 +264,7 @@ maven_install(
         "com.amazon.ion:ion-java:1.9.3",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
         "com.fasterxml.jackson.core:jackson-core:2.13.2",
-        "com.fasterxml.jackson.core:jackson-databind:2.13.2.1",
+        "com.fasterxml.jackson.core:jackson-databind:2.13.2.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.2",
@@ -303,15 +295,17 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.1.0",
         "org.apache.kafka:kafka_2.13:3.1.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.21.3",
-        "org.checkerframework:checker-util:3.21.3",
-        "org.checkerframework:checker:3.21.3",
+        "org.checkerframework:checker-qual:3.21.4",
+        "org.checkerframework:checker-util:3.21.4",
+        "org.checkerframework:checker:3.21.4",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
         "org.immutables:value-processor:2.9.0",
         "org.mapstruct:mapstruct-processor:1.5.0.RC1",
         "org.mapstruct:mapstruct:1.5.0.RC1",
+        "org.openjdk.jmh:jmh-core:1.35",
+        "org.openjdk.jmh:jmh-generator-annprocess:1.35",
         "org.slf4j:slf4j-api:2.0.0-alpha7",
         "org.slf4j:slf4j-jdk14:2.0.0-alpha7",
     ] + testonly_artifacts([
@@ -320,13 +314,13 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.67",
+        "com.networknt:json-schema-validator:1.0.68",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.10",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
         "org.mockito:mockito-core:4.4.0",
         "org.mockito:mockito-errorprone:4.4.0",
-    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS + JMH_ARTIFACTS,
+    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {
