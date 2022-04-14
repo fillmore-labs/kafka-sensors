@@ -77,7 +77,7 @@ avro_gen = rule(
         ),
         "strings": attr.bool(),
         "_avro_tools": attr.label(
-            cfg = "host",
+            cfg = "exec",
             default = "@avro_tools//file",
             allow_single_file = True,
         ),
