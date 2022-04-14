@@ -43,12 +43,14 @@ JAVACOPTS = [
     "-XepDisableWarningsInGeneratedCode",
     "-XepAllDisabledChecksAsWarnings",
     "-Xep:Java7ApiChecker:OFF",
+    "-Xep:Java8ApiChecker:OFF",
     "-Xep:AndroidJdkLibsChecker:OFF",
     "-Xep:StaticOrDefaultInterfaceMethod:OFF",
     "-Xep:NoFunctionalReturnType:OFF",
     "-Xep:WildcardImport:OFF",
     "-Xep:ReturnMissingNullable:OFF",
     "-Xep:CloseableProvides:OFF",
+    "-Xep:AnnotationPosition:OFF",
 ]
 
 java_package_configuration(
@@ -186,9 +188,8 @@ java_plugin(
 java_library(
     name = "mockito",
     testonly = True,
-    exported_plugins = ["mockito_plugin"],
+    # https://github.com/mockito/mockito/issues/2554
+    # exported_plugins = ["mockito_plugin"],
     visibility = ["//visibility:public"],
-    exports = [
-        "@maven//:org_mockito_mockito_core",
-    ],
+    exports = ["@maven//:org_mockito_mockito_core"],
 )

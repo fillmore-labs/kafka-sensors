@@ -32,7 +32,7 @@ public final class SerializationTest {
   }
 
   @Parameters(name = "{index}: {0}")
-  public static Iterable<Object[]> parameters() {
+  public static List<Object[]> parameters() {
     var testComponent = TestComponent.create();
 
     var run1 = new Object[] {"binary", testComponent.serializer(), testComponent.deserializer()};

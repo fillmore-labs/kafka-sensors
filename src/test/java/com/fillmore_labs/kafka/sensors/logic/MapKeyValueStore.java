@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.processor.StateStore;
+import org.apache.kafka.streams.processor.StateStoreContext;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -47,12 +48,19 @@ public final class MapKeyValueStore<K, V> implements KeyValueStore<K, V> {
   }
 
   @Override
-  @SuppressWarnings({"deprecation", "nullness:argument"}) // ...
+  @Deprecated
   public void init(ProcessorContext context, StateStore root) {
-    if (root != null) {
-      // register the store
-      context.register(root, null);
-    }
+    throw new UnsupportedOperationException(
+        "StateStore#init(ProcessorContext, StateStore) is deprecated");
+  }
+
+  @Override
+  public void init(StateStoreContext context, StateStore root) {
+    context.register(
+        root,
+        (key, value) -> {
+          throw new UnsupportedOperationException("restore is not supported");
+        });
   }
 
   @Override

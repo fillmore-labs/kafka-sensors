@@ -16,6 +16,51 @@ http_archive(
 )
 
 http_archive(
+    name = "rules_java",
+    sha256 = "8c376f1e4ab7d7d8b1880e4ef8fc170862be91b7c683af97ca2768df546bb073",
+    urls = [
+        "https://github.com/bazelbuild/rules_java/releases/download/5.0.0/rules_java-5.0.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/5.0.0/rules_java-5.0.0.tar.gz",
+    ],
+)
+
+http_archive(
+    name = "remote_java_tools",
+    sha256 = "d17136c12cf018b6ef731e6d25e5b39d40c7b9078da67a5ad9824ab56e35aee1",
+    urls = [
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.7/java_tools-v11.7.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.7/java_tools-v11.7.zip",
+    ],
+)
+
+http_archive(
+    name = "remote_java_tools_linux",
+    sha256 = "f3a8b76de025aecca85f4289571976a61176d536259d6c02e6ecb45fa97b8e8a",
+    urls = [
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.7/java_tools_linux-v11.7.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.7/java_tools_linux-v11.7.zip",
+    ],
+)
+
+http_archive(
+    name = "remote_java_tools_windows",
+    sha256 = "7545cc39346be374956effd7bfcc99047588c4f69b95f1767904985e9ede8c8d",
+    urls = [
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.7/java_tools_windows-v11.7.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.7/java_tools_windows-v11.7.zip",
+    ],
+)
+
+http_archive(
+    name = "remote_java_tools_darwin",
+    sha256 = "d36812a843c6470bfc71fb1583f1ee6e4441b2b43507494661b83e97e87c37b7",
+    urls = [
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.7/java_tools_darwin-v11.7.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.7/java_tools_darwin-v11.7.zip",
+    ],
+)
+
+http_archive(
     name = "io_bazel_rules_go",
     sha256 = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
     urls = [
@@ -94,7 +139,7 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.18")
+go_register_toolchains(go_version = "1.18.1")
 
 go_rules_dependencies()
 
@@ -261,7 +306,7 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.9.3",
+        "com.amazon.ion:ion-java:1.9.4",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
         "com.fasterxml.jackson.core:jackson-core:2.13.2",
         "com.fasterxml.jackson.core:jackson-databind:2.13.2.2",
@@ -274,7 +319,7 @@ maven_install(
         "com.fasterxml.woodstox:woodstox-core:6.2.8",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.9.0",
-        "com.google.errorprone:error_prone_annotations:2.11.0",
+        "com.google.errorprone:error_prone_annotations:2.12.1",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.1-jre",
