@@ -9,7 +9,7 @@ import java.util.Random;
 import javax.inject.Singleton;
 
 @Module
-public final class SchemaRegistryModule {
+public abstract class SchemaRegistryModule {
   private SchemaRegistryModule() {}
 
   @Provides

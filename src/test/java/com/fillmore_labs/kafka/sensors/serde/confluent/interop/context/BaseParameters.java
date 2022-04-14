@@ -1,20 +1,23 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
 
-public abstract class Parameters implements Iterable<Object[]> {
-  protected final List<String> avroFormats;
-  protected final List<String> confluentFormats;
+/* package */ final class BaseParameters {
+  private final List<String> avroFormats;
+  private final List<String> confluentFormats;
   private final Provider<TestComponent.SingleTestComponent.Builder> singleTestComponentBuilder;
 
-  protected Parameters(
+  @Inject
+  /* package */ BaseParameters(
       Provider<TestComponent.SingleTestComponent.Builder> singleTestComponentBuilder,
-      Map<String, String> encodings) {
+      @Named("encoding") Map<String, String> encodings) {
     this.avroFormats = encodingsWithFormat(encodings, "avro");
     this.confluentFormats = encodingsWithFormat(encodings, "confluent/avro");
     this.singleTestComponentBuilder = singleTestComponentBuilder;
@@ -28,12 +31,20 @@ public abstract class Parameters implements Iterable<Object[]> {
     return entry -> entry.getValue().equals(format);
   }
 
-  protected final Stream<Object[]> combinations(
-      List<String> serializers, List<String> deserializers) {
+  private Iterator<Object[]> combinations(List<String> serializers, List<String> deserializers) {
     return serializers.stream()
         .flatMap(
             serializer ->
-                deserializers.stream().map(deserializer -> createParam(serializer, deserializer)));
+                deserializers.stream().map(deserializer -> createParam(serializer, deserializer)))
+        .iterator();
+  }
+
+  /* package */ Iterator<Object[]> avro2ConfluentCombinations() {
+    return combinations(avroFormats, confluentFormats);
+  }
+
+  /* package */ Iterator<Object[]> confluent2AvroCombinations() {
+    return combinations(confluentFormats, avroFormats);
   }
 
   private Object[] createParam(String serializer, String deserializer) {

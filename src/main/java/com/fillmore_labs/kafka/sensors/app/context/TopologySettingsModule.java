@@ -21,7 +21,7 @@ import org.apache.kafka.common.serialization.Serde;
       JsonIsoModule.class,
       ProtoModule.class,
     })
-public abstract class TopologySettingsModule {
+/* package */ abstract class TopologySettingsModule {
   private TopologySettingsModule() {}
 
   @Provides

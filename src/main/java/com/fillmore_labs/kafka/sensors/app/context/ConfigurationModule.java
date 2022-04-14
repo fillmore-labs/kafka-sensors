@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 /** Provides the {@link KafkaConfiguration} for our main app. */
 @Module
-public abstract class ConfigurationModule {
+/* package */ abstract class ConfigurationModule {
   private ConfigurationModule() {}
 
   @Provides

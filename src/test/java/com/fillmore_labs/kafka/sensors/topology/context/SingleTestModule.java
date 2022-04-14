@@ -23,7 +23,7 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
 
 @Module
-public abstract class SingleTestModule {
+/* package */ abstract class SingleTestModule {
   private static final String INPUT_TOPIC = "input-topic-";
   private static final String RESULT_TOPIC = "result-topic-";
   private static final String STORE_NAME = "duration-store-";

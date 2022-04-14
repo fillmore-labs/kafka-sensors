@@ -14,7 +14,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 
 @Module(includes = {SerializationModule.class, SchemaStoreModule.class})
-public abstract class TestModule {
+/* package */ abstract class TestModule {
   private TestModule() {}
 
   @Provides

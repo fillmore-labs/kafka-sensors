@@ -20,7 +20,7 @@ import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 
 @Module
-public abstract class IonTextModule {
+/* package */ abstract class IonTextModule {
   public static final String ION_TEXT = "ion-text";
 
   private IonTextModule() {}

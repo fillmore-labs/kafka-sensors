@@ -20,7 +20,7 @@ import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 
 @Module
-public abstract class IonBinaryModule {
+/* package */ abstract class IonBinaryModule {
   public static final String ION_BINARY = "ion-binary";
 
   private IonBinaryModule() {}
