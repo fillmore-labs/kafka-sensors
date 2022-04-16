@@ -127,7 +127,7 @@ for improvement in development speed and testability.
 === Prerequisites
 
 You need https://github.com/bazelbuild/bazelisk[Bazelisk] installed, see also
-https://docs.bazel.build/versions/main/install-bazelisk.html[Installing Bazel using Bazelisk].
+https://bazel.build/install/bazelisk[Installing Bazel using Bazelisk].
 
 ==== macOS
 
