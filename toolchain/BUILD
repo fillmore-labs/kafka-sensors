@@ -188,8 +188,7 @@ java_plugin(
 java_library(
     name = "mockito",
     testonly = True,
-    # https://github.com/mockito/mockito/issues/2554
-    # exported_plugins = ["mockito_plugin"],
+    exported_plugins = ["mockito_plugin"],
     visibility = ["//visibility:public"],
     exports = ["@maven//:org_mockito_mockito_core"],
 )

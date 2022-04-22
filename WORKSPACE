@@ -87,9 +87,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "b07772d38ab07e55eca4d50f4b53da2d998bb221575c60a4f81100242d4b4889",
-    strip_prefix = "protobuf-3.20.0",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.0.tar.gz",
+    sha256 = "8b28fdd45bab62d15db232ec404248901842e5340299a57765e48abe8a80d930",
+    strip_prefix = "protobuf-3.20.1",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.1.tar.gz",
 )
 
 # https://github.com/bazelbuild/rules_docker/issues/2009
@@ -363,8 +363,8 @@ maven_install(
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.10",
         "org.apache.kafka:kafka-streams-test-utils:3.1.0",
-        "org.mockito:mockito-core:4.5.0",
-        "org.mockito:mockito-errorprone:4.4.0",
+        "org.mockito:mockito-core:4.5.1",
+        "org.mockito:mockito-errorprone:4.5.1",
     ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
