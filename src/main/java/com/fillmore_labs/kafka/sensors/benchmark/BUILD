@@ -86,6 +86,7 @@ ARCHITECTURES = [
         architecture = architecture,
         base = ":benchmark_java_image_" + architecture,
         operating_system = "linux",
+        visibility = ["//visibility:public"],
     )
     for architecture in ARCHITECTURES
 ]
