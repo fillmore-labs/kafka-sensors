@@ -95,9 +95,9 @@ http_archive(
 # https://github.com/bazelbuild/rules_docker/issues/2009
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "27d53c1d646fc9537a70427ad7b034734d08a9c38924cc6357cc973fed300820",
-    strip_prefix = "rules_docker-0.24.0",
-    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.24.0/rules_docker-v0.24.0.tar.gz",
+    sha256 = "59536e6ae64359b716ba9c46c39183403b01eabfbd57578e84398b4829ca499a",
+    strip_prefix = "rules_docker-0.22.0",
+    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.22.0/rules_docker-v0.22.0.tar.gz",
 )
 
 http_archive(
@@ -340,9 +340,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.1.0",
         "org.apache.kafka:kafka_2.13:3.1.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.21.4",
-        "org.checkerframework:checker-util:3.21.4",
-        "org.checkerframework:checker:3.21.4",
+        "org.checkerframework:checker-qual:3.22.0",
+        "org.checkerframework:checker-util:3.22.0",
+        "org.checkerframework:checker:3.22.0",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
