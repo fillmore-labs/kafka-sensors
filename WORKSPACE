@@ -116,9 +116,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "764b5a3d42d162869b2da3cf5fbf153ccd46475970c37349c4f5dd56bb4534e1",
-    strip_prefix = "dagger-dagger-2.41",
-    url = "https://github.com/google/dagger/archive/dagger-2.41.tar.gz",
+    sha256 = "d99d8be1dfc66aa7689fdcbc7836cdf0b66b2d25b4eb64af1fdccc27f601eb21",
+    strip_prefix = "dagger-dagger-2.42",
+    url = "https://github.com/google/dagger/archive/dagger-2.42.tar.gz",
 )
 
 http_archive(
@@ -139,7 +139,7 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.18.1")
+go_register_toolchains(go_version = "1.18.2")
 
 go_rules_dependencies()
 
@@ -310,12 +310,14 @@ maven_install(
         "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
         "com.fasterxml.jackson.core:jackson-core:2.13.2",
         "com.fasterxml.jackson.core:jackson-databind:2.13.2.2",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2",
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.2",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.13.2",
         "com.fasterxml.woodstox:woodstox-core:6.2.8",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.9.0",
@@ -329,16 +331,16 @@ maven_install(
         "info.picocli:picocli:4.6.3",
         "io.github.classgraph:classgraph:4.8.146",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:3.0.0-M1",
-        "io.helidon.config:helidon-config-yaml:3.0.0-M1",
-        "io.helidon.config:helidon-config:3.0.0-M1",
+        "io.helidon.config:helidon-config-object-mapping:3.0.0-M2",
+        "io.helidon.config:helidon-config-yaml:3.0.0-M2",
+        "io.helidon.config:helidon-config:3.0.0-M2",
         "jakarta.annotation:jakarta.annotation-api:1.3.5",
         "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
         "javax.inject:javax.inject:1",
-        "org.apache.kafka:kafka-clients:3.1.0",
-        "org.apache.kafka:kafka-raft:3.1.0",
-        "org.apache.kafka:kafka-streams:3.1.0",
-        "org.apache.kafka:kafka_2.13:3.1.0",
+        "org.apache.kafka:kafka-clients:3.2.0",
+        "org.apache.kafka:kafka-raft:3.2.0",
+        "org.apache.kafka:kafka-streams:3.2.0",
+        "org.apache.kafka:kafka_2.13:3.2.0",
         "org.apache.thrift:libthrift:0.16.0",
         "org.checkerframework:checker-qual:3.22.0",
         "org.checkerframework:checker-util:3.22.0",
@@ -362,7 +364,7 @@ maven_install(
         "com.networknt:json-schema-validator:1.0.69",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.10",
-        "org.apache.kafka:kafka-streams-test-utils:3.1.0",
+        "org.apache.kafka:kafka-streams-test-utils:3.2.0",
         "org.mockito:mockito-core:4.5.1",
         "org.mockito:mockito-errorprone:4.5.1",
     ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
