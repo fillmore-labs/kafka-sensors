@@ -87,9 +87,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "8b28fdd45bab62d15db232ec404248901842e5340299a57765e48abe8a80d930",
-    strip_prefix = "protobuf-3.20.1",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.20.1.tar.gz",
+    sha256 = "7cc4d2030d5af4f698904920d68b6af9892dc8fca4d5119d4f230462e4c78d1a",
+    strip_prefix = "protobuf-21.0-rc2",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.0-rc2.tar.gz",
 )
 
 # https://github.com/bazelbuild/rules_docker/issues/2009
@@ -307,17 +307,17 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 maven_install(
     artifacts = [
         "com.amazon.ion:ion-java:1.9.4",
-        "com.fasterxml.jackson.core:jackson-annotations:2.13.2",
-        "com.fasterxml.jackson.core:jackson-core:2.13.2",
-        "com.fasterxml.jackson.core:jackson-databind:2.13.2.2",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.2",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.2",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.2",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.2",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.2",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.2",
-        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.13.2",
+        "com.fasterxml.jackson.core:jackson-annotations:2.13.3",
+        "com.fasterxml.jackson.core:jackson-core:2.13.3",
+        "com.fasterxml.jackson.core:jackson-databind:2.13.3",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.13.3",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.13.3",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.3",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.13.3",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.3",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.13.3",
         "com.fasterxml.woodstox:woodstox-core:6.2.8",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.9.0",
