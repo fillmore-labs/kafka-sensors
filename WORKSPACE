@@ -129,10 +129,10 @@ http_archive(
 )
 
 http_archive(
-    name = "google_bazel_common",
-    sha256 = "204507ed64407d51297bb2104c5085285a6ff5f94fe2fca4be940827b46c6bf5",
-    strip_prefix = "bazel-common-221ecf2922e8ebdf8e002130e9772045cfa2f464",
-    url = "https://github.com/google/bazel-common/archive/221ecf2922e8ebdf8e002130e9772045cfa2f464.tar.gz",
+    name = "contrib_rules_jvm",
+    sha256 = "5d9d466a5756bc4540a03e41afddf8769ea02927ec5efb820cfc551da08ce515",
+    strip_prefix = "rules_jvm-0.2.0",
+    url = "https://github.com/bazel-contrib/rules_jvm/archive/v0.2.0.tar.gz",
 )
 
 # ---
@@ -271,9 +271,13 @@ load("@com_google_dagger//:workspace_defs.bzl", "DAGGER_ARTIFACTS")
 
 # ---
 
-load("@google_bazel_common//:workspace_defs.bzl", "google_common_workspace_rules")
+load("@contrib_rules_jvm//:repositories.bzl", "contrib_rules_jvm_deps")
 
-google_common_workspace_rules()
+contrib_rules_jvm_deps()
+
+load("@contrib_rules_jvm//:setup.bzl", "contrib_rules_jvm_setup")
+
+contrib_rules_jvm_setup()
 
 # ---
 

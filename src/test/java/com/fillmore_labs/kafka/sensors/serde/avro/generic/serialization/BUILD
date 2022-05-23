@@ -1,4 +1,4 @@
-load("@google_bazel_common//testing:test_defs.bzl", "gen_java_tests")
+load("@contrib_rules_jvm//java:defs.bzl", "java_test_suite")
 load("@rules_java//java:defs.bzl", "java_library")
 
 java_library(
@@ -14,7 +14,7 @@ java_library(
     ],
 )
 
-gen_java_tests(
+java_test_suite(
     name = "tests",
     srcs = glob(
         ["*.java"],
