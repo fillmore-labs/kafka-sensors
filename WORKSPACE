@@ -139,7 +139,7 @@ http_archive(
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.18.2")
+go_register_toolchains(go_version = "1.18.3")
 
 go_rules_dependencies()
 
@@ -346,9 +346,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.2.0",
         "org.apache.kafka:kafka_2.13:3.2.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.22.0",
-        "org.checkerframework:checker-util:3.22.0",
-        "org.checkerframework:checker:3.22.0",
+        "org.checkerframework:checker-qual:3.22.1",
+        "org.checkerframework:checker-util:3.22.1",
+        "org.checkerframework:checker:3.22.1",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
