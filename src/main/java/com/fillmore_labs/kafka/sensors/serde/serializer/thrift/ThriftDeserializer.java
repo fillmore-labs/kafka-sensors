@@ -7,25 +7,15 @@ import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.apache.thrift.TFieldIdEnum;
 import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TMemoryInputTransport;
-import org.apache.thrift.transport.TTransportException;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class ThriftDeserializer<T extends TBase<T, F>, F extends TFieldIdEnum>
     implements Deserializer<T> {
   private final Supplier<T> tSupplier;
-  private final TMemoryInputTransport itrans;
-  private final TProtocol iprot;
 
   public ThriftDeserializer(Supplier<T> tSupplier) {
     this.tSupplier = tSupplier;
-    try {
-      this.itrans = new TMemoryInputTransport();
-      this.iprot = new TBinaryProtocol(itrans);
-    } catch (TTransportException e) {
-      throw new SerializationException("Can't initialize transport", e);
-    }
   }
 
   @Override
@@ -34,8 +24,8 @@ public final class ThriftDeserializer<T extends TBase<T, F>, F extends TFieldIdE
     if (data == null || data.length == 0) {
       return null;
     }
-    try {
-      itrans.reset(data);
+    try (var itrans = new TMemoryInputTransport(data)) {
+      var iprot = new TBinaryProtocol(itrans);
       var t = tSupplier.get();
       t.read(iprot);
       return t;
@@ -43,10 +33,5 @@ public final class ThriftDeserializer<T extends TBase<T, F>, F extends TFieldIdE
       var message = String.format("Error while reading Thrift from topic \"%s\"", topic);
       throw new SerializationException(message, e);
     }
-  }
-
-  @Override
-  public void close() {
-    itrans.close();
   }
 }
