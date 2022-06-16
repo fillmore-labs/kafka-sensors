@@ -135,6 +135,13 @@ http_archive(
     url = "https://github.com/bazel-contrib/rules_jvm/archive/v0.3.0.tar.gz",
 )
 
+http_archive(
+    name = "io_bazel_rules_avro",
+    sha256 = "",
+    strip_prefix = "rules_avro-eee228b5035b098d4b2dc837cdcac8171c56a8b0",
+    url = "https://github.com/chenrui333/rules_avro/archive/eee228b5035b098d4b2dc837cdcac8171c56a8b0.tar.gz",
+)
+
 # ---
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
@@ -281,9 +288,13 @@ contrib_rules_jvm_setup()
 
 # ---
 
-load("//third_party/avro:defs.bzl", "AVRO_ARTIFACTS", "avro_repositories")
+load("@io_bazel_rules_avro//avro:avro.bzl", "avro_repositories")
 
-avro_repositories()
+avro_repositories(version = "1.11.0")
+
+load("@avro//:defs.bzl", pinned_avro_install = "pinned_maven_install")
+
+pinned_avro_install()
 
 # ---
 
@@ -335,12 +346,13 @@ maven_install(
         "info.picocli:picocli:4.6.3",
         "io.github.classgraph:classgraph:4.8.147",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:3.0.0-M2",
-        "io.helidon.config:helidon-config-yaml:3.0.0-M2",
-        "io.helidon.config:helidon-config:3.0.0-M2",
+        "io.helidon.config:helidon-config-object-mapping:2.5.1",
+        "io.helidon.config:helidon-config-yaml:2.5.1",
+        "io.helidon.config:helidon-config:2.5.1",
         "jakarta.annotation:jakarta.annotation-api:1.3.5",
         "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
         "javax.inject:javax.inject:1",
+        "org.apache.avro:avro:1.11.0",
         "org.apache.kafka:kafka-clients:3.2.0",
         "org.apache.kafka:kafka-raft:3.2.0",
         "org.apache.kafka:kafka-streams:3.2.0",
@@ -371,7 +383,7 @@ maven_install(
         "org.apache.kafka:kafka-streams-test-utils:3.2.0",
         "org.mockito:mockito-core:4.6.1",
         "org.mockito:mockito-errorprone:4.6.1",
-    ]) + DAGGER_ARTIFACTS + AVRO_ARTIFACTS + CONFLUENT_ARTIFACTS,
+    ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {
