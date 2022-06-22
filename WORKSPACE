@@ -92,12 +92,10 @@ http_archive(
     url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.1.tar.gz",
 )
 
-# https://github.com/bazelbuild/rules_docker/issues/2009
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "27d53c1d646fc9537a70427ad7b034734d08a9c38924cc6357cc973fed300820",
-    strip_prefix = "rules_docker-0.24.0",
-    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.24.0/rules_docker-v0.24.0.tar.gz",
+    sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
+    url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz",
 )
 
 http_archive(
@@ -137,7 +135,7 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_avro",
-    sha256 = "",
+    sha256 = "487c67372ec6eada06a73c3610b02b949941624bf7e12ff21d11e6da6e966bc2",
     strip_prefix = "rules_avro-eee228b5035b098d4b2dc837cdcac8171c56a8b0",
     url = "https://github.com/chenrui333/rules_avro/archive/eee228b5035b098d4b2dc837cdcac8171c56a8b0.tar.gz",
 )
@@ -358,15 +356,15 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.2.0",
         "org.apache.kafka:kafka_2.13:3.2.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.22.1",
-        "org.checkerframework:checker-util:3.22.1",
-        "org.checkerframework:checker:3.22.1",
+        "org.checkerframework:checker-qual:3.22.2",
+        "org.checkerframework:checker-util:3.22.2",
+        "org.checkerframework:checker:3.22.2",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
         "org.immutables:value-processor:2.9.0",
-        "org.mapstruct:mapstruct-processor:1.5.1.Final",
-        "org.mapstruct:mapstruct:1.5.1.Final",
+        "org.mapstruct:mapstruct-processor:1.5.2.Final",
+        "org.mapstruct:mapstruct:1.5.2.Final",
         "org.openjdk.jmh:jmh-core:1.35",
         "org.openjdk.jmh:jmh-generator-annprocess:1.35",
         "org.slf4j:slf4j-api:2.0.0-alpha7",
@@ -377,7 +375,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.70",
+        "com.networknt:json-schema-validator:1.0.71",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.10",
         "org.apache.kafka:kafka-streams-test-utils:3.2.0",
