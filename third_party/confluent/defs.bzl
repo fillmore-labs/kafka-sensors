@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 CONFLUENT_ARTIFACTS = [
     "com.github.erosb:everit-json-schema:1.14.1",
-    "com.google.api.grpc:proto-google-common-protos:2.9.0",
+    "com.google.api.grpc:proto-google-common-protos:2.9.1",
     "com.kjetland:mbknor-jackson-jsonschema_2.13:1.0.39",
     "com.squareup.wire:wire-runtime-jvm:4.4.0",
     "com.squareup.wire:wire-schema-jvm:4.4.0",
@@ -20,14 +20,14 @@ def confluent_repositories():
     http_archive(
         name = "confluent_common",
         build_file = "//third_party/confluent:BUILD.common.bazel",
-        sha256 = "23f414217a8eae189b1a20511ebb7c098ec94aa4aa706b19a8575bd7c8ec581e",
-        strip_prefix = "common-7.3.0-320",
-        urls = ["https://github.com/confluentinc/common/archive/refs/tags/v7.3.0-320.tar.gz"],
+        sha256 = "8b5f439d9bc6171ee721abc3952f261291cf7f9881101f260b174dff25bf56db",
+        strip_prefix = "common-7.2.0",
+        urls = ["https://github.com/confluentinc/common/archive/refs/tags/v7.2.0.tar.gz"],
     )
     http_archive(
         name = "confluent_schema_registry",
         build_file = "//third_party/confluent:BUILD.schema_registry.bazel",
-        sha256 = "a6d20e2fedab03898fe49e83310d0468fb7e409baacbd78ed3d2f94966bc69fc",
-        strip_prefix = "schema-registry-7.3.0-331",
-        urls = ["https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.3.0-331.tar.gz"],
+        sha256 = "4e679a784f9db70f90c8f13a894acb72c4856666cb1395aeba1b4366113a1849",
+        strip_prefix = "schema-registry-7.2.0",
+        urls = ["https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.2.0.tar.gz"],
     )

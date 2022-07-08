@@ -87,9 +87,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "f1a83673cbcaff6346a8fba87a9c02c0f943a4a696b6c7d1b71586d97609db12",
-    strip_prefix = "protobuf-21.1",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.1.tar.gz",
+    sha256 = "ca983c9d2c8f8c935513642bcc4b2cbc64e4046e0bb16bf2ff893128577ece8c",
+    strip_prefix = "protobuf-21.2",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.2.tar.gz",
 )
 
 http_archive(
@@ -331,7 +331,7 @@ maven_install(
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.3",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
         "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.13.3",
-        "com.fasterxml.woodstox:woodstox-core:6.2.8",
+        "com.fasterxml.woodstox:woodstox-core:6.3.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.9.0",
         "com.google.errorprone:error_prone_annotations:2.14.0",
@@ -342,7 +342,7 @@ maven_install(
         "com.sun.activation:jakarta.activation:1.2.2",
         "com.sun.istack:istack-commons-runtime:3.0.12",
         "info.picocli:picocli:4.6.3",
-        "io.github.classgraph:classgraph:4.8.147",
+        "io.github.classgraph:classgraph:4.8.149",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:2.5.1",
         "io.helidon.config:helidon-config-yaml:2.5.1",
