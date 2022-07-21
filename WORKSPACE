@@ -87,9 +87,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "ca983c9d2c8f8c935513642bcc4b2cbc64e4046e0bb16bf2ff893128577ece8c",
-    strip_prefix = "protobuf-21.2",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.2.tar.gz",
+    sha256 = "1e958b62debbb46ebefa16d848741d17c88dc018dd57b729c0cd58965380f3f8",
+    strip_prefix = "protobuf-21.3",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.3.tar.gz",
 )
 
 http_archive(
@@ -142,9 +142,15 @@ http_archive(
 
 # ---
 
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
+# ---
+
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.18.3")
+go_register_toolchains(go_version = "1.18.4")
 
 go_rules_dependencies()
 
@@ -356,9 +362,9 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.2.0",
         "org.apache.kafka:kafka_2.13:3.2.0",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.22.2",
-        "org.checkerframework:checker-util:3.22.2",
-        "org.checkerframework:checker:3.22.2",
+        "org.checkerframework:checker-qual:3.23.0",
+        "org.checkerframework:checker-util:3.23.0",
+        "org.checkerframework:checker:3.23.0",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
         "org.immutables:gson:2.9.0",
         "org.immutables:value-annotations:2.9.0",
@@ -375,7 +381,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.71",
+        "com.networknt:json-schema-validator:1.0.72",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.10",
         "org.apache.kafka:kafka-streams-test-utils:3.2.0",
