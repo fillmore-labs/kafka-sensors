@@ -87,9 +87,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "1e958b62debbb46ebefa16d848741d17c88dc018dd57b729c0cd58965380f3f8",
-    strip_prefix = "protobuf-21.3",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.3.tar.gz",
+    sha256 = "990e47a163b4057f98b899eca591981b5b735872b58f59b9ead9cecabbb21a2a",
+    strip_prefix = "protobuf-21.4",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.4.tar.gz",
 )
 
 http_archive(
@@ -114,9 +114,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "d99d8be1dfc66aa7689fdcbc7836cdf0b66b2d25b4eb64af1fdccc27f601eb21",
-    strip_prefix = "dagger-dagger-2.42",
-    url = "https://github.com/google/dagger/archive/dagger-2.42.tar.gz",
+    sha256 = "8cd6f0ef2ee0921b2a23a56fd9a4f41c5d6c3a8be88ffed514302fb9aaddee6b",
+    strip_prefix = "dagger-dagger-2.43.2",
+    url = "https://github.com/google/dagger/archive/dagger-2.43.2.tar.gz",
 )
 
 http_archive(
@@ -325,7 +325,7 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.9.4",
+        "com.amazon.ion:ion-java:1.9.5",
         "com.fasterxml.jackson.core:jackson-annotations:2.13.3",
         "com.fasterxml.jackson.core:jackson-core:2.13.3",
         "com.fasterxml.jackson.core:jackson-databind:2.13.3",
@@ -337,10 +337,10 @@ maven_install(
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.13.3",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.3",
         "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.13.3",
-        "com.fasterxml.woodstox:woodstox-core:6.3.0",
+        "com.fasterxml.woodstox:woodstox-core:6.3.1",
         "com.google.code.findbugs:jsr305:3.0.2",
-        "com.google.code.gson:gson:2.9.0",
-        "com.google.errorprone:error_prone_annotations:2.14.0",
+        "com.google.code.gson:gson:2.9.1",
+        "com.google.errorprone:error_prone_annotations:2.15.0",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.1-jre",
@@ -356,25 +356,25 @@ maven_install(
         "jakarta.annotation:jakarta.annotation-api:1.3.5",
         "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
         "javax.inject:javax.inject:1",
-        "org.apache.avro:avro:1.11.0",
-        "org.apache.kafka:kafka-clients:3.2.0",
-        "org.apache.kafka:kafka-raft:3.2.0",
-        "org.apache.kafka:kafka-streams:3.2.0",
-        "org.apache.kafka:kafka_2.13:3.2.0",
+        "org.apache.avro:avro:1.11.1",
+        "org.apache.kafka:kafka-clients:3.2.1",
+        "org.apache.kafka:kafka-raft:3.2.1",
+        "org.apache.kafka:kafka-streams:3.2.1",
+        "org.apache.kafka:kafka_2.13:3.2.1",
         "org.apache.thrift:libthrift:0.16.0",
-        "org.checkerframework:checker-qual:3.23.0",
-        "org.checkerframework:checker-util:3.23.0",
-        "org.checkerframework:checker:3.23.0",
+        "org.checkerframework:checker-qual:3.24.0",
+        "org.checkerframework:checker-util:3.24.0",
+        "org.checkerframework:checker:3.24.0",
         "org.glassfish.jaxb:jaxb-runtime:2.3.6",
-        "org.immutables:gson:2.9.0",
-        "org.immutables:value-annotations:2.9.0",
-        "org.immutables:value-processor:2.9.0",
+        "org.immutables:gson:2.9.1",
+        "org.immutables:value-annotations:2.9.1",
+        "org.immutables:value-processor:2.9.1",
         "org.mapstruct:mapstruct-processor:1.5.2.Final",
         "org.mapstruct:mapstruct:1.5.2.Final",
         "org.openjdk.jmh:jmh-core:1.35",
         "org.openjdk.jmh:jmh-generator-annprocess:1.35",
-        "org.slf4j:slf4j-api:2.0.0-alpha7",
-        "org.slf4j:slf4j-jdk14:2.0.0-alpha7",
+        "org.slf4j:slf4j-api:2.0.0",
+        "org.slf4j:slf4j-jdk14:2.0.0",
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.8",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
@@ -383,10 +383,10 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.72",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.10",
-        "org.apache.kafka:kafka-streams-test-utils:3.2.0",
-        "org.mockito:mockito-core:4.6.1",
-        "org.mockito:mockito-errorprone:4.6.1",
+        "nl.jqno.equalsverifier:equalsverifier:3.10.1",
+        "org.apache.kafka:kafka-streams-test-utils:3.2.1",
+        "org.mockito:mockito-core:4.7.0",
+        "org.mockito:mockito-errorprone:4.7.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
