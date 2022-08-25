@@ -7,7 +7,7 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.generic.serialization.Con
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Binds;
 import dagger.Module;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.apache.avro.generic.GenericRecord;
 
 @Module

@@ -9,9 +9,9 @@ import com.fillmore_labs.kafka.sensors.serde.serializer.ion.IonDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.ion.IonSerializer;
 import dagger.Module;
 import dagger.Provides;
+import jakarta.inject.Qualifier;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import javax.inject.Qualifier;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 

@@ -1,14 +1,14 @@
 package com.fillmore_labs.kafka.sensors.topology.context;
 
 import com.google.common.collect.ImmutableList;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 public final class Parameters implements Iterable<Formats> {
   private final ImmutableList<String> allFormats;

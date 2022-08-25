@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.lifecycle;
 
 import com.google.common.util.concurrent.ServiceManager;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public final class StartUpManager {
   private final ServiceManager manager;

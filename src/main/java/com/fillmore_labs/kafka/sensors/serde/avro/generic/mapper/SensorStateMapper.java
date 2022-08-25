@@ -5,7 +5,7 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.SensorStateSchema;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.avro.util.Utf8;

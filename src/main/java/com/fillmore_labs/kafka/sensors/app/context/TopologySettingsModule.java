@@ -13,7 +13,7 @@ import com.fillmore_labs.kafka.sensors.serde.proto.ProtoModule;
 import com.fillmore_labs.kafka.sensors.topology.TopologySettings;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import org.apache.kafka.common.serialization.Serde;
 
 @Module(

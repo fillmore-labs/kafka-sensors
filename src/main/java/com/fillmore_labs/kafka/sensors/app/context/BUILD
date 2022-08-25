@@ -19,6 +19,7 @@ java_library(
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
         "@maven//:io_helidon_config_helidon_config",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_kafka_kafka_clients",
         "@maven//:org_apache_kafka_kafka_streams",
     ],

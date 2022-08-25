@@ -4,8 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.BDDMockito.given;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import org.apache.kafka.common.errors.SerializationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

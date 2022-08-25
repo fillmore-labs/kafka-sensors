@@ -12,6 +12,7 @@ java_test_suite(
         "//toolchain:test",
         "@maven//:com_google_guava_guava",
         "@maven//:com_networknt_json_schema_validator",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_kafka_kafka_clients",
     ],
 )

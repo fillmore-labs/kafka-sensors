@@ -4,7 +4,7 @@ import com.fillmore_labs.kafka.sensors.serde.json.serialization.SensorStateJson;
 import com.fillmore_labs.kafka.sensors.serde.json.serialization.StateDurationJson;
 import com.fillmore_labs.kafka.sensors.serde.json_iso.serialization.SerializationModule.JsonIso;
 import dagger.Component;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 

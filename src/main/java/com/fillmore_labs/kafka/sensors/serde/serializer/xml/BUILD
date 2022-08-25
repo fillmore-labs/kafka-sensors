@@ -16,6 +16,7 @@ java_library(
         "//toolchain:dagger",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_sun_istack_istack_commons_runtime",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:jakarta_xml_bind_jakarta_xml_bind_api",
         "@maven//:org_apache_kafka_kafka_clients",
     ],

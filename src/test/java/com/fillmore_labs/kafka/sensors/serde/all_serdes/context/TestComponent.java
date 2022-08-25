@@ -8,9 +8,9 @@ import com.fillmore_labs.kafka.sensors.serde.avro.schema_store.SchemaStoreModule
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import dagger.Component;
 import dagger.Module;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import java.util.Map;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import org.apache.kafka.common.serialization.Serde;
 
 @Singleton

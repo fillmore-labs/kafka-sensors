@@ -10,7 +10,7 @@ import com.fillmore_labs.kafka.sensors.serde.xml.serialization.StateDurationXml;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Module
 public abstract class MapperModule {

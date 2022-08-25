@@ -14,6 +14,7 @@ java_test_suite(
         "//toolchain:dagger",
         "//toolchain:test",
         "@com_google_protobuf//:protobuf_java",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_kafka_kafka_clients",
     ],
 )

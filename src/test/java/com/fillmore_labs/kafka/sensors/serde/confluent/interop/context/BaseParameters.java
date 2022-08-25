@@ -1,12 +1,12 @@
 package com.fillmore_labs.kafka.sensors.serde.confluent.interop.context;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Provider;
 
 /* package */ final class BaseParameters {

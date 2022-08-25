@@ -10,7 +10,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @MapperConfig(
-    componentModel = ComponentModel.JSR330,
+    componentModel = ComponentModel.JAKARTA,
     injectionStrategy = InjectionStrategy.CONSTRUCTOR,
     nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
     nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,

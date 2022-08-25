@@ -10,5 +10,6 @@ java_library(
         "//toolchain:checker",
         "//toolchain:dagger",
         "@confluent_schema_registry//:kafka_schema_registry_client",
+        "@maven//:jakarta_inject_jakarta_inject_api",
     ],
 )

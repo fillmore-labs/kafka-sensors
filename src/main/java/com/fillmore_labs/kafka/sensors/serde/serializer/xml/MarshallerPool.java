@@ -1,11 +1,11 @@
 package com.fillmore_labs.kafka.sensors.serde.serializer.xml;
 
 import com.sun.istack.Pool;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.apache.kafka.common.errors.SerializationException;
 
 @Singleton

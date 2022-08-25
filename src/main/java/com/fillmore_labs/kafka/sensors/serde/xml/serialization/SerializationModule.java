@@ -6,9 +6,9 @@ import com.fillmore_labs.kafka.sensors.serde.serializer.xml.XmlDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.xml.XmlSerializer;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.inject.Singleton;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 

@@ -1,7 +1,7 @@
 package com.fillmore_labs.kafka.sensors.serde.json.serialization;
 
 import dagger.Component;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 

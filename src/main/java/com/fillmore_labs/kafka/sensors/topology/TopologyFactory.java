@@ -1,9 +1,9 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
 import com.fillmore_labs.kafka.sensors.logic.DurationTransformerFactory;
+import jakarta.inject.Inject;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import javax.inject.Inject;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;

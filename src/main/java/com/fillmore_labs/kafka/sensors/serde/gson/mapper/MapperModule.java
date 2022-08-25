@@ -9,7 +9,7 @@ import com.fillmore_labs.kafka.sensors.serde.gson.serialization.StateDurationGso
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Module
 public abstract class MapperModule {

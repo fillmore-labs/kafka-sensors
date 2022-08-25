@@ -2,10 +2,10 @@ package com.fillmore_labs.kafka.sensors.serde.confluent.interop;
 
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import javax.inject.Inject;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaNormalization;
 import org.apache.avro.message.SchemaStore.Cache;

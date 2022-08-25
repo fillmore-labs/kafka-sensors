@@ -6,7 +6,7 @@ import com.fillmore_labs.kafka.sensors.serde.avro.generic.serialization.ReadingS
 import com.fillmore_labs.kafka.sensors.serde.avro.logicaltypes.InstantNanosHelper;
 import com.fillmore_labs.kafka.sensors.serde.serializer.mapped.BiMapper;
 import com.google.errorprone.annotations.Immutable;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.checkerframework.checker.nullness.qual.PolyNull;

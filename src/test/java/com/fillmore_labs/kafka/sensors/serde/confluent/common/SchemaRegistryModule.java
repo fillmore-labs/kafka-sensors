@@ -4,9 +4,9 @@ import dagger.Module;
 import dagger.Provides;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.testutil.MockSchemaRegistry;
+import jakarta.inject.Singleton;
 import java.util.List;
 import java.util.Random;
-import javax.inject.Singleton;
 
 @Module
 public abstract class SchemaRegistryModule {

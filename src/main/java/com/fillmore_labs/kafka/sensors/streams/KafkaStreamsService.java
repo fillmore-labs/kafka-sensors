@@ -2,9 +2,9 @@ package com.fillmore_labs.kafka.sensors.streams;
 
 import com.fillmore_labs.kafka.sensors.configuration.KafkaConfiguration;
 import com.google.common.util.concurrent.AbstractIdleService;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.util.Properties;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;

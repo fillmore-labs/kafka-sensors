@@ -23,6 +23,7 @@ java_library(
         "@maven//:com_fasterxml_jackson_module_jackson_module_blackbird",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_kafka_kafka_clients",
     ],
 )

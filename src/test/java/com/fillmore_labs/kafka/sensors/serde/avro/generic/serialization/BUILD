@@ -30,6 +30,7 @@ java_test_suite(
         "//toolchain:dagger",
         "//toolchain:test",
         "@maven//:com_google_guava_guava",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_avro_avro",
         "@maven//:org_apache_kafka_kafka_clients",
     ],

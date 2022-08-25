@@ -17,5 +17,6 @@ java_library(
         "//toolchain:dagger",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_google_errorprone_error_prone_annotations",
+        "@maven//:jakarta_inject_jakarta_inject_api",
     ],
 )

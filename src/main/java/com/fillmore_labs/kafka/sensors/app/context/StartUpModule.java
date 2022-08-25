@@ -4,8 +4,8 @@ import com.google.common.util.concurrent.Service;
 import com.google.common.util.concurrent.ServiceManager;
 import dagger.Module;
 import dagger.Provides;
+import jakarta.inject.Singleton;
 import java.util.Set;
-import javax.inject.Singleton;
 
 /** Bindings for our {@link Service}s. */
 @Module

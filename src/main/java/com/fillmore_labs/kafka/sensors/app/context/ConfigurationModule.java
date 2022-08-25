@@ -4,7 +4,7 @@ import com.fillmore_labs.kafka.sensors.configuration.KafkaConfiguration;
 import dagger.Module;
 import dagger.Provides;
 import io.helidon.config.Config;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /** Provides the {@link KafkaConfiguration} for our main app. */
 @Module

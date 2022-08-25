@@ -4,7 +4,7 @@ import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import dagger.BindsInstance;
 import dagger.Component;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 

@@ -17,11 +17,8 @@ http_archive(
 
 http_archive(
     name = "rules_java",
-    sha256 = "8c376f1e4ab7d7d8b1880e4ef8fc170862be91b7c683af97ca2768df546bb073",
-    urls = [
-        "https://github.com/bazelbuild/rules_java/releases/download/5.0.0/rules_java-5.0.0.1.tar.gz",
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_java/releases/download/5.0.0/rules_java-5.0.0.tar.gz",
-    ],
+    sha256 = "d974a2d6e1a534856d1b60ad6a15e57f3970d8596fbb0bb17b9ee26ca209332a",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/5.1.0/rules_java-5.1.0.tar.gz",
 )
 
 http_archive(
@@ -87,9 +84,9 @@ http_archive(
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "990e47a163b4057f98b899eca591981b5b735872b58f59b9ead9cecabbb21a2a",
-    strip_prefix = "protobuf-21.4",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.4.tar.gz",
+    sha256 = "4a7e87e4166c358c63342dddcde6312faee06ea9d5bb4e2fa87d3478076f6639",
+    strip_prefix = "protobuf-21.5",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.5.tar.gz",
 )
 
 http_archive(
@@ -150,7 +147,7 @@ bazel_skylib_workspace()
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.18.4")
+go_register_toolchains(go_version = "1.19")
 
 go_rules_dependencies()
 
@@ -345,16 +342,16 @@ maven_install(
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.1-jre",
         "com.google.j2objc:j2objc-annotations:1.3",
-        "com.sun.activation:jakarta.activation:1.2.2",
-        "com.sun.istack:istack-commons-runtime:3.0.12",
+        "com.sun.istack:istack-commons-runtime:4.1.1",
         "info.picocli:picocli:4.6.3",
         "io.github.classgraph:classgraph:4.8.149",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:2.5.1",
-        "io.helidon.config:helidon-config-yaml:2.5.1",
-        "io.helidon.config:helidon-config:2.5.1",
-        "jakarta.annotation:jakarta.annotation-api:1.3.5",
-        "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+        "io.helidon.config:helidon-config-object-mapping:3.0.1",
+        "io.helidon.config:helidon-config-yaml:3.0.1",
+        "io.helidon.config:helidon-config:3.0.1",
+        "jakarta.annotation:jakarta.annotation-api:2.1.1",
+        "jakarta.inject:jakarta.inject-api:2.0.1",
+        "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.1",
         "org.apache.kafka:kafka-clients:3.2.1",
@@ -365,7 +362,7 @@ maven_install(
         "org.checkerframework:checker-qual:3.24.0",
         "org.checkerframework:checker-util:3.24.0",
         "org.checkerframework:checker:3.24.0",
-        "org.glassfish.jaxb:jaxb-runtime:2.3.6",
+        "org.glassfish.jaxb:jaxb-runtime:4.0.0",
         "org.immutables:gson:2.9.1",
         "org.immutables:value-annotations:2.9.1",
         "org.immutables:value-processor:2.9.1",
@@ -393,7 +390,6 @@ maven_install(
     override_targets = {
         "com.google.protobuf:protobuf-java": "@com_google_protobuf//:protobuf_java",
         "com.google.protobuf:protobuf-java-util": "@com_google_protobuf//:protobuf_java_util",
-        "jakarta.activation:jakarta.activation-api": ":com_sun_activation_jakarta_activation",
         "javax.annotation:javax.annotation-api": ":jakarta_annotation_jakarta_annotation_api",
         "javax.servlet:javax.servlet-api": ":jakarta_servlet_jakarta_servlet_api",
         "javax.validation:validation-api": ":jakarta_validation_jakarta_validation_api",

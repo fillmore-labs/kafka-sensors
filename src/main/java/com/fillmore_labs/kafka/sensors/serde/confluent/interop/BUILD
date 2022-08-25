@@ -10,7 +10,7 @@ java_library(
         "@confluent_schema_registry//:kafka_schema_serializer",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
-        "@maven//:javax_inject_javax_inject",
+        "@maven//:jakarta_inject_jakarta_inject_api",
         "@maven//:org_apache_avro_avro",
     ],
 )

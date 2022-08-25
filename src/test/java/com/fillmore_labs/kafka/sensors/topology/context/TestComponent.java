@@ -5,8 +5,8 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModu
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
+import jakarta.inject.Singleton;
 import java.util.Properties;
-import javax.inject.Singleton;
 
 @Singleton
 @Component(

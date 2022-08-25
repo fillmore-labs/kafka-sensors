@@ -8,6 +8,6 @@ java_library(
         "//toolchain:checker",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
-        "@maven//:javax_inject_javax_inject",
+        "@maven//:jakarta_inject_jakarta_inject_api",
     ],
 )

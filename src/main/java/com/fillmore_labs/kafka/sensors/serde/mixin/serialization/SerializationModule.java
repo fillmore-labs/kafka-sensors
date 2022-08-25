@@ -16,7 +16,7 @@ import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonDeserializer;
 import com.fillmore_labs.kafka.sensors.serde.serializer.json.JsonSerializer;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
 
