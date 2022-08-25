@@ -72,6 +72,7 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         ":kafka_schema_registry_client",
+        "@jsonschema//:com_kjetland_mbknor_jackson_jsonschema_2_13",
         "@maven//:com_fasterxml_jackson_core_jackson_core",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_fasterxml_jackson_datatype_jackson_datatype_guava",
@@ -80,7 +81,6 @@ java_library(
         "@maven//:com_fasterxml_jackson_datatype_jackson_datatype_jsr310",
         "@maven//:com_fasterxml_jackson_module_jackson_module_parameter_names",
         "@maven//:com_github_erosb_everit_json_schema",
-        "@maven//:com_kjetland_mbknor_jackson_jsonschema_2_13",
         "@maven//:org_json_json",
         "@maven//:org_slf4j_slf4j_api",
     ],

@@ -1,0 +1,22 @@
+--- src/main/scala/com/kjetland/jackson/jsonSchema/JsonSchemaGenerator.scala
++++ src/main/scala/com/kjetland/jackson/jsonSchema/JsonSchemaGenerator.scala
+@@ -16,8 +16,8 @@ import com.fasterxml.jackson.databind.node.{ArrayNode, JsonNodeFactory, ObjectNo
+ import com.fasterxml.jackson.databind.util.ClassUtil
+ import com.kjetland.jackson.jsonSchema.annotations._
+ import io.github.classgraph.{ClassGraph, ScanResult}
+-import javax.validation.constraints._
+-import javax.validation.groups.Default
++import jakarta.validation.constraints._
++import jakarta.validation.groups.Default
+ import org.slf4j.LoggerFactory
+ 
+ object JsonSchemaGenerator {
+@@ -338,7 +338,7 @@ class JsonSchemaGenerator
+       // javax-annotation... To prevent bugs with missing groups-extract-impl when new
+       // validation-annotations are added, I've decided to do it using reflection
+       val annotationClass = annotation.annotationType()
+-      if ( annotationClass.getPackage.getName().startsWith("javax.validation.constraints") ) {
++      if ( annotationClass.getPackage.getName().startsWith("jakarta.validation.constraints") ) {
+         val groupsMethod = try {
+           annotationClass.getMethod("groups")
+         } catch {

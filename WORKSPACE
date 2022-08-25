@@ -305,6 +305,12 @@ confluent_repositories()
 
 # ---
 
+load("//third_party/jsonschema:defs.bzl", "JSONSCHEMA_ARTIFACTS", "jsonschema_repositories")
+
+jsonschema_repositories()
+
+# ---
+
 load("//third_party/async_profiler:defs.bzl", "async_profiler_repositories")
 
 async_profiler_repositories()
@@ -384,7 +390,7 @@ maven_install(
         "org.apache.kafka:kafka-streams-test-utils:3.2.1",
         "org.mockito:mockito-core:4.7.0",
         "org.mockito:mockito-errorprone:4.7.0",
-    ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS,
+    ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
     override_targets = {
@@ -395,6 +401,7 @@ maven_install(
         "javax.validation:validation-api": ":jakarta_validation_jakarta_validation_api",
         "javax.ws.rs:javax.ws.rs-api": ":jakarta_ws_rs_jakarta_ws_rs_api",
         "javax.xml.bind:jaxb-api": ":jakarta_xml_bind_jakarta_xml_bind_api",
+        "org.scala-lang:scala-compiler": "@io_bazel_rules_scala_scala_compiler",
         "org.scala-lang:scala-library": "@io_bazel_rules_scala_scala_library",
         "org.scala-lang:scala-reflect": "@io_bazel_rules_scala_scala_reflect",
     },

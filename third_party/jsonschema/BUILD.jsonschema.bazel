@@ -1,0 +1,19 @@
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library")
+
+scala_library(
+    name = "com_kjetland_mbknor_jackson_jsonschema_2_13",
+    srcs = glob([
+        "src/main/**/*.scala",
+        "src/main/**/*.java",
+    ]),
+    scalacopts = ["-Wconf:cat=deprecation:s"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@maven//:com_fasterxml_jackson_core_jackson_core",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@maven//:io_github_classgraph_classgraph",
+        "@maven//:jakarta_validation_jakarta_validation_api",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)
