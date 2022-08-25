@@ -1,6 +1,6 @@
 #!/bin/sh
 
-KAFKA_VERSION="3.2.0"
+KAFKA_VERSION="3.2.1"
 KAFKA_DIR=".kafka"
 
 KAFKA_PREFIX="kafka_2.13-$KAFKA_VERSION"
@@ -11,7 +11,7 @@ KAFKA_URL="https://dlcdn.apache.org/kafka/$KAFKA_VERSION/$KAFKA_PREFIX.tgz"
 [ -f "$KAFKA_DIR/$KAFKA_PREFIX.tgz" ] || curl -Lo "$KAFKA_DIR/$KAFKA_PREFIX.tgz" "$KAFKA_URL"
 
 shasum -a 256 -c - << _SHASUM || exit 1
-cf1599bf4d1e235fb5772f74642fc66643b9ba0749694fbc75299e38a5ced63b *$KAFKA_DIR/$KAFKA_PREFIX.tgz
+440fe73d73ebb78ee0d7accbfd69f53e2281544cf18ea6672c85ef4f6734170b *$KAFKA_DIR/$KAFKA_PREFIX.tgz
 _SHASUM
 
 tar -xf "$KAFKA_DIR/$KAFKA_PREFIX.tgz" -C "$KAFKA_DIR"
