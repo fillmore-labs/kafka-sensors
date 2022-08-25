@@ -291,7 +291,7 @@ contrib_rules_jvm_setup()
 
 load("@io_bazel_rules_avro//avro:avro.bzl", "avro_repositories")
 
-avro_repositories(version = "1.11.0")
+avro_repositories(version = "1.11.1")
 
 load("@avro//:defs.bzl", pinned_avro_install = "pinned_maven_install")
 
