@@ -132,9 +132,9 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_avro",
-    sha256 = "487c67372ec6eada06a73c3610b02b949941624bf7e12ff21d11e6da6e966bc2",
-    strip_prefix = "rules_avro-eee228b5035b098d4b2dc837cdcac8171c56a8b0",
-    url = "https://github.com/chenrui333/rules_avro/archive/eee228b5035b098d4b2dc837cdcac8171c56a8b0.tar.gz",
+    sha256 = "aebc8fc6f8a6a3476d8e8f6f6878fc1cf7a253399e1b2668963e896512be1cc6",
+    strip_prefix = "rules_avro-a4c607a5610bea5649b1fb466ea8abcd9916121b",
+    url = "https://github.com/chenrui333/rules_avro/archive/a4c607a5610bea5649b1fb466ea8abcd9916121b.tar.gz",
 )
 
 # ---
