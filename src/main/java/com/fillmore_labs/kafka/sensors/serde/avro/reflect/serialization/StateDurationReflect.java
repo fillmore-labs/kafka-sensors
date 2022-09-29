@@ -13,7 +13,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @SuppressWarnings("nullness:initialization.field.uninitialized")
 @AvroDoc("Duration a sensor was in this position")
 public final class StateDurationReflect implements GenericContainer {
-
   public static final ReflectData MODEL;
   public static final Schema SCHEMA;
 

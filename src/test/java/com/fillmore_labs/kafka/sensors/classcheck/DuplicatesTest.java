@@ -16,24 +16,6 @@ public final class DuplicatesTest {
 
   @Rule public final ErrorCollector errors = new ErrorCollector();
 
-  @Test
-  public void testClassPath() {
-    var classGraph = createClassGraph();
-    var duplicates = calculateDuplicates(classGraph, DuplicatesTest::resourceFilter);
-
-    @Var var count = 0;
-    for (var duplicate : duplicates) {
-      count++;
-      if (count > MAX_DUPLICATES) {
-        break;
-      }
-      var path = duplicate.getKey();
-      var resources = duplicate.getValue().stream().map(Resource::getClasspathElementURI).toList();
-      var message = String.format("Duplicate path: %s in %s", path, resources);
-      errors.addError(new AssertionError(message));
-    }
-  }
-
   private static ClassGraph createClassGraph() {
     ClassGraph.CIRCUMVENT_ENCAPSULATION = ClassGraph.CircumventEncapsulationMethod.NARCISSUS;
     return new ClassGraph();
@@ -65,5 +47,23 @@ public final class DuplicatesTest {
     // Check filename is not simply ".class"
     var c = path.charAt(path.length() - 7);
     return c != '/' && c != '.';
+  }
+
+  @Test
+  public void testClassPath() {
+    var classGraph = createClassGraph();
+    var duplicates = calculateDuplicates(classGraph, DuplicatesTest::resourceFilter);
+
+    @Var var count = 0;
+    for (var duplicate : duplicates) {
+      count++;
+      if (count > MAX_DUPLICATES) {
+        break;
+      }
+      var path = duplicate.getKey();
+      var resources = duplicate.getValue().stream().map(Resource::getClasspathElementURI).toList();
+      var message = String.format("Duplicate path: %s in %s", path, resources);
+      errors.addError(new AssertionError(message));
+    }
   }
 }

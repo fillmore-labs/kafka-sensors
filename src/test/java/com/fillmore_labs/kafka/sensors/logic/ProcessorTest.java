@@ -1,79 +1,66 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
-import static com.google.common.truth.Truth8.assertThat;
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.fillmore_labs.kafka.sensors.logic.ProcessorTestHelper.Advancement;
+import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.Reading.Position;
+import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.time.Duration;
+import java.time.Instant;
+import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.errors.StreamsException;
 import org.junit.Rule;
 import org.junit.Test;
 
 public final class ProcessorTest {
+  private static final String KEY = "id";
   @Rule public final ProcessorResource processor = new ProcessorResource();
 
   @Test
-  public void testSimple() {
-    var state1 = ProcessorTestHelper.initial(Position.OFF);
+  public void testNull() {
+    processor.process(null, null);
+    var forwarded = processor.forwarded();
 
-    var advancement = Advancement.ofSecondsTo(30, Position.ON);
-    var state2 = ProcessorTestHelper.advance(state1, advancement);
-
-    var result1 = processor.transform(state1).orElse(null);
-    var result2 = processor.transform(state2).orElse(null);
-
-    ProcessorTestHelper.assertStateDuration(result1, null, Duration.ZERO);
-    ProcessorTestHelper.assertStateDuration(result2, state1, advancement.duration());
+    assertThat(forwarded).isEmpty();
   }
 
   @Test
-  public void testRepeated() {
-    var state1 = ProcessorTestHelper.initial(Position.OFF);
+  @SuppressWarnings("nullness:argument") // KeyValue is not annotated
+  public void testTombstone() {
+    processor.process(KEY, null);
+    var forwarded = processor.forwarded();
 
-    var advancement1 = Advancement.ofSecondsTo(30, Position.OFF);
-    var state2 = ProcessorTestHelper.advance(state1, advancement1);
-
-    var advancement2 = Advancement.ofSecondsTo(30, Position.ON);
-    var state3 = ProcessorTestHelper.advance(state2, advancement2);
-
-    var advancement3 = Advancement.ofSecondsTo(15, Position.OFF);
-    var state4 = ProcessorTestHelper.advance(state3, advancement3);
-
-    var result1 = processor.transform(state1).orElse(null);
-    var result2 = processor.transform(state2).orElse(null);
-    var result3 = processor.transform(state3).orElse(null);
-    var result4 = processor.transform(state4).orElse(null);
-
-    ProcessorTestHelper.assertStateDuration(result1, null, Duration.ZERO);
-    ProcessorTestHelper.assertStateDuration(result2, state1, advancement1.duration());
-    ProcessorTestHelper.assertStateDuration(
-        result3, state1, advancement1.duration().plus(advancement2.duration()));
-    ProcessorTestHelper.assertStateDuration(result4, state3, advancement3.duration());
+    assertThat(forwarded).containsExactly(new KeyValue<String, StateDuration>(KEY, null));
   }
 
   @Test
-  public void outOfOrder() {
-    var state1 = ProcessorTestHelper.initial(Position.OFF);
+  public void mapping() {
+    var instant = Instant.ofEpochSecond(443_634_300L);
+    var advancement = Duration.ofSeconds(30L);
 
-    var advancement1 = Advancement.ofSecondsTo(-10, Position.ON);
-    var state2 = ProcessorTestHelper.advance(state1, advancement1);
+    var initial = Reading.builder().time(instant).position(Position.OFF).build();
+    var next = Reading.builder().time(instant.plus(advancement)).position(Position.ON).build();
 
-    processor.transform(state1);
-    var calc = processor; // effectively final (JLS §4.12.4)
-    assertThrows(IllegalStateException.class, () -> calc.transform(state2));
+    var state1 = SensorState.builder().id(KEY).reading(initial).build();
+    var state2 = SensorState.builder().id(KEY).reading(next).build();
+
+    processor.process(KEY, state1);
+    processor.process(KEY, state2);
+
+    var forwarded = processor.forwarded();
+
+    var expected = StateDuration.builder().id(KEY).reading(initial).duration(advancement).build();
+    assertThat(forwarded).containsExactly(new KeyValue<String, StateDuration>(KEY, expected));
   }
 
   @Test
-  public void nullHandling() {
-    var state1 = ProcessorTestHelper.initial(Position.OFF);
+  public void keyMismatch() {
+    var instant = Instant.ofEpochSecond(443_634_300L);
+    var initial = Reading.builder().time(instant).position(Position.OFF).build();
+    var state1 = SensorState.builder().id(KEY).reading(initial).build();
 
-    var advancement1 = Advancement.ofSecondsTo(-10, Position.ON);
-    var state2 = ProcessorTestHelper.advance(state1, advancement1);
-
-    processor.transform(state1);
-    processor.delete();
-    var result = processor.transform(state2);
-
-    assertThat(result).isEmpty();
+    assertThrows(StreamsException.class, () -> processor.process(KEY + "1", state1));
   }
 }

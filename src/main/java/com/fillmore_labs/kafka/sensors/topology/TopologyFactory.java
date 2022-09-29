@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.topology;
 
-import com.fillmore_labs.kafka.sensors.logic.DurationTransformerFactory;
+import com.fillmore_labs.kafka.sensors.logic.DurationProcessorFactory;
 import jakarta.inject.Inject;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -20,10 +20,10 @@ import org.apache.kafka.streams.state.Stores;
   private static final String KEY_DESERIALIZER_ENCODING = "key.deserializer.encoding";
 
   private final TopologySettings settings;
-  private final DurationTransformerFactory factory;
+  private final DurationProcessorFactory factory;
 
   @Inject
-  /* package */ TopologyFactory(TopologySettings settings, DurationTransformerFactory factory) {
+  /* package */ TopologyFactory(TopologySettings settings, DurationProcessorFactory factory) {
     this.settings = settings;
     this.factory = factory;
   }
@@ -64,7 +64,7 @@ import org.apache.kafka.streams.state.Stores;
     // Input ...
     builder.stream(inputTopic, consumed)
         // ... Process ...
-        .transform(() -> factory.create(storeName), processorName, stateStoreNames)
+        .process(() -> factory.create(storeName), processorName, stateStoreNames)
         // ... Result.
         .to(resultTopic, produced);
 

@@ -1,32 +1,49 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
-import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.ReadingDuration;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import java.util.Optional;
+import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import java.util.List;
+import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.processor.api.MockProcessorContext;
+import org.apache.kafka.streams.processor.api.MockProcessorContext.CapturedForward;
+import org.apache.kafka.streams.processor.api.Record;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.rules.ExternalResource;
 
 public final class ProcessorResource extends ExternalResource {
   public static final String STORE_NAME = "test-store";
-  public static final String ID = "id";
 
+  private @MonotonicNonNull MockProcessorContext<String, StateDuration> context;
   private @MonotonicNonNull DurationProcessor processor;
+
+  private static KeyValue<String, StateDuration> keyValue(
+      CapturedForward<? extends String, ? extends StateDuration> capture) {
+    return new KeyValue<>(capture.record().key(), capture.record().value());
+  }
 
   @Override
   public void before() {
-    var readingStore = new MapKeyValueStore<String, Reading>(STORE_NAME);
-    processor = new DurationProcessor(readingStore);
+    context = new MockProcessorContext<>();
+
+    var stateStore = new MapKeyValueStore<String, ReadingDuration>(STORE_NAME);
+    context.addStateStore(stateStore);
+
+    processor = new DurationProcessor(STORE_NAME);
+    processor.init(context);
   }
 
-  @CanIgnoreReturnValue
-  public Optional<ReadingDuration> transform(Reading reading) {
+  @SuppressWarnings("nullness:argument") // Record is not annotated
+  public void process(@Nullable String key, @Nullable SensorState value) {
     assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    return processor.transform(ID, reading);
+    processor.process(new Record<>(key, value, 0L));
   }
 
-  public void delete() {
-    assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    processor.delete(ID);
+  public List<KeyValue<String, StateDuration>> forwarded() {
+    assert context != null : "@AssumeAssertion(nullness): before() not called";
+    var forwarded = context.forwarded();
+    context.resetForwards();
+    return forwarded.stream().map(ProcessorResource::keyValue).toList();
   }
 }

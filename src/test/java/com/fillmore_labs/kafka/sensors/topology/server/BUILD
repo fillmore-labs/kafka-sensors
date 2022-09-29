@@ -12,5 +12,6 @@ java_library(
         "@maven//:com_google_flogger_flogger",
         "@maven//:org_apache_kafka_kafka_2_13",
         "@maven//:org_apache_kafka_kafka_clients",
+        "@maven//:org_apache_kafka_kafka_server_common",
     ],
 )

@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import org.apache.kafka.common.errors.SerializationException;
 
 public final class DurationXmlAdapter extends XmlAdapter<String, Duration> {
-
   @Override
   public Duration unmarshal(String string) {
     try {

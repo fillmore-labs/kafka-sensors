@@ -7,7 +7,6 @@ import org.apache.kafka.common.serialization.Serializer;
 
 @Component(modules = TestModule.class)
 public interface TestComponent {
-
   static TestComponent create() {
     return DaggerTestComponent.create();
   }

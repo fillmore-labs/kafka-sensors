@@ -14,7 +14,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapStructConfig.class, uses = ReadingMapper.class)
 /* package */ abstract class SensorStateMapper
     implements BiMapper<SensorState, com.fillmore_labs.kafka.sensors.proto.v1.SensorState> {
-
   @Override
   @BeanMapping(unmappedTargetPolicy = IGNORE)
   public abstract com.fillmore_labs.kafka.sensors.proto.v1.@PolyNull SensorState map(

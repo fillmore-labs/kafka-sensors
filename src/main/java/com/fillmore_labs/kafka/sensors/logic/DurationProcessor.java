@@ -1,41 +1,97 @@
 package com.fillmore_labs.kafka.sensors.logic;
 
 import com.fillmore_labs.kafka.sensors.model.Reading;
-import com.fillmore_labs.kafka.sensors.model.ReadingDuration;
-import java.time.Duration;
-import java.util.Optional;
+import com.fillmore_labs.kafka.sensors.model.SensorState;
+import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
+import org.apache.kafka.streams.errors.StreamsException;
+import org.apache.kafka.streams.processor.api.Processor;
+import org.apache.kafka.streams.processor.api.ProcessorContext;
+import org.apache.kafka.streams.processor.api.Record;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
-/* package */ final class DurationProcessor {
-  private final KeyValueStore<String, Reading> stateStore;
+public final class DurationProcessor
+    implements Processor<String, SensorState, String, StateDuration> {
+  private final String storeName;
 
-  /* package */ DurationProcessor(KeyValueStore<String, Reading> stateStore) {
-    this.stateStore = stateStore;
+  private @MonotonicNonNull ProcessorContext<String, StateDuration> context;
+  private @MonotonicNonNull DurationCalculator durationCalculator;
+
+  @AssistedInject
+  /* package */ DurationProcessor(@Assisted String storeName) {
+    this.storeName = storeName;
   }
 
-  public Optional<ReadingDuration> transform(String id, Reading reading) {
-    // Get the historical position
-    var oldState = stateStore.get(id);
-
-    // When we have no historical data, just store the current position
-    if (oldState == null) {
-      stateStore.put(id, reading);
-      return Optional.empty();
-    }
-
-    // Update the position store if necessary.
-    // We do not update for new readings with the same position.
-    if (oldState.getPosition() != reading.getPosition()) {
-      stateStore.put(id, reading);
-    }
-
-    var duration = Duration.between(oldState.getTime(), reading.getTime());
-
-    // Wrap the old position with a duration how log it lasted.
-    return Optional.of(ReadingDuration.builder().reading(oldState).duration(duration).build());
+  @Override
+  public void init(ProcessorContext<String, StateDuration> ctxt) {
+    context = ctxt;
+    var stateStore = ctxt.<KeyValueStore<String, Reading>>getStateStore(storeName);
+    durationCalculator = new DurationCalculator(stateStore);
   }
 
-  public void delete(String id) {
-    stateStore.delete(id);
+  @Override
+  public void process(Record<String, SensorState> record) {
+    assert context != null : "@AssumeAssertion(nullness): init() not called";
+    assert durationCalculator != null : "@AssumeAssertion(nullness): init() not called";
+
+    var value = record.value();
+
+    // A Kafka tombstone
+    if (value == null) {
+      handleTombstone(record);
+      return;
+    }
+
+    var id = value.getId();
+
+    // Either we have no key or it should be our sensor id
+    var key = record.key();
+    if (!(key == null || id.equals(key))) {
+      throw new StreamsException(String.format("Expected id %s, got %s", value.getId(), key));
+    }
+
+    var reading = value.getReading();
+    var transformed = durationCalculator.compute(id, reading);
+
+    // Skip if no result (No historic data), else forward result.
+    if (transformed.isEmpty()) {
+      return;
+    }
+
+    var newValue = transformed.get();
+    var stateDuration =
+        StateDuration.builder()
+            .id(id)
+            .reading(newValue.getReading())
+            .duration(newValue.getDuration())
+            .build();
+    var result = new Record<>(id, stateDuration, record.timestamp(), record.headers());
+    context.forward(result);
+  }
+
+  @Override
+  public void close() {
+    /* Nothing to do */
+  }
+
+  @RequiresNonNull({"context", "durationCalculator"})
+  private void handleTombstone(Record<String, SensorState> record) {
+    var key = record.key();
+    if (key == null) {
+      return;
+    }
+
+    // delete the historic sensor position
+    durationCalculator.delete(key);
+
+    @SuppressWarnings("nullness:argument") // KeyValue is not annotated
+    var tombstone =
+        new Record<String, StateDuration>(key, null, record.timestamp(), record.headers());
+
+    // And forward a Kafka tombstone
+    context.forward(tombstone);
   }
 }

@@ -22,6 +22,7 @@ import kafka.server.KafkaConfig;
 import kafka.server.MetaProperties;
 import kafka.tools.StorageTool;
 import org.apache.kafka.common.Uuid;
+import org.apache.kafka.server.common.MetadataVersion;
 import scala.collection.immutable.Seq;
 
 /* package */ final class EmbeddedKafkaHelper {
@@ -49,7 +50,13 @@ import scala.collection.immutable.Seq;
     var out = new ByteArrayOutputStream();
     int result;
     try (var stream = new PrintStream(out, /* autoFlush= */ false, UTF_8)) {
-      result = StorageTool.formatCommand(stream, logDirs, properties, /* ignoreFormatted= */ true);
+      result =
+          StorageTool.formatCommand(
+              stream,
+              logDirs,
+              properties,
+              MetadataVersion.IBP_3_3_IV3,
+              /* ignoreFormatted= */ true);
     }
     if (result == 0) {
       logger.atInfo().log("Successful formatted Kafka log dir: %s", out.toString(UTF_8));

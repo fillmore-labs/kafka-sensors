@@ -35,6 +35,12 @@ public final class Parameters implements Iterable<Formats> {
       this.results = shuffeldFormats(allFormats, random).iterator();
     }
 
+    private static List<String> shuffeldFormats(List<String> allFormats, Random random) {
+      var formats = new ArrayList<>(allFormats);
+      Collections.shuffle(formats, random);
+      return formats;
+    }
+
     @Override
     public boolean hasNext() {
       var hasNext = inputs.hasNext();
@@ -47,12 +53,6 @@ public final class Parameters implements Iterable<Formats> {
     @Override
     public Formats next() {
       return new Formats(inputs.next(), stores.next(), results.next());
-    }
-
-    private static List<String> shuffeldFormats(List<String> allFormats, Random random) {
-      var formats = new ArrayList<>(allFormats);
-      Collections.shuffle(formats, random);
-      return formats;
     }
   }
 }
