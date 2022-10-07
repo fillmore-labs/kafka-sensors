@@ -24,7 +24,7 @@ def confluent_repositories():
     http_archive(
         name = "confluent_schema_registry",
         build_file = "//third_party/confluent:BUILD.schema_registry.bazel",
-        sha256 = "446ebaea7bead73b98a5218c59dc49ff9fc9e92c90f686a36971982751f5c6c4",
-        strip_prefix = "schema-registry-7.3.0-rc220831005356",
-        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.3.0-rc220831005356.tar.gz",
+        sha256 = "dff41f08c817e762364edd1ec693834d705b9293a581599636ae364c4611a1a9",
+        strip_prefix = "schema-registry-7.3.0-rc221006212020",
+        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.3.0-rc221006212020.tar.gz",
     )
