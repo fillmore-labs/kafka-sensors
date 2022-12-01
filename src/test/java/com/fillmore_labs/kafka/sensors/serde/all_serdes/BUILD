@@ -2,6 +2,7 @@ load("@contrib_rules_jvm//java:defs.bzl", "java_test_suite")
 
 java_test_suite(
     name = "tests",
+    size = "small",
     srcs = glob(["*.java"]),
     tags = ["small"],
     deps = [

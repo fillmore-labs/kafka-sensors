@@ -16,6 +16,7 @@ java_library(
 
 java_test_suite(
     name = "tests",
+    size = "small",
     srcs = glob(
         ["*.java"],
         exclude = ["StateDurationTestSchema.java"],

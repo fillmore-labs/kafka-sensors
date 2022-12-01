@@ -20,7 +20,7 @@ java_library(
 
 java_test(
     name = "TopologyTest",
-    size = "medium",
+    size = "small",
     data = ["//conf:logging"],
     jvm_flags = ["-Djava.util.logging.config.file=$(rootpath //conf:logging)"],
     runtime_deps = [
