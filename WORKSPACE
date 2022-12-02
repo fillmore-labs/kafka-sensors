@@ -2,7 +2,7 @@ workspace(name = "com_fillmore_labs_kafka_sensors")
 
 register_toolchains("//toolchain:toolchain_java17_definition")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_jar")
 
 # ---
 
@@ -137,6 +137,12 @@ http_archive(
     url = "https://github.com/chenrui333/rules_avro/archive/a4c607a5610bea5649b1fb466ea8abcd9916121b.tar.gz",
 )
 
+http_jar(
+    name = "avro_tools",
+    sha256 = "b954e75976c24b72509075b1a298b184db9efe2873bee909d023432f9826db88",
+    url = "https://dlcdn.apache.org/avro/avro-1.11.1/java/avro-tools-1.11.1.jar",
+)
+
 # ---
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
@@ -234,7 +240,7 @@ bind(
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala_config(scala_version = "2.13.8")
+scala_config(scala_version = "2.13.10")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
@@ -242,23 +248,23 @@ scala_repositories(
     fetch_sources = True,
     overriden_artifacts = {
         "io_bazel_rules_scala_scala_compiler": {
-            "artifact": "org.scala-lang:scala-compiler:2.13.8",
+            "artifact": "org.scala-lang:scala-compiler:2.13.10",
             "deps": [
                 "@io_bazel_rules_scala_scala_library",
                 "@io_bazel_rules_scala_scala_reflect",
             ],
-            "sha256": "b248cb6f390ee8bceb912af3da471146fdf003702a173d750f986b1d4a3362e6",
+            "sha256": "2cd4a964ea48e78c91a2a7b19c4fc67a9868728ace5ee966b1d498270b3c3aa7",
         },
         "io_bazel_rules_scala_scala_library": {
-            "artifact": "org.scala-lang:scala-library:2.13.8",
-            "sha256": "a0882b82514190c2bac7d1a459872a75f005fc0f3e88b2bc0390367146e35db7",
+            "artifact": "org.scala-lang:scala-library:2.13.10",
+            "sha256": "e6ca607c3fce03e8fa38af3374ce1f8bb098e316e8bf6f6d27331360feddb1c1",
         },
         "io_bazel_rules_scala_scala_reflect": {
-            "artifact": "org.scala-lang:scala-reflect:2.13.8",
+            "artifact": "org.scala-lang:scala-reflect:2.13.10",
             "deps": [
                 "@io_bazel_rules_scala_scala_library",
             ],
-            "sha256": "fdfbcc92e87f424578b303bcb47e0f55fee990c4b6da0006c9e75879d1e442e4",
+            "sha256": "62bd7a7198193c5373a992c122990279e413af3307162472a5d3cbb8ecadb35e",
         },
     },
 )
@@ -291,11 +297,7 @@ contrib_rules_jvm_setup()
 
 load("@io_bazel_rules_avro//avro:avro.bzl", "avro_repositories")
 
-avro_repositories(version = "1.11.0")
-
-load("@avro//:defs.bzl", pinned_avro_install = "pinned_maven_install")
-
-pinned_avro_install()
+avro_repositories(version = "1.11.1")
 
 # ---
 
@@ -360,15 +362,16 @@ maven_install(
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.1",
+        "org.apache.avro:avro-tools:1.11.1",
         "org.apache.kafka:kafka-clients:3.3.1",
         "org.apache.kafka:kafka-raft:3.3.1",
         "org.apache.kafka:kafka-server-common:3.3.1",
         "org.apache.kafka:kafka-streams:3.3.1",
         "org.apache.kafka:kafka_2.13:3.3.1",
         "org.apache.thrift:libthrift:0.17.0",
-        "org.checkerframework:checker-qual:3.27.0",
-        "org.checkerframework:checker-util:3.27.0",
-        "org.checkerframework:checker:3.27.0",
+        "org.checkerframework:checker-qual:3.28.0",
+        "org.checkerframework:checker-util:3.28.0",
+        "org.checkerframework:checker:3.28.0",
         "org.glassfish.jaxb:jaxb-runtime:4.0.1",
         "org.immutables:gson:2.9.2",
         "org.immutables:value-annotations:2.9.2",
@@ -385,9 +388,9 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.73",
+        "com.networknt:json-schema-validator:1.0.74",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.12",
+        "nl.jqno.equalsverifier:equalsverifier:3.12.1",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
         "org.mockito:mockito-core:4.9.0",
         "org.mockito:mockito-errorprone:4.9.0",

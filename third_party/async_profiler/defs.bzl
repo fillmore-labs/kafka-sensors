@@ -6,23 +6,23 @@ def async_profiler_repositories():
     http_archive(
         name = "async_profiler_linux_x64",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "bb41cda5a3b529c023f36d6a1d33439b786b9957a64971e553d0b22bd14dc13d",
-        strip_prefix = "async-profiler-2.8.3-linux-x64",
-        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.8.3/async-profiler-2.8.3-linux-x64.tar.gz",
+        sha256 = "b9a094bc480f233f72141b7793c098800054438e0e6cfe5b7f2fe13ef4ad11f0",
+        strip_prefix = "async-profiler-2.9-linux-x64",
+        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.9/async-profiler-2.9-linux-x64.tar.gz",
     )
 
     http_archive(
         name = "async_profiler_linux_arm64",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "45e9e878d77636d53adaefd89ca754721c61737454b07b95796cabdba8eb18aa",
-        strip_prefix = "async-profiler-2.8.3-linux-arm64",
-        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.8.3/async-profiler-2.8.3-linux-arm64.tar.gz",
+        sha256 = "00c91439b2fc95fa518e47570c451d92c8670c0cd68d908ee53397bb35a42779",
+        strip_prefix = "async-profiler-2.9-linux-arm64",
+        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.9/async-profiler-2.9-linux-arm64.tar.gz",
     )
 
     http_archive(
         name = "async_profiler_macos",
         build_file = "//third_party/async_profiler:BUILD.async_profiler.bazel",
-        sha256 = "d30aeaf2b0d71a99ca28ae903c11431d1a62c39ca31e07efea234f43428fe8d5",
-        strip_prefix = "async-profiler-2.8.3-macos",
-        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.8.3/async-profiler-2.8.3-macos.zip",
+        sha256 = "7f46398aef41561e77012ecbd07d3cc17eac775c03e895df4fcc174f8af2ecc2",
+        strip_prefix = "async-profiler-2.9-macos",
+        url = "https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.9/async-profiler-2.9-macos.zip",
     )
