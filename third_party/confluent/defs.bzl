@@ -17,9 +17,9 @@ def confluent_repositories():
     http_archive(
         name = "confluent_common",
         build_file = "//third_party/confluent:BUILD.common.bazel",
-        sha256 = "7229065d79dc5c18b75afb87111267106393acc01733c6d7a38bfac88351438a",
-        strip_prefix = "common-7.3.1-rc221202013538",
-        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.3.1-rc221202013538.tar.gz",
+        sha256 = "58d8c9f242d9a0ed9286cc80e794987b009210fa715f4bc57a6c3746054ef846",
+        strip_prefix = "common-7.3.1-rc221205184414",
+        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.3.1-rc221205184414.tar.gz",
     )
     http_archive(
         name = "confluent_schema_registry",
