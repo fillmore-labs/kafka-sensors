@@ -12,7 +12,6 @@ java_library(
         "@confluent_schema_registry//:kafka_avro_serializer",
         "@confluent_schema_registry//:kafka_streams_avro_serde",
         "@maven//:com_google_errorprone_error_prone_annotations",
-        "@maven//:com_google_guava_guava",
         "@maven//:org_apache_avro_avro",
         "@maven//:org_apache_kafka_kafka_clients",
     ],

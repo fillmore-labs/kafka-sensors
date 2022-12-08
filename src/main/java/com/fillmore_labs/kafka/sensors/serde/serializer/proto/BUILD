@@ -11,7 +11,6 @@ java_library(
         "//toolchain:checker",
         "@com_google_protobuf//:protobuf_java",
         "@maven//:com_google_errorprone_error_prone_annotations",
-        "@maven//:com_google_guava_guava",
         "@maven//:org_apache_kafka_kafka_clients",
     ],
 )

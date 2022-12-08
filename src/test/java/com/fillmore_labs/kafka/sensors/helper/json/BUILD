@@ -9,7 +9,7 @@ java_library(
     deps = [
         "//toolchain:checker",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",
-        "@maven//:com_google_guava_guava",
+        "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_networknt_json_schema_validator",
     ],
 )
