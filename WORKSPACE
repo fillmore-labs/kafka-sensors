@@ -140,7 +140,11 @@ http_archive(
 http_jar(
     name = "avro_tools",
     sha256 = "b954e75976c24b72509075b1a298b184db9efe2873bee909d023432f9826db88",
-    url = "https://repo.maven.apache.org/maven2/org/apache/avro/avro-tools/1.11.1/avro-tools-1.11.1.jar",
+    urls = [
+        "https://repo.maven.apache.org/maven2/org/apache/avro/avro-tools/1.11.1/avro-tools-1.11.1.jar",
+        "https://repo1.maven.org/maven2/org/apache/avro/avro-tools/1.11.1/avro-tools-1.11.1.jar",
+        "https://archive.apache.org/dist/avro/avro-1.11.1/java/avro-tools-1.11.1.jar",
+    ],
 )
 
 # ---
@@ -153,7 +157,7 @@ bazel_skylib_workspace()
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.19.3")
+go_register_toolchains(go_version = "1.19.4")
 
 go_rules_dependencies()
 
@@ -309,15 +313,15 @@ avro_repositories(version = "1.11.1")
 
 # ---
 
-load("//third_party/confluent:defs.bzl", "CONFLUENT_ARTIFACTS", "confluent_repositories")
-
-confluent_repositories()
-
-# ---
-
 load("//third_party/jsonschema:defs.bzl", "JSONSCHEMA_ARTIFACTS", "jsonschema_repositories")
 
 jsonschema_repositories()
+
+# ---
+
+load("//third_party/confluent:defs.bzl", "CONFLUENT_ARTIFACTS", "confluent_repositories")
+
+confluent_repositories()
 
 # ---
 
@@ -398,7 +402,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.74",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.12.1",
+        "nl.jqno.equalsverifier:equalsverifier:3.12.2",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
         "org.mockito:mockito-core:4.9.0",
         "org.mockito:mockito-errorprone:4.9.0",
