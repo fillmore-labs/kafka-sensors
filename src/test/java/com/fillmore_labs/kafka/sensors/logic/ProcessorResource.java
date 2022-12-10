@@ -8,6 +8,7 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.processor.api.InternalFixedKeyRecordFactory;
 import org.apache.kafka.streams.processor.api.MockProcessorContext.CapturedForward;
 import org.apache.kafka.streams.processor.api.Record;
+import org.apache.kafka.test.GenericInMemoryKeyValueStore;
 import org.apache.kafka.test.MockInternalNewProcessorContext;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -28,7 +29,7 @@ public final class ProcessorResource extends ExternalResource {
   public void before() {
     context = new MockInternalNewProcessorContext<>();
 
-    var stateStore = new MapKeyValueStore<String, ReadingDuration>(STORE_NAME);
+    var stateStore = new GenericInMemoryKeyValueStore<String, ReadingDuration>(STORE_NAME);
     context.addStateStore(stateStore);
 
     processor = new DurationProcessor(STORE_NAME);

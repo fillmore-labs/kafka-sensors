@@ -4,6 +4,7 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.ReadingDuration;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.Optional;
+import org.apache.kafka.test.GenericInMemoryKeyValueStore;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.junit.rules.ExternalResource;
 
@@ -15,7 +16,7 @@ public final class CalculatorResource extends ExternalResource {
 
   @Override
   public void before() {
-    var readingStore = new MapKeyValueStore<String, Reading>(STORE_NAME);
+    var readingStore = new GenericInMemoryKeyValueStore<String, Reading>(STORE_NAME);
     calculator = new DurationCalculator(readingStore);
   }
 
