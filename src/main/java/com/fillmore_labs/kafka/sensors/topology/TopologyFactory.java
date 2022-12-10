@@ -45,6 +45,7 @@ import org.apache.kafka.streams.state.Stores;
     var produced = Produced.with(stringSerde(), settings.resultSerde());
 
     var storeName = settings.storeName();
+
     // Use an im-memory store
     var storeSupplier = Stores.inMemoryKeyValueStore(storeName);
     var stateStore =
@@ -61,10 +62,11 @@ import org.apache.kafka.streams.state.Stores;
 
     // Now, define our topology
     var stateStoreNames = new String[] {storeName};
+
     // Input ...
     builder.stream(inputTopic, consumed)
         // ... Process ...
-        .process(() -> factory.create(storeName), processorName, stateStoreNames)
+        .processValues(() -> factory.create(storeName), processorName, stateStoreNames)
         // ... Result.
         .to(resultTopic, produced);
 

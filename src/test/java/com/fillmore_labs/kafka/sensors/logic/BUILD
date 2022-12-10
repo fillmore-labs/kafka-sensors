@@ -11,6 +11,7 @@ java_test_suite(
         "//toolchain:test",
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:org_apache_kafka_kafka_streams",
+        "@maven//:org_apache_kafka_kafka_streams_test",
         "@maven//:org_apache_kafka_kafka_streams_test_utils",
     ],
 )

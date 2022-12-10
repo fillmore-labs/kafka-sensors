@@ -5,9 +5,10 @@ import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import java.util.List;
 import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.processor.api.MockProcessorContext;
+import org.apache.kafka.streams.processor.api.InternalFixedKeyRecordFactory;
 import org.apache.kafka.streams.processor.api.MockProcessorContext.CapturedForward;
 import org.apache.kafka.streams.processor.api.Record;
+import org.apache.kafka.test.MockInternalNewProcessorContext;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.rules.ExternalResource;
@@ -15,7 +16,7 @@ import org.junit.rules.ExternalResource;
 public final class ProcessorResource extends ExternalResource {
   public static final String STORE_NAME = "test-store";
 
-  private @MonotonicNonNull MockProcessorContext<String, StateDuration> context;
+  private @MonotonicNonNull MockInternalNewProcessorContext<String, StateDuration> context;
   private @MonotonicNonNull DurationProcessor processor;
 
   private static KeyValue<String, StateDuration> keyValue(
@@ -25,7 +26,7 @@ public final class ProcessorResource extends ExternalResource {
 
   @Override
   public void before() {
-    context = new MockProcessorContext<>();
+    context = new MockInternalNewProcessorContext<>();
 
     var stateStore = new MapKeyValueStore<String, ReadingDuration>(STORE_NAME);
     context.addStateStore(stateStore);
@@ -37,7 +38,8 @@ public final class ProcessorResource extends ExternalResource {
   @SuppressWarnings("nullness:argument") // Record is not annotated
   public void process(@Nullable String key, @Nullable SensorState value) {
     assert processor != null : "@AssumeAssertion(nullness): before() not called";
-    processor.process(new Record<>(key, value, 0L));
+    var record = InternalFixedKeyRecordFactory.create(new Record<>(key, value, 0L));
+    processor.process(record);
   }
 
   public List<KeyValue<String, StateDuration>> forwarded() {
