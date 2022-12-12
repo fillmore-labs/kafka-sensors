@@ -76,17 +76,17 @@ http_archive(
 )
 
 http_archive(
+    name = "com_google_protobuf",
+    sha256 = "b1d6dd2cbb5d87e17af41cadb720322ce7e13af826268707bd8db47e5654770b",
+    strip_prefix = "protobuf-21.11",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.11.tar.gz",
+)
+
+http_archive(
     name = "rules_proto",
     sha256 = "80d3a4ec17354cccc898bfe32118edd934f851b03029d63ef3fc7c8663a7415c",
     strip_prefix = "rules_proto-5.3.0-21.5",
     url = "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.5.tar.gz",
-)
-
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "4a7e87e4166c358c63342dddcde6312faee06ea9d5bb4e2fa87d3478076f6639",
-    strip_prefix = "protobuf-21.5",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.5.tar.gz",
 )
 
 http_archive(
