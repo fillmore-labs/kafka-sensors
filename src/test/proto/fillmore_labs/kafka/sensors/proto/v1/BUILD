@@ -1,5 +1,15 @@
+load("@rules_buf//buf:defs.bzl", "buf_lint_test")
 load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
+
+buf_lint_test(
+    name = "v1_proto_lint",
+    size = "small",
+    config = "//src/main/proto:buf.yaml",
+    targets = [
+        "//src/main/proto/fillmore_labs/kafka/sensors/proto/v1:sensor_state_proto",
+    ],
+)
 
 java_library(
     name = "v1",

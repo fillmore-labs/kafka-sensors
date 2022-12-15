@@ -90,6 +90,14 @@ http_archive(
 )
 
 http_archive(
+    name = "rules_buf",
+    sha256 = "cb4a45b0dd892750dd84d36f4ac174b464b1ff2716b0019d8c37ab61365cff0f",
+    strip_prefix = "rules_buf-0.1.1",
+    url = "https://github.com/bufbuild/rules_buf/archive/refs/tags/v0.1.1.tar.gz",
+)
+
+# https://github.com/bazelbuild/rules_docker/issues/2009
+http_archive(
     name = "io_bazel_rules_docker",
     sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
     url = "https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz",
@@ -223,6 +231,14 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
+
+# ---
+
+load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_toolchains")
+
+rules_buf_dependencies()
+
+rules_buf_toolchains(version = "v1.10.0")
 
 # ---
 
@@ -384,16 +400,16 @@ maven_install(
         "org.checkerframework:checker-util:3.28.0",
         "org.checkerframework:checker:3.28.0",
         "org.glassfish.jaxb:jaxb-runtime:4.0.1",
-        "org.immutables:gson:2.9.2",
-        "org.immutables:value-annotations:2.9.2",
-        "org.immutables:value-processor:2.9.2",
+        "org.immutables:gson:2.9.3",
+        "org.immutables:value-annotations:2.9.3",
+        "org.immutables:value-processor:2.9.3",
         "org.mapstruct:mapstruct-processor:1.5.3.Final",
         "org.mapstruct:mapstruct:1.5.3.Final",
         "org.openjdk.jmh:jmh-core:1.36",
         "org.openjdk.jmh:jmh-generator-annprocess:1.36",
         "org.rocksdb:rocksdbjni:7.7.3",
-        "org.slf4j:slf4j-api:2.0.5",
-        "org.slf4j:slf4j-jdk14:2.0.5",
+        "org.slf4j:slf4j-api:2.0.6",
+        "org.slf4j:slf4j-jdk14:2.0.6",
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.10",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
@@ -402,11 +418,11 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.75",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.12.2",
+        "nl.jqno.equalsverifier:equalsverifier:3.12.3",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
         "org.apache.kafka:kafka-streams::test:3.3.1",
-        "org.mockito:mockito-core:4.9.0",
-        "org.mockito:mockito-errorprone:4.9.0",
+        "org.mockito:mockito-core:4.10.0",
+        "org.mockito:mockito-errorprone:4.10.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
