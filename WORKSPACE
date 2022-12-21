@@ -407,7 +407,7 @@ maven_install(
         "org.mapstruct:mapstruct:1.5.3.Final",
         "org.openjdk.jmh:jmh-core:1.36",
         "org.openjdk.jmh:jmh-generator-annprocess:1.36",
-        "org.rocksdb:rocksdbjni:7.7.3",
+        "org.rocksdb:rocksdbjni:7.8.3",
         "org.slf4j:slf4j-api:2.0.6",
         "org.slf4j:slf4j-jdk14:2.0.6",
     ] + testonly_artifacts([
@@ -416,7 +416,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.75",
+        "com.networknt:json-schema-validator:1.0.76",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.12.3",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
