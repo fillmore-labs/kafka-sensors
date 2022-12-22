@@ -7,10 +7,6 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonDeserialize(builder = ImmutableSensorStateJson.Builder.class)
 public interface SensorStateJson {
-  static ImmutableSensorStateJson.Builder builder() {
-    return ImmutableSensorStateJson.builder();
-  }
-
   String getId();
 
   @JsonUnwrapped

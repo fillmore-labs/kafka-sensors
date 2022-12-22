@@ -5,7 +5,6 @@ import com.fillmore_labs.kafka.sensors.model.Reading;
 
 public final class String2PositionConverter extends StdConverter<String, Reading.Position> {
   @Override
-  @SuppressWarnings("UnnecessaryParentheses")
   public Reading.Position convert(String value) {
     return switch (value) {
       case "off" -> Reading.Position.OFF;

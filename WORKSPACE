@@ -380,7 +380,7 @@ maven_install(
         "com.google.j2objc:j2objc-annotations:1.3",
         "com.sun.istack:istack-commons-runtime:4.1.1",
         "info.picocli:picocli:4.7.0",
-        "io.github.classgraph:classgraph:4.8.152",
+        "io.github.classgraph:classgraph:4.8.153",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:3.0.2",
         "io.helidon.config:helidon-config-yaml:3.0.2",
