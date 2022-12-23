@@ -10,7 +10,6 @@ public final class PositionMapper {
   @Inject
   /* package */ PositionMapper() {}
 
-  @SuppressWarnings("UnnecessaryParentheses")
   public Object map(Reading.Position model) {
     return switch (model) {
       case OFF -> PositionSchema.ENUM_OFF;
@@ -18,7 +17,6 @@ public final class PositionMapper {
     };
   }
 
-  @SuppressWarnings("UnnecessaryParentheses")
   public Reading.Position unmap(Object data) {
     return switch (data.toString()) {
       case PositionSchema.POSITION_OFF -> Reading.Position.OFF;

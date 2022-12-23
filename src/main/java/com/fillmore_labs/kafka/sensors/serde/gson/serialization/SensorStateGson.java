@@ -6,10 +6,6 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 public interface SensorStateGson {
-  static ImmutableSensorStateGson.Builder builder() {
-    return ImmutableSensorStateGson.builder();
-  }
-
   String getId();
 
   BigDecimal getTime();

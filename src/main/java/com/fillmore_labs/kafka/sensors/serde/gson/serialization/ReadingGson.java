@@ -6,10 +6,6 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 public interface ReadingGson {
-  static ImmutableReadingGson.Builder builder() {
-    return ImmutableReadingGson.builder();
-  }
-
   BigDecimal getTime();
 
   Position getPosition();

@@ -38,7 +38,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
     assertThat(resultDuration).isEqualTo(duration);
   }
 
-  @SuppressWarnings("UnusedVariable")
   /* package */ record Advancement(Duration duration, Position position) {
     public static Advancement ofSecondsTo(long seconds, Position to) {
       return new Advancement(Duration.ofSeconds(seconds), to);

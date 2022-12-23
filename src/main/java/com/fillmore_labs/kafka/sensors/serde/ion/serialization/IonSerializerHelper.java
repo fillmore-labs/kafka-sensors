@@ -50,7 +50,6 @@ public final class IonSerializerHelper {
     return deserializeReadingInternal(reader);
   }
 
-  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   private static ReadingIon deserializeReadingInternal(IonReader reader) {
     var builder = ReadingIon.builder();
 
@@ -69,7 +68,6 @@ public final class IonSerializerHelper {
     return builder.build();
   }
 
-  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   public static SensorStateIon deserializeSensorState(IonReader reader) {
     reader.next();
 
@@ -89,7 +87,6 @@ public final class IonSerializerHelper {
     return builder.build();
   }
 
-  @SuppressWarnings({"SwitchDefault", "PMD.SwitchStmtsShouldHaveDefault"})
   public static StateDurationIon deserializeStateDuration(IonReader reader) {
     reader.next();
 

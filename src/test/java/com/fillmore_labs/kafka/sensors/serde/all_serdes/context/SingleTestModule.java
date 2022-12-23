@@ -80,6 +80,5 @@ import org.apache.kafka.common.serialization.Serializer;
     return serde.deserializer();
   }
 
-  @SuppressWarnings("UnusedVariable")
   public record Formats(String serialization, String deserialization) {}
 }
