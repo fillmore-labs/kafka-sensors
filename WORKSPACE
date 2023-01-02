@@ -84,7 +84,7 @@ http_archive(
 
 http_archive(
     name = "rules_proto",
-    sha256 = "440f6526600170a4d0027c0d261eda68e23029d0e78f621e8b3f83ede7cdef7f",
+    sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
     strip_prefix = "rules_proto-5.3.0-21.7",
     url = "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
 )
@@ -96,7 +96,6 @@ http_archive(
     url = "https://github.com/bufbuild/rules_buf/archive/refs/tags/v0.1.1.tar.gz",
 )
 
-# https://github.com/bazelbuild/rules_docker/issues/2009
 http_archive(
     name = "io_bazel_rules_docker",
     sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
@@ -373,7 +372,7 @@ maven_install(
         "com.fasterxml.woodstox:woodstox-core:6.4.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10",
-        "com.google.errorprone:error_prone_annotations:2.16",
+        "com.google.errorprone:error_prone_annotations:2.17.0",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.1-jre",
@@ -421,8 +420,8 @@ maven_install(
         "nl.jqno.equalsverifier:equalsverifier:3.12.3",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
         "org.apache.kafka:kafka-streams::test:3.3.1",
-        "org.mockito:mockito-core:4.10.0",
-        "org.mockito:mockito-errorprone:4.10.0",
+        "org.mockito:mockito-core:4.11.0",
+        "org.mockito:mockito-errorprone:4.11.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

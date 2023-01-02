@@ -9,7 +9,7 @@ CONFLUENT_ARTIFACTS = [
     "com.squareup.wire:wire-schema-jvm:4.4.3",
     "io.swagger.core.v3:swagger-annotations-jakarta:2.2.7",
     "org.apache.commons:commons-lang3:3.12.0",
-    "org.jetbrains.kotlin:kotlin-stdlib:1.7.21",
+    "org.jetbrains.kotlin:kotlin-stdlib:1.7.22",
     "org.json:json:20220924",
 ]
 
