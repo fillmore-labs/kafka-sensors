@@ -4,12 +4,12 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 CONFLUENT_ARTIFACTS = [
     "com.github.erosb:everit-json-schema:1.14.1",
-    "com.google.api.grpc:proto-google-common-protos:2.11.0",
+    "com.google.api.grpc:proto-google-common-protos:2.12.0",
     "com.squareup.wire:wire-runtime-jvm:4.4.3",
     "com.squareup.wire:wire-schema-jvm:4.4.3",
-    "io.swagger.core.v3:swagger-annotations-jakarta:2.2.7",
+    "io.swagger.core.v3:swagger-annotations-jakarta:2.2.8",
     "org.apache.commons:commons-lang3:3.12.0",
-    "org.jetbrains.kotlin:kotlin-stdlib:1.7.22",
+    "org.jetbrains.kotlin:kotlin-stdlib:1.8.0",
     "org.json:json:20220924",
 ]
 

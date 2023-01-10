@@ -1,4 +1,4 @@
-load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 
 alias(
     name = "kafka-sensors",
@@ -15,4 +15,14 @@ buildifier(
     lint_mode = "fix",
     lint_warnings = ["all"],
     mode = "fix",
+)
+
+buildifier_test(
+    name = "lint_check",
+    size = "small",
+    lint_mode = "warn",
+    lint_warnings = ["all"],
+    mode = "check",
+    no_sandbox = True,
+    workspace = "//:WORKSPACE",
 )
