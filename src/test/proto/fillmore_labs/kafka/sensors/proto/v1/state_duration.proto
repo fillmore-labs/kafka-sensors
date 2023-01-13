@@ -14,6 +14,6 @@ option java_package = "com.fillmore_labs.kafka.sensors.test.proto.v1";
 message StateDuration {
   string id = 1;
   fillmore_labs.kafka.sensors.proto.v1.Reading reading = 2;
-  string comment = 4;
   google.protobuf.Duration duration = 3;
+  string comment = 4;
 }
