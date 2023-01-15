@@ -68,10 +68,10 @@ http_archive(
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "ecba0f04f96b4960a5b250c8e8eeec42281035970aa8852dda73098274d14a1d",
+    sha256 = "448e37e0dbf61d6fa8f00aaa12d191745e14f07c31cabfa731f0c8e8a4f41b97",
     urls = [
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
     ],
 )
 
@@ -369,7 +369,7 @@ maven_install(
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.14.1",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.1",
         "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.14.1",
-        "com.fasterxml.woodstox:woodstox-core:6.4.0",
+        "com.fasterxml.woodstox:woodstox-core:6.5.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
         "com.google.errorprone:error_prone_annotations:2.18.0",
@@ -381,9 +381,9 @@ maven_install(
         "info.picocli:picocli:4.7.0",
         "io.github.classgraph:classgraph:4.8.154",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:3.0.2",
-        "io.helidon.config:helidon-config-yaml:3.0.2",
-        "io.helidon.config:helidon-config:3.0.2",
+        "io.helidon.config:helidon-config-object-mapping:3.1.0",
+        "io.helidon.config:helidon-config-yaml:3.1.0",
+        "io.helidon.config:helidon-config:3.1.0",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
         "jakarta.inject:jakarta.inject-api:2.0.1",
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
@@ -421,8 +421,8 @@ maven_install(
         "nl.jqno.equalsverifier:equalsverifier:3.12.3",
         "org.apache.kafka:kafka-streams-test-utils:3.3.1",
         "org.apache.kafka:kafka-streams::test:3.3.1",
-        "org.mockito:mockito-core:4.11.0",
-        "org.mockito:mockito-errorprone:4.11.0",
+        "org.mockito:mockito-core:5.0.0",
+        "org.mockito:mockito-errorprone:5.0.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
