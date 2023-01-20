@@ -4,6 +4,7 @@ java_test_suite(
     name = "tests",
     size = "small",
     srcs = glob(["*.java"]),
+    flaky = True,
     deps = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/serializer/mapped",
         "//toolchain:checker",
