@@ -2,7 +2,7 @@ package com.fillmore_labs.kafka.sensors.serde.serializer.xml;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -20,7 +20,7 @@ public final class UnmarshallerPoolTest {
 
   @Test
   public void testTake() throws JAXBException {
-    given(jaxbContext.createUnmarshaller()).willThrow(JAXBException.class);
+    when(jaxbContext.createUnmarshaller()).thenThrow(JAXBException.class);
 
     var unmarshallerPool = new UnmarshallerPool(jaxbContext);
 

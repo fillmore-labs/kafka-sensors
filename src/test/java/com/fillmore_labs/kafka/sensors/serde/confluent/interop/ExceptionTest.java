@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 import io.confluent.kafka.schemaregistry.ParsedSchema;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
@@ -66,9 +66,9 @@ public final class ExceptionTest {
 
   @Test
   public void testRegistryClientA2C() throws RestClientException, IOException {
-    given(resolver.findByFingerprint(0L)).willReturn(Schema.create(Schema.Type.NULL));
-    given(registryClient.register(anyString(), any(ParsedSchema.class)))
-        .willThrow(new RestClientException("", 0, 0));
+    when(resolver.findByFingerprint(0L)).thenReturn(Schema.create(Schema.Type.NULL));
+    when(registryClient.register(anyString(), any(ParsedSchema.class)))
+        .thenThrow(new RestClientException("", 0, 0));
     var recoder = new Avro2Confluent(resolver, registryClient);
 
     var encoded = new byte[] {(byte) 0xc3, (byte) 0x01, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -81,7 +81,7 @@ public final class ExceptionTest {
   @Test
   @SuppressWarnings("nullness:argument") // willReturn is not annotated
   public void testMissingA2C() {
-    given(resolver.findByFingerprint(0L)).willReturn(null);
+    when(resolver.findByFingerprint(0L)).thenReturn(null);
     var recoder = new Avro2Confluent(resolver, registryClient);
 
     var encoded = new byte[] {(byte) 0xc3, (byte) 0x01, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -125,7 +125,7 @@ public final class ExceptionTest {
 
   @Test
   public void testRegistryClientC2A() throws RestClientException, IOException {
-    given(registryClient.getSchemaById(anyInt())).willThrow(new RestClientException("", 0, 0));
+    when(registryClient.getSchemaById(anyInt())).thenThrow(new RestClientException("", 0, 0));
     var recoder = new Confluent2Avro(resolver, registryClient);
 
     var encoded = new byte[] {0, 0, 0, 0, 0};
@@ -137,8 +137,8 @@ public final class ExceptionTest {
 
   @Test
   public void testSchemaTypeC2A() throws RestClientException, IOException {
-    given(parsedSchema.rawSchema()).willReturn(new Object());
-    given(registryClient.getSchemaById(0)).willReturn(parsedSchema);
+    when(parsedSchema.rawSchema()).thenReturn(new Object());
+    when(registryClient.getSchemaById(0)).thenReturn(parsedSchema);
     var recoder = new Confluent2Avro(resolver, registryClient);
 
     var encoded = new byte[] {0, 0, 0, 0, 0};

@@ -23,6 +23,9 @@ default_java_toolchain(
     name = "toolchain_java17",
     configuration = dict(),
     java_runtime = "@bazel_tools//tools/jdk:remotejdk_17",
+    javacopts = [
+        "-Xep:IgnoredPureGetter:OFF",
+    ],
     package_configuration = [
         ":src_package_configuration",
         ":external_package_configuration",
@@ -73,7 +76,9 @@ package_group(
 
 java_package_configuration(
     name = "external_package_configuration",
-    javacopts = ["-Xlint:none"],
+    javacopts = [
+        "-Xlint:none",
+    ],
     packages = [":external_package_group"],
 )
 

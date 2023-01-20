@@ -1,6 +1,6 @@
 package com.fillmore_labs.kafka.sensors.serde.serializer.mapped;
 
-import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.verify;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -33,7 +33,7 @@ public final class MappedDeserializerTest {
   public void configure() {
     mappedDeserializer.configure(Map.of(), /* isKey= */ false);
 
-    then(deserializer).should().configure(Map.of(), /* isKey= */ false);
+    verify(deserializer).configure(Map.of(), /* isKey= */ false);
   }
 
   @Test
@@ -41,6 +41,6 @@ public final class MappedDeserializerTest {
   public void close() {
     mappedDeserializer.close();
 
-    then(deserializer).should().close();
+    verify(deserializer).close();
   }
 }
