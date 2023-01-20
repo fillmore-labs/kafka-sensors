@@ -19,8 +19,9 @@ public final class MarshallerPoolTest {
   public JAXBContext jaxbContext;
 
   @Test
+  @SuppressWarnings("nullness:argument") // JAXBException is not annotated
   public void testTake() throws JAXBException {
-    when(jaxbContext.createMarshaller()).thenThrow(JAXBException.class);
+    when(jaxbContext.createMarshaller()).thenThrow(new JAXBException((String) null));
 
     var marshallerPool = new MarshallerPool(jaxbContext);
 

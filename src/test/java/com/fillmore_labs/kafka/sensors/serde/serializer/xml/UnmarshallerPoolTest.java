@@ -19,8 +19,9 @@ public final class UnmarshallerPoolTest {
   public JAXBContext jaxbContext;
 
   @Test
+  @SuppressWarnings("nullness:argument") // JAXBException is not annotated
   public void testTake() throws JAXBException {
-    when(jaxbContext.createUnmarshaller()).thenThrow(JAXBException.class);
+    when(jaxbContext.createUnmarshaller()).thenThrow(new JAXBException((String) null));
 
     var unmarshallerPool = new UnmarshallerPool(jaxbContext);
 
