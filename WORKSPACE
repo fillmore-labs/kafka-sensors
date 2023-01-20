@@ -407,7 +407,7 @@ maven_install(
         "org.mapstruct:mapstruct:1.5.3.Final",
         "org.openjdk.jmh:jmh-core:1.36",
         "org.openjdk.jmh:jmh-generator-annprocess:1.36",
-        "org.rocksdb:rocksdbjni:7.8.3",
+        "org.rocksdb:rocksdbjni:7.9.2",
         "org.slf4j:slf4j-api:2.0.6",
         "org.slf4j:slf4j-jdk14:2.0.6",
     ] + testonly_artifacts([
@@ -423,6 +423,7 @@ maven_install(
         "org.apache.kafka:kafka-streams::test:3.3.2",
         "org.mockito:mockito-core:5.0.0",
         "org.mockito:mockito-errorprone:5.0.0",
+        "org.mockito:mockito-inline:5.0.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

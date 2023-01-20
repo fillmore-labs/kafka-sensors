@@ -195,5 +195,10 @@ java_library(
     testonly = True,
     exported_plugins = ["mockito_plugin"],
     visibility = ["//visibility:public"],
-    exports = ["@maven//:org_mockito_mockito_core"],
+    exports = [
+        "@maven//:org_mockito_mockito_core",
+    ],
+    runtime_deps = [
+        "@maven//:org_mockito_mockito_inline",
+    ],
 )
