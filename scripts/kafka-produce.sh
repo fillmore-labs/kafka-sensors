@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KAFKA_VERSION="3.2.1"
+KAFKA_VERSION="3.3.2"
 KAFKA_DIR=".kafka"
 
 KAFKA_PREFIX="kafka_2.13-$KAFKA_VERSION"
