@@ -1,0 +1,29 @@
+--- avro/avro.bzl
++++ avro/avro.bzl
+@@ -150,7 +150,7 @@ avro_idl_schema = rule(
+             allow_files = [".avdl", ".avpr", ".avsc"],
+         ),
+         "_jdk": attr.label(
+-            default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
++            default = Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
+             providers = [java_common.JavaRuntimeInfo],
+         ),
+         "avro_tools": attr.label(
+@@ -217,7 +217,7 @@ _avro_idl_gen = rule(
+             allow_files = [".avdl", ".avpr", ".avsc"],
+         ),
+         "_jdk": attr.label(
+-            default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
++            default = Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
+             providers = [java_common.JavaRuntimeInfo],
+         ),
+         "avro_tools": attr.label(
+@@ -304,7 +304,7 @@ avro_gen = rule(
+             default = False
+         ),
+         "_jdk": attr.label(
+-                    default=Label("@bazel_tools//tools/jdk:current_java_runtime"),
++                    default=Label("@bazel_tools//tools/jdk:current_host_java_runtime"),
+                     providers = [java_common.JavaRuntimeInfo]
+                 ),
+         "avro_tools": attr.label(

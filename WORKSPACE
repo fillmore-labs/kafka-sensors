@@ -2,7 +2,7 @@ workspace(name = "com_fillmore_labs_kafka_sensors")
 
 register_toolchains("//toolchain:toolchain_java17_definition")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_jar")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # ---
 
@@ -139,19 +139,10 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_avro",
+    patches = ["//third_party/rules_avro:rules_avro.patch"],
     sha256 = "df0be97b1be6332c5843e3062f8b232351e5b0537946c90e308c194a4f524c87",
     strip_prefix = "rules_avro-03a3148d0af92a430bfa74fed1c8e6abb0685c8c",
     url = "https://github.com/chenrui333/rules_avro/archive/03a3148d0af92a430bfa74fed1c8e6abb0685c8c.tar.gz",
-)
-
-http_jar(
-    name = "avro_tools",
-    sha256 = "b954e75976c24b72509075b1a298b184db9efe2873bee909d023432f9826db88",
-    urls = [
-        "https://repo.maven.apache.org/maven2/org/apache/avro/avro-tools/1.11.1/avro-tools-1.11.1.jar",
-        "https://repo1.maven.org/maven2/org/apache/avro/avro-tools/1.11.1/avro-tools-1.11.1.jar",
-        "https://archive.apache.org/dist/avro/avro-1.11.1/java/avro-tools-1.11.1.jar",
-    ],
 )
 
 # ---
@@ -164,9 +155,9 @@ bazel_skylib_workspace()
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
-go_register_toolchains(go_version = "1.19.5")
-
 go_rules_dependencies()
+
+go_register_toolchains(go_version = "1.19.5")
 
 # ---
 
@@ -237,7 +228,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.12.0")
+rules_buf_toolchains(version = "v1.13.1")
 
 # ---
 
@@ -353,21 +344,22 @@ base_images()
 # ---
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("@rules_jvm_external//:specs.bzl", "maven")
 load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
         "com.amazon.ion:ion-java:1.9.5",
-        "com.fasterxml.jackson.core:jackson-annotations:2.14.1",
-        "com.fasterxml.jackson.core:jackson-core:2.14.1",
-        "com.fasterxml.jackson.core:jackson-databind:2.14.1",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.14.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.14.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.14.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.14.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.14.1",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.1",
+        "com.fasterxml.jackson.core:jackson-annotations:2.14.2",
+        "com.fasterxml.jackson.core:jackson-core:2.14.2",
+        "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.14.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.14.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.14.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.14.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.2",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.14.2",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.14.2",
         "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.14.1",
         "com.fasterxml.woodstox:woodstox-core:6.5.0",
         "com.google.code.findbugs:jsr305:3.0.2",
@@ -378,7 +370,7 @@ maven_install(
         "com.google.guava:guava:31.1-jre",
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.1.1",
-        "info.picocli:picocli:4.7.0",
+        "info.picocli:picocli:4.7.1",
         "io.github.classgraph:classgraph:4.8.154",
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:3.1.0",
@@ -410,6 +402,12 @@ maven_install(
         "org.rocksdb:rocksdbjni:7.9.2",
         "org.slf4j:slf4j-api:2.0.6",
         "org.slf4j:slf4j-jdk14:2.0.6",
+        maven.artifact(
+            artifact = "avro-tools",
+            exclusions = ["*:*"],
+            group = "org.apache.avro",
+            version = "1.11.1",
+        ),
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.10",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
@@ -418,7 +416,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.76",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.12.3",
+        "nl.jqno.equalsverifier:equalsverifier:3.12.4",
         "org.apache.kafka:kafka-streams-test-utils:3.3.2",
         "org.apache.kafka:kafka-streams::test:3.3.2",
         "org.mockito:mockito-core:5.0.0",
