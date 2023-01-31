@@ -91,7 +91,7 @@ http_archive(
 
 http_archive(
     name = "rules_buf",
-    sha256 = "151547e9fb29e65d65eb102bb328e1c6ba2958a6d26f5345139285663a214b84",
+    sha256 = "cb4a45b0dd892750dd84d36f4ac174b464b1ff2716b0019d8c37ab61365cff0f",
     strip_prefix = "rules_buf-0.1.1",
     url = "https://github.com/bufbuild/rules_buf/archive/refs/tags/v0.1.1.tar.gz",
 )
@@ -104,35 +104,35 @@ http_archive(
 
 http_archive(
     name = "rules_jvm_external",
-    sha256 = "4db6ef094ffa6b528cf8c8b0fc2a059755612b6f3ebaf1e64253a3088a84b3f2",
+    sha256 = "6e9f2b94ecb6aa7e7ec4a0fbf882b226ff5257581163e88bf70ae521555ad271",
     strip_prefix = "rules_jvm_external-4.5",
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/4.5.tar.gz",
 )
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "b25fb9b1c1fb7fc1568446ad1c2cf6741331f2375f9d997f290cbc38e7be37d8",
+    sha256 = "0aa164003f3522d91d46d1f3738392ffa6c059c22c93ac9cbe0fef4070c73fc8",
     strip_prefix = "rules_scala-1e4df56559ca8b68eb9a173cdf048a3c81bead09",
     url = "https://github.com/bazelbuild/rules_scala/archive/1e4df56559ca8b68eb9a173cdf048a3c81bead09.tar.gz",
 )
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "5348666c8b09c93e79431e87ac75110bb776b86157d91a00eedcaa76327cef09",
+    sha256 = "1f9768c8d693d8e8a0c67d72198c0329f2467a1621e86516b66d2751f229455d",
     strip_prefix = "dagger-dagger-2.44.2",
     url = "https://github.com/google/dagger/archive/dagger-2.44.2.tar.gz",
 )
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "f76910aa955e3e7089323c09ae21857dfc59c09c6c97dd95cd2f7a9229543eb0",
+    sha256 = "05eff86c1d444dde18d55ac890f766bce5e4db56c180ee86b5aacd6704a5feb9",
     strip_prefix = "buildtools-6.0.0",
     url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/6.0.0.tar.gz",
 )
 
 http_archive(
     name = "contrib_rules_jvm",
-    sha256 = "05d78116f3609de155bd6b02b4dd81978c833f466edcb22648772f94a3b577b3",
+    sha256 = "548f0583192ff79c317789b03b882a7be9b1325eb5d3da5d7fdcc4b7ca69d543",
     strip_prefix = "rules_jvm-0.9.0",
     url = "https://github.com/bazel-contrib/rules_jvm/archive/v0.9.0.tar.gz",
 )
@@ -140,7 +140,7 @@ http_archive(
 http_archive(
     name = "io_bazel_rules_avro",
     patches = ["//third_party/rules_avro:rules_avro.patch"],
-    sha256 = "438617a6940493e32dd06e012a8c0b8dbaba0cc5ed379d4f421911fa82c54516",
+    sha256 = "df0be97b1be6332c5843e3062f8b232351e5b0537946c90e308c194a4f524c87",
     strip_prefix = "rules_avro-03a3148d0af92a430bfa74fed1c8e6abb0685c8c",
     url = "https://github.com/chenrui333/rules_avro/archive/03a3148d0af92a430bfa74fed1c8e6abb0685c8c.tar.gz",
 )
