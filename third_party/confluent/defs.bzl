@@ -8,6 +8,7 @@ CONFLUENT_ARTIFACTS = [
     "com.squareup.wire:wire-runtime-jvm:4.5.0",
     "com.squareup.wire:wire-schema-jvm:4.5.0",
     "io.swagger.core.v3:swagger-annotations-jakarta:2.2.8",
+    "org.apache.commons:commons-compress:1.22",
     "org.apache.commons:commons-lang3:3.12.0",
     "org.jetbrains.kotlin:kotlin-stdlib:1.8.10",
     "org.json:json:20220924",
@@ -17,14 +18,14 @@ def confluent_repositories():
     http_archive(
         name = "confluent_common",
         build_file = "//third_party/confluent:BUILD.common.bazel",
-        sha256 = "bfce29f6abf5d14a794f26388ae038c30e4b580e932e2d31a6ebfca89c15aac5",
-        strip_prefix = "common-7.3.1",
-        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.3.1.tar.gz",
+        sha256 = "60e71e221b0d148d24ec4c37e55f671ac3354872fb4fcabe02f4dc948a4da762",
+        strip_prefix = "common-7.4.0-971",
+        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.4.0-971.tar.gz",
     )
     http_archive(
         name = "confluent_schema_registry",
         build_file = "//third_party/confluent:BUILD.schema_registry.bazel",
-        sha256 = "d655fd144d0bcf3d13cb427772b428f05b20e06c04ea17243d02f75d97028cfa",
-        strip_prefix = "schema-registry-7.3.1",
-        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.3.1.tar.gz",
+        sha256 = "2d59a0c30e543b4b1691e0b858bc05f138290b3ff45768db6611507cb85544b2",
+        strip_prefix = "schema-registry-7.4.0-901",
+        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.4.0-901.tar.gz",
     )

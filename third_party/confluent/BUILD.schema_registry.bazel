@@ -34,8 +34,12 @@ java_library(
         ":kafka_schema_registry_client",
         "@confluent_common//:common_config",
         "@maven//:com_fasterxml_jackson_core_jackson_core",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@maven//:com_fasterxml_jackson_dataformat_jackson_dataformat_csv",
+        "@maven//:com_google_guava_guava",
         "@maven//:org_apache_avro_avro",
         "@maven//:org_apache_kafka_kafka_clients",
+        "@maven//:org_slf4j_slf4j_api",
     ],
 )
 
@@ -48,9 +52,11 @@ java_library(
         ":kafka_schema_registry_client",
         ":kafka_schema_serializer",
         "@confluent_common//:common_config",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_google_guava_guava",
         "@maven//:org_apache_avro_avro",
         "@maven//:org_apache_kafka_kafka_clients",
+        "@maven//:org_slf4j_slf4j_api",
     ],
 )
 
@@ -81,6 +87,7 @@ java_library(
         "@maven//:com_fasterxml_jackson_datatype_jackson_datatype_jsr310",
         "@maven//:com_fasterxml_jackson_module_jackson_module_parameter_names",
         "@maven//:com_github_erosb_everit_json_schema",
+        "@maven//:org_apache_commons_commons_compress",
         "@maven//:org_json_json",
         "@maven//:org_slf4j_slf4j_api",
     ],
@@ -133,6 +140,7 @@ java_library(
         ":kafka_schema_registry_client",
         "@com_google_protobuf//:protobuf_java",
         "@com_google_protobuf//:protobuf_java_util",
+        "@maven//:com_fasterxml_jackson_core_jackson_core",
         "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_google_api_grpc_proto_google_common_protos",
         "@maven//:com_google_guava_guava",
@@ -156,6 +164,7 @@ java_library(
         "@com_google_protobuf//:protobuf_java",
         "@com_google_protobuf//:protobuf_java_util",
         "@confluent_common//:common_config",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
         "@maven//:com_google_guava_guava",
         "@maven//:com_squareup_wire_wire_schema_jvm",
         "@maven//:org_apache_kafka_kafka_clients",

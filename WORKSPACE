@@ -23,37 +23,37 @@ http_archive(
 
 http_archive(
     name = "remote_java_tools",
-    sha256 = "c8b880960d658232312c2d944a4d49e79d7c7f38ac9df5f7e6778b4d693d72a5",
+    sha256 = "b95903c3659d28c159c719449e201b83db475491031b620d021458b982400a22",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.10/java_tools-v11.10.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.10/java_tools-v11.10.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools-v11.11.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools-v11.11.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_linux",
-    sha256 = "6f8d5edfcf9f3d553e98861586ef976f6b773a10e4517ad90268380314f88aa4",
+    sha256 = "644c887e6e64ca0dd5271d42709b93c07d7ef5dbf42047b823c214a79f9b05f3",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.10/java_tools_linux-v11.10.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.10/java_tools_linux-v11.10.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_linux-v11.11.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_linux-v11.11.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_windows",
-    sha256 = "9166c132c3ada072be550255bea258a0e1c12e0dd76754c96dabb8415d9e8189",
+    sha256 = "e08acc5c1b43a29335a2a5257e16741a4a4efcdaaf1fdf05c00cce81c4b0ced8",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.10/java_tools_windows-v11.10.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.10/java_tools_windows-v11.10.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_windows-v11.11.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_windows-v11.11.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_darwin",
-    sha256 = "a24c33647af303ccc284d1e265b38a1698e94710be5dc85f1a67819ae8d1f757",
+    sha256 = "af62d4070263d0f80186abd44c9ae4df83e1a64aa5133163dca11a05bb7f2d4f",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.10/java_tools_darwin-v11.10.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.10/java_tools_darwin-v11.10.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_darwin-v11.11.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_darwin-v11.11.zip",
     ],
 )
 
@@ -157,7 +157,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.19.5")
+go_register_toolchains(go_version = "1.20")
 
 # ---
 
@@ -381,16 +381,16 @@ maven_install(
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.1",
-        "org.apache.kafka:kafka-clients:3.3.2",
-        "org.apache.kafka:kafka-raft:3.3.2",
-        "org.apache.kafka:kafka-server-common:3.3.2",
-        "org.apache.kafka:kafka-streams:3.3.2",
-        "org.apache.kafka:kafka_2.13:3.3.2",
+        "org.apache.kafka:kafka-clients:3.4.0",
+        "org.apache.kafka:kafka-raft:3.4.0",
+        "org.apache.kafka:kafka-server-common:3.4.0",
+        "org.apache.kafka:kafka-streams:3.4.0",
+        "org.apache.kafka:kafka_2.13:3.4.0",
         "org.apache.thrift:libthrift:0.17.0",
         "org.checkerframework:checker-qual:3.30.0",
         "org.checkerframework:checker-util:3.30.0",
         "org.checkerframework:checker:3.30.0",
-        "org.glassfish.jaxb:jaxb-runtime:4.0.1",
+        "org.glassfish.jaxb:jaxb-runtime:4.0.2",
         "org.immutables:gson:2.9.3",
         "org.immutables:value-annotations:2.9.3",
         "org.immutables:value-processor:2.9.3",
@@ -417,8 +417,8 @@ maven_install(
         "com.networknt:json-schema-validator:1.0.76",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.13",
-        "org.apache.kafka:kafka-streams-test-utils:3.3.2",
-        "org.apache.kafka:kafka-streams::test:3.3.2",
+        "org.apache.kafka:kafka-streams-test-utils:3.4.0",
+        "org.apache.kafka:kafka-streams::test:3.4.0",
         "org.mockito:mockito-core:5.1.1",
         "org.mockito:mockito-errorprone:5.1.1",
         "org.mockito:mockito-inline:5.1.1",
