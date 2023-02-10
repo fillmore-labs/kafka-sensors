@@ -118,9 +118,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "1f9768c8d693d8e8a0c67d72198c0329f2467a1621e86516b66d2751f229455d",
-    strip_prefix = "dagger-dagger-2.44.2",
-    url = "https://github.com/google/dagger/archive/dagger-2.44.2.tar.gz",
+    sha256 = "1071a14af203193685ab7c4165f0aa7ad1e2a9dc46b14f2fe911cab83b728075",
+    strip_prefix = "dagger-dagger-2.45",
+    url = "https://github.com/google/dagger/archive/dagger-2.45.tar.gz",
 )
 
 http_archive(
