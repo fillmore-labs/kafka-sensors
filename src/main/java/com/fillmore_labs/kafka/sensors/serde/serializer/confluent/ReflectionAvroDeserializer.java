@@ -1,7 +1,5 @@
 package com.fillmore_labs.kafka.sensors.serde.serializer.confluent;
 
-import com.google.common.annotations.VisibleForTesting;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import java.nio.BufferUnderflowException;
@@ -16,29 +14,12 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 public class ReflectionAvroDeserializer<T> implements Deserializer<T> {
-  private final @Nullable Schema schema;
+  private final Schema schema;
   private final KafkaAvroDeserializer inner;
-
-  public ReflectionAvroDeserializer() {
-    this.schema = null;
-    this.inner = new KafkaAvroDeserializer();
-  }
 
   public ReflectionAvroDeserializer(Class<T> type) {
     this.schema = ReflectData.get().getSchema(type);
     this.inner = new KafkaAvroDeserializer();
-  }
-
-  @VisibleForTesting
-  ReflectionAvroDeserializer(SchemaRegistryClient client) {
-    this.schema = null;
-    this.inner = new KafkaAvroDeserializer(client);
-  }
-
-  @VisibleForTesting
-  ReflectionAvroDeserializer(SchemaRegistryClient client, Class<T> type) {
-    this.schema = ReflectData.get().getSchema(type);
-    this.inner = new KafkaAvroDeserializer(client);
   }
 
   @Override
