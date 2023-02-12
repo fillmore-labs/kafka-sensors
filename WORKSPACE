@@ -416,7 +416,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.76",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.13",
+        "nl.jqno.equalsverifier:equalsverifier:3.13.1",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
         "org.apache.kafka:kafka-streams::test:3.4.0",
         "org.mockito:mockito-core:5.1.1",
