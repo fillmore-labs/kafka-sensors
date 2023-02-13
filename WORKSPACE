@@ -111,9 +111,9 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "1126048f54cc8f48bb9922ee2a14d9ca01bb912cfa45588678de5b271f457b71",
-    strip_prefix = "rules_scala-22f0a807a0fcca827cc70fdff320e3bb1f5ff5df",
-    url = "https://github.com/bazelbuild/rules_scala/archive/22f0a807a0fcca827cc70fdff320e3bb1f5ff5df.tar.gz",
+    sha256 = "265adb4c0121024f13772815c674d793d7c949739d0133ed61cfd68ce73a49a5",
+    strip_prefix = "rules_scala-56bfe4f3cb79e1d45a3b64dde59a3773f67174e2",
+    url = "https://github.com/bazelbuild/rules_scala/archive/56bfe4f3cb79e1d45a3b64dde59a3773f67174e2.tar.gz",
 )
 
 http_archive(
@@ -373,9 +373,9 @@ maven_install(
         "info.picocli:picocli:4.7.1",
         "io.github.classgraph:classgraph:4.8.154",
         "io.github.toolfactory:narcissus:1.0.7",
-        "io.helidon.config:helidon-config-object-mapping:3.1.0",
-        "io.helidon.config:helidon-config-yaml:3.1.0",
-        "io.helidon.config:helidon-config:3.1.0",
+        "io.helidon.config:helidon-config-object-mapping:3.1.1",
+        "io.helidon.config:helidon-config-yaml:3.1.1",
+        "io.helidon.config:helidon-config:3.1.1",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
         "jakarta.inject:jakarta.inject-api:2.0.1",
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
