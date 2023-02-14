@@ -375,7 +375,7 @@ maven_install(
         "io.github.toolfactory:narcissus:1.0.7",
         "io.helidon.config:helidon-config-object-mapping:3.1.1",
         "io.helidon.config:helidon-config-yaml:3.1.1",
-        "io.helidon.config:helidon-config:3.1.1",
+        "io.helidon.config:helidon-config:3.1.2",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
         "jakarta.inject:jakarta.inject-api:2.0.1",
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
