@@ -157,7 +157,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.20")
+go_register_toolchains(go_version = "1.20.1")
 
 # ---
 
@@ -377,7 +377,7 @@ maven_install(
         "io.helidon.config:helidon-config-yaml:3.1.2",
         "io.helidon.config:helidon-config:3.1.2",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
-        "jakarta.inject:jakarta.inject-api:2.0.1.MR",
+        "jakarta.inject:jakarta.inject-api:2.0.1",
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.1",
