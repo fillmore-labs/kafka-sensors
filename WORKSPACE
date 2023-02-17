@@ -76,10 +76,17 @@ http_archive(
 )
 
 http_archive(
+    name = "com_google_googletest",
+    sha256 = "ae4c544982d11143caef2707a60a30946600db0b77dd9194e6e1891c67e7d68f",
+    strip_prefix = "googletest-7a7231c442484be389fdf01594310349ca0e42a8",
+    url = "https://github.com/google/googletest/archive/7a7231c442484be389fdf01594310349ca0e42a8.tar.gz",
+)
+
+http_archive(
     name = "com_google_protobuf",
-    sha256 = "22fdaf641b31655d4b2297f9981fa5203b2866f8332d3c6333f6b0107bb320de",
-    strip_prefix = "protobuf-21.12",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.12.tar.gz",
+    sha256 = "",
+    strip_prefix = "protobuf-22.0",
+    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v22.0.tar.gz",
 )
 
 http_archive(
@@ -416,7 +423,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.77",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.13.1",
+        "nl.jqno.equalsverifier:equalsverifier:3.13.2",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
         "org.apache.kafka:kafka-streams::test:3.4.0",
         "org.mockito:mockito-core:5.1.1",

@@ -4,6 +4,8 @@ build --tool_java_language_version=17
 build --tool_java_runtime_version=remotejdk_17
 build --enable_runfiles
 
+build --host_cxxopt=-std=c++17
+
 coverage --instrumentation_filter=^//src/main/java/com/fillmore_labs[/:]
 
 build:ci --workspace_status_command=.buildkite/workspace-status.sh
