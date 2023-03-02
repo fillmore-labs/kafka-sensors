@@ -17,7 +17,7 @@ public final class DuplicatesTest {
   @Rule public final ErrorCollector errors = new ErrorCollector();
 
   private static ClassGraph createClassGraph() {
-    ClassGraph.CIRCUMVENT_ENCAPSULATION = ClassGraph.CircumventEncapsulationMethod.NARCISSUS;
+    ClassGraph.CIRCUMVENT_ENCAPSULATION = ClassGraph.CircumventEncapsulationMethod.JVM_DRIVER;
     return new ClassGraph();
   }
 

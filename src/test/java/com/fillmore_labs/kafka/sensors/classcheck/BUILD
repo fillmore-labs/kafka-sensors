@@ -13,6 +13,6 @@ java_test_suite(
         "@maven//:com_google_errorprone_error_prone_annotations",
         "@maven//:com_google_guava_guava",
         "@maven//:io_github_classgraph_classgraph",
-        "@maven//:io_github_toolfactory_narcissus",
+        "@maven//:io_github_toolfactory_jvm_driver",
     ],
 )

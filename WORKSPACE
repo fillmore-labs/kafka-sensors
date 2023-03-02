@@ -23,37 +23,37 @@ http_archive(
 
 http_archive(
     name = "remote_java_tools",
-    sha256 = "b95903c3659d28c159c719449e201b83db475491031b620d021458b982400a22",
+    sha256 = "af20366f926b1dadf8c084a51936116ef2f0db90e73e94b406c4ad8180f0788d",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools-v11.11.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools-v11.11.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.12/java_tools-v11.12.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.12/java_tools-v11.12.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_linux",
-    sha256 = "644c887e6e64ca0dd5271d42709b93c07d7ef5dbf42047b823c214a79f9b05f3",
+    sha256 = "37f79597f5b8c1501b9c66ded8ac68c61205ad39ef3ceda0e24fbd0afa3cd97f",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_linux-v11.11.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_linux-v11.11.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.12/java_tools_linux-v11.12.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.12/java_tools_linux-v11.12.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_windows",
-    sha256 = "e08acc5c1b43a29335a2a5257e16741a4a4efcdaaf1fdf05c00cce81c4b0ced8",
+    sha256 = "43432ce4814513d6497661b4fede691982b3bdef7a1907808b096291f56a8001",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_windows-v11.11.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_windows-v11.11.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.12/java_tools_windows-v11.12.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.12/java_tools_windows-v11.12.zip",
     ],
 )
 
 http_archive(
     name = "remote_java_tools_darwin",
-    sha256 = "af62d4070263d0f80186abd44c9ae4df83e1a64aa5133163dca11a05bb7f2d4f",
+    sha256 = "aed319892b638efabd08405b8f835770e13e2465d20459876c5f457f2b6426f3",
     urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.11/java_tools_darwin-v11.11.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.11/java_tools_darwin-v11.11.zip",
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v11.12/java_tools_darwin-v11.12.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v11.12/java_tools_darwin-v11.12.zip",
     ],
 )
 
@@ -235,7 +235,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.14.0")
+rules_buf_toolchains(version = "v1.15.0")
 
 # ---
 
@@ -379,7 +379,7 @@ maven_install(
         "com.sun.istack:istack-commons-runtime:4.1.1",
         "info.picocli:picocli:4.7.1",
         "io.github.classgraph:classgraph:4.8.155",
-        "io.github.toolfactory:narcissus:1.0.7",
+        "io.github.toolfactory:jvm-driver:9.4.2",
         "io.helidon.config:helidon-config-object-mapping:3.1.2",
         "io.helidon.config:helidon-config-yaml:3.1.2",
         "io.helidon.config:helidon-config:3.1.2",
@@ -423,7 +423,7 @@ maven_install(
         "com.google.truth:truth:1.1.3",
         "com.networknt:json-schema-validator:1.0.77",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.13.2",
+        "nl.jqno.equalsverifier:equalsverifier:3.14",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
         "org.apache.kafka:kafka-streams::test:3.4.0",
         "org.mockito:mockito-core:5.1.1",
