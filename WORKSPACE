@@ -396,7 +396,7 @@ maven_install(
         "org.apache.thrift:libthrift:0.18.0",
         "org.checkerframework:checker-qual:3.32.0",
         "org.checkerframework:checker-util:3.32.0",
-        "org.checkerframework:checker:3.31.0",
+        "org.checkerframework:checker:3.32.0",
         "org.glassfish.jaxb:jaxb-runtime:4.0.2",
         "org.immutables:gson:2.9.3",
         "org.immutables:value-annotations:2.9.3",
