@@ -393,7 +393,7 @@ maven_install(
         "org.apache.kafka:kafka-server-common:3.4.0",
         "org.apache.kafka:kafka-streams:3.4.0",
         "org.apache.kafka:kafka_2.13:3.4.0",
-        "org.apache.thrift:libthrift:0.18.0",
+        "org.apache.thrift:libthrift:0.18.1",
         "org.checkerframework:checker-qual:3.32.0",
         "org.checkerframework:checker-util:3.32.0",
         "org.checkerframework:checker:3.32.0",
