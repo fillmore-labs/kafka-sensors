@@ -421,7 +421,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.77",
+        "com.networknt:json-schema-validator:1.0.78",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.14",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
