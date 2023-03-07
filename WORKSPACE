@@ -379,7 +379,7 @@ maven_install(
         "com.sun.istack:istack-commons-runtime:4.1.1",
         "info.picocli:picocli:4.7.1",
         "io.github.classgraph:classgraph:4.8.156",
-        "io.github.toolfactory:jvm-driver:9.4.2",
+        "io.github.toolfactory:jvm-driver:9.4.3",
         "io.helidon.config:helidon-config-object-mapping:3.1.2",
         "io.helidon.config:helidon-config-yaml:3.1.2",
         "io.helidon.config:helidon-config:3.1.2",
