@@ -1,8 +1,8 @@
 = Kafka Serialization Playground
 :Author:    Oliver Eikemeier
 :Email:     <eikemeier@fillmore-labs.com>
-:Date:      2022-03
-:Revision:  v0.1.1
+:Date:      2023-03
+:Revision:  v0.1.2
 :toc: macro
 
 image:https://badge.buildkite.com/4971a2c4dd08b27b3a39618d744d15ebac5a07c1892102c0b6.svg?branch=main[title="Buildkite build status",link=https://buildkite.com/fillmore-labs/kafka-sensors]
@@ -110,7 +110,7 @@ conversions and unnecessary error-prone calculations.
 
 * The choice of (de-)serializers should depend on the requirements, not on what is just at hand.
 
-While internal processing pipelines tend (but don't have) to use one serialization mechanism, it
+While internal processing pipelines tend (but don't have) to use one serialization mechanism, it is
 perfectly valid and a good design decision to use different mechanisms for parts interfacing with
 external components.
 
