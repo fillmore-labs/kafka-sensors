@@ -164,7 +164,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.20.1")
+go_register_toolchains(go_version = "1.20.2")
 
 # ---
 
@@ -235,7 +235,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.15.0")
+rules_buf_toolchains(version = "v1.15.1")
 
 # ---
 
