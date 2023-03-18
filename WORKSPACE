@@ -77,9 +77,9 @@ http_archive(
 
 http_archive(
     name = "com_google_googletest",
-    sha256 = "7f91d0ae89f3c6af99d8774206abd7509b6cf6f79a7a9f9d35301e75bcfbdaa8",
-    strip_prefix = "googletest-e49c6b946a44f9a58586bfc76f75687d8f77e725",
-    url = "https://github.com/google/googletest/archive/e49c6b946a44f9a58586bfc76f75687d8f77e725.tar.gz",
+    sha256 = "8c52afaa9c64fc03f85181e13e07bf1a4582678e56e5dbe40b31ac1be0a19cc0",
+    strip_prefix = "googletest-837f2229a905f44678fd6dc9af83f9a9f08e4a8f",
+    url = "https://github.com/google/googletest/archive/837f2229a905f44678fd6dc9af83f9a9f08e4a8f.tar.gz",
 )
 
 http_archive(
@@ -139,9 +139,9 @@ http_archive(
 
 http_archive(
     name = "contrib_rules_jvm",
-    sha256 = "ced72bd69b5f5aa6905b07b8e38e1924de042c181607e1d8519bf5d9f90a897b",
-    strip_prefix = "rules_jvm-0.11.0",
-    url = "https://github.com/bazel-contrib/rules_jvm/releases/download/v0.11.0/rules_jvm-v0.11.0.tar.gz",
+    sha256 = "09c022847c96f24d085e2c82a6174f0ab98218e6e0903d0793d69af9f771a291",
+    strip_prefix = "rules_jvm-0.12.0",
+    url = "https://github.com/bazel-contrib/rules_jvm/releases/download/v0.12.0/rules_jvm-v0.12.0.tar.gz",
 )
 
 http_archive(
