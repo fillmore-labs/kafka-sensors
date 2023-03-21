@@ -7,7 +7,7 @@ CONFLUENT_ARTIFACTS = [
     "com.google.api.grpc:proto-google-common-protos:2.14.3",
     "com.squareup.wire:wire-runtime-jvm:4.5.2",
     "com.squareup.wire:wire-schema-jvm:4.5.2",
-    "io.swagger.core.v3:swagger-annotations-jakarta:2.2.8",
+    "io.swagger.core.v3:swagger-annotations-jakarta:2.2.9",
     "org.apache.commons:commons-compress:1.22",
     "org.apache.commons:commons-lang3:3.12.0",
     "org.jetbrains.kotlin:kotlin-stdlib:1.8.10",
