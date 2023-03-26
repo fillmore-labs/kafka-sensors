@@ -416,7 +416,7 @@ maven_install(
             version = "1.11.1",
         ),
     ] + testonly_artifacts([
-        "com.google.testparameterinjector:test-parameter-injector:1.10",
+        "com.google.testparameterinjector:test-parameter-injector:1.11",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
