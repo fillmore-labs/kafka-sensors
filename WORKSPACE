@@ -58,6 +58,15 @@ http_archive(
 )
 
 http_archive(
+    name = "remote_java_tools_darwin_arm64",
+    sha256 = "24a47a5557ee2ccdacd10a54fe4c15d627c6aeaf7596a5dccf2e11a866a5a32a",
+    urls = [
+        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.0/java_tools_darwin_arm64-v12.0.zip",
+        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.0/java_tools_darwin_arm64-v12.0.zip",
+    ],
+)
+
+http_archive(
     name = "io_bazel_rules_go",
     sha256 = "dd926a88a564a9246713a9c00b35315f54cbd46b31a26d5d8fb264c07045f05d",
     urls = [
@@ -357,17 +366,17 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 maven_install(
     artifacts = [
         "com.amazon.ion:ion-java:1.9.5",
-        "com.fasterxml.jackson.core:jackson-annotations:2.15.0-rc1",
-        "com.fasterxml.jackson.core:jackson-core:2.15.0-rc1",
-        "com.fasterxml.jackson.core:jackson-databind:2.15.0-rc1",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.0-rc1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.0-rc1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.0-rc1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.0-rc1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0-rc1",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.0-rc1",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.0-rc1",
-        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.0-rc1",
+        "com.fasterxml.jackson.core:jackson-annotations:2.15.0-rc2",
+        "com.fasterxml.jackson.core:jackson-core:2.15.0-rc2",
+        "com.fasterxml.jackson.core:jackson-databind:2.15.0-rc2",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.0-rc2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.0-rc2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.0-rc2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.0-rc2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0-rc2",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.0-rc2",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.0-rc2",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.0-rc2",
         "com.fasterxml.woodstox:woodstox-core:6.5.0",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
