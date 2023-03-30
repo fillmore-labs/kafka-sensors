@@ -86,9 +86,9 @@ http_archive(
 
 http_archive(
     name = "com_google_googletest",
-    sha256 = "7ce04f860c1a7a9a7d904277f8d171cbaf8f5625d6f574ed689106dab7e1c139",
-    strip_prefix = "googletest-0cd05c6ea982e5db608f81973faca52fe31f6ec3",
-    url = "https://github.com/google/googletest/archive/0cd05c6ea982e5db608f81973faca52fe31f6ec3.tar.gz",
+    sha256 = "bce42aa5e175065160c21023d11f54011ffbe5e8cc904da3a1a8e5dc6f35643b",
+    strip_prefix = "googletest-b5fd99bbd55ebe1a3488b8ea3717fba089293457",
+    url = "https://github.com/google/googletest/archive/b5fd99bbd55ebe1a3488b8ea3717fba089293457.tar.gz",
 )
 
 http_archive(
