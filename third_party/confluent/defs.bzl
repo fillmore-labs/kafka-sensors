@@ -10,7 +10,7 @@ CONFLUENT_ARTIFACTS = [
     "io.swagger.core.v3:swagger-annotations-jakarta:2.2.9",
     "org.apache.commons:commons-compress:1.23.0",
     "org.apache.commons:commons-lang3:3.12.0",
-    "org.jetbrains.kotlin:kotlin-stdlib:1.8.10",
+    "org.jetbrains.kotlin:kotlin-stdlib:1.8.20",
     "org.json:json:20230227",
 ]
 
