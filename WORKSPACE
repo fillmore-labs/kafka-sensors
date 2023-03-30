@@ -410,7 +410,7 @@ maven_install(
         "org.immutables:gson:2.9.3",
         "org.immutables:value-annotations:2.9.3",
         "org.immutables:value-processor:2.9.3",
-        "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10",
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20",
         "org.mapstruct:mapstruct-processor:1.5.3.Final",
         "org.mapstruct:mapstruct:1.5.3.Final",
         "org.openjdk.jmh:jmh-core:1.36",
