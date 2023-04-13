@@ -198,7 +198,4 @@ java_library(
     exports = [
         "@maven//:org_mockito_mockito_core",
     ],
-    runtime_deps = [
-        "@maven//:org_mockito_mockito_inline",
-    ],
 )

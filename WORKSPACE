@@ -85,17 +85,10 @@ http_archive(
 )
 
 http_archive(
-    name = "com_google_googletest",
-    sha256 = "0db36dada92255d8a68fe59e82e57e12e0990b8364582cd63ef960207734c36f",
-    strip_prefix = "googletest-057b4e904fd754135dc19ff557c14036fd316425",
-    url = "https://github.com/google/googletest/archive/057b4e904fd754135dc19ff557c14036fd316425.tar.gz",
-)
-
-http_archive(
     name = "com_google_protobuf",
-    sha256 = "9d39f0b36761068ed4cfb80ac446bb413d74dc60426bb942c53645484afb1407",
-    strip_prefix = "protobuf-22.2",
-    url = "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v22.2.tar.gz",
+    sha256 = "4101e11ef41afa91cac1bd95483cb781626781ae1a331501ed8379f2d82ca9bc",
+    strip_prefix = "protobuf-22.3",
+    url = "https://github.com/protocolbuffers/protobuf/releases/download/v22.3/protobuf-22.3.tar.gz",
 )
 
 http_archive(
@@ -435,9 +428,8 @@ maven_install(
         "nl.jqno.equalsverifier:equalsverifier:3.14.1",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
         "org.apache.kafka:kafka-streams::test:3.4.0",
-        "org.mockito:mockito-core:5.2.0",
-        "org.mockito:mockito-errorprone:5.2.0",
-        "org.mockito:mockito-inline:5.2.0",
+        "org.mockito:mockito-core:5.3.0",
+        "org.mockito:mockito-errorprone:5.3.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
