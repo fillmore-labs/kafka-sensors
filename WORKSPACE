@@ -378,7 +378,7 @@ maven_install(
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:31.1-jre",
         "com.google.j2objc:j2objc-annotations:2.8",
-        "com.sun.istack:istack-commons-runtime:4.1.1",
+        "com.sun.istack:istack-commons-runtime:4.2.0",
         "info.picocli:picocli:4.7.2",
         "io.github.classgraph:classgraph:4.8.157",
         "io.github.toolfactory:jvm-driver:9.4.3",
