@@ -68,10 +68,10 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "6b65cb7917b4d1709f9410ffe00ecf3e160edf674b78c54a894471320862184f",
+    sha256 = "6dc2da7ab4cf5d7bfc7c949776b1b7c733f05e56edc4bcd9022bb249d2e2a996",
     urls = [
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.39.0/rules_go-v0.39.0.zip",
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.39.0/rules_go-v0.39.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.39.1/rules_go-v0.39.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.39.1/rules_go-v0.39.0.zip",
     ],
 )
 
@@ -379,7 +379,7 @@ maven_install(
         "com.google.guava:guava:31.1-jre",
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.2.0",
-        "info.picocli:picocli:4.7.2",
+        "info.picocli:picocli:4.7.3",
         "io.github.classgraph:classgraph:4.8.157",
         "io.github.toolfactory:jvm-driver:9.4.3",
         "io.helidon.config:helidon-config-object-mapping:3.2.0",
@@ -423,7 +423,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.79",
+        "com.networknt:json-schema-validator:1.0.80",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.14.1",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
