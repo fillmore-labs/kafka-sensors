@@ -369,7 +369,7 @@ maven_install(
         "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0",
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.0",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.0",
-        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.0-rc3",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.0",
         "com.fasterxml.woodstox:woodstox-core:6.5.1",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
