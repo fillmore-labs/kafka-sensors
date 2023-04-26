@@ -16,57 +16,6 @@ http_archive(
 )
 
 http_archive(
-    name = "rules_java",
-    sha256 = "bcfabfb407cb0c8820141310faa102f7fb92cc806b0f0e26a625196101b0b57e",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/5.5.0/rules_java-5.5.0.tar.gz",
-)
-
-http_archive(
-    name = "remote_java_tools",
-    sha256 = "0db35ec44745fd15b77d9df954e70a4fcf74554dd5bfe3f6e6cb6bbdc1f1c649",
-    urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.1/java_tools-v12.1.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.1/java_tools-v12.1.zip",
-    ],
-)
-
-http_archive(
-    name = "remote_java_tools_linux",
-    sha256 = "093ecac3b42fcbc3621d08edc3ae3c8b0bc2bf56a0d9a85ddcdb1e0bcf10cbc7",
-    urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.1/java_tools_linux-v12.1.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.1/java_tools_linux-v12.1.zip",
-    ],
-)
-
-http_archive(
-    name = "remote_java_tools_windows",
-    sha256 = "1df7cc7fac54f437f43c24c019462e13058f394fdba5a64f566b92e8af18d0cf",
-    urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.1/java_tools_windows-v12.1.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.1/java_tools_windows-v12.1.zip",
-    ],
-)
-
-http_archive(
-    name = "remote_java_tools_darwin_x86_64",
-    sha256 = "16ca145203a62a1fcd6ae50513c0935d938591cb309b9b1172e257c57873f60d",
-    urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.1/java_tools_darwin_x86_64-v12.1.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.1/java_tools_darwin_x86_64-v12.1.zip",
-    ],
-)
-
-http_archive(
-    name = "remote_java_tools_darwin_arm64",
-    sha256 = "1d8e575e558782c2ceec0940e424f0e2df56b0df3d7fae68333eaceef2c4e41c",
-    urls = [
-        "https://github.com/bazelbuild/java_tools/releases/download/java_v12.1/java_tools_darwin_arm64-v12.1.zip",
-        "https://mirror.bazel.build/bazel_java_tools/releases/java/v12.1/java_tools_darwin_arm64-v12.1.zip",
-    ],
-)
-
-http_archive(
     name = "io_bazel_rules_go",
     sha256 = "6dc2da7ab4cf5d7bfc7c949776b1b7c733f05e56edc4bcd9022bb249d2e2a996",
     urls = [
@@ -173,14 +122,6 @@ go_register_toolchains(go_version = "1.20.3")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
-
-# ---
-
-load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
-
-rules_java_dependencies()
-
-rules_java_toolchains()
 
 # ---
 
