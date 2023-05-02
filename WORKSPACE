@@ -323,7 +323,7 @@ maven_install(
         "info.picocli:picocli:4.7.3",
         "io.github.classgraph:classgraph:4.8.157",
         "io.github.toolfactory:jvm-driver:9.4.3",
-        "io.helidon.config:helidon-config-object-mapping:3.2.0",
+        "io.helidon.config:helidon-config-object-mapping:3.2.1",
         "io.helidon.config:helidon-config-yaml:3.2.0",
         "io.helidon.config:helidon-config:3.2.1",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
