@@ -76,9 +76,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "1071a14af203193685ab7c4165f0aa7ad1e2a9dc46b14f2fe911cab83b728075",
-    strip_prefix = "dagger-dagger-2.45",
-    url = "https://github.com/google/dagger/archive/dagger-2.45.tar.gz",
+    sha256 = "d400ec1161b2b99e7758de4a5948e32be7849c3e81a9c7b8779c48e68e1ef012",
+    strip_prefix = "dagger-dagger-2.46.1",
+    url = "https://github.com/google/dagger/archive/dagger-2.46.1.tar.gz",
 )
 
 http_archive(
@@ -115,7 +115,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.20.3")
+go_register_toolchains(go_version = "1.20.4")
 
 # ---
 
@@ -303,14 +303,14 @@ maven_install(
         "com.fasterxml.jackson.core:jackson-annotations:2.15.1",
         "com.fasterxml.jackson.core:jackson-core:2.15.1",
         "com.fasterxml.jackson.core:jackson-databind:2.15.1",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.0",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.0",
-        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.0",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.1",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.1",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.1",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.1",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.1",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.1",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.1",
         "com.fasterxml.woodstox:woodstox-core:6.5.1",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
@@ -349,7 +349,7 @@ maven_install(
         "org.mapstruct:mapstruct:1.5.5.Final",
         "org.openjdk.jmh:jmh-core:1.36",
         "org.openjdk.jmh:jmh-generator-annprocess:1.36",
-        "org.rocksdb:rocksdbjni:8.1.1",
+        "org.rocksdb:rocksdbjni:8.1.1.1",
         "org.slf4j:slf4j-api:2.0.7",
         "org.slf4j:slf4j-jdk14:2.0.7",
         maven.artifact(
@@ -364,7 +364,7 @@ maven_install(
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",
         "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.80",
+        "com.networknt:json-schema-validator:1.0.81",
         "junit:junit:4.13.2",
         "nl.jqno.equalsverifier:equalsverifier:3.14.1",
         "org.apache.kafka:kafka-streams-test-utils:3.4.0",
