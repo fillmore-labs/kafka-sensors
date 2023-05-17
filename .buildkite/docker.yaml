@@ -12,9 +12,8 @@ steps:
         //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark_amd64
       - bazel run --config=ci --stamp
         //src/main/java/com/fillmore_labs/kafka/sensors/benchmark:push_benchmark_arm64
-      - docker manifest create fillmorelabs/serialization-benchmark:latest
-        fillmorelabs/serialization-benchmark:latest-amd64
-        fillmorelabs/serialization-benchmark:latest-arm64
-      - docker manifest push fillmorelabs/serialization-benchmark:latest
-      - docker manifest rm fillmorelabs/serialization-benchmark
+      - crane index append --docker-empty-base
+        --manifest fillmorelabs/serialization-benchmark:latest-amd64
+        --manifest fillmorelabs/serialization-benchmark:latest-arm64
+        --tag fillmorelabs/serialization-benchmark:latest
     branches: "main"
