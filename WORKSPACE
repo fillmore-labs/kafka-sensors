@@ -178,7 +178,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.17.0")
+rules_buf_toolchains(version = "v1.19.0")
 
 # ---
 
