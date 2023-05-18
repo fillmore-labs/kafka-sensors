@@ -2,7 +2,7 @@
 steps:
   - label: ':bazel: Test'
     commands:
-      - bazel test --config=ci //...
+      - bazel test --config=ci --stamp //...
 
   - wait
 
