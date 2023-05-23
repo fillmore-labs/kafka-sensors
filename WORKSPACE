@@ -321,7 +321,7 @@ maven_install(
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.2.0",
         "info.picocli:picocli:4.7.3",
-        "io.github.classgraph:classgraph:4.8.158",
+        "io.github.classgraph:classgraph:4.8.160",
         "io.github.toolfactory:jvm-driver:9.4.3",
         "io.helidon.config:helidon-config-object-mapping:3.2.1",
         "io.helidon.config:helidon-config-yaml:3.2.1",
@@ -359,7 +359,7 @@ maven_install(
             version = "1.11.1",
         ),
     ] + testonly_artifacts([
-        "com.google.testparameterinjector:test-parameter-injector:1.11",
+        "com.google.testparameterinjector:test-parameter-injector:1.12",
         "com.google.truth.extensions:truth-java8-extension:1.1.3",
         "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
         "com.google.truth.extensions:truth-proto-extension:1.1.3",

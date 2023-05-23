@@ -95,7 +95,7 @@ ARCHITECTURES = [
 [
     container_push(
         name = "push_benchmark_" + architecture,
-        format = "Docker",
+        format = "OCI",
         image = ":benchmark_image_" + architecture,
         registry = "index.docker.io",
         repository = "fillmorelabs/serialization-benchmark",
