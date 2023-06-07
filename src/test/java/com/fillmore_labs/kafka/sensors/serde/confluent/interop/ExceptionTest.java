@@ -33,7 +33,6 @@ public final class ExceptionTest {
   public ParsedSchema parsedSchema;
 
   @Test
-  @SuppressWarnings("nullness:argument") // assertThat annotation is commented
   public void testNullA2C() {
     var recoder = new Avro2Confluent(resolver, registryClient);
     var encoded = new byte[0];
@@ -92,7 +91,6 @@ public final class ExceptionTest {
   }
 
   @Test
-  @SuppressWarnings("nullness:argument") // assertThat annotation is commented
   public void testNullC2A() {
     var recoder = new Confluent2Avro(resolver, registryClient);
     var encoded = new byte[0];

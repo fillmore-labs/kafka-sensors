@@ -115,7 +115,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.20.4")
+go_register_toolchains(go_version = "1.20.5")
 
 # ---
 
@@ -178,7 +178,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.19.0")
+rules_buf_toolchains(version = "v1.20.0")
 
 # ---
 
@@ -303,14 +303,14 @@ maven_install(
         "com.fasterxml.jackson.core:jackson-annotations:2.15.2",
         "com.fasterxml.jackson.core:jackson-core:2.15.2",
         "com.fasterxml.jackson.core:jackson-databind:2.15.2",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.1",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1",
-        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.1",
-        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.1",
-        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.1",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.15.2",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2",
+        "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.2",
+        "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.2",
+        "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.2",
         "com.fasterxml.woodstox:woodstox-core:6.5.1",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
@@ -320,7 +320,7 @@ maven_install(
         "com.google.guava:guava:32.0.0-jre",
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.2.0",
-        "info.picocli:picocli:4.7.3",
+        "info.picocli:picocli:4.7.4",
         "io.github.classgraph:classgraph:4.8.160",
         "io.github.toolfactory:jvm-driver:9.4.3",
         "io.helidon.config:helidon-config-object-mapping:3.2.1",
@@ -331,11 +331,11 @@ maven_install(
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.1",
-        "org.apache.kafka:kafka-clients:3.4.0",
-        "org.apache.kafka:kafka-raft:3.4.0",
-        "org.apache.kafka:kafka-server-common:3.4.0",
-        "org.apache.kafka:kafka-streams:3.4.0",
-        "org.apache.kafka:kafka_2.13:3.4.0",
+        "org.apache.kafka:kafka-clients:3.4.1",
+        "org.apache.kafka:kafka-raft:3.4.1",
+        "org.apache.kafka:kafka-server-common:3.4.1",
+        "org.apache.kafka:kafka-streams:3.4.1",
+        "org.apache.kafka:kafka_2.13:3.4.1",
         "org.apache.thrift:libthrift:0.18.1",
         "org.checkerframework:checker-qual:3.34.0",
         "org.checkerframework:checker-util:3.34.0",
@@ -360,15 +360,15 @@ maven_install(
         ),
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.12",
-        "com.google.truth.extensions:truth-java8-extension:1.1.3",
-        "com.google.truth.extensions:truth-liteproto-extension:1.1.3",
-        "com.google.truth.extensions:truth-proto-extension:1.1.3",
-        "com.google.truth:truth:1.1.3",
-        "com.networknt:json-schema-validator:1.0.82",
+        "com.google.truth.extensions:truth-java8-extension:1.1.4",
+        "com.google.truth.extensions:truth-liteproto-extension:1.1.4",
+        "com.google.truth.extensions:truth-proto-extension:1.1.4",
+        "com.google.truth:truth:1.1.4",
+        "com.networknt:json-schema-validator:1.0.83",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.14.1",
-        "org.apache.kafka:kafka-streams-test-utils:3.4.0",
-        "org.apache.kafka:kafka-streams::test:3.4.0",
+        "nl.jqno.equalsverifier:equalsverifier:3.14.2",
+        "org.apache.kafka:kafka-streams-test-utils:3.4.1",
+        "org.apache.kafka:kafka-streams::test:3.4.1",
         "org.mockito:mockito-core:5.3.1",
         "org.mockito:mockito-errorprone:5.3.1",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
