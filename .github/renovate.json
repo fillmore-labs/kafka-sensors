@@ -11,7 +11,7 @@
       "matchPackagePatterns": [
         "^org.checkerframework:"
       ],
-      "matchCurrentVersion": "!/^3\\.35\\.0/"
+      "allowedVersions": "!/^3\\.35\\.0/"
     }
   ]
 }
