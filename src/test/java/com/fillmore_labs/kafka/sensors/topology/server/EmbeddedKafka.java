@@ -8,7 +8,6 @@ import kafka.server.Server;
 import org.apache.kafka.common.Uuid;
 import org.apache.kafka.common.utils.Time;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import scala.Option;
 
 public final class EmbeddedKafka {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -32,7 +31,7 @@ public final class EmbeddedKafka {
     var props = EmbeddedKafkaHelper.createProperties(logDir, ports, nodeId);
     var config = new KafkaConfig(props, /* doLog= */ false);
 
-    kafka = new KafkaRaftServer(config, Time.SYSTEM, Option.empty());
+    kafka = new KafkaRaftServer(config, Time.SYSTEM);
     kafka.startup();
 
     brokerPort = ports.brokerPort();
