@@ -337,7 +337,7 @@ maven_install(
         "org.apache.kafka:kafka-streams:3.5.0",
         "org.apache.kafka:kafka_2.13:3.5.0",
         "org.apache.thrift:libthrift:0.18.1",
-        "org.checkerframework:checker-qual:3.34.0",
+        "org.checkerframework:checker-qual:3.35.0",
         "org.checkerframework:checker-util:3.34.0",
         "org.checkerframework:checker:3.35.0",
         "org.glassfish.jaxb:jaxb-runtime:4.0.3",
