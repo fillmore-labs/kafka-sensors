@@ -4,5 +4,14 @@
   "extends": [
     "config:base",
     ":disableDependencyDashboard"
+  ],
+  "packageRules": [
+    {
+      "groupName": "checkerframework",
+      "matchPackagePatterns": [
+        "^org.checkerframework:"
+      ],
+      "matchCurrentVersion": "!/^3\\.35\\.0/"
+    }
   ]
 }
