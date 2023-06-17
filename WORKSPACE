@@ -314,7 +314,7 @@ maven_install(
         "com.fasterxml.woodstox:woodstox-core:6.5.1",
         "com.google.code.findbugs:jsr305:3.0.2",
         "com.google.code.gson:gson:2.10.1",
-        "com.google.errorprone:error_prone_annotations:2.19.1",
+        "com.google.errorprone:error_prone_annotations:2.20.0",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
         "com.google.guava:guava:32.0.1-jre",
