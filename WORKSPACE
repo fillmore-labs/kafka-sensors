@@ -178,7 +178,7 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.21.0")
+rules_buf_toolchains(version = "v1.22.0")
 
 # ---
 
@@ -360,17 +360,17 @@ maven_install(
         ),
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.12",
-        "com.google.truth.extensions:truth-java8-extension:1.1.4",
-        "com.google.truth.extensions:truth-liteproto-extension:1.1.4",
-        "com.google.truth.extensions:truth-proto-extension:1.1.4",
-        "com.google.truth:truth:1.1.4",
-        "com.networknt:json-schema-validator:1.0.84",
+        "com.google.truth.extensions:truth-java8-extension:1.1.5",
+        "com.google.truth.extensions:truth-liteproto-extension:1.1.5",
+        "com.google.truth.extensions:truth-proto-extension:1.1.5",
+        "com.google.truth:truth:1.1.5",
+        "com.networknt:json-schema-validator:1.0.85",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.14.2",
+        "nl.jqno.equalsverifier:equalsverifier:3.14.3",
         "org.apache.kafka:kafka-streams-test-utils:3.5.0",
         "org.apache.kafka:kafka-streams::test:3.5.0",
-        "org.mockito:mockito-core:5.3.1",
-        "org.mockito:mockito-errorprone:5.3.1",
+        "org.mockito:mockito-core:5.4.0",
+        "org.mockito:mockito-errorprone:5.4.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",
