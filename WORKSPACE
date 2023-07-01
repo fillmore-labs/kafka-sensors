@@ -317,7 +317,7 @@ maven_install(
         "com.google.errorprone:error_prone_annotations:2.20.0",
         "com.google.flogger:flogger-system-backend:0.7.4",
         "com.google.flogger:flogger:0.7.4",
-        "com.google.guava:guava:32.0.1-jre",
+        "com.google.guava:guava:32.1.1-jre",
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.2.0",
         "info.picocli:picocli:4.7.4",
