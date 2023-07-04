@@ -324,7 +324,7 @@ maven_install(
         "io.github.classgraph:classgraph:4.8.160",
         "io.github.toolfactory:jvm-driver:9.4.3",
         "io.helidon.config:helidon-config-object-mapping:3.2.2",
-        "io.helidon.config:helidon-config-yaml:3.2.1",
+        "io.helidon.config:helidon-config-yaml:3.2.2",
         "io.helidon.config:helidon-config:3.2.2",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
         "jakarta.inject:jakarta.inject-api:2.0.1",
