@@ -356,7 +356,7 @@ maven_install(
             artifact = "avro-tools",
             exclusions = ["*:*"],
             group = "org.apache.avro",
-            version = "1.11.1",
+            version = "1.11.2",
         ),
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.12",
