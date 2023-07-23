@@ -331,7 +331,7 @@ maven_install(
         "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.2",
-        "org.apache.kafka:kafka-clients:3.5.0",
+        "org.apache.kafka:kafka-clients:3.5.1",
         "org.apache.kafka:kafka-raft:3.5.0",
         "org.apache.kafka:kafka-server-common:3.5.0",
         "org.apache.kafka:kafka-streams:3.5.0",
