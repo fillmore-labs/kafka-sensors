@@ -347,7 +347,7 @@ maven_install(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0",
         "org.mapstruct:mapstruct-processor:1.5.5.Final",
         "org.mapstruct:mapstruct:1.5.5.Final",
-        "org.openjdk.jmh:jmh-core:1.36",
+        "org.openjdk.jmh:jmh-core:1.37",
         "org.openjdk.jmh:jmh-generator-annprocess:1.36",
         "org.rocksdb:rocksdbjni:8.3.2",
         "org.slf4j:slf4j-api:2.0.7",
