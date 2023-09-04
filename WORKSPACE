@@ -351,7 +351,7 @@ maven_install(
         "org.openjdk.jmh:jmh-generator-annprocess:1.37",
         "org.rocksdb:rocksdbjni:8.3.2",
         "org.slf4j:slf4j-api:2.0.9",
-        "org.slf4j:slf4j-jdk14:2.0.7",
+        "org.slf4j:slf4j-jdk14:2.0.9",
         maven.artifact(
             artifact = "avro-tools",
             exclusions = ["*:*"],
