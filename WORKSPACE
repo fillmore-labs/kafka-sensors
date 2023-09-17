@@ -328,7 +328,7 @@ maven_install(
         "io.helidon.config:helidon-config:3.2.2",
         "jakarta.annotation:jakarta.annotation-api:2.1.1",
         "jakarta.inject:jakarta.inject-api:2.0.1",
-        "jakarta.xml.bind:jakarta.xml.bind-api:4.0.0",
+        "jakarta.xml.bind:jakarta.xml.bind-api:4.0.1",
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.2",
         "org.apache.kafka:kafka-clients:3.5.1",
