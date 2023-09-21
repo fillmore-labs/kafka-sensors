@@ -299,7 +299,7 @@ load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.10.4",
+        "com.amazon.ion:ion-java:1.10.5",
         "com.fasterxml.jackson.core:jackson-annotations:2.15.2",
         "com.fasterxml.jackson.core:jackson-core:2.15.2",
         "com.fasterxml.jackson.core:jackson-databind:2.15.2",
