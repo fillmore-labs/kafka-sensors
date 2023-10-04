@@ -332,7 +332,7 @@ maven_install(
         "javax.inject:javax.inject:1",
         "org.apache.avro:avro:1.11.3",
         "org.apache.kafka:kafka-clients:3.6.0",
-        "org.apache.kafka:kafka-raft:3.5.1",
+        "org.apache.kafka:kafka-raft:3.6.0",
         "org.apache.kafka:kafka-server-common:3.5.1",
         "org.apache.kafka:kafka-streams:3.5.1",
         "org.apache.kafka:kafka_2.13:3.5.1",
