@@ -301,7 +301,7 @@ maven_install(
     artifacts = [
         "com.amazon.ion:ion-java:1.10.5",
         "com.fasterxml.jackson.core:jackson-annotations:2.15.3",
-        "com.fasterxml.jackson.core:jackson-core:2.15.2",
+        "com.fasterxml.jackson.core:jackson-core:2.15.3",
         "com.fasterxml.jackson.core:jackson-databind:2.15.2",
         "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.15.2",
         "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.15.2",
