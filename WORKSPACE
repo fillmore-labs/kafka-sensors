@@ -340,7 +340,7 @@ maven_install(
         "org.checkerframework:checker-qual:3.39.0",
         "org.checkerframework:checker-util:3.39.0",
         "org.checkerframework:checker:3.39.0",
-        "org.glassfish.jaxb:jaxb-runtime:4.0.3",
+        "org.glassfish.jaxb:jaxb-runtime:4.0.4",
         "org.immutables:gson:2.10.0",
         "org.immutables:value-annotations:2.10.0",
         "org.immutables:value-processor:2.10.0",
