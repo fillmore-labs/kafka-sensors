@@ -321,7 +321,7 @@ maven_install(
         "com.google.j2objc:j2objc-annotations:2.8",
         "com.sun.istack:istack-commons-runtime:4.2.0",
         "info.picocli:picocli:4.7.5",
-        "io.github.classgraph:classgraph:4.8.163",
+        "io.github.classgraph:classgraph:4.8.164",
         "io.github.toolfactory:jvm-driver:9.6.0",
         "io.helidon.config:helidon-config-object-mapping:4.0.0",
         "io.helidon.config:helidon-config-yaml:4.0.0",
