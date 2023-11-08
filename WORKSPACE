@@ -349,7 +349,7 @@ maven_install(
         "org.mapstruct:mapstruct:1.5.5.Final",
         "org.openjdk.jmh:jmh-core:1.37",
         "org.openjdk.jmh:jmh-generator-annprocess:1.37",
-        "org.rocksdb:rocksdbjni:8.5.4",
+        "org.rocksdb:rocksdbjni:8.6.7",
         "org.slf4j:slf4j-api:2.0.9",
         "org.slf4j:slf4j-jdk14:2.0.9",
         maven.artifact(
