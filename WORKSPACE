@@ -307,7 +307,7 @@ maven_install(
         "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.16.0",
         "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.16.0",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.16.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3",
+        "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.0",
         "com.fasterxml.jackson.module:jackson-module-blackbird:2.15.3",
         "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.3",
         "com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.3",
