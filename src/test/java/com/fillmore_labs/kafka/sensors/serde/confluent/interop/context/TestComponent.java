@@ -9,6 +9,7 @@ import com.fillmore_labs.kafka.sensors.serde.confluent.ConfluentAvroModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Avro2Confluent;
 import com.fillmore_labs.kafka.sensors.serde.confluent.interop.Confluent2Avro;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
@@ -47,9 +48,11 @@ public interface TestComponent {
     @Subcomponent.Builder
     interface Builder {
       @BindsInstance
+      @CanIgnoreReturnValue
       Builder serializationFormat(@SingleTestModule.Serialization String format);
 
       @BindsInstance
+      @CanIgnoreReturnValue
       Builder deserializationFormat(@SingleTestModule.Deserialization String format);
 
       SingleTestComponent build();

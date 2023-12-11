@@ -30,19 +30,19 @@ public abstract class ConsistencyTestBase {
   protected abstract List<String> encodingValues();
 
   @Test
-  public final void testEncodingValues() {
-    var encodingValues = Set.copyOf(encodings.values());
+  public final void encodingsValues() {
+    var encodingsValues = Set.copyOf(encodings.values());
     // This is the wrong way around. Is there an inverse to containsAtLeastElementsIn?
-    assertThat(encodingValues()).containsAtLeastElementsIn(encodingValues);
+    assertThat(encodingValues()).containsAtLeastElementsIn(encodingsValues);
   }
 
   @Test
-  public final void testSerdes() {
+  public final void serdes() {
     assertThat(serdeMap.keySet()).containsExactlyElementsIn(encodings.keySet());
   }
 
   @Test
-  public final void testSerdeDurations() {
+  public final void serdeDurations() {
     assertThat(serdeDurationMap.keySet()).containsExactlyElementsIn(encodings.keySet());
   }
 }

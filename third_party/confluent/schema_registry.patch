@@ -1,0 +1,34 @@
+--- json-schema-provider/src/main/java/io/confluent/kafka/schemaregistry/json/jackson/Jackson.java
++++ json-schema-provider/src/main/java/io/confluent/kafka/schemaregistry/json/jackson/Jackson.java
+@@ -24,6 +24,7 @@
+ import com.fasterxml.jackson.databind.ObjectMapper;
+ import com.fasterxml.jackson.databind.SerializationConfig;
+ import com.fasterxml.jackson.databind.SerializerProvider;
++import com.fasterxml.jackson.databind.cfg.CacheProvider;
+ import com.fasterxml.jackson.databind.json.JsonMapper;
+ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
+ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+@@ -132,6 +133,12 @@
+       _unknownTypeSerializer = DEFAULT_UNKNOWN_SERIALIZER;
+     }
+
++    protected DefaultSerializerProviderImpl(
++        DefaultSerializerProviderImpl src, CacheProvider cp) {
++      super(src, cp);
++      _unknownTypeSerializer = DEFAULT_UNKNOWN_SERIALIZER;
++    }
++
+     public DefaultSerializerProvider copy() {
+       return this.getClass() != DefaultSerializerProviderImpl.class
+           ? super.copy()
+@@ -142,6 +149,10 @@
+         SerializationConfig config, SerializerFactory jsf) {
+       return new DefaultSerializerProviderImpl(this, config, jsf);
+     }
++
++    public DefaultSerializerProviderImpl withCaches(CacheProvider cp) {
++        return new DefaultSerializerProviderImpl(this, cp);
++    }
+   }
+
+   static class UnknownSerializerImpl extends UnknownSerializer {

@@ -50,7 +50,7 @@ public final class DuplicatesTest {
   }
 
   @Test
-  public void testClassPath() {
+  public void classPath() {
     var classGraph = createClassGraph();
     var duplicates = calculateDuplicates(classGraph, DuplicatesTest::resourceFilter);
 

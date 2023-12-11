@@ -48,7 +48,7 @@ java_binary(
 
 java_image(
     name = "kafka_sensors",
-    base = "@java17_amd64//image",
+    base = "@java21_amd64//image",
     data = DATA,
     jvm_flags = JVM_FLAGS,
     main_class = "com.fillmore_labs.kafka.sensors.app.Main",

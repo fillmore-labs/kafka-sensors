@@ -13,7 +13,7 @@ public final class CalculatorTest {
   @Rule public final CalculatorResource calculator = new CalculatorResource();
 
   @Test
-  public void testSimple() {
+  public void simple() {
     var state1 = ProcessorTestHelper.initial(Position.OFF);
 
     var advancement = Advancement.ofSecondsTo(30, Position.ON);
@@ -27,7 +27,7 @@ public final class CalculatorTest {
   }
 
   @Test
-  public void testRepeated() {
+  public void repeated() {
     var state1 = ProcessorTestHelper.initial(Position.OFF);
 
     var advancement1 = Advancement.ofSecondsTo(30, Position.OFF);

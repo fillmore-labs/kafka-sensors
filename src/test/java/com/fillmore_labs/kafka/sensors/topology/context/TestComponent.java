@@ -2,6 +2,7 @@ package com.fillmore_labs.kafka.sensors.topology.context;
 
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
 import com.fillmore_labs.kafka.sensors.serde.confluent.common.SchemaRegistryModule;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
@@ -23,6 +24,7 @@ public interface TestComponent {
   @Component.Builder
   interface Builder {
     @BindsInstance
+    @CanIgnoreReturnValue
     Builder configuration(Properties configuration);
 
     TestComponent build();

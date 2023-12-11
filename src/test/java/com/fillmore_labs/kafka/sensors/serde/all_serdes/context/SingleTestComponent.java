@@ -3,6 +3,7 @@ package com.fillmore_labs.kafka.sensors.serde.all_serdes.context;
 import com.fillmore_labs.kafka.sensors.model.Reading;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.BindsInstance;
 import dagger.Subcomponent;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -25,6 +26,7 @@ public interface SingleTestComponent {
   @Subcomponent.Builder
   interface Builder {
     @BindsInstance
+    @CanIgnoreReturnValue
     Builder formats(SingleTestModule.Formats formats);
 
     SingleTestComponent build();

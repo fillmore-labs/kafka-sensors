@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public final class SchemaTest {
   @Test
-  public void testDurationNanosSchema() {
+  public void durationNanosSchema() {
     var nullSchema = Schema.create(Schema.Type.NULL);
     assertThrows(
         IllegalArgumentException.class,
@@ -15,7 +15,7 @@ public final class SchemaTest {
   }
 
   @Test
-  public void testTimestampNanosSchema() {
+  public void timestampNanosSchema() {
     var nullSchema = Schema.create(Schema.Type.NULL);
     assertThrows(
         IllegalArgumentException.class,

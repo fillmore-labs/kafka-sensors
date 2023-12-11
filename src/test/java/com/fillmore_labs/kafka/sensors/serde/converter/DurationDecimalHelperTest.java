@@ -9,14 +9,14 @@ import org.junit.Test;
 
 public final class DurationDecimalHelperTest {
   @Test
-  public void testDecimal2Duration() {
+  public void decimal2Duration() {
     var decimal = BigDecimal.ZERO;
 
     assertThat(DurationDecimalHelper.decimal2Duration(decimal)).isEqualTo(Duration.ZERO);
   }
 
   @Test
-  public void testOutOfRange() {
+  public void outOfRange() {
     var decimal = BigDecimal.valueOf(Long.MAX_VALUE).add(BigDecimal.ONE);
 
     assertThrows(

@@ -72,7 +72,7 @@ ARCHITECTURES = [
 [
     java_image(
         name = "benchmark_java_image_" + architecture,
-        base = "@java17_%s//image" % architecture,
+        base = "@java21_%s//image" % architecture,
         data = DATA,
         jvm_flags = JVM_FLAGS,
         main_class = "org.openjdk.jmh.Main",

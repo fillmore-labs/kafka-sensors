@@ -16,6 +16,7 @@ import org.apache.kafka.streams.state.Stores;
 /* package */ final class TopologyFactory {
   /** See {@link org.apache.kafka.common.serialization.StringSerializer}. */
   private static final String KEY_SERIALIZER_ENCODING = "key.serializer.encoding";
+
   /** See {@link org.apache.kafka.common.serialization.StringDeserializer}. */
   private static final String KEY_DESERIALIZER_ENCODING = "key.deserializer.encoding";
 
@@ -61,12 +62,10 @@ import org.apache.kafka.streams.state.Stores;
             .addStateStore(stateStore);
 
     // Now, define our topology
-    var stateStoreNames = new String[] {storeName};
-
     // Input ...
     builder.stream(inputTopic, consumed)
         // ... Process ...
-        .processValues(() -> factory.create(storeName), processorName, stateStoreNames)
+        .processValues(() -> factory.create(storeName), processorName, storeName)
         // ... Result.
         .to(resultTopic, produced);
 

@@ -36,10 +36,10 @@ import org.apache.kafka.streams.errors.LogAndContinueExceptionHandler;
   }
 
   private static void putIntoSettings(KafkaConfiguration configuration, Properties settings) {
-    var clientID = configuration.clientID().orElse(DEFAULT_CLIENT_ID);
+    var clientId = configuration.clientId().orElse(DEFAULT_CLIENT_ID);
     var brokers = String.join(",", configuration.bootstrapServers());
 
-    settings.put(StreamsConfig.APPLICATION_ID_CONFIG, clientID);
+    settings.put(StreamsConfig.APPLICATION_ID_CONFIG, clientId);
     settings.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, brokers);
   }
 

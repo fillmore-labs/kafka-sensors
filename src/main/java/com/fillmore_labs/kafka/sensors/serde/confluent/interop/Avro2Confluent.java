@@ -43,10 +43,10 @@ public final class Avro2Confluent {
     }
   }
 
-  private static byte[] packResult(int schemaID, ByteBuffer buffer) {
+  private static byte[] packResult(int schemaId, ByteBuffer buffer) {
     var result = ByteBuffer.allocate(buffer.remaining() + 5).order(ByteOrder.BIG_ENDIAN);
     result.put(CONFLUENT_MAGIC);
-    result.putInt(schemaID);
+    result.putInt(schemaId);
     result.put(buffer);
 
     return result.array();
@@ -67,9 +67,9 @@ public final class Avro2Confluent {
 
     var fingerprint = buffer.getLong();
     var schema = lookupInSchemaStore(fingerprint);
-    var schemaID = registerInConfluentSchemaRegistry(topic, schema);
+    var schemaId = registerInConfluentSchemaRegistry(topic, schema);
 
-    return packResult(schemaID, buffer);
+    return packResult(schemaId, buffer);
   }
 
   private int registerInConfluentSchemaRegistry(String topic, Schema schema) {

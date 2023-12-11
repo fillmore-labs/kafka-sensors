@@ -1,6 +1,6 @@
 filegroup(
     name = "async_profiler",
-    srcs = ["build/libasyncProfiler.so"],
+    srcs = ["lib/libasyncProfiler.so"],
     visibility = ["//visibility:public"],
 )
 

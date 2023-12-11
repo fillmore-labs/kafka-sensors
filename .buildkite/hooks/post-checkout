@@ -1,0 +1,5 @@
+set -eu
+
+echo '--- :house_with_garden: Setting up job environment'
+
+export BAZEL_TESTLOGS="$(bazel info bazel-testlogs)"

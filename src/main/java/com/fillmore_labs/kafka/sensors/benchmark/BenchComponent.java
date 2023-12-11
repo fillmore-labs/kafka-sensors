@@ -2,6 +2,7 @@ package com.fillmore_labs.kafka.sensors.benchmark;
 
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.serde.all_serdes.AllSerdesModule;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.BindsInstance;
 import dagger.Component;
 import jakarta.inject.Singleton;
@@ -22,6 +23,7 @@ public interface BenchComponent {
   @Component.Builder
   interface Builder {
     @BindsInstance
+    @CanIgnoreReturnValue
     Builder format(@BenchModule.Format String format);
 
     BenchComponent build();

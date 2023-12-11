@@ -3,6 +3,7 @@ package com.fillmore_labs.kafka.sensors.topology.context;
 import com.fillmore_labs.kafka.sensors.model.SensorState;
 import com.fillmore_labs.kafka.sensors.model.StateDuration;
 import com.fillmore_labs.kafka.sensors.topology.TopologyModule;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.BindsInstance;
 import dagger.Subcomponent;
 import org.apache.kafka.streams.TestInputTopic;
@@ -21,6 +22,7 @@ public interface SingleTestComponent {
   @Subcomponent.Builder
   interface Builder {
     @BindsInstance
+    @CanIgnoreReturnValue
     Builder formats(Formats formats);
 
     SingleTestComponent build();

@@ -1,6 +1,6 @@
 workspace(name = "com_fillmore_labs_kafka_sensors")
 
-register_toolchains("//toolchain:toolchain_java17_definition")
+register_toolchains("//toolchain:toolchain_java21_definition")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -34,24 +34,30 @@ http_archive(
 )
 
 http_archive(
+    name = "rules_java",
+    sha256 = "eb7db63ed826567b2ceb1ec53d6b729e01636f72c9f5dfb6d2dfe55ad69d1d2a",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/7.2.0/rules_java-7.2.0.tar.gz",
+)
+
+http_archive(
     name = "com_google_protobuf",
-    sha256 = "616bb3536ac1fff3fb1a141450fa28b875e985712170ea7f1bfe5e5fc41e2cd8",
-    strip_prefix = "protobuf-24.4",
-    url = "https://github.com/protocolbuffers/protobuf/releases/download/v24.4/protobuf-24.4.tar.gz",
+    sha256 = "9bd87b8280ef720d3240514f884e56a712f2218f0d693b48050c836028940a42",
+    strip_prefix = "protobuf-25.1",
+    url = "https://github.com/protocolbuffers/protobuf/releases/download/v25.1/protobuf-25.1.tar.gz",
 )
 
 http_archive(
     name = "rules_proto",
-    sha256 = "dc3fb206a2cb3441b485eb1e423165b231235a1ea9b031b4433cf7bc1fa460dd",
-    strip_prefix = "rules_proto-5.3.0-21.7",
-    url = "https://github.com/bazelbuild/rules_proto/archive/refs/tags/5.3.0-21.7.tar.gz",
+    sha256 = "904a8097fae42a690c8e08d805210e40cccb069f5f9a0f6727cf4faa7bed2c9c",
+    strip_prefix = "rules_proto-6.0.0-rc1",
+    url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.0-rc1/rules_proto-6.0.0-rc1.tar.gz",
 )
 
 http_archive(
     name = "rules_buf",
-    sha256 = "cb4a45b0dd892750dd84d36f4ac174b464b1ff2716b0019d8c37ab61365cff0f",
-    strip_prefix = "rules_buf-0.1.1",
-    url = "https://github.com/bufbuild/rules_buf/archive/refs/tags/v0.1.1.tar.gz",
+    sha256 = "bc2488ee497c3fbf2efee19ce21dceed89310a08b5a9366cc133dd0eb2118498",
+    strip_prefix = "rules_buf-0.2.0",
+    url = "https://github.com/bufbuild/rules_buf/archive/refs/tags/v0.2.0.zip",
 )
 
 http_archive(
@@ -69,23 +75,23 @@ http_archive(
 
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "6a423ab3ffa94f173e26421ebc93efc3bea239b057248886b70fb9e1914267c4",
-    strip_prefix = "rules_scala-20210201",
-    url = "https://github.com/bazelbuild/rules_scala/archive/refs/tags/v20210201.tar.gz",
+    sha256 = "71324bef9bc5a885097e2960d5b8effed63399b55572219919d25f43f468c716",
+    strip_prefix = "rules_scala-6.2.1",
+    url = "https://github.com/bazelbuild/rules_scala/releases/download/v6.2.1/rules_scala-v6.2.1.tar.gz",
 )
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "d400ec1161b2b99e7758de4a5948e32be7849c3e81a9c7b8779c48e68e1ef012",
-    strip_prefix = "dagger-dagger-2.46.1",
-    url = "https://github.com/google/dagger/archive/dagger-2.46.1.tar.gz",
+    sha256 = "b88c10e3786d80ff93bd15eed4dfab75bddbe3eae2b272bcf29205aabedc1039",
+    strip_prefix = "dagger-dagger-2.49",
+    url = "https://github.com/google/dagger/archive/dagger-2.49.tar.gz",
 )
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "b7187e0856280feb0658ab9d629c244e638022819ded8243fb02e0c1d4db8f1c",
-    strip_prefix = "buildtools-6.3.2",
-    url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/v6.3.2.tar.gz",
+    sha256 = "05c3c3602d25aeda1e9dbc91d3b66e624c1f9fdadf273e5480b489e744ca7269",
+    strip_prefix = "buildtools-6.4.0",
+    url = "https://github.com/bazelbuild/buildtools/archive/refs/tags/v6.4.0.tar.gz",
 )
 
 http_archive(
@@ -115,13 +121,24 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.20.5")
+go_register_toolchains(go_version = "1.21.5")
 
 # ---
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
+
+# ---
+
+load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
+load("//toolchain:defs.bzl", "remote_jdk21_repos", "testonly_artifacts")
+
+rules_java_dependencies()
+
+remote_jdk21_repos()
+
+rules_java_toolchains()
 
 # ---
 
@@ -178,13 +195,20 @@ load("@rules_buf//buf:repositories.bzl", "rules_buf_dependencies", "rules_buf_to
 
 rules_buf_dependencies()
 
-rules_buf_toolchains(version = "v1.22.0")
+rules_buf_toolchains(
+    sha256 = "05dfb45d2330559d258e1230f5a25e154f0a328afda2a434348b5ba4c124ece7",
+    version = "v1.28.1",
+)
 
 # ---
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
 
 container_repositories()
+
+load("@io_bazel_rules_docker//java:image.bzl", java_repositories = "repositories")
+
+java_repositories()
 
 load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 
@@ -208,34 +232,13 @@ bind(
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala_config(scala_version = "2.13.10")
+scala_config(scala_version = "2.13.12")
 
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+load("@io_bazel_rules_scala//scala:scala.bzl", "rules_scala_setup", "rules_scala_toolchain_deps_repositories")
 
-scala_repositories(
-    fetch_sources = True,
-    overriden_artifacts = {
-        "io_bazel_rules_scala_scala_compiler": {
-            "artifact": "org.scala-lang:scala-compiler:2.13.10",
-            "deps": [
-                "@io_bazel_rules_scala_scala_library",
-                "@io_bazel_rules_scala_scala_reflect",
-            ],
-            "sha256": "2cd4a964ea48e78c91a2a7b19c4fc67a9868728ace5ee966b1d498270b3c3aa7",
-        },
-        "io_bazel_rules_scala_scala_library": {
-            "artifact": "org.scala-lang:scala-library:2.13.10",
-            "sha256": "e6ca607c3fce03e8fa38af3374ce1f8bb098e316e8bf6f6d27331360feddb1c1",
-        },
-        "io_bazel_rules_scala_scala_reflect": {
-            "artifact": "org.scala-lang:scala-reflect:2.13.10",
-            "deps": [
-                "@io_bazel_rules_scala_scala_library",
-            ],
-            "sha256": "62bd7a7198193c5373a992c122990279e413af3307162472a5d3cbb8ecadb35e",
-        },
-    },
-)
+rules_scala_setup()
+
+rules_scala_toolchain_deps_repositories(fetch_sources = True)
 
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains", "scala_register_unused_deps_toolchains")
 
@@ -265,7 +268,7 @@ contrib_rules_jvm_setup()
 
 load("@io_bazel_rules_avro//avro:avro.bzl", "avro_repositories")
 
-avro_repositories(version = "1.11.1")
+avro_repositories(version = "1.11.3")
 
 # ---
 
@@ -295,7 +298,6 @@ base_images()
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("@rules_jvm_external//:specs.bzl", "maven")
-load("//toolchain:defs.bzl", "testonly_artifacts")
 
 maven_install(
     artifacts = [
@@ -359,18 +361,18 @@ maven_install(
             version = "1.11.3",
         ),
     ] + testonly_artifacts([
-        "com.google.testparameterinjector:test-parameter-injector:1.12",
+        "com.google.testparameterinjector:test-parameter-injector:1.14",
         "com.google.truth.extensions:truth-java8-extension:1.1.5",
         "com.google.truth.extensions:truth-liteproto-extension:1.1.5",
         "com.google.truth.extensions:truth-proto-extension:1.1.5",
         "com.google.truth:truth:1.1.5",
-        "com.networknt:json-schema-validator:1.0.85",
+        "com.networknt:json-schema-validator:1.0.88",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.14.3",
-        "org.apache.kafka:kafka-streams-test-utils:3.5.0",
-        "org.apache.kafka:kafka-streams::test:3.5.0",
-        "org.mockito:mockito-core:5.4.0",
-        "org.mockito:mockito-errorprone:5.4.0",
+        "nl.jqno.equalsverifier:equalsverifier:3.15.4",
+        "org.apache.kafka:kafka-streams-test-utils:3.6.1",
+        "org.apache.kafka:kafka-streams:jar:test:3.6.1",
+        "org.mockito:mockito-core:5.8.0",
+        "org.mockito:mockito-errorprone:5.8.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

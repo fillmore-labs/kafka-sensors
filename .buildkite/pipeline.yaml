@@ -10,4 +10,9 @@ steps:
     commands:
       - bazel coverage --config=ci //src/test/...
       - sh .buildkite/upload_coverage.sh "$(bazel info output_path)/_coverage/_coverage_report.dat"
+    plugins:
+      - test-collector#v1.10.0:
+          base-path: "$BAZEL_TESTLOGS"
+          files: "*/test.xml"
+          format: "junit"
     branches: "main"

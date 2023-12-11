@@ -26,7 +26,7 @@ public final class CompatibilityTest {
   }
 
   @Test
-  public void testBackwardCompatibility() {
+  public void backwardCompatibility() {
     var sensorState = TestHelper.createTestStateDuration();
 
     var encoded = testSerializer.serialize(TOPIC, sensorState);
@@ -37,7 +37,7 @@ public final class CompatibilityTest {
   }
 
   @Test
-  public void testForwardCompatibility() {
+  public void forwardCompatibility() {
     var sensorState = TestHelper.createStateDuration();
 
     var encoded = serializer.serialize(TOPIC, sensorState);

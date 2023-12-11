@@ -1,6 +1,7 @@
 package com.fillmore_labs.kafka.sensors.configuration;
 
 import com.google.common.collect.ImmutableList;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.Immutable;
 import io.helidon.config.objectmapping.Value;
 import java.util.List;
@@ -31,31 +32,38 @@ public abstract class KafkaConfiguration implements WithKafkaConfiguration {
 
   public abstract String resultTopic();
 
-  public abstract Optional<String> clientID();
+  public abstract Optional<String> clientId();
 
   public abstract static class Builder {
     @Value(key = "brokers")
+    @CanIgnoreReturnValue
     public final Builder bootstrapServers(List<String> bootstrapServers) {
       return bootstrapServers((Iterable<String>) bootstrapServers);
     }
 
+    @CanIgnoreReturnValue
     public abstract Builder bootstrapServers(Iterable<String> elements);
 
     @Value(key = "schema-registry")
+    @CanIgnoreReturnValue
     public final Builder schemaRegistry(List<String> schemaRegistry) {
       return schemaRegistry((Iterable<String>) schemaRegistry);
     }
 
+    @CanIgnoreReturnValue
     public abstract Builder schemaRegistry(Iterable<String> elements);
 
     @Value(key = "input-topic")
+    @CanIgnoreReturnValue
     public abstract Builder inputTopic(String inputTopic);
 
     @Value(key = "result-topic")
+    @CanIgnoreReturnValue
     public abstract Builder resultTopic(String resultTopic);
 
     @Value(key = "client-id")
-    public abstract Builder clientID(@Nullable String clientID);
+    @CanIgnoreReturnValue
+    public abstract Builder clientId(@Nullable String clientId);
 
     public abstract KafkaConfiguration build();
   }

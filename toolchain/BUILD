@@ -20,9 +20,9 @@ config_setting(
 # ---
 
 default_java_toolchain(
-    name = "toolchain_java17",
+    name = "toolchain_java21",
     configuration = dict(),
-    java_runtime = "@bazel_tools//tools/jdk:remotejdk_17",
+    java_runtime = "@rules_java//toolchains:remotejdk_21",
     javacopts = [
         "-Xep:IgnoredPureGetter:OFF",
     ],
@@ -30,8 +30,8 @@ default_java_toolchain(
         ":src_package_configuration",
         ":external_package_configuration",
     ],
-    source_version = "17",
-    target_version = "17",
+    source_version = "21",
+    target_version = "21",
     visibility = ["//visibility:public"],
 )
 

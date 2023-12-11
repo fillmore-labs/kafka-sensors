@@ -29,7 +29,7 @@ import org.junit.runners.Parameterized.Parameters;
 public final class TopologyTest {
   @ClassRule public static final TestResource TEST_RESOURCE = new TestResource();
 
-  @SuppressWarnings("nullness:initialization.static.field.uninitialized")
+  @SuppressWarnings({"nullness:initialization.static.field.uninitialized", "NonFinalStaticField"})
   /* Initialized in in {@link #beforeParam(Formats)} */
   private static SingleTestResource singleTestResource;
 
@@ -71,7 +71,7 @@ public final class TopologyTest {
   }
 
   @Test
-  public void testTopology() {
+  public void topology() {
     var sensorId = "sensor-test1";
 
     var start = Instant.ofEpochSecond(443_634_300L);
@@ -98,7 +98,7 @@ public final class TopologyTest {
   }
 
   @Test
-  public void testRepeated() {
+  public void repeated() {
     var sensorId = "sensor-test2";
 
     var start = Instant.ofEpochSecond(443_634_300L);
@@ -163,7 +163,7 @@ public final class TopologyTest {
 
   @Test
   @SuppressWarnings("nullness:argument") // TestInputTopic is not annotated
-  public void testTombstone() {
+  public void tombstone() {
     var sensorId = "sensor-test3";
     var start = Instant.ofEpochSecond(443_634_300L);
 
@@ -193,7 +193,7 @@ public final class TopologyTest {
   }
 
   @Test
-  public void testBackwards() {
+  public void backwards() {
     var sensorId = "sensor-test4";
     var start = Instant.ofEpochSecond(443_634_300L);
 

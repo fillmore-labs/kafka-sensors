@@ -31,7 +31,7 @@ public final class Avro2ConfluentTest {
   }
 
   @Test
-  public void testReverseInterop() {
+  public void reverseInterop() {
     var sensorState = TestHelper.standardStateDuration();
 
     var encoded = serializer.serialize(TestHelper.KAFKA_TOPIC, sensorState);

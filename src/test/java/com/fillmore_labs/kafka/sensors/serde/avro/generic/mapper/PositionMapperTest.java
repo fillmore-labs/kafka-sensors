@@ -17,7 +17,7 @@ public final class PositionMapperTest {
   @Test
   @TestParameters("{position: 'OFF', result: 'OFF'}")
   @TestParameters("{position: 'ON', result: 'ON'}")
-  public void testMap(Reading.Position position, String result) {
+  public void map(Reading.Position position, String result) {
     var data = positionMapper.map(position);
     assertThat(data).isInstanceOf(GenericEnumSymbol.class);
     assertThat(data.toString()).isEqualTo(result);
@@ -26,12 +26,12 @@ public final class PositionMapperTest {
   @Test
   @TestParameters("{data: 'OFF', position: 'OFF'}")
   @TestParameters("{data: 'ON', position: 'ON'}")
-  public void testUnmap(String data, Reading.Position position) {
+  public void unmap(String data, Reading.Position position) {
     assertThat(positionMapper.unmap(data)).isEqualTo(position);
   }
 
   @Test
-  public void testInvalidUnmap() {
+  public void invalidUnmap() {
     assertThrows(IllegalArgumentException.class, () -> positionMapper.unmap("XXX"));
   }
 }

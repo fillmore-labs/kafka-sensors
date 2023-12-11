@@ -16,7 +16,7 @@ public final class InstantDecimalHelperTest {
   }
 
   @Test
-  public void testOutOfRange() {
+  public void outOfRange() {
     var decimal = BigDecimal.valueOf(Instant.MAX.getEpochSecond()).add(BigDecimal.ONE);
 
     assertThrows(

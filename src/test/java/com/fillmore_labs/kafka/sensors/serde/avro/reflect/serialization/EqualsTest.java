@@ -13,12 +13,12 @@ public final class EqualsTest {
   };
 
   @Test
-  public void testEquals() {
+  public void equals() {
     EqualsVerifier.forClasses(List.of(CLASSES)).suppress(Warning.NONFINAL_FIELDS).verify();
   }
 
   @Test
-  public void testToString() throws ReflectiveOperationException {
+  public void string() throws ReflectiveOperationException {
     for (var clazz : CLASSES) {
       var t = clazz.getDeclaredConstructor().newInstance();
       assertThat(t.toString()).isNotEmpty();

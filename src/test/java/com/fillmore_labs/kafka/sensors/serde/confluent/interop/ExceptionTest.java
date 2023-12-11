@@ -33,14 +33,14 @@ public final class ExceptionTest {
   public ParsedSchema parsedSchema;
 
   @Test
-  public void testNullA2C() {
+  public void nullA2C() {
     var recoder = new Avro2Confluent(resolver, registryClient);
     var encoded = new byte[0];
     assertThat(recoder.transform(TestHelper.KAFKA_TOPIC, encoded)).isNull();
   }
 
   @Test
-  public void testTooShortA2C() {
+  public void tooShortA2C() {
     var recoder = new Avro2Confluent(resolver, registryClient);
     var encoded = new byte[] {(byte) 0xc3, (byte) 0x01, 0, 0, 0, 0, 0, 0, 0};
     var exception =
@@ -52,7 +52,7 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testMagicA2C() {
+  public void magicA2C() {
     var recoder = new Avro2Confluent(resolver, registryClient);
     var encoded = new byte[] {(byte) 0xc3, (byte) 0x02, 0, 0, 0, 0, 0, 0, 0, 0};
     var exception =
@@ -64,7 +64,7 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testRegistryClientA2C() throws RestClientException, IOException {
+  public void registryClientA2C() throws RestClientException, IOException {
     when(resolver.findByFingerprint(0L)).thenReturn(Schema.create(Schema.Type.NULL));
     when(registryClient.register(anyString(), any(ParsedSchema.class)))
         .thenThrow(new RestClientException("", 0, 0));
@@ -79,7 +79,7 @@ public final class ExceptionTest {
 
   @Test
   @SuppressWarnings("nullness:argument") // willReturn is not annotated
-  public void testMissingA2C() {
+  public void missingA2C() {
     when(resolver.findByFingerprint(0L)).thenReturn(null);
     var recoder = new Avro2Confluent(resolver, registryClient);
 
@@ -91,14 +91,14 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testNullC2A() {
+  public void nullC2A() {
     var recoder = new Confluent2Avro(resolver, registryClient);
     var encoded = new byte[0];
     assertThat(recoder.transform(TestHelper.KAFKA_TOPIC, encoded)).isNull();
   }
 
   @Test
-  public void testTooShortC2A() {
+  public void tooShortC2A() {
     var recoder = new Confluent2Avro(resolver, registryClient);
     var encoded = new byte[] {0, 0, 0, 0};
     var exception =
@@ -110,7 +110,7 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testMagicC2A() {
+  public void magicC2A() {
     var recoder = new Confluent2Avro(resolver, registryClient);
     var encoded = new byte[] {1, 0, 0, 0, 0};
     var exception =
@@ -122,7 +122,7 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testRegistryClientC2A() throws RestClientException, IOException {
+  public void registryClientC2A() throws RestClientException, IOException {
     when(registryClient.getSchemaById(anyInt())).thenThrow(new RestClientException("", 0, 0));
     var recoder = new Confluent2Avro(resolver, registryClient);
 
@@ -134,7 +134,7 @@ public final class ExceptionTest {
   }
 
   @Test
-  public void testSchemaTypeC2A() throws RestClientException, IOException {
+  public void schemaTypeC2A() throws RestClientException, IOException {
     when(parsedSchema.rawSchema()).thenReturn(new Object());
     when(registryClient.getSchemaById(0)).thenReturn(parsedSchema);
     var recoder = new Confluent2Avro(resolver, registryClient);

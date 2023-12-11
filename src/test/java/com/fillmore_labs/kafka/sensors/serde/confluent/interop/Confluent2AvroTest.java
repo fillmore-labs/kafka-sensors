@@ -31,7 +31,7 @@ public final class Confluent2AvroTest {
   }
 
   @Test
-  public void testInterop() {
+  public void interop() {
     var sensorState = TestHelper.standardStateDuration();
 
     var encoded = serializer.serialize(TestHelper.KAFKA_TOPIC, sensorState);

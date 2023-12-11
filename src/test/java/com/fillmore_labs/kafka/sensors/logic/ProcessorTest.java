@@ -19,7 +19,7 @@ public final class ProcessorTest {
   @Rule public final ProcessorResource processor = new ProcessorResource();
 
   @Test
-  public void testNull() {
+  public void nullValue() {
     processor.process(null, null);
     var forwarded = processor.forwarded();
 
@@ -28,7 +28,7 @@ public final class ProcessorTest {
 
   @Test
   @SuppressWarnings("nullness:argument") // KeyValue is not annotated
-  public void testTombstone() {
+  public void tombstone() {
     processor.process(KEY, null);
     var forwarded = processor.forwarded();
 

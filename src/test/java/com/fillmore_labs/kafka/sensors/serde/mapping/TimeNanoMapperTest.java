@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public final class TimeNanoMapperTest {
   @Test
-  public void testMapTime() {
+  public void mapTime() {
     var time = Instant.parse("1960-01-01T12:34:56.789012345Z");
     var nanoseconds = TimeNanoMapper.mapTime(time);
     assertThat(nanoseconds).isLessThan(0L);
@@ -16,7 +16,7 @@ public final class TimeNanoMapperTest {
   }
 
   @Test
-  public void testEpoch() {
+  public void epoch() {
     var instant = TimeNanoMapper.mapTime(0L);
     assertThat(instant).isEqualTo(Instant.EPOCH);
   }

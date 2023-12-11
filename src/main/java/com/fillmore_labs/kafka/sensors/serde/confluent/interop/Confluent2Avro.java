@@ -57,16 +57,16 @@ public final class Confluent2Avro {
     var magic = buffer.get();
     checkMagic(magic);
 
-    var schemaID = buffer.getInt();
-    var schema = lookupInConfluentSchemaRegistry(schemaID);
+    var schemaId = buffer.getInt();
+    var schema = lookupInConfluentSchemaRegistry(schemaId);
     var fingerprint = registerInInSchemaStore(schema);
 
     return packResult(fingerprint, buffer);
   }
 
-  private Schema lookupInConfluentSchemaRegistry(int schemaID) {
+  private Schema lookupInConfluentSchemaRegistry(int schemaId) {
     try {
-      var parsedSchema = registryClient.getSchemaById(schemaID);
+      var parsedSchema = registryClient.getSchemaById(schemaId);
       var rawSchema = parsedSchema.rawSchema();
       if (rawSchema instanceof Schema) {
         return (Schema) rawSchema;
