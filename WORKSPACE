@@ -340,7 +340,7 @@ maven_install(
         "org.apache.kafka:kafka_2.13:3.6.1",
         "org.apache.thrift:libthrift:0.19.0",
         "org.checkerframework:checker-qual:3.42.0",
-        "org.checkerframework:checker-util:3.41.0",
+        "org.checkerframework:checker-util:3.42.0",
         "org.checkerframework:checker:3.42.0",
         "org.glassfish.jaxb:jaxb-runtime:4.0.4",
         "org.immutables:gson:2.10.0",
