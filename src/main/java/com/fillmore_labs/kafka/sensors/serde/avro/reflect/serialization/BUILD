@@ -3,6 +3,7 @@ load("@rules_java//java:defs.bzl", "java_library")
 java_library(
     name = "serialization",
     srcs = glob(["*.java"]),
+    javacopts = ["-AsuppressWarnings=optional:optional.parameter"],
     visibility = [
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/reflect:__subpackages__",
         "//src/test:__subpackages__",

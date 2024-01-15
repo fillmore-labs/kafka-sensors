@@ -40,7 +40,7 @@ JAVACOPTS = [
     "-ArequirePrefixInWarningSuppressions",
     "-AwarnUnneededSuppressions",
     "-AshowSuppressWarningsStrings",
-    "-AsuppressWarnings=allcheckers:type.checking.not.run,optional:optional.parameter",
+    "-AsuppressWarnings=allcheckers:type.checking.not.run",
     "-Xpkginfo:nonempty",
     "-XepExcludedPaths:.*/_javac/.*",
     "-XepDisableWarningsInGeneratedCode",

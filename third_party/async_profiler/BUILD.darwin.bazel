@@ -1,0 +1,11 @@
+filegroup(
+    name = "async_profiler",
+    srcs = ["build/libasyncProfiler.dylib"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "async_profiler_ext",
+    srcs = ["build/libasyncProfiler.so"],
+    visibility = ["//visibility:public"],
+)

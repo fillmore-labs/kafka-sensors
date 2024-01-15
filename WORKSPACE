@@ -82,9 +82,9 @@ http_archive(
 
 http_archive(
     name = "com_google_dagger",
-    sha256 = "b88c10e3786d80ff93bd15eed4dfab75bddbe3eae2b272bcf29205aabedc1039",
-    strip_prefix = "dagger-dagger-2.49",
-    url = "https://github.com/google/dagger/archive/dagger-2.49.tar.gz",
+    sha256 = "8e09b4a682d8caeb275b85059195e1bf1fa1ded24266144aff96ba4239d0a4ca",
+    strip_prefix = "dagger-dagger-2.50",
+    url = "https://github.com/google/dagger/archive/dagger-2.50.tar.gz",
 )
 
 http_archive(
@@ -121,7 +121,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(go_version = "1.21.5")
+go_register_toolchains(go_version = "1.21.6")
 
 # ---
 
@@ -362,17 +362,17 @@ maven_install(
         ),
     ] + testonly_artifacts([
         "com.google.testparameterinjector:test-parameter-injector:1.14",
-        "com.google.truth.extensions:truth-java8-extension:1.1.5",
-        "com.google.truth.extensions:truth-liteproto-extension:1.1.5",
-        "com.google.truth.extensions:truth-proto-extension:1.1.5",
-        "com.google.truth:truth:1.1.5",
-        "com.networknt:json-schema-validator:1.0.88",
+        "com.google.truth.extensions:truth-java8-extension:1.2.0",
+        "com.google.truth.extensions:truth-liteproto-extension:1.2.0",
+        "com.google.truth.extensions:truth-proto-extension:1.2.0",
+        "com.google.truth:truth:1.2.0",
+        "com.networknt:json-schema-validator:1.1.0",
         "junit:junit:4.13.2",
-        "nl.jqno.equalsverifier:equalsverifier:3.15.4",
+        "nl.jqno.equalsverifier:equalsverifier:3.15.6",
         "org.apache.kafka:kafka-streams-test-utils:3.6.1",
         "org.apache.kafka:kafka-streams:jar:test:3.6.1",
-        "org.mockito:mockito-core:5.8.0",
-        "org.mockito:mockito-errorprone:5.8.0",
+        "org.mockito:mockito-core:5.9.0",
+        "org.mockito:mockito-errorprone:5.9.0",
     ]) + DAGGER_ARTIFACTS + CONFLUENT_ARTIFACTS + JSONSCHEMA_ARTIFACTS,
     fetch_sources = True,
     maven_install_json = "//:maven_install.json",

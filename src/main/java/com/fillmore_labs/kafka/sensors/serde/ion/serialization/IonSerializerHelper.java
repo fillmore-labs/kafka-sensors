@@ -58,8 +58,8 @@ public final class IonSerializerHelper {
       var name = reader.getFieldName();
       switch (name) {
         case FIELD_TIME -> builder.time(reader.longValue());
-        case FIELD_POSITION -> builder.position(
-            ReadingIon.Position.valueOf(reader.symbolValue().getText()));
+        case FIELD_POSITION ->
+            builder.position(ReadingIon.Position.valueOf(reader.symbolValue().getText()));
         default -> {} // Ignore unknown fields
       }
     }

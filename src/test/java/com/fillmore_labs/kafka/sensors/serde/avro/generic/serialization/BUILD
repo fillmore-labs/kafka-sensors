@@ -21,7 +21,10 @@ java_test_suite(
         ["*.java"],
         exclude = ["StateDurationTestSchema.java"],
     ),
-    javacopts = ["-AskipDefs=\\.Dagger"],
+    javacopts = [
+        "-AskipDefs=\\.Dagger",
+        "-AsuppressWarnings=optional:optional.parameter",
+    ],
     deps = [
         ":test_schema",
         "//src/main/java/com/fillmore_labs/kafka/sensors/serde/avro/generic/serialization",
