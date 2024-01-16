@@ -18,15 +18,15 @@ def confluent_repositories():
     http_archive(
         name = "confluent_common",
         build_file = "//third_party/confluent:BUILD.common.bazel",
-        sha256 = "63f3469b5793d98ad7d762d62710373f31dd7bc50a5cecc722df7c70a0dcfb0e",
-        strip_prefix = "common-7.5.2",
-        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.5.2.tar.gz",
+        sha256 = "9c0d5657ae571d0b0eb71f02c1d8075c0c13c79834603376030d69d1755a86cf",
+        strip_prefix = "common-7.5.3",
+        url = "https://github.com/confluentinc/common/archive/refs/tags/v7.5.3.tar.gz",
     )
     http_archive(
         name = "confluent_schema_registry",
         build_file = "//third_party/confluent:BUILD.schema_registry.bazel",
         patches = ["//third_party/confluent:schema_registry.patch"],
-        sha256 = "1c09e5bf8b4b1890ccf1b210540de7027c974129af51fc7f0c13c1370dababdc",
-        strip_prefix = "schema-registry-7.5.2",
-        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.5.2.tar.gz",
+        sha256 = "c8cdc82439efa44256bd5c017028d731632215b92e9f72e390e548e2af273785",
+        strip_prefix = "schema-registry-7.5.3",
+        url = "https://github.com/confluentinc/schema-registry/archive/refs/tags/v7.5.3.tar.gz",
     )
