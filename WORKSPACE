@@ -301,7 +301,7 @@ load("@rules_jvm_external//:specs.bzl", "maven")
 
 maven_install(
     artifacts = [
-        "com.amazon.ion:ion-java:1.11.0",
+        "com.amazon.ion:ion-java:1.11.1",
         "com.fasterxml.jackson.core:jackson-annotations:2.16.1",
         "com.fasterxml.jackson.core:jackson-core:2.16.1",
         "com.fasterxml.jackson.core:jackson-databind:2.16.1",
