@@ -22,7 +22,7 @@ def async_profiler_repositories():
     http_archive(
         name = "async_profiler_macos",
         build_file = "//third_party/async_profiler:BUILD.darwin.bazel",
-        sha256 = "7f46398aef41561e77012ecbd07d3cc17eac775c03e895df4fcc174f8af2ecc2",
-        strip_prefix = "async-profiler-2.9-macos",
-        url = "https://github.com/async-profiler/async-profiler/releases/download/v2.9/async-profiler-2.9-macos.zip",
+        sha256 = "cae4f207c33b964276385272a7cfe3750594cbcc8918f97a4bb67292bdbc43a8",
+        strip_prefix = "async-profiler-3.0-macos",
+        url = "https://github.com/async-profiler/async-profiler/releases/download/v3.0/async-profiler-3.0-macos.zip",
     )
