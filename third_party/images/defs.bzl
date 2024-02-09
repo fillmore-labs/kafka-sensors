@@ -9,7 +9,7 @@ def base_images():
     container_pull(
         name = "java21_amd64",
         architecture = "amd64",
-        digest = "sha256:92f9d9a3f13be750c7901349b4cf83bae3f95a8faa3e36836e761fe7a8b81488",
+        digest = "sha256:5290aea0c7d39f83e9bba554bcd339ad613dfe17617ba17e89739630616eb374",
         os = "linux",
         registry = "gcr.io",
         repository = "distroless/java21-debian12",
